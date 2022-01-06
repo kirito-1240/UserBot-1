@@ -10,7 +10,7 @@ async def start(event):
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
         await app.download_media(media , "dafv.mp4")
-        videoclip = VideoFileClip("dafv.mp4"")
+        videoclip = VideoFileClip("dafv.mp4")
         new_clip = videoclip.without_audio()
         new_clip.write_videofile("newdafv.mp4")
         await edit.delete()
