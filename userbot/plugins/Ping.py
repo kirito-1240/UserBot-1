@@ -1,6 +1,8 @@
-from userbot import app
+from userbot import app , START_TIME
 from telethon import events
 from datetime import datetime
+import time
+from userbot.functions import convert_time
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ping$"))
 async def start(event):
@@ -8,4 +10,5 @@ async def start(event):
     edit = await event.edit("**Pong!!**")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
-    await edit.edit(f"**• Pong!!** - `{ms}`")
+    uptime = convert_time(time.time() - START_TIME)
+    await edit.edit(f"**• Pong!!** - `{ms}`\n**• Uptime :** `{uptime}`")
