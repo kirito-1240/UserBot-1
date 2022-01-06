@@ -28,7 +28,7 @@ async def start(event):
             final = video.set_audio(audio)
             final.write_videofile("newamov.mp4") 
             await edit.delete()
-            await app.send_file(event.chat_id , "newamov.mp4" , reply_to=reply.id , voice_note=True , caption="**• Deleted Music From Video!**")
+            await app.send_file(event.chat_id , "newamov.mp4" , reply_to=reply.id , voice_note=True , caption="**• Added Coustom Music On This Video!**")
             os.remove("amov.mp4")
             os.remove("newamov.mp4")
         else:
