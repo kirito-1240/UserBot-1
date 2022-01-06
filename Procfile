@@ -1,1 +1,1 @@
-BotzHub: python -m userbot
+worker: python -m userbot
