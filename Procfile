@@ -1,1 +1,1 @@
-BotzHub: python -m TelethonBot
+BotzHub: python -m userbot
