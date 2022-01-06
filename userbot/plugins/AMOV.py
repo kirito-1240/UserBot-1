@@ -10,6 +10,7 @@ async def start(event):
     if not event.reply_to == None and reply.document.mime_type == "audio/mpeg":
         media = reply.media
         await app.download_media(media , "smfv.mp3")
+        await edit.edit("**• Music Was Set For Added To Videos!**")
     else:
         await edit.edit("**• Please Reply To Music!**")
         
