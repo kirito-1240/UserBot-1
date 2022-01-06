@@ -14,8 +14,8 @@ async def start(event):
         new_clip = videoclip.without_audio()
         new_clip.write_videofile("newdafv.mp4")
         await edit.delete()
-        await app.send_file(event.chat_id , "newdafv.mp3" , reply_to=reply.id , voice_note=True , caption="**• Deleted Music From Video!**")
-        os.remove("newdafv.mp3")
+        await app.send_file(event.chat_id , "newdafv.mp4" , reply_to=reply.id , voice_note=True , caption="**• Deleted Music From Video!**")
+        os.remove("newdafv.mp4")
         os.remove("dafv.mp4")
     else:
         await edit.edit("**• Please Reply To Video!**")
