@@ -7,7 +7,7 @@ import os
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
-    if not event.reply_to == None and reply.document.mime_type == "audio/mpeg":
+    if (not event.reply_to == None and reply.document.mime_type == "audio/mpeg") or (not event.reply_to == None and reply.document.mime_type == "audio/ogg"):
         media = reply.media
         await app.download_media(media , "smfv.mp3")
         await edit.edit("**• Music Was Set For Added To Videos!**")
