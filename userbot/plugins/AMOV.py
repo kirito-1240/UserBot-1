@@ -1,6 +1,7 @@
 from userbot import app
 from telethon import events
 from moviepy.editor import VideoFileClip
+import moviepy as mp
 import os
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.smfv$"))
