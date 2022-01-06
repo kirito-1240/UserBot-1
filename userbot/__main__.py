@@ -1,11 +1,7 @@
 import glob
 from pathlib import Path
 from userbot.utils import load_plugins
-import logging
 from . import app
-
-logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-                    level=logging.WARNING)
 
 path = "userbot/plugins/*.py"
 files = glob.glob(path)
