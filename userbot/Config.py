@@ -1,6 +1,4 @@
-import os
-
 class Config(object):
-    API_ID = int(os.environ.get("API_ID"))
-    API_HASH = os.environ.get("API_HASH")
-    STRING_SESSION = os.environ.get("STRING_SESSION")
+    API_ID = 3814063
+    API_HASH = "8112715c52fc0faa5b6e11e26e565bb6"
+    STRING_SESSION = "1BJWap1wBu0cNlY44pk7ErdglSxQDE0EtH9aKznNj1hR3k6nziL5nvOBNfXOFz7RXbC-qVBQZQhD08uzquv3c41esmtZJ6Rx8-iLzk-RRNGMMQPsrxDe-vbpnaHW_yHLg0RniawmLBcJ4vBtk-9rZpiO9eBcR85UTwSzrP6V0tcqyM9B2-6_Zxl7zDDDOLoZXXgLFw1xry-5ClTcROtal4qrl-HsoQrxbNKul7tmXX-46GIrn1JsXuV6iwjHmOtkHGOeOwapZQfDl0JzFYNcAJHd3y9oKsv1jRg_NM3mtdtfnHlJL3f7_OyzLXDoVW7e7YUB5FIGQYsW8Jcd0Xhkkb6RbJ8FFaDA="
