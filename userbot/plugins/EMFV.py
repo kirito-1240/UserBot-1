@@ -13,7 +13,7 @@ async def start(event):
         clip = VideoFileClip("emfv.mp4")
         clip.audio.write_audiofile("output.mp3")
         await edit.delete()
-        await app.send_file(event.chat_id , "output.mp3" , caption="**• Extracted Music From Video!**")
+        await app.send_file(event.chat_id , "output.mp3" , voice_note=True , caption="**• Extracted Music From Video!**")
         os.remove("output.mp3")
     else:
         await edit.edit("**• Please Reply To Video!**")
