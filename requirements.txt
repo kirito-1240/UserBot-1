@@ -1,2 +1,15 @@
-python-decouple
 telethon
+tgcrypto
+moviepy
+ffmpeg
+ffmpeg-python
+opencv-python
+cowpy
+opencv-python-headless
+Pillow
+psutil
+requests
+selenium
+speedtest-cli
+youtube-search-python
+youtube_dl
