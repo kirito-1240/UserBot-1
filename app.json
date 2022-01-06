@@ -1,33 +1,27 @@
 {
-    "name": "TelethonBot",
-    "description": "Simple basic code for a telegram bot in Telethon.",
-    "logo": "",
-    "keywords": [
-        "telegram",
-        "telethon",
-        "telegram-bot",
-        "botzhub"
-    ],
-    "repository": "https://github.com/xditya/TelethonBot",
-    "website": "xditya.me",
-    "success_url": "https://t.me/BotzHub",
-    "env": {
-        "API_HASH": {
-            "description": "You API HASH from my.telegram.org",
-            "value": ""
-        },
-        "APP_ID": {
-            "description": "You API ID from my.telegram.org",
-            "value": ""
-        },
-        "BOT_TOKEN": {
-            "description": "Bot token, get it from @BotFather.",
-            "value": ""
-        }
+  "name": "UserBot",
+  "description": "A Simple Telegram UserBot Based On Telethon!",
+  "logo": "",
+  "keywords": [
+    "userbot",
+    "bot",
+    "telegram"
+  ],
+  "repository": "https://github.com/MrAbolii/UserBot/",
+  "website": "#MrAboli",
+  "success_url": "#MrAboli",
+  "env": {
+    "STRING_SESSION": {
+      "description": "Give Your String Session!",
+      "value": ""
     },
-    "buildpacks": [
-        {
-            "url": "heroku/python"
-        }
-    ]
+    "API_ID": {
+      "description": "Give Your API ID!",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Give Your API HASH!",
+      "value": ""
+    }
+  }
 }
