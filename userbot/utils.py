@@ -1,7 +1,7 @@
 import logging
 import importlib
 from pathlib import Path
-import asyncio , sys , os. heroku3
+import asyncio , sys , os , heroku3
 from Config import Config
 
 async def bash(cmd):
