@@ -28,7 +28,7 @@ def load_plugins(plugin_name):
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
     sys.modules["userbot.plugins." + plugin_name] = load
-    print("• UserBot Has Imported : " + plugin_name)
+    
 
 def convert_time(seconds: int) -> int:
     count = 0
