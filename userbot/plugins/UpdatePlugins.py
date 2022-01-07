@@ -5,7 +5,7 @@ import sys , os , glob
 from time import sleep
 from pathlib import Path
 
-@app.on(events.NewMessage(pattern="(?i)^\.upplugins$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.upplugins$"))
 async def UpdatePlugins(event):
     event = await event.edit("**• Starting Import UserBot Plugins ...**")
     sleep(3)
