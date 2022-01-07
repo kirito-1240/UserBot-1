@@ -26,6 +26,10 @@
     "BOT_TOKEN": {
       "description": "Give Your BOT TOKEN!",
       "value": ""
+    },
+    "BOT_GROUP": {
+      "description": "Give Your BOT GROUP!",
+      "value": ""
     }
   }
 }
