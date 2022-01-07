@@ -11,10 +11,11 @@ for name in files:
     with open(name) as a:
         patt = Path(a.name)
         plugin_name = patt.stem
-        load_plugins(plugin_name.replace(".py", ""))
-
-
-print("• Successfully Deployed UserBot!")
+        try:
+            load_plugins(plugin_name.replace(".py", ""))
+            print(f"""• UserBot Has Imported {plugin_name.replace(".py", "")} Plugin""")
+        except Exception as e:
+            print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
 
 app.start()
 app.run_until_disconnected()
