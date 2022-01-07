@@ -11,4 +11,4 @@ async def start(event):
     end = datetime.now()
     ms = (end - start).microseconds / 1000
     uptime = convert_time(time.time() - START_TIME)
-    await edit.edit(f"**• Pong!!** `{ms}`\n**• Uptime:** `{uptime}`")
+    await edit.edit(f"**• Pong!!** `{ms}`\n**• Uptime :** `{uptime}`")
