@@ -2,8 +2,9 @@ from inlinebot import bot
 from userbot.utils import load_plugins
 from inlinebot.utils import load_plugins as loadplugins
 from telethon import events
-import sys , os
+import sys , os , glob
 from time import sleep
+from pathlib import Path
 
 @bot.on(events.NewMessage(pattern="(?i)^\.upplugins$"))
 async def start(event):
