@@ -1,0 +1,8 @@
+_set_bot () {
+    python3 -m userbot
+    echo "•    Starting UserBot!    •"
+    python3 -m inlinebot
+    echo "•    Starting inlineBot!    •"   
+}
+
+_set_bot
