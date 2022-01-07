@@ -1,8 +1,25 @@
 import logging
+import math
 import importlib
 from pathlib import Path
 import asyncio , sys , os , heroku3
 from Config import Config
+import asyncio
+import functools
+import shlex
+
+async def runcmd(cmd):
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
 
 async def bash(cmd):
     process = await asyncio.create_subprocess_shell(
