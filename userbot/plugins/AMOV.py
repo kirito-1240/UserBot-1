@@ -26,7 +26,7 @@ async def start(event):
             audio = AudioFileClip("smfv.mp3")
             video = VideoFileClip("amov.mp4")
             if int(audio.duration) > int(video.duration):
-                music = audio.cutout(int(audio.duration) - int(video.duration) , int(audio.duration))
+                music = AudioFileClip("smfv.mp3").cutout((int(audio.duration) - int(video.duration)) , int(audio.duration))
                 music.write_audiofile("newsmfv.mp3")
             if os.path.exists("newsmfv.mp3"):
                 audio = AudioFileClip("newsmfv.mp3")
