@@ -1,2 +1,1 @@
-worker: python3 -m userbot
-worker: python3 -m inlinebot
+worker: python3 main.py
