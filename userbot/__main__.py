@@ -25,7 +25,7 @@ for name in files:
 
 print("Successfully Deployed!")
 
-bot.run_until_disconnected()
+bot.start()
 app.start()
 app.run_until_disconnected()
 
