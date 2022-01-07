@@ -26,6 +26,14 @@
     "BOT_GROUP": {
       "description": "Give Your BOT GROUP!",
       "value": "-1001631375661"
+    },
+    "HEROKU_API": {
+      "description": "Give Your HEROKU API!",
+      "value": "0500171a-e83a-48dd-b0e4-ddcc050182f7"
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Give Your HEROKU APP NAME!",
+      "value": ""
     }
   }
 }
