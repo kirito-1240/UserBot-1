@@ -23,7 +23,7 @@ for name in files:
         load_plugins_inline(plugin_name.replace(".py", ""))
         
 
-print("Successfully Deployed!")
+print("• Successfully Deployed!")
 
 bot.start()
 app.start()
