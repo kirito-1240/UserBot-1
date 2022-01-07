@@ -3,7 +3,7 @@ from telethon import events
 from moviepy.editor import VideoFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.emfv$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.eafv$"))
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
@@ -13,7 +13,7 @@ async def start(event):
         clip = VideoFileClip("emfv.mp4")
         clip.audio.write_audiofile("output.mp3")
         await edit.delete()
-        await app.send_file(event.chat_id , "output.mp3" , reply_to=reply.id , voice_note=True , caption="**• Extracted Music From Video!**")
+        await app.send_file(event.chat_id , "output.mp3" , reply_to=reply.id , voice_note=True , caption="**• Extracted Audio From Video!**")
         os.remove("output.mp3")
         os.remove("emfv.mp4")
     else:
