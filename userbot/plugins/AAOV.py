@@ -11,7 +11,7 @@ async def start(event):
     if (not event.reply_to == None and reply.document.mime_type == "audio/mpeg") or (not event.reply_to == None and reply.document.mime_type == "audio/ogg"):
         media = reply.media
         await app.download_media(media , "smfv.mp3")
-        await edit.edit("**• Music Was Set For Added To Videos!**")
+        await edit.edit("**• Audio Was Set For Added To Videos!**")
     else:
         await edit.edit("**• Please Reply To Music!**")
         
@@ -28,10 +28,10 @@ async def start(event):
             final = video.set_audio(audio)
             final.write_videofile("newamov.mp4") 
             await edit.delete()
-            await app.send_file(event.chat_id , "newamov.mp4" , reply_to=reply.id , voice_note=True , caption="**• Added Coustom Music On This Video!**")
+            await app.send_file(event.chat_id , "newamov.mp4" , reply_to=reply.id , voice_note=True , caption="**• Added Coustom Audio On This Video!**")
             os.remove("amov.mp4")
             os.remove("newamov.mp4")
         else:
             await edit.edit("**• Please Reply To Video!**") 
     else:       
-            await edit.edit("**• Please Set Music By Command :** `.smfv`") 
+            await edit.edit("**• Please Set Audio By Command :** `.safv`") 
