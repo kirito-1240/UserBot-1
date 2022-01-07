@@ -29,5 +29,5 @@ async def start(event):
             loadplugins(plugin_name.replace(".py", ""))
             await edit.edit(f"""**• InlineBot Has Imported :** ( `{plugin_name.replace(".py", "")}` )""")
             sleep(2)
-     await edit.edit("**• InlineBot Has Imported Plugins!**")
+    await edit.edit("**• InlineBot Has Imported Plugins!**")
 
