@@ -1,5 +1,5 @@
 from inlinebot import bot
-from inlinebot.until import load_plugins
+from inlinebot.utils import load_plugins
 from telethon import events
 import sys , os
 
