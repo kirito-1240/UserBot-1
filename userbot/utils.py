@@ -11,14 +11,14 @@ def load_plugins(plugin_name):
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
     sys.modules["userbot.plugins." + plugin_name] = load
-    print("• Bot Has Imported : " + plugin_name + "From UserBot Plugin")
+    print("• UserBot Has Imported : " + plugin_name)
 
 def load_plugins_inline(plugin_name):
-    path = Path(f"inlinebot/plugins/{plugin_name}.py")
-    name = "inlinebot.plugins.{}".format(plugin_name)
+    path = Path(f"userbot/inlinebot/{plugin_name}.py")
+    name = "userbot.inlinebot.{}".format(plugin_name)
     spec = importlib.util.spec_from_file_location(name, path)
     load = importlib.util.module_from_spec(spec)
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
-    sys.modules["inlinebot.plugins." + plugin_name] = load
-    print("• Bot Has Imported : " + plugin_name + "From InlineBot Plugin")
+    sys.modules["userbot.inlinebot." + plugin_name] = load
+    print("• InlineBot Has Imported : " + plugin_name)
