@@ -3,7 +3,7 @@ from telethon import events
 from moviepy.editor import VideoFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dafv$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dmfv$"))
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
