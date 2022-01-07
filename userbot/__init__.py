@@ -9,6 +9,4 @@ STRING_SESSION = Config.STRING_SESSION
 
 app = TelegramClient(StringSession(str(STRING_SESSION)) , API_ID, API_HASH) 
 
-app.send_message(Config.BOT_GROUP , "Hi✓✓")
-
 START_TIME = time.time()
