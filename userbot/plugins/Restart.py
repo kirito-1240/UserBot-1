@@ -7,17 +7,10 @@ import sys , os
 async def start(event):
     event = await event.edit("` Restarting - [ ░░░ ]`")      
     await event.edit("`Restarting - [ █░░ ]`")
-    os.execl(sys.executable, sys.executable, *sys.argv)
     await event.edit("`Restarting - [ ██░ ]`")
-    quit()
     await event.edit("`Restarting - [ ███ ]`")
-    path = "userbot/plugins/*.py"
-    files = glob.glob(path)
-    for name in files:
-        with open(name) as a:
-            patt = Path(a.name)
-            plugin_name = patt.stem
-            load_plugins(plugin_name.replace(".py", ""))
     await event.edit("**• Bot Restarted!**")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+    quit()
     await app.disconnect()
 
