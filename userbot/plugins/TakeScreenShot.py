@@ -3,7 +3,7 @@ from telethon import events
 import requests , os
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scr (.*)$"))
-async def RotateVideo(event):
+async def TakeScreenShot(event):
     site = str(event.text[4:])
     edit = await event.edit("`Please Wait ...`")
     response = requests.get("https://render-tron.appspot.com/screenshot/" + site, stream=True)
