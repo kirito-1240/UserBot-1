@@ -6,7 +6,6 @@ import sys , os
 @bot.on(events.NewMessage(pattern="(?i)^\.restart$"))
 async def start(event):
     event = await event.reply("` Restarting - [ ░░░ ]`")      
-    await bot.disconnect()
     await event.edit("`Restarting - [ █░░ ]`")
     os.execl(sys.executable, sys.executable, *sys.argv)
     await event.edit("`Restarting - [ ██░ ]`")
@@ -20,4 +19,4 @@ async def start(event):
             plugin_name = patt.stem
             load_plugins(plugin_name.replace(".py", ""))
     await event.edit("**• Bot Restarted!**")
-
+    await bot.disconnect()
