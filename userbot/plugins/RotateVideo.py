@@ -5,7 +5,7 @@ import os
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rotate (\d*)$"))
 async def RotateVideo(event):
-    rotate = int(event.text[4:])
+    rotate = int(event.text[7:])
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
