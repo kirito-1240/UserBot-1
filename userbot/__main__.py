@@ -10,7 +10,8 @@ for name in files:
         patt = Path(a.name)
         plugin_name = patt.stem
         load_plugins(plugin_name.replace(".py", ""))
-path = "inlinebot/plugins/*.py"
+
+path = "userbot/inlinebot/*.py"
 files = glob.glob(path)
 for name in files:
     with open(name) as a:
