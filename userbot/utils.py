@@ -28,7 +28,15 @@ def load_plugins(plugin_name):
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
     sys.modules["userbot.plugins." + plugin_name] = load
-    
+
+def convert_bytes(size_bytes):
+   if size_bytes == 0:
+       return "0B"
+   size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+   i = int(math.floor(math.log(size_bytes, 1024)))
+   p = math.pow(1024, i)
+   s = round(size_bytes / p, 2)
+   return "%s %s" % (s, size_name[i])
 
 def convert_time(seconds: int) -> int:
     count = 0
