@@ -22,6 +22,10 @@
     "API_HASH": {
       "description": "Give Your API HASH!",
       "value": ""
+    },
+    "BOT_TOKEN": {
+      "description": "Give Your BOT TOKEN!",
+      "value": ""
     }
   }
 }
