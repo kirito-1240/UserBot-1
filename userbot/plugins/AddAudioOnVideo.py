@@ -4,8 +4,8 @@ from moviepy.editor import VideoFileClip
 from moviepy.editor import AudioFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.safv$"))
-async def start(event):
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.setaudio$"))
+async def SetAudioForVideo(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
     if (not event.reply_to == None and reply.document.mime_type == "audio/mpeg") or (not event.reply_to == None and reply.document.mime_type == "audio/ogg"):
@@ -15,8 +15,8 @@ async def start(event):
     else:
         await edit.edit("**• Please Reply To Music!**")
         
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.aaov$"))
-async def start(event):
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.addaudio$"))
+async def AddAudioOnVideo(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
     if os.path.exists("smfv.mp3"):
