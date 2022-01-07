@@ -3,7 +3,7 @@ from telethon import events
 from moviepy.editor import VideoFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dmfv$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dafv$"))
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
@@ -14,7 +14,7 @@ async def start(event):
         new_clip = videoclip.without_audio()
         new_clip.write_videofile("newdafv.mp4")
         await edit.delete()
-        await app.send_file(event.chat_id , "newdafv.mp4" , reply_to=reply.id , voice_note=True , caption="**• Deleted Music From Video!**")
+        await app.send_file(event.chat_id , "newdafv.mp4" , reply_to=reply.id , voice_note=True , caption="**• Deleted Audio From Video!**")
         os.remove("newdafv.mp4")
         os.remove("dafv.mp4")
     else:
