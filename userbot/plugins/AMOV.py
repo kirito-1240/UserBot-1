@@ -24,7 +24,8 @@ async def start(event):
             media = reply.media
             await app.download_media(media , "amov.mp4")
             audio = AudioFileClip("smfv.mp3")
-            video = VideoFileClip("amov.mp4")
+            video = VideoFileClip("amov.mp4"):
+            print((int(audio.duration) - int(video.duration)) , int(audio.duration))
             if int(audio.duration) > int(video.duration):
                 music = AudioFileClip("smfv.mp3").cutout((int(audio.duration) - int(video.duration)) , int(audio.duration))
                 music.write_audiofile("newsmfv.mp3")
