@@ -1,6 +1,6 @@
 import glob
 from pathlib import Path
-from . import app
+from userbot import app
 from Config import Config
 from time import sleep
 
