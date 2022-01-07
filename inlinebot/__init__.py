@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from .Config import Config
+from Config import Config
 import time
 
 API_ID = Config.API_ID
