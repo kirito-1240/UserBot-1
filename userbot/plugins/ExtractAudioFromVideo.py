@@ -3,8 +3,8 @@ from telethon import events
 from moviepy.editor import VideoFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.eafv$"))
-async def start(event):
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.exaudio$"))
+async def ExtractAudioFromVideo(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
