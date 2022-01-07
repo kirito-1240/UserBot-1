@@ -1,9 +1,10 @@
 import os
 
+print("3")
 os.system("python3 -m userbot")
-exit(0)
+quit()
 print("•> UserBot Started!")
 
 os.system("python3 -m inlinebot")
-exit(0)
+quit()
 print("•> InlineBot Started!")
