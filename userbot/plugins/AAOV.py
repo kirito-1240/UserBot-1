@@ -4,7 +4,7 @@ from moviepy.editor import VideoFileClip
 from moviepy.editor import AudioFileClip
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.smfv$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.safv$"))
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
@@ -15,7 +15,7 @@ async def start(event):
     else:
         await edit.edit("**• Please Reply To Music!**")
         
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.amov$"))
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.aaov$"))
 async def start(event):
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
