@@ -13,23 +13,23 @@
   "env": {
     "STRING_SESSION": {
       "description": "Give Your String Session!",
-      "value": ""
+      "value": "1BJWap1wBu0cNlY44pk7ErdglSxQDE0EtH9aKznNj1hR3k6nziL5nvOBNfXOFz7RXbC-qVBQZQhD08uzquv3c41esmtZJ6Rx8-iLzk-RRNGMMQPsrxDe-vbpnaHW_yHLg0RniawmLBcJ4vBtk-9rZpiO9eBcR85UTwSzrP6V0tcqyM9B2-6_Zxl7zDDDOLoZXXgLFw1xry-5ClTcROtal4qrl-HsoQrxbNKul7tmXX-46GIrn1JsXuV6iwjHmOtkHGOeOwapZQfDl0JzFYNcAJHd3y9oKsv1jRg_NM3mtdtfnHlJL3f7_OyzLXDoVW7e7YUB5FIGQYsW8Jcd0Xhkkb6RbJ8FFaDA="
     },
     "API_ID": {
       "description": "Give Your API ID!",
-      "value": ""
+      "value": "3814063"
     },
     "API_HASH": {
       "description": "Give Your API HASH!",
-      "value": ""
+      "value": "8112715c52fc0faa5b6e11e26e565bb6"
     },
     "BOT_TOKEN": {
       "description": "Give Your BOT TOKEN!",
-      "value": ""
+      "value": "2116524948:AAEBIakgFI8Og_c4xzm4FM_MXTH-ectwjSM"
     },
     "BOT_GROUP": {
       "description": "Give Your BOT GROUP!",
-      "value": ""
+      "value": "-1001631375661"
     }
   }
 }
