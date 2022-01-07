@@ -49,7 +49,7 @@ async def start(event):
         output = output + folders + files if files or folders else output + "__empty path__"
     else:
         size = os.stat(path).st_size
-        output = "The details of given file :\n"
+        output = "**• The Details Of Given File :**\n\n"
         if str(path).endswith((".mp3", ".flac", ".wav", ".m4a")):
             mode = "🎵"
         if str(path).endswith((".opus")):
