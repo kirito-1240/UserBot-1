@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from .Config import Config
+from Config import Config
 import time
 
 API_ID = Config.API_ID
