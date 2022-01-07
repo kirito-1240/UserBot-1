@@ -3,8 +3,8 @@ from telethon import events
 from moviepy.editor import VideoFileClip
 import os
         
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rav (\d*)$"))
-async def start(event):
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rotate (\d*)$"))
+async def RotateVideo(event):
     rotate = int(event.text[4:])
     edit = await event.edit("`Please Wait ...`")
     reply = await event.get_reply_message()
