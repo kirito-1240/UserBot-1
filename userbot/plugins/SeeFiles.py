@@ -15,7 +15,7 @@ async def start(event):
     if not os.path.exists(path):
         await edit.edit(f"**• There Is No Such Directory Or File With The Name** `{cat}` **Check Again!**")
         return
-    path = Path(cat) if input else os.getcwd()
+    path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
             output = "**• Folders and files in** `{}` :\n".format(path)
