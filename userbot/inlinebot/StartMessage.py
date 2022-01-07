@@ -1,7 +1,8 @@
 from userbot import bot
 from telethon import events , Button
 
-@bot.on(events.NewMessage(incoming=True, pattern="(?i)^/start$"))
+
+@bot.on(events.NewMessage(pattern="(?i)^/start$"))
 async def StartMessage(event):
     await event.reply("Hello!",
                     buttons=[
