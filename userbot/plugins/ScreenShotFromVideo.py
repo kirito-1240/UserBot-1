@@ -23,7 +23,7 @@ async def ScreenShotFromVideo(event):
             list = []
             video = VideoFileClip("screenshotvideo.mp4")
             duration = video.duration
-            for i in range(0, 11):
+            for i in range(0, 10):
                 rand = range(0 , int(duration))
                 time = random.choice(rand)
                 await take_screen_shot("screenshotvideo.mp4" , time , f"screenshot{i}.jpg")
