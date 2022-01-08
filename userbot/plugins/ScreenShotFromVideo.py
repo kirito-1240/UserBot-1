@@ -16,7 +16,7 @@ async def ScreenShotFromVideo(event):
             time = int(event.text[5:])
             await take_screen_shot("screenshotvideo.mp4" , time , "screenshot.jpg")
             await edit.delete()
-            await app.send_file(event.chat_id , "screenshot.jpg" , reply_to=reply.id  , caption=f"**• This Photo Was Taken In ** `{time}` **From This Video!**")
+            await app.send_file(event.chat_id , "screenshot.jpg" , reply_to=reply.id  , caption=f"**• This Photo Was Taken In** (`{time}`) **From This Video!**")
             os.remove("screenshot.jpg")
             os.remove("screenshotvideo.mp4")
         else:
@@ -24,7 +24,7 @@ async def ScreenShotFromVideo(event):
             video = VideoFileClip("screenshotvideo.mp4")
             duration = video.duration
             for i in range(0, 11):
-                time = list(range(0 , int(duration)))
+                time = range(0 , int(duration))
                 time = random.choice(rand)
                 await take_screen_shot("screenshotvideo.mp4" , time , f"screenshot{i}.jpg")
                 list.append(f"screenshot{i}.jpg")
