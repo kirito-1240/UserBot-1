@@ -24,7 +24,7 @@ async def ScreenShotFromVideo(event):
             video = VideoFileClip("screenshotvideo.mp4")
             duration = video.duration
             for i in range(0, 11):
-                time = random.choice(list(range(0, duration)))
+                time = random.choice(list(range(0, int(duration))))
                 await take_screen_shot("screenshotvideo.mp4" , time , f"screenshot{i}.jpg")
                 list.append(f"screenshot{i}.jpg")
             await edit.delete()
