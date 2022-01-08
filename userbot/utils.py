@@ -12,8 +12,8 @@ from . import app
 from time import sleep
 
 def setup_bot():
-    load_module()
     send_message()
+    load_module()
 
 def load_module():
     path = "userbot/plugins/*.py"
