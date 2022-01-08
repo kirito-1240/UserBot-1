@@ -3,5 +3,5 @@ from userbot import app
 
 setup_plugins()
 
-app start()
+app.start()
 app.run_until_disconnected()
