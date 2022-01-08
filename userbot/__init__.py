@@ -8,18 +8,13 @@ API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 STRING_SESSION = Config.STRING_SESSION
 VERSION = "1.0.6"
-LOOP = None
 
 try:
     app = TelegramClient(
         session = StringSession(str(STRING_SESSION)),
         api_id = API_ID,
         api_hash = API_HASH,
-        loop = LOOP,
-        app_version = VERSION,
-        connection = ConnectionTcpAbridged,
-        auto_reconnect = True,
-        connection_retries = None,
+        app_version = VERSION
     )
 except Exception as e:
     print(f"• Error On Create App : {e}")
