@@ -9,6 +9,7 @@ import functools
 import shlex
 import glob
 from . import app
+import ffmpeg
 from time import sleep
 
 def setup_plugins():
