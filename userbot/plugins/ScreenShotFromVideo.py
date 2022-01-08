@@ -2,7 +2,7 @@ from userbot import app
 from telethon import events
 from moviepy.editor import VideoFileClip
 import os , random , time
-from userbot.utils import take_screen_shot
+from userbot.utils import take_screen_shot , convert_bytes
 from moviepy.editor import VideoFileClip
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scrv ?(\d*)?$"))
@@ -11,6 +11,8 @@ async def ScreenShotFromVideo(event):
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
+        def callback(current, total):
+        
         await app.download_media(media , "screenshotvideo.mp4")
         if event.text[5:]:
             time = int(event.text[5:])
