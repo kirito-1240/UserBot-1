@@ -12,7 +12,6 @@ async def CopyMessages(event):
         elif reply.media:
             await  event.reply(file=reply.media)    
         else:
-            await event.reply(reply.text)
-        
+            await event.reply(reply.text)        
     else:
         await event.reply("**• Please Reply To Message For Copy!**")
