@@ -4,7 +4,7 @@ from telethon import events
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.copy$"))
 async def CopyMessages(event):
     reply = await event.get_reply_message()
-    if reply:
+    if not event.reply_to == None:
         if reply.fwd_from:
             await reply.forward_to(event.chat_id)    
         elif reply.media and reply.text:
