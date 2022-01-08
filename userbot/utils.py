@@ -11,11 +11,11 @@ import glob
 from . import app
 from time import sleep
 
-async def setup_bot():
-    await load_module()
-    await send_message()
+def setup_bot():
+    load_module()
+    send_message()
 
-async def load_module():
+def load_module():
     path = "userbot/plugins/*.py"
     files = glob.glob(path)
     for name in files:
@@ -28,8 +28,8 @@ async def load_module():
             except Exception as e:
                 print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
 
-async def send_message():
-    await app.send_message(Config.BOT_GROUP , "**• Starting Import UserBot Plugins!**")
+def send_message():
+    app.send_message(Config.BOT_GROUP , "**• Starting Import UserBot Plugins!**")
 
 
 async def runcmd(cmd):
