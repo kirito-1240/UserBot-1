@@ -1,6 +1,6 @@
 {
   "name": "UserBot",
-  "description": "A Simple Telegram UserBot Based On Telethon!",
+  "description": "Telegram UserBot Based On Telethon!",
   "logo": "",
   "keywords": [
     "userbot",
@@ -29,7 +29,7 @@
     },
     "HEROKU_API": {
       "description": "Give Your HEROKU API!",
-      "value": "0500171a-e83a-48dd-b0e4-ddcc050182f7"
+      "value": "fd9cf0aa-9fa7-471c-b1cd-85f112f88b73"
     },
     "HEROKU_APP_NAME": {
       "description": "Give Your HEROKU APP NAME!",
