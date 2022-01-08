@@ -14,7 +14,11 @@ try:
         session = StringSession(str(STRING_SESSION)),
         api_id = API_ID,
         api_hash = API_HASH,
-        app_version = VERSION
+        app_version = VERSION,
+        loop = None,
+        connection=ConnectionTcpAbridged,
+        auto_reconnect=True,
+        connection_retries=None,
     )
 except Exception as e:
     print(f"• Error On Create App : {e}")
