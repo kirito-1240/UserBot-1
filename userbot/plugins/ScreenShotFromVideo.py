@@ -12,7 +12,7 @@ async def ScreenShotFromVideo(event):
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
         def callback(current, total):
-            await edit.edit(f"""`Downloading ...`\n\n**• Current:** ( `{convert_bytes(current)}` )\n**• Total:** ( `{convert_bytes(total)}` )
+            await edit.edit(f"""`Downloading ...`\n\n**• Current:** ( `{convert_bytes(current)}` )\n**• Total:** ( `{convert_bytes(total)}` )""")
         await app.download_media(media , "screenshotvideo.mp4")
         await edit.edit("**• Download Completed!**\n`Please Wait For Taking ...`")
         if event.text[5:]:
