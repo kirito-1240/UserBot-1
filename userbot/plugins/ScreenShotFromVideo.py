@@ -13,7 +13,7 @@ async def ScreenShotFromVideo(event):
         media = reply.media
         async def callback(current, total):
             await edit.edit(f"""`Downloading ...`\n\n**• Current:** ( `{convert_bytes(current)}` )\n**• Total:** ( `{convert_bytes(total)}` )""")
-        await app.download_media(media , "screenshotvideo.mp4")
+        await app.download_media(media , "screenshotvideo.mp4" , progress_callback=callback)
         await edit.edit("**• Download Completed!**\n`Please Wait For Taking ...`")
         if event.text[5:]:
             time = int(event.text[5:])
