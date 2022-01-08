@@ -18,9 +18,9 @@ async def start(event):
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
-            output = "**• Folders and files in** `{}` :\n".format(path)
+            output = "**• Folders and files in** `{}` :\n\n".format(path)
         else:
-            output = "**• Folders And Files in Current Directory :**\n"
+            output = "**• Folders And Files in Current Directory :**\n\n"
         lists = os.listdir(path)
         files = ""
         folders = ""
@@ -68,6 +68,6 @@ async def start(event):
         output += f"**• Location :** `{path}`\n"
         output += f"**• icon :** `{mode}`\n"
         output += f"**• Size :** `{convert_bytes(size)}`\n"
-        output += f"**• Last Modified Time:** `{time2}`\n"
-        output += f"**• Last Accessed Time:** `{time3}`"
+        output += f"**• Last Modified Time :** `{time2}`\n"
+        output += f"**• Last Accessed Time :** `{time3}`"
     await edit.edit(output)
