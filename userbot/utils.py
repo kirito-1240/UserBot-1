@@ -7,6 +7,30 @@ from Config import Config
 import asyncio
 import functools
 import shlex
+import glob
+from . import app
+from time import sleep
+
+async def setup_bot():
+    await load_module()
+    await send_message()
+
+async def load_module():
+    path = "userbot/plugins/*.py"
+    files = glob.glob(path)
+    for name in files:
+        with open(name) as a:
+            patt = Path(a.name)
+            plugin_name = patt.stem
+            try:
+                load_plugins(plugin_name.replace(".py", ""))
+                print(f"""• UserBot Has Imported {plugin_name.replace(".py", "")} Plugin""")
+            except Exception as e:
+                print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
+
+async def send_message():
+    await app.send_message(Config.BOT_GROUP , "**• Starting Import UserBot Plugins!**")
+
 
 async def runcmd(cmd):
     args = shlex.split(cmd)
