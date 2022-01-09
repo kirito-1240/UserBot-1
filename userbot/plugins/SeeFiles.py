@@ -6,11 +6,10 @@ import shutil
 import time
 from pathlib import Path
 from userbot.utils import convert_bytes
-from userbot.utils import please_wait
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
 async def start(event):
-    await please_wait(event)
+    await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
