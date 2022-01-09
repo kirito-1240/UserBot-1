@@ -1,7 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
-from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 import sys , time
 
 API_ID = Config.API_ID
@@ -14,11 +13,7 @@ try:
         session = StringSession(str(STRING_SESSION)),
         api_id = API_ID,
         api_hash = API_HASH,
-        app_version = VERSION,
-        loop = None,
-        connection=ConnectionTcpAbridged,
-        auto_reconnect=True,
-        connection_retries=None,
+        app_version = VERSION
     )
 except Exception as e:
     print(f"• Error On Create App : {e}")
