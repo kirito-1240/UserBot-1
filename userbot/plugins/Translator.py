@@ -1,6 +1,8 @@
 from userbot import app
 from telethon import events
 import os
+from userbot.utils import runcmd
+await runcmd("pip install deep_translator")
 from deep_translator import GoogleTranslator
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
