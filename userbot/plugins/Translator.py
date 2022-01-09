@@ -4,7 +4,7 @@ import os
 from userbot.utils import runcmd
 os.system("pip install deep_translator")
 from deep_translator import GoogleTranslator
-from deep_translator.exceptions import LanguageNotSupportedException
+from deep_translator.exceptions import LanguageNotSupportedException , NotValidLength
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
@@ -20,6 +20,8 @@ async def Translator(event):
             output = GoogleTranslator(source='auto', target=lang).translate(text)
         except LanguageNotSupportedException:
             return await edit.edit("**• Language Not Supported!**")
+        except NotValidLength:
+            return await edit.edit("**• Not Valid Text Length!**")
         os.remove("input.txt")
         if len(str(output)) < 4000:
             await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
@@ -36,6 +38,8 @@ async def Translator(event):
             output = GoogleTranslator(source='auto', target=lang).translate(text)
         except LanguageNotSupportedException:
             return await edit.edit("**• Language Not Supported!**")
+        except NotValidLength:
+            return await edit.edit("**• Not Valid Text Length!**")
         if len(str(output)) < 4000:
             await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
         else:
