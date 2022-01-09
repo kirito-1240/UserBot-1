@@ -1,0 +1,70 @@
+{
+  "name": "UserBot",
+  "description": "Telegram Userbot Based On Telethon!",
+  "keywords": [
+    "plugin",
+    "bot",
+    "telegram"
+  ],
+  "repository": "https://github.com/MrAbolii/UserBot/",
+  "website": "#MrAboli",
+  "success_url": "#MrAboli",
+  "env": {
+    "NAME": {
+      "description": "Your NAME!",
+      "value": "MrAboli"
+    },
+    "API_ID": {
+      "description": "Your API_ID!",
+      "value": "3814063"
+    },
+    "API_HASH": {
+      "description": "Your API_HASH!",
+      "value": "8112715c52fc0faa5b6e11e26e565bb6"
+    },
+    "STRING_SESSION": {
+      "description": "Your STRING_SESSION!",
+      "value": "1BJWap1wBu33XS4YxaGkdZypRfEmSLTwXZXnljbYoHjtmbjy8KVE9GIj0voNhTQ5negs1a7wY33dMFuKWAH5pVPpaKSgd_APD4AkmJNnR9ZN43Sp00IED03Zcr5EBXYuXSOCXLa7ZmE-n1Ot9SUdunMixgrm_cWRqD_1wReNIAGJyStr74IE1GPXrcvncWiK27bcIwt1Gsk4_xKfZe48BcK3radRMJcBz1lbO1lCkbKyKVEdkzMYzp5CtiqK9UGIwLN_Ikc8PzmFT4y5F1VM65vuP2_5Ddv4Q2hZaw-EN73Zz4_YHQqA2JKcIzH5pbQDm6ijkDmd1PAddyt5NQChUaQaSLSOgcZ4="
+    },
+    "BOT_GROUP": {
+      "description": "Your BOT_GROUP!",
+      "value": "."
+    },
+    "COMMAND_HANDLER": {
+      "description": "Your COMMAND_HANDLER!",
+      "value": ".",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "Your HEROKU_API_KEY!",
+      "value": "",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Your HEROKU_APP_NAME!",
+      "value": "",
+      "required": false
+    }
+  },
+  "addons": [{
+    "plan": "heroku-postgresql",
+    "options": {
+      "version": "12"
+    }
+  }],
+  "buildpacks": [{
+    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  },{
+    "url":"https://github.com/heroku/heroku-buildpack-google-chrome"
+  },{
+    "url":"https://github.com/heroku/heroku-buildpack-chromedriver"
+  },{
+    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+  },{
+    "url": "https://github.com/heroku/heroku-buildpack-apt.git"
+  },{
+    "url": "https://github.com/chrismytton/heroku-buildpack-jq"
+  },{
+    "url": "heroku/python"
+  }]
+}
