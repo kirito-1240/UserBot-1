@@ -6,14 +6,15 @@ import shutil
 import time
 from pathlib import Path
 from userbot.utils import convert_bytes
+from userbot.utils import please_wait
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
 async def start(event):
-    edit = await event.edit("` Please Wait ...`")
+    await please_wait(event)
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
-        await edit.edit(f"**• There Is No Such Directory Or File With The Name** `{cat}` **Check Again!**")
+        await evant.edit(f"**• There Is No Such Directory Or File With The Name** `{cat}` **Check Again!**")
         return
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
@@ -70,4 +71,4 @@ async def start(event):
         output += f"**• Size :** `{convert_bytes(size)}`\n"
         output += f"**• Last Modified Time :** `{time2}`\n"
         output += f"**• Last Accessed Time :** `{time3}`"
-    await edit.edit(output)
+    await event.edit(output)
