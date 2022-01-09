@@ -1,8 +1,9 @@
 from userbot.utils import load_plugins
 from userbot import app
+from pathlib import Path
+import glob
 
-
-path = "userbot/*.py"
+path = "userbot/setu*.py"
 files = glob.glob(path)
 for name in files:
     with open(name) as a:
