@@ -4,11 +4,10 @@ from moviepy.editor import VideoFileClip
 import os , random , time
 from userbot.utils import take_screen_shot , convert_bytes
 from moviepy.editor import VideoFileClip
-from userbot.utils import please_wait
-        
+
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scrv ?(\d*)?$"))
 async def ScreenShotFromVideo(event):
-    await please_wait(event)
+    await event.edit("`• Please Wait ...`")
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
