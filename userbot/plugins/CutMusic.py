@@ -1,6 +1,6 @@
 from userbot import app
 from telethon import events
-import ffmpeg
+import ffmpeg , os
 from userbot.utils import runcmd , convert_bytes
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cmusic (\d*) (\d*)$"))
