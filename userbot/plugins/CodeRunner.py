@@ -29,7 +29,13 @@ async def CodeRunner(event):
         cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     elif not event.reply_to == None:
         reply = await event.get_reply_message()
-        cmd = reply.text
+        if reply.media and reply.document.mime_type == "text/plain":
+            media = reply.media
+            await app.download_media(media , "input.txt")
+            file = open("input.txt")
+            cmd = file.read()
+        else:
+            cmd = reply.text
     else:
         return await event.edit("`• What Should I Run ?`")
     edit = await event.edit("`• Running ...`")
