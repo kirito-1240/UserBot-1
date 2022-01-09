@@ -6,7 +6,6 @@ import os
 import sys
 import traceback
 import time
-from userbot.utils import please_wait         
 
 async def aexec(code , status):
     message = event = status
@@ -26,7 +25,7 @@ async def aexec(code , status):
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(event):
-    await please_wait(event)
+    await event.edit("`• Please Wait ...`")
     if event.text[4:]:
         cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     elif not event.reply_to == None:
