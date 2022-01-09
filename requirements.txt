@@ -14,3 +14,4 @@ heroku3
 speedtest-cli
 youtube-search-python
 youtube_dl
+deep_translator
