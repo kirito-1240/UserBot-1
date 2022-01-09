@@ -10,10 +10,6 @@
   "website": "#MrAboli",
   "success_url": "#MrAboli",
   "env": {
-    "NAME": {
-      "description": "Your NAME!",
-      "value": "MrAboli"
-    },
     "API_ID": {
       "description": "Your API_ID!",
       "value": "3814063"
@@ -30,14 +26,9 @@
       "description": "Your BOT_GROUP!",
       "value": "."
     },
-    "COMMAND_HANDLER": {
-      "description": "Your COMMAND_HANDLER!",
-      "value": ".",
-      "required": false
-    },
     "HEROKU_API_KEY": {
       "description": "Your HEROKU_API_KEY!",
-      "value": "",
+      "value": "0500171a-e83a-48dd-b0e4-ddcc050182f7",
       "required": false
     },
     "HEROKU_APP_NAME": {
