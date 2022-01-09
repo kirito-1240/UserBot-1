@@ -4,7 +4,7 @@ import os
 from userbot.utils import runcmd
 os.system("pip install deep_translator")
 from deep_translator import GoogleTranslator
-ftom deep_translator.exceptions import LanguageNotSupportedException
+from deep_translator.exceptions import LanguageNotSupportedException
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
