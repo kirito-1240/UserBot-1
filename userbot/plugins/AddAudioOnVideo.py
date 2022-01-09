@@ -2,12 +2,11 @@ from userbot import app
 from telethon import events
 from moviepy.editor import VideoFileClip
 from moviepy.editor import AudioFileClip
-import os
-from userbot.utils import please_wait         
+import os         
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.setaudio$"))
 async def SetAudioForVideo(event):
-    await please_wait(event)
+    await event.edit("`• Please Wait ...`")
     reply = await event.get_reply_message()
     if (not event.reply_to == None and reply.document.mime_type == "audio/mpeg") or (not event.reply_to == None and reply.document.mime_type == "audio/ogg"):
         media = reply.media
