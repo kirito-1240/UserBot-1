@@ -2,12 +2,11 @@ from userbot import app
 from telethon import events
 from moviepy.editor import VideoFileClip
 import os
-from userbot.utils import please_wait
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rotate (\d*)$"))
 async def RotateVideo(event):
-    rotate = int(event.text[7:])
-    await please_wait(event)
+    rotate = int(event.match_pattern.group(1))
+    await event.edit("`• Please Wait ...`")
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
