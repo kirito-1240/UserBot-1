@@ -8,9 +8,9 @@ from deep_translator import GoogleTranslator
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
     edit = await event.edit("`Please Wait ...`")
-    lang = event.text[3:]
+    lang = str(event.text[3:])
     reply = await event.get_reply_message()
-    if reply.media and reply.document.mime_type == "text/plain" and not reply.text:
+    if not event.reply_to == None and reply.media and reply.document.mime_type == "text/plain" and not reply.text:
         media = reply.media
         await app.download_media(media , "input.txt")
         file = open("input.txt")
@@ -26,9 +26,9 @@ async def Translator(event):
             await edit.delete()
             await app.send_file(event.chat_id, "Result.txt" , caption="**• See The Answer In The File!**" , reply_to=reply.id)
             os.remove("Result.txt")
-    elif reply.text:
+    elif not event.reply_to == None and reply.text:
         text = reply.text
-        output = GoogleTranslator(source='auto', target=lang).translate(text)
+        output = GoogleTranslator(source='auto', target=lang).translate_file(text)
         if len(str(output)) < 4000:
             await edit.edit(f"""**• Your Text:** \n( `{text}` )\n\n**• Translate To** `{lang}`:\n ( `{output}` )""")
         else:
