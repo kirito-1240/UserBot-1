@@ -3,7 +3,7 @@ from telethon import events
 from userbot.utils import load_plugins
 from time import sleep
 from pathlib import Path
-import glob
+import glob , sys
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.setup$"))
 async def start(event):
