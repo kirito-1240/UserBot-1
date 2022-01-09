@@ -2,14 +2,13 @@ from userbot import app
 from telethon import events
 import os
 from userbot.utils import runcmd
-from userbot.utils import please_wait
 os.system("pip install deep_translator")
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import LanguageNotSupportedException , NotValidLength
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
-    await please_wait(event)
+    await event.edit("`• Please Wait ...`")
     lang = str(event.text[4:])
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.media and reply.document.mime_type == "text/plain" and not reply.text:
