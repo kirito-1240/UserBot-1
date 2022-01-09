@@ -22,10 +22,10 @@ async def Translator(event):
             return await edit.edit("**• Language Not Supported!**")
         os.remove("input.txt")
         if len(str(output)) < 4000:
-            await edit.edit(f"""**• Your Text:** \n( `{text}` )\n\n**• Translate To** `{lang}`:\n ( `{output}` )""")
+            await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
         else:
             with open('Result.txt', 'w') as f:
-                f.write(f"""**• Your Text:** \n( `{text}` )\n\n**• Translate To** `{lang}`:\n ( `{output}` )""")
+                f.write(f"""• Your Text: \n{text}\n\n• Translate To {lang}:\n {output}""")
                 f.close()
             await edit.delete()
             await app.send_file(event.chat_id, "Result.txt" , caption="**• See The Answer In The File!**" , reply_to=reply.id)
@@ -37,10 +37,10 @@ async def Translator(event):
         except LanguageNotSupportedException:
             return await edit.edit("**• Language Not Supported!**")
         if len(str(output)) < 4000:
-            await edit.edit(f"""**• Your Text:** \n( `{text}` )\n\n**• Translate To** `{lang}`:\n ( `{output}` )""")
+            await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
         else:
             with open('Result.txt', 'w') as f:
-                f.write(f"""**• Your Text:** \n( `{text}` )\n\n**• Translate To** `{lang}`:\n ( `{output}` )""")
+                f.write(f"""• Your Text: \n{text}\n\n• Translate To {lang}:\n {output}""")
                 f.close()
             await edit.delete()
             await app.send_file(event.chat_id, "Result.txt" , caption="**• See The Answer In The File!**" , reply_to=reply.id)
