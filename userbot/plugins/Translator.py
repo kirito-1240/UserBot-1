@@ -4,11 +4,15 @@ import os
 from userbot.utils import runcmd
 os.system("pip install deep_translator")
 from deep_translator import GoogleTranslator
+ftom deep_translator.exceptions import LanguageNotSupportedException
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
     edit = await event.edit("`Please Wait ...`")
-    lang = str(event.text[3:])
+    try:
+        lang = str(event.text[3:])
+    except LanguageNotSupportedException:
+        return await edit.edit("**• Language Not Supported!**")
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.media and reply.document.mime_type == "text/plain" and not reply.text:
         media = reply.media
