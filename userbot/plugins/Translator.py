@@ -6,7 +6,7 @@ from deep_translator import GoogleTranslator
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
     edit = await event.edit("`Please Wait ...`")
-    lang = event.text[3:]:
+    lang = event.text[3:]
     reply = await event.get_reply_message()
     if reply.media and reply.document.mime_type == "text/plain" and not reply.text:
         media = reply.media
