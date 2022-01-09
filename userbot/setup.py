@@ -18,9 +18,11 @@ async def start(event):
             try:
                 load_plugins(plugin_name.replace(".py", ""))
                 print(f"""• UserBot Has Imported {plugin_name.replace(".py", "")} Plugin""")
-                await event.reply(f"""**• UserBot Has Imported :** ( `{plugin_name.replace(".py", "")}` )**Plugin!**""")
+                await event.edit(f"""**• UserBot Has Imported :** ( `{plugin_name.replace(".py", "")}` )**Plugin!**""")
+                sleep(1.5)
             except Exception as e:
                 print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
-                await event.reply(f"""**• UserBot Can't Import :** ( `{plugin_name.replace(".py", "")}` ) **Plugin - Becuse Of Error :** ( `{e}` )""")
+                await event.edit(f"""**• UserBot Can't Import :** ( `{plugin_name.replace(".py", "")}` ) **Plugin - Becuse Of Error :** ( `{e}` )""")
+                sleep(1.5)
     await edit.edit("**• Setup Plugins Completed!**")
     await app.send_message(event.chat_id , "**• UserBot Has Been Start Now!**")
