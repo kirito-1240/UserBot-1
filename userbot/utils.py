@@ -25,6 +25,15 @@ def setup_plugins():
             except Exception as e:
                 print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
 
+async def please_wait(event):
+    c = 1
+    for i in range(0 , 12):
+        await event.edit(f"""`Please Wait {'. '*c}`""")
+        c += 1
+        if (c - 1) > 2:
+            c = 1
+        sleep(0.5)
+
 async def take_screen_shot(video_file , duration , thumb_image_path):
     command = f"ffmpeg -ss {duration} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
     run = await runcmd(command)
