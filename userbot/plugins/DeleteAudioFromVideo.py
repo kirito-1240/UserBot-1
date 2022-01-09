@@ -2,10 +2,11 @@ from userbot import app
 from telethon import events
 from moviepy.editor import VideoFileClip
 import os
+from userbot.utils import please_wait
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.delaudio$"))
 async def DeleteAudioFromVideo(event):
-    edit = await event.edit("`Please Wait ...`")
+    await please_wait(event)
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
@@ -13,9 +14,9 @@ async def DeleteAudioFromVideo(event):
         videoclip = VideoFileClip("dafv.mp4")
         new_clip = videoclip.without_audio()
         new_clip.write_videofile("newdafv.mp4")
-        await edit.delete()
+        await event.delete()
         await app.send_file(event.chat_id , "newdafv.mp4" , reply_to=reply.id , voice_note=True , caption="**• Deleted Audio From Video!**")
         os.remove("newdafv.mp4")
         os.remove("dafv.mp4")
     else:
-        await edit.edit("**• Please Reply To Video!**")
+        await event.edit("**• Please Reply To Video!**")
