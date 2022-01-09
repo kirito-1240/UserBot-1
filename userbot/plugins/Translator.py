@@ -24,7 +24,7 @@ async def Translator(event):
             return await edit.edit("**• Not Valid Text Length!**")
         os.remove("input.txt")
         if len(str(output)) < 4000:
-            await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
+            await edit.edit(f"""**• Your Text:** \n{text}\n\n**• Translate To {lang}**:\n {output}""")
         else:
             with open('Result.txt', 'w') as f:
                 f.write(f"""• Your Text: \n{text}\n\n• Translate To {lang}:\n {output}""")
@@ -41,7 +41,7 @@ async def Translator(event):
         except NotValidLength:
             return await edit.edit("**• Not Valid Text Length!**")
         if len(str(output)) < 4000:
-            await edit.edit(f"""**• Your Text:** \n`{text}`\n\n**• Translate To {lang}**:\n `{output}`""")
+            await edit.edit(f"""**• Your Text:** \n{text}\n\n**• Translate To {lang}**:\n {output}""")
         else:
             with open('Result.txt', 'w') as f:
                 f.write(f"""• Your Text: \n{text}\n\n• Translate To {lang}:\n {output}""")
