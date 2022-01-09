@@ -6,6 +6,7 @@ import os
 import sys
 import traceback
 import time
+from userbot.utils import please_wait         
 
 async def aexec(code , status):
     message = event = status
@@ -25,6 +26,7 @@ async def aexec(code , status):
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(event):
+    await please_wait(event)
     if event.text[4:]:
         cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     elif not event.reply_to == None:
@@ -38,7 +40,6 @@ async def CodeRunner(event):
             cmd = reply.text
     else:
         return await event.edit("`• What Should I Run ?`")
-    edit = await event.edit("`• Running ...`")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -62,7 +63,7 @@ async def CodeRunner(event):
     else:
         evaluation = "Success!"
     output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  Result : ** \n `{evaluation}`"""
-    await edit.delete()
+    await event.delete()
     if len(str(output)) < 4000:
         await app.send_message(event.chat_id , output)
     else:
