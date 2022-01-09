@@ -1,7 +1,7 @@
 from userbot import app
 from telethon import events
 import ffmpeg
-from userbot.utils import runcmd
+from userbot.utils import runcmd , convert_bytes
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cmusic (\d*) (\d*)$"))
 async def CutMusic(event):
@@ -20,3 +20,5 @@ async def CutMusic(event):
         await app.send_file(event.chat_id , "cutmusicoutput.mp3" , reply_to=reply.id  , caption="**• This ShortMusic Was Cuted From This Music!**")
         os.remove("cutmusicoutput.mp3")
         os.remove("cutmusic.mp3")
+    else:
+        await event.edit("**• Please Reply To Music!**")
