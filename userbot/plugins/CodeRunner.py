@@ -1,11 +1,4 @@
-from userbot import app
-from telethon import events
-import asyncio
-import io
-import os
-import sys
-import traceback
-import time
+from . import *
 
 async def aexec(code , status):
     message = event = status
