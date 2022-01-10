@@ -90,3 +90,38 @@ def convert_time(seconds: int) -> int:
     ping_time += ":".join(time_list)
 
     return ping_time
+
+def media_type(media):
+    msg = str((str(media)).split("(", maxsplit=1)[0])
+    if msg == "MessageMediaDocument":
+        mime = media.document.mime_type
+        if mime == "application/x-tgsticker":
+            type = "StickerAnimated"
+        elif "image" in mime:
+            if mime == "image/webp":
+                type = "Sticker"
+            elif mime == "image/gif":
+                type = "GifDoc"
+            else:
+                type = "PicDoc"
+        elif "video" in mime:
+            if "DocumentAttributeAnimated" in str(media):
+                type = "Gif"
+            elif "DocumentAttributeVideo" in str(media):
+                atr = str(media.document.attributes[0])
+                if "supports_streaming=True" in atr:
+                    type = "Video"
+                type = "VideoDoc"
+            else:
+                type = "Video"
+        elif "audio" in mime:
+            type = "Audio"
+        else:
+            type = "Document"
+    elif msg == "MessageMediaPhoto":
+        type = "Pic"
+    elif msg == "MessageMediaWebPage":
+        type = "Web"
+    else:
+        type = "Msg"
+    return type
