@@ -1,19 +1,17 @@
 from . import *
 
-async def runner(code , status):
-    message = event = status
+async def runner(code , event):
+    message = event
     p = lambda _x: print(_format.yaml_format(_x))
     reply = await event.get_reply_message()
-    exec(
-        (
-            "
+    exec((
+            """
 from . import *
-async def coderunner(message , event , reply , client , p , chat): "
+async def coderunner(message , event , reply , client , p , chat): """
             + "".join(f"\n {l}" for l in code.split("\n"))
-        )
-    )
+        ))
 
-    return await locals()["__aexec"](
+    return await locals()["coderunner"](
         message, event, reply, message.client, p, message.chat_id
     )
 
