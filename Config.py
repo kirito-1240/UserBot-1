@@ -1,7 +1,8 @@
+import os
+
 class Config(object):
-    API_ID = 3814063
-    API_HASH = "8112715c52fc0faa5b6e11e26e565bb6"
-    STRING_SESSION = "1BJWap1sBu5HTTUj-gSHSOgpoC8EJJUrJ-WeSM6ZrCbpDGgdkXhhWJtRv5NbuSdy4Og5Zv-O0ExknateV1Rt_Wta2ooHLLELdEONN464WeuIRg-iRtqNQLAtVuMEBBMJLwPA42gXNOIM93hqtPW-87OtveWMnlSGcy5oIAqoM4G3MUpo3xWNCFKAcMLt71gUvo7sZg8jypRhXubaERaGqnLSG2LTdc4l6uUes6mHqEil1yyzT1F_DEotLxZhmqGs4W91_yDrHZKdCfmceeKK6XFnmwdQ3Pu1Y32f-Czw0xyWLMQjUEki8gxbdIIOssuaMwyBvBrMnGf8p-j2lh_-ODR0QZnM9w74="
-    BOT_GROUP = int("-1001631375661")
-    HEROKU_APP_NAME = "mrabol"
-    HEROKU_API = "0500171a-e83a-48dd-b0e4-ddcc050182f7"
+    API_ID = int(os.environ.get("API_ID"))
+    API_HASH = os.environ.get("API_HASH")
+    STRING_SESSION = os.environ.get("STRING_SESSION")
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
+    HEROKU_API = os.environ.get("HEROKU_API")
