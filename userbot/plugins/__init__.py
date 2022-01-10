@@ -1,6 +1,6 @@
 from userbot import app , START_TIME
 from Config import Config
-from userbot.utils import creply , convert_time , bash , restart_app , load_plugins , convert_bytes , media_type , ytvideo_info , take_screen_shot , runcmd
+from userbot.utils import convert_time , bash , restart_app , load_plugins , convert_bytes , ytvideo_info , take_screen_shot , runcmd
 from telethon import events
 from moviepy.editor import VideoFileClip , AudioFileClip
 from datetime import datetime
