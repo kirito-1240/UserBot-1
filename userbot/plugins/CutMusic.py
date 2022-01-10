@@ -1,8 +1,5 @@
-from userbot import app
-from telethon import events
-import ffmpeg , os
-from userbot.utils import runcmd , convert_bytes
-        
+from . import *
+
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cmusic (\d*) (\d*)$"))
 async def CutMusic(event):
     await event.edit("`• Please Wait ...`")
