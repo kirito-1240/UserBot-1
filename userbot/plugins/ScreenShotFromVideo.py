@@ -1,9 +1,4 @@
-from userbot import app
-from telethon import events
-from moviepy.editor import VideoFileClip
-import os , random , time
-from userbot.utils import take_screen_shot , convert_bytes
-from moviepy.editor import VideoFileClip
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scrv ?(\d*)?$"))
 async def ScreenShotFromVideo(event):
