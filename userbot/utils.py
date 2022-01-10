@@ -106,7 +106,10 @@ def media_type(media):
             else:
                 type = "Video"
         elif "audio" in mime:
-            type = "Audio"
+            if "voice=True" in media:
+                type = "Voice"
+            else:
+                type = "Audio"
         else:
             type = "Document"
     elif msg == "MessageMediaPhoto":
