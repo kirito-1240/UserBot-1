@@ -1,9 +1,4 @@
-from userbot import app
-from telethon import events
-import os
-from userbot.utils import runcmd
-from deep_translator import GoogleTranslator
-from deep_translator.exceptions import LanguageNotSupportedException , NotValidLength
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.tr (.*)$"))
 async def Translator(event):
