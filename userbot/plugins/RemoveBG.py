@@ -10,7 +10,7 @@ async def RemoveBG(event):
     if not event.reply_to == None and reply.media.photo:
         media = reply.media
         await app.download_media(media , "reminput.png")
-        response = requests.post("https://api.remove.bg/v1.0/removebg" , files={'image_file': open("reminput.png" , "rb")} , data={'size': 'auto'} , headers={'X-Api-Key': Config.API_KEY})
+        response = requests.post("https://api.remove.bg/v1.0/removebg" , files={'image_file': open("reminput.png" , "rb")} , data={'size': 'auto'} , headers={'X-Api-Key': Config.RMBG_API_KEY})
         file = open("outrem.png" , "wb")
         file.write(response.content)
         await event.delete()
