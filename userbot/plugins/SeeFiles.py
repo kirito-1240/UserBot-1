@@ -1,11 +1,4 @@
-from userbot import app , START_TIME
-from telethon import events
-import io
-import os
-import shutil
-import time
-from pathlib import Path
-from userbot.utils import convert_bytes
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
 async def start(event):
