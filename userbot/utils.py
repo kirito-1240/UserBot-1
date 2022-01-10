@@ -11,6 +11,12 @@ import glob
 from . import app
 import ffmpeg
 from time import sleep
+from youtubesearchpython import VideosSearch
+
+def ytvideo_info(queryb, limit):
+    output = VideosSearch(query.lower() , limit=int(limit))
+    result =  output.result()
+    return result
 
 async def take_screen_shot(video_file , duration , thumb_image_path):
     command = f"ffmpeg -ss {duration} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
