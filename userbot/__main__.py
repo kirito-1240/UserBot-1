@@ -17,8 +17,8 @@ for name in files:
             print(f"""• UserBot Has Imported {plugin_name.replace(".py", "")} Plugin""")
         except Exception as e:
             print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
-    print("• Setup Plugins Completed!")
-    print("• UserBot Has Been Start Now!")
+print("• Setup Plugins Completed!")
+print("• UserBot Has Been Start Now!")
 
 app.start()
 app.run_until_disconnected()
