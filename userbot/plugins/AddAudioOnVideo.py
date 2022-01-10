@@ -1,8 +1,4 @@
-from userbot import app
-from telethon import events
-from moviepy.editor import VideoFileClip
-from moviepy.editor import AudioFileClip
-import os         
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.setaudio$"))
 async def SetAudioForVideo(event):
