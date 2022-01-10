@@ -1,15 +1,6 @@
-import logging
-import math
-import importlib
 from pathlib import Path
-import asyncio , sys , os , heroku3
-from Config import Config
-import asyncio
-import functools
-import shlex
-import glob
-from . import app
-import ffmpeg
+import ffmpeg , sys , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools
+from Config import Config  
 from time import sleep
 from youtubesearchpython import VideosSearch
 
