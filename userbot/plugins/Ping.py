@@ -1,8 +1,4 @@
-from userbot import app , START_TIME
-from telethon import events
-from datetime import datetime
-import time
-from userbot.utils import convert_time
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ping$"))
 async def start(event):
