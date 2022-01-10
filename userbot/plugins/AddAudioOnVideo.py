@@ -4,7 +4,7 @@ from . import *
 async def SetAudioForVideo(event):
     await event.edit("`• Please Wait ...`")
     reply = await event.get_reply_message()
-    if (creply(event) and media_type(reply.media) == "Audio") or (creply(event) and media_type(reply.media) == "Voice"):
+    if (reply and reply.media.document.mime_type == "audio/mpeg") or (reply and reply.media.document.mime_type == "audio/ogg"):
         media = reply.media
         await app.download_media(media , "smfv.mp3")
         await event.edit("**• Audio Was Set For Added To Videos!**")
@@ -16,7 +16,7 @@ async def AddAudioOnVideo(event):
     await please_wait(event)
     reply = await event.get_reply_message()
     if os.path.exists("smfv.mp3"):
-        if (creply(event) and media_type(reply.media) == "Video"):
+        if reply and reply.media.document.mime_type == "video/mp4":
             media = reply.media
             await app.download_media(media , "amov.mp4")
             audio = AudioFileClip("smfv.mp3")
