@@ -2,7 +2,6 @@ from userbot import app
 from telethon import events
 import os
 from userbot.utils import runcmd
-os.system("pip install deep_translator")
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import LanguageNotSupportedException , NotValidLength
 
