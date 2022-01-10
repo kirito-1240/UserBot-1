@@ -14,7 +14,7 @@ async def RemoveBG(event):
         file = open("outrem.png" , "wb")
         file.write(response.content)
         await event.delete()
-        await app.send_file(chat , "outrem.png")
+        await app.send_file(event.chat_id , "outrem.png" , reply_to=reply.id , caption="**• Removed Background From This Photo!**")
         os.remove("outrem.png")
         os.remove("reminput.png")
     else:
