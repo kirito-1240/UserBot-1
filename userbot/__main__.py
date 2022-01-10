@@ -1,5 +1,4 @@
 from userbot.utils import load_plugins
-from userbot import app
 from pathlib import Path
 import logging , sys
 import importlib
