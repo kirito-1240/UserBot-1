@@ -8,4 +8,4 @@ from PIL import Image
 from pathlib import Path
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import NotValidLength , LanguageNotSupportedException
-import random , requests , os , asyncio , io , sys , traceback , time , ffmpeg , io , shutil
+import heroku3 , logging , math , importlib , glob , shlex , functools , random , requests , os , asyncio , io , sys , traceback , time , ffmpeg , io , shutil
