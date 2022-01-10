@@ -2,7 +2,7 @@ from userbot import app
 from telethon import events
 from Config import Config
 from PIL import Image
-import requests
+import requests , os
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rmbg$"))
 async def RemoveBG(event):
