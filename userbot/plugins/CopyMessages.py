@@ -1,5 +1,4 @@
-from userbot import app
-from telethon import events
+from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.copy$"))
 async def CopyMessages(event):    
