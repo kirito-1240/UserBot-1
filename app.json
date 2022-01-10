@@ -33,6 +33,11 @@
       "value": "",
       "required": false
     }
+    "RMBG_API_KEY": {
+      "description": "Your RMBG_API_KEY!",
+      "value": "xz1Qc2AXxtMtnMjyAnUtCvGg",
+      "required": false
+    }
   },
   "addons": [{
     "plan": "heroku-postgresql",
