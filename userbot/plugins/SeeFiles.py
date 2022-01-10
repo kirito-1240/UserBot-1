@@ -18,7 +18,7 @@ async def start(event):
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
-            output = "**• Folders and files in** `{}` :\n\n".format(path)
+            output = "**• Folders And Files In** `{}` :\n\n".format(path)
         else:
             output = "**• Folders And Files in Current Directory :**\n\n"
         lists = os.listdir(path)
