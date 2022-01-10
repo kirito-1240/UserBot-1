@@ -77,6 +77,11 @@ def convert_time(seconds):
         return result[:-1]
     return result
 
+def creply(event):
+    if not event.reply_to == None:
+        return True
+    return False
+
 def media_type(media):
     msg = str((str(media)).split("(", maxsplit=1)[0])
     if msg == "MessageMediaDocument":
