@@ -8,7 +8,7 @@ async def start(event):
         c = 7 - int(i)
         await event.edit(f"""`• Restarting - [ {one*i}{two*c} ]`""")      
     await event.edit("**• Bot Restarted!**")
-    await restart_app()
+    restart_app()
     await bash("git pull && pip3 install -r requirements.txt")
     os.execl(sys.executable, sys.executable, "-m", "userbot")
 
