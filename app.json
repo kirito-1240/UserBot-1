@@ -1,0 +1,58 @@
+{
+  "name": "UserBot",
+  "description": "Telegram userbot based on Telethon",
+  "logo": "https://avatars.githubusercontent.com/u/29301449?s=280&v=4",
+  "keywords": [
+    "plugin",
+    "bot",
+    "telegram"
+  ],
+  "repository": "https://github.com/MrAbolii/UserBot/",
+  "website": "#MrAboli",
+  "success_url": "#MrAboli",
+  "env": {
+    "API_ID": {
+      "description": "Your API_ID!",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Your API_HASH!",
+      "value": ""
+    },
+    "STRING_SESSION": {
+      "description": "Your STRING_SESSION!",
+      "value": ""
+    },
+    "HEROKU_API": {
+      "description": "Your HEROKU_API!",
+      "value": "",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Your HEROKU_APP_NAME!",
+      "value": "",
+      "required": false
+    }
+  },
+  "addons": [{
+    "plan": "heroku-postgresql",
+    "options": {
+      "version": "12"
+    }
+  }],
+  "buildpacks": [{
+    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  },{
+    "url":"https://github.com/heroku/heroku-buildpack-google-chrome"
+  },{
+    "url":"https://github.com/heroku/heroku-buildpack-chromedriver"
+  },{
+    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+  },{
+    "url": "https://github.com/heroku/heroku-buildpack-apt.git"
+  },{
+    "url": "https://github.com/chrismytton/heroku-buildpack-jq"
+  },{
+    "url": "heroku/python"
+  }]
+}
