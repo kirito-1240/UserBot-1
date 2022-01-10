@@ -7,6 +7,7 @@ import glob
 print("• Starting Setup Plugins ...")
 path = "userbot/plugins/*.py"
 files = glob.glob(path)
+files.remove("userbot/plugins/__init__.py")
 for name in files:
     with open(name) as a:
         patt = Path(a.name)
