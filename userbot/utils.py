@@ -4,12 +4,12 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
-def ytvideo_info(queryb, limit):
+def ytvideo_info(query , limit):
     output = VideosSearch(query.lower() , limit=int(limit))
     result =  output.result()
     return result
 
-async def take_screen_shot(video_file , duration , thumb_image_path):
+def take_screen_shot(video_file , duration , thumb_image_path):
     command = f"ffmpeg -ss {duration} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
     run = await runcmd(command)
     return run
@@ -38,7 +38,7 @@ async def bash(cmd):
     out = stdout.decode().strip()
     return out, err
 
-async def restart_app():
+def restart_app():
     Heroku = heroku3.from_key(Config.HEROKU_API)
     app = Heroku.apps()[Config.HEROKU_APP_NAME]
     app.restart()
@@ -76,46 +76,3 @@ def convert_time(seconds):
     if result.endswith(":"):
         return result[:-1]
     return result
-
-def creply(event):
-    if not event.reply_to == None:
-        return True
-    return False
-
-def media_type(media):
-    msg = str((str(media)).split("(", maxsplit=1)[0])
-    if msg == "MessageMediaDocument":
-        mime = media.document.mime_type
-        if mime == "application/x-tgsticker":
-            type = "StickerAnimated"
-        elif "image" in mime:
-            if mime == "image/webp":
-                type = "Sticker"
-            elif mime == "image/gif":
-                type = "GifDoc"
-            else:
-                type = "PicDoc"
-        elif "video" in mime:
-            if "DocumentAttributeAnimated" in str(media):
-                type = "Gif"
-            elif "DocumentAttributeVideo" in str(media):
-                atr = str(media.document.attributes[0])
-                if "supports_streaming=True" in atr:
-                    type = "Video"
-                type = "VideoDoc"
-            else:
-                type = "Video"
-        elif "audio" in mime:
-            if "voice=True" in media:
-                type = "Voice"
-            else:
-                type = "Audio"
-        else:
-            type = "Document"
-    elif msg == "MessageMediaPhoto":
-        type = "Pic"
-    elif msg == "MessageMediaWebPage":
-        type = "Web"
-    else:
-        type = "Msg"
-    return type
