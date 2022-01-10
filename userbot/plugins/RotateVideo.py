@@ -1,7 +1,4 @@
-from userbot import app
-from telethon import events
-from moviepy.editor import VideoFileClip
-import os
+from . import *
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rotate (\d*)$"))
 async def RotateVideo(event):
