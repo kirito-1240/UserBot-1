@@ -1,6 +1,6 @@
 from . import *
 
-async def aexec(code , status):
+async def runner(code , status):
     message = event = status
     p = lambda _x: print(_format.yaml_format(_x))
     reply = await event.get_reply_message()
@@ -8,7 +8,7 @@ async def aexec(code , status):
         (
             "
 from . import *
-async def __aexec(message , event , reply , client , p , chat): "
+async def coderunner(message , event , reply , client , p , chat): "
             + "".join(f"\n {l}" for l in code.split("\n"))
         )
     )
@@ -40,7 +40,7 @@ async def CodeRunner(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await aexec(cmd , event)
+        await runner(cmd , event)
     except Exception:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
