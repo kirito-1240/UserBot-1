@@ -61,8 +61,8 @@ def convert_bytes(size_bytes):
    s = round(size_bytes / p, 2)
    return "%s %s" % (s, size_name[i])
 
-def convert_time(secs):
-    minutes, seconds = divmod(int(secs / 1000), 60)
+def convert_time(seconds):
+    minutes, seconds = divmod(int(seconds), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     weeks, days = divmod(days, 7)
@@ -73,8 +73,6 @@ def convert_time(secs):
         + ((str(minutes) + "m:") if minutes else "")
         + ((str(seconds) + "s") if seconds else "")
     )
-    if not result:
-        return "0s"
     if result.endswith(":"):
         return result[:-1]
     return result
