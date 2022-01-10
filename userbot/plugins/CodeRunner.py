@@ -6,7 +6,6 @@ async def runner(code , event):
     reply = await event.get_reply_message()
     exec((
             """
-from . import *
 async def coderunner(message , event , reply , client , p , chat): """
             + "".join(f"\n {l}" for l in code.split("\n"))
         ))
