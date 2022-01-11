@@ -2,8 +2,8 @@ from . import *
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rotate (\d*)$"))
 async def RotateVideo(event):
-    rotate = int(event.pattern_match.group(1))
     await event.edit("`• Please Wait ...`")
+    rotate = int(event.pattern_match.group(1))
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
