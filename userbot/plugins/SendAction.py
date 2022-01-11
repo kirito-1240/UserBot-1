@@ -13,9 +13,9 @@ async def SendAction(event):
         time = 30
     try:
         async with app.action(event.chat_id , action):
-            await edit.edit(f"`• Sending {action} Action For {time}s On This Chat ...`")
+            await edit.edit(f"""`• Sending {action.title()} Action For {time}s On This Chat ...`""")
             await sleep(time)
             await edit.delete()
-            await app.send_message(event.chat_id , f"**• Send {action} Action Completed!**")
+            await app.send_message(event.chat_id , f"""**• Send {action.title()} Action Completed!**""")
     except ValueError:
         await edit.edit("**• Your Action Not Found!**")
