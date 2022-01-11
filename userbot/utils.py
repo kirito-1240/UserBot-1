@@ -8,9 +8,9 @@ from telethon.tl import functions, types
 
 async def get_chat_info(chat):
     if isinstance(chat, types.Channel):
-        chat_info = await app(functions.channels.Getchat_infoChannelRequest(chat))
+        chat_info = await app(functions.channels.GetFullChannelRequest(chat))
     elif isinstance(chat, types.Chat):
-        chat_info = await app(functions.messages.Getchat_infoChatRequest(chat))
+        chat_info = await app(functions.messages.GetFullChatRequest(chat))
     else:
         return "**• Please Input Or Send On Group/Channel!**"
     chat_info = chat_info.full_chat
