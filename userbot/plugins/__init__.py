@@ -7,6 +7,7 @@ from datetime import datetime
 from PIL import Image
 from pathlib import Path
 from asyncio import sleep
+from selenium import webdriver
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import NotValidLength , LanguageNotSupportedException
 import heroku3 , logging , math , importlib , glob , shlex , functools , random , requests , os , asyncio , io , sys , traceback , time , ffmpeg , io , shutil
