@@ -4,10 +4,10 @@ from . import *
 async def TakeScreenShot(event):
     site = str(event.text[4:])
     await event.edit("`• Please Wait ...`")
-    response = requests.get("https://render-tron.appspot.com/screenshot/" + site, stream=True)
-    with open("scr.png" , 'wb') as file:
-        for chunk in response:
-            file.write(chunk)
+    driver = webdriver.Chrome("chromedriver")
+    driver.get(site)
+    screenshot = driver.save_screenshot("site.png")
+    driver.quit()
     await event.delete()
-    await app.send_file(event.chat_id , "scr.png")
-    os.remove("scr.png")
+    await app.send_file(event.chat_id , "site.png")
+    os.remove("site.png")
