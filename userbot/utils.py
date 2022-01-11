@@ -38,7 +38,7 @@ async def get_chat_info(chat):
         admins = participants_admins.count if participants_admins else None
     result = "ℹ️ **CHAT INFO:**\n\n"
     result += f"🆔 **ID:** ( `{chat.id}` )\n"
-    if chat_title is not None:
+    if chat.title is not None:
         result += f"💡 **{chat_type} Name:** ( `{chat.title}` )\n"
     result += f"🦸‍♂ **Supergroup:** ( `{supergroup}` )\n"
     if chat.username:
