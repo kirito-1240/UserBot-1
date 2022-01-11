@@ -119,12 +119,12 @@ async def get_chat_info(chat , event):
     if banned_users:
         result += f"📨 **Banned Users:** ( `{banned_users}` )\n"
     if group_stickers:
-        result += f'📹 **{chat_type} Stickers:** <a href="t.me/addstickers/{full.stickerset.short_name}">{group_stickers}</a>\n'
+        result += f'📹 **{chat_type} Stickers:** [{group_stickers}](t.me/addstickers/{full.stickerset.short_name})\n'
     if not broadcast:
         if getattr(chat, "slowmode_enabled", None):
             result += f"👉 **Slow Mode:** ( `{full.slowmode_seconds}s`\n"
     if full.about:
-        result += f"🗒 **Description:** \n( `{full.about}` )\n"
+        result += f"🗒 **Description:** ( `{full.about}` )\n"
     return result
 
 def ytvideo_info(query , limit):
