@@ -2,7 +2,7 @@ from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.saction ?(\S*)? ?(\d*)?$"))
 async def SendAction(event):
-    edit = await event.edit("• Please Wait ...")
+    edit = await event.edit("`• Please Wait ...`")
     if event.pattern_match.group(1):
         action = event.pattern_match.group(1)
     else:
@@ -13,9 +13,9 @@ async def SendAction(event):
         time = 30
     try:
         async with app.action(event.chat_id , action):
-            await edit.edit(f"• Sending {action} Action For {time}s On This Chat ...")
+            await edit.edit(f"`• Sending {action} Action For {time}s On This Chat ...`")
             await sleep(time)
             await edit.delete()
-            await app.send_message(event.chat_id , "• Send Action Completed!")
+            await app.send_message(event.chat_id , "**• Send Action Completed!**")
     except ValueError:
-        await edit.edit("• Your Action Not Found!")
+        await edit.edit("**• Your Action Not Found!**")
