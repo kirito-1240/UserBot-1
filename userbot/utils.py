@@ -25,7 +25,7 @@ async def get_chat_info(chat):
     restricted_users = getattr(chat_info, "banned_count", None)
     members = getattr(chat_info, "participants_count", chat.participants_count)
     admins = getattr(chat_info, "admins_count", None)
-    kicked_users = getattr(chat_info, "kicked_count", None)
+    banned_users = getattr(chat_info, "kicked_count", None)
     members_online = getattr(chat_info, "online_count", 0)
     group_stickers = (chat_info.stickerset.title if getattr(chat_info, "stickerset", None) else None)
     messages_viewable = msg_info.count if msg_info else None
@@ -71,7 +71,7 @@ async def get_chat_info(chat):
     if restricted_users is not None:
         result += f"🔕 **Restricted Users:** ( `{restricted_users}` )\n"
     if banned_users:
-        result += f"⛔️ **Banned Users:** ( `{kicked_users}` )\n"
+        result += f"⛔️ **Banned Users:** ( `{banned_users}` )\n"
     if group_stickers:
         result += f'📹 **{chat_type} Stickers:** [{group_stickers}](t.me/addstickers/{chat_info.stickerset.short_name})\n'
     if not broadcast:
@@ -79,11 +79,6 @@ async def get_chat_info(chat):
             result += f"👉 **Slow Mode:** ( `{chat_info.slowmode_seconds}s`\n"
     if chat_info.about:
         result += f"🗒 **Description:** ( `{chat_info.about}` )\n"
-    return result
-
-def ytvideo_info(query , limit):
-    output = VideosSearch(query.lower() , limit=int(limit))
-    result =  output.result()
     return result
 
 def take_screen_shot(video_file , duration , thumb_image_path):
