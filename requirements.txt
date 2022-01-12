@@ -62,3 +62,4 @@ wand
 wget
 git+https://github.com/goldsmith/Wikipedia
 pytgcalls==3.0.0.dev21
+emoji
