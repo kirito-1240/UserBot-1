@@ -4,7 +4,7 @@ from . import *
 async def TagAdmins(event):
     st = await event.edit("`• Starting Tag Admins ...`")
     list = []
-    async for user in app.iter_participants(chat_id , filter=ChannelParticipantsAdmins):
+    async for user in app.iter_participants(event.chat_id , filter=ChannelParticipantsAdmins):
         if not user.bot and not user.deleted:
             if user.username:
                 list.append("@" + user.username)
