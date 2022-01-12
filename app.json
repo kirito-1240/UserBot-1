@@ -32,7 +32,7 @@
       "description": "Your HEROKU_APP_NAME!",
       "value": "",
       "required": false
-    }
+    },
     "RMBG_API_KEY": {
       "description": "Your RMBG_API_KEY!",
       "value": "xz1Qc2AXxtMtnMjyAnUtCvGg",
