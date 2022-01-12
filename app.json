@@ -1,15 +1,14 @@
 {
   "name": "UserBot",
-  "description": "Telegram userbot based on Telethon",
-  "logo": "https://avatars.githubusercontent.com/u/29301449?s=280&v=4",
+  "description": "Telegram userbot based on Telethon!",
   "keywords": [
     "plugin",
     "bot",
     "telegram"
   ],
   "repository": "https://github.com/MrAbolii/UserBot/",
-  "website": "#MrAboli",
-  "success_url": "#MrAboli",
+  "website": "#Aboli",
+  "success_url": "#Aboli",
   "env": {
     "API_ID": {
       "description": "Your API_ID!",
