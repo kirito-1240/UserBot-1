@@ -11,8 +11,11 @@ async def TagMembers(event):
             chat_id = event.chat_id
         list = []
         async for user in app.iter_participants(chat_id):
-            if user.username:
-                list.append("@" + user.username)
+            if not user.bot and not user.deleted:
+                if user.username:
+                    list.append("@" + user.username)
+                else:
+                    list.append(f"[user.first_name](tg://user?id={user.id})")
         for user in chunks(list , 5):
             edit = await app.send_message(event.chat_id , "\n".join(user))
             await edit.edit("****__• Tag Members!**__**")
