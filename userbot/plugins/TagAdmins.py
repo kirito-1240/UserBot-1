@@ -11,6 +11,5 @@ async def TagAdmins(event):
             else:
                 list.append(f"[user.first_name](tg://user?id={user.id})")
     for user in chunks(list , 5):
-        edit = await app.send_message(event.chat_id , "\n".join(user))
-        await edit.edit("****__• Tag Admins!**__**")
+        edit = await app.send_message(event.chat_id , "\n•".join(user))
     await st.edit("**• Tag Admins Completed!**")
