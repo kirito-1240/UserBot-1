@@ -110,6 +110,10 @@ async def bash(cmd):
     out = stdout.decode().strip()
     return out, err
 
+def chunks(elements, size):
+    n = max(1, size)
+    return (elements[i:i + n] for i in range(0, len(elements), n))
+
 def restart_app():
     Heroku = heroku3.from_key(Config.HEROKU_API)
     app = Heroku.apps()[Config.HEROKU_APP_NAME]
