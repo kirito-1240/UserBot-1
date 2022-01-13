@@ -2,6 +2,7 @@ from userbot import app , START_TIME
 from Config import Config
 from userbot.utils import chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from pyrogram import filters
+from pyrogram.types import InputMediaPhoto
 from moviepy.editor import VideoFileClip , AudioFileClip
 from datetime import datetime
 from PIL import Image
