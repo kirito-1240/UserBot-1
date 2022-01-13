@@ -21,5 +21,4 @@ for name in files:
 print("• Setup Plugins Completed!")
 print("• UserBot Has Been Start Now!")
 
-app.start()
-app.run_until_disconnected()
+app.run()
