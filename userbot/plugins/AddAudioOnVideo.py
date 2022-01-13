@@ -1,7 +1,7 @@
 from . import *
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.setaudio$"))
-async def SetAudioForVideo(event):
+@app.on_message(filters.me & filters.regex("(?i)^\.setaudio$"))
+async def SetAudioForVideo(client , event):
     await event.edit("`• Please Wait ...`")
     reply = await event.get_reply_message()
     if (reply and reply.media.document.mime_type == "audio/mpeg") or (reply and reply.media.document.mime_type == "audio/ogg"):
