@@ -1,7 +1,7 @@
 from . import *
 
 @app.on_message(filters.me & filters.regex("(?i)^\.spornv (.*)$"))
-async def SearchPornVideo(event):
+async def SearchPornVideo(client , event):
     await event.edit_text("`• Please Wait . . .`")
     keyword = str(event.text[8:])
     client = pornhub.PornHub(keyword)
