@@ -1,5 +1,6 @@
 from userbot import app , START_TIME
 from Config import Config
+DATA = open("data.json" , "w").read()
 from userbot.utils import chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from pyrogram import filters
 from moviepy.editor import VideoFileClip , AudioFileClip
