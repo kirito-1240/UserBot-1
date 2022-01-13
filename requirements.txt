@@ -1,4 +1,4 @@
-telethon
+pyrogram
 tgcrypto
 moviepy
 ffmpeg
