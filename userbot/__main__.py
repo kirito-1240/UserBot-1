@@ -26,4 +26,6 @@ if not os.path.exists("data.json"):
         file.write(str('{"WelcomeChats" : []}'))
         file.close()
 
+DATA = open("data.json" , "r").read()
+
 app.run()
