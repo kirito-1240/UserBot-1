@@ -44,13 +44,13 @@ def restart_app():
     app.restart()
 
 def load_plugins(plugin_name):
-    path = Path(f"userbot/plugins/{plugin_name}.py")
-    name = "userbot.plugins.{}".format(plugin_name)
+    path = Path(f"userbot/plugin/{plugin_name}.py")
+    name = "userbot.plugin.{}".format(plugin_name)
     spec = importlib.util.spec_from_file_location(name, path)
     load = importlib.util.module_from_spec(spec)
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
-    sys.modules["userbot.plugins." + plugin_name] = load
+    sys.modules["userbot.plugin." + plugin_name] = load
 
 def convert_bytes(size_bytes):
    if size_bytes == 0:
