@@ -2,14 +2,22 @@ from . import *
 
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
-    exec("async def coderunner(event , local , chat_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["coderunner"](event , local , event.chat.id)
+    exec("async def coderunner(event , local , chat_id , msg_id , from_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["coderunner"](event , local , event.chat.id , event.message_id , event.from_user.id)
 
 @app.on_message(filters.me & filters.regex("(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(client , event):
     await event.edit_text("`• Running . . .`")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
+    elif event.reply_to_message:
+        if event.reply_to_message.document and event.reply_to_message.document.mime_type == "text/plain":
+            media = event.reply_to_message.document
+            await app.download_media(media , "input.txt")
+            file = open("input.txt")
+            cmd = file.read()
+        else:
+            cmd = event.reply_to_message.text
     else:
         return await event.edit_text("`• What Should I Run ?`")
     old_stderr = sys.stderr
