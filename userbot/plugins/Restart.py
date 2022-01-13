@@ -1,6 +1,6 @@
 from . import *
 
-@app.on_message(filters.me , filters.regex("(?i)^\.restart$"))
+@app.on_message(filters.me & filters.regex("(?i)^\.restart$"))
 async def Restart(client , event):
     one = "█"
     two = "░"
