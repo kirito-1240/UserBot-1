@@ -13,8 +13,8 @@ async def CodeRunner(client , event):
     elif event.reply_to_message:
         if event.reply_to_message.document and event.reply_to_message.document.mime_type == "text/plain":
             media = event.reply_to_message.document
-            await app.download_media(media , "input.txt")
-            file = open("input.txt")
+            media = await app.download_media(media)
+            file = open(media , "r")
             cmd = file.read()
         else:
             cmd = event.reply_to_message.text
