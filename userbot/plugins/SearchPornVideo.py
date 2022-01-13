@@ -1,4 +1,6 @@
 from . import *
+os.system("pip install pornhubapi")
+import pornhub
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.spornv (.*)$"))
 async def SearchPornVideo(event):
