@@ -13,7 +13,7 @@ async def RemoveBG(client , event):
         img.save("outrem.webp", "webp")
         img.seek(0)
         await event.delete()
-        await app.send_photo(event.chat.id , "outrem.png" , reply_to_message_id=event.reply_to_message.message_id , caption="**• Removed Background From Your Photo!**")
+        await app.send_document(event.chat.id , "outrem.png" , reply_to_message_id=event.reply_to_message.message_id , file_name="Remove.png" , caption="**• Removed Background From Your Photo!**")
         await app.send_sticker(event.chat.id , open("outrem.webp", "rb") , reply_to_message_id=event.reply_to_message.message_id)
         os.remove("outrem.png")
         os.remove(media)
