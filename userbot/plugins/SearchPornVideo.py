@@ -4,7 +4,7 @@ import pornhub
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.spornv (.*)$"))
 async def SearchPornVideo(event):
-    await event.edit("`• Starting Tag Admins ...`")
+    await event.edit("`• Please Wait . . .`")
     keyword = str(event.pattern_match.group(1))
     client = pornhub.PornHub(keyword)
     await event.delete()
