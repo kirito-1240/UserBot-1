@@ -1,8 +1,8 @@
 from . import *
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
-async def start(event):
-    await event.edit("`• Please Wait ...`")
+@app.on_message(filters.me & filters.regex("(?i)^\.ls(?:\s|$)([\s\S]*)$"))
+async def SeeFiles(client , event):
+    await event.edit_text("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
@@ -63,4 +63,4 @@ async def start(event):
         output += f"**• Size :** `{convert_bytes(size)}`\n"
         output += f"**• Last Modified Time :** `{time2}`\n"
         output += f"**• Last Accessed Time :** `{time3}`"
-    await event.edit(output)
+    await event.edit_text(output)
