@@ -1,5 +1,4 @@
-from telethon import TelegramClient
-from telethon.sessions import StringSession
+from pyrogram import Client
 from Config import Config
 import sys , time
 
@@ -9,8 +8,8 @@ STRING_SESSION = Config.STRING_SESSION
 VERSION = "1.0.6"
 
 try:
-    app = TelegramClient(
-        session = StringSession(str(STRING_SESSION)),
+    app = Client(
+        session = STRING_SESSION,
         api_id = API_ID,
         api_hash = API_HASH,
         app_version = VERSION
