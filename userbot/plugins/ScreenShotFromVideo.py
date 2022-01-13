@@ -27,7 +27,7 @@ async def ScreenShotFromVideo(client , event):
             list2 = []
             for name in list:
                 list2.append(InputMediaPhoto(name))
-            await app.send_media_group(event.chat.id , list2 , reply_to_message_id=event.reply_to_message.message_id  , caption="**• This Photos Was Taken From This Video!**")
+            await app.send_media_group(event.chat.id , list2 , reply_to_message_id=event.reply_to_message.message_id)
             for name in list:
                 os.remove(name)
             os.remove(media)            
