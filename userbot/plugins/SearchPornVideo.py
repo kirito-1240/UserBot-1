@@ -1,11 +1,9 @@
 from . import *
-os.system("pip install pornhubapi")
-import pornhub
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.spornv (.*)$"))
+@app.on_message(filters.me & filters.regex("(?i)^\.spornv (.*)$"))
 async def SearchPornVideo(event):
-    await event.edit("`• Please Wait . . .`")
-    keyword = str(event.pattern_match.group(1))
+    await event.edit_text("`• Please Wait . . .`")
+    keyword = str(event.text[8:])
     client = pornhub.PornHub(keyword)
     await event.delete()
     for video in client.getVideos(5):
@@ -15,4 +13,4 @@ async def SearchPornVideo(event):
 **• Duration:** ( `{video['duration']}` )
 **• Rating:** ( `{video['rating']}` )
 """
-        await app.send_file(event.chat_id , video["background"] , caption=caption)
+        await app.send_photo(event.chat.id , video["background"] , caption=caption)
