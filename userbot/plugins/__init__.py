@@ -11,6 +11,22 @@ from asyncio import sleep
 from selenium import webdriver
 from deep_translator import GoogleTranslator
 from deep_translator.exceptions import NotValidLength , LanguageNotSupportedException
-os.system("pip install pornhubapi")
 import pornhub
-import heroku3 , logging , math , importlib , glob , shlex , functools , random , requests , os , asyncio , io , sys , traceback , time , ffmpeg , io , shutil
+import heroku3
+import logging
+import math
+import importlib
+import glob
+import shlex
+import functools
+import random
+import requests
+import os
+import asyncio
+import io
+import sys
+import traceback
+import time
+import ffmpeg
+import io
+import shutil
