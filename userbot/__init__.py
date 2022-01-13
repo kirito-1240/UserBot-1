@@ -5,14 +5,13 @@ import sys , time
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 STRING_SESSION = Config.STRING_SESSION
-VERSION = "1.0.6"
+VERSION = "1.6.3"
 
 try:
     app = Client(
-        session = STRING_SESSION,
-        api_id = API_ID,
-        api_hash = API_HASH,
-        app_version = VERSION
+        STRING_SESSION,
+        API_ID,
+        API_HASH,
     )
 except Exception as e:
     print(f"• Error On Create App : {e}")
