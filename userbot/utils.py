@@ -5,9 +5,9 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
-def take_screen_shot(video_file , duration , thumb_image_path):
-    command = f"ffmpeg -ss {duration} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
-    run = runcmd(command)
+async def take_screen_shot(video , duration , image):
+    command = f"ffmpeg -ss {duration} -i '{video}' -vframes 1 '{image}'"
+    run = await runcmd(command)
     return run
 
 async def runcmd(cmd):
