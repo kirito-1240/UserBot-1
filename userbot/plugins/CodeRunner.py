@@ -36,6 +36,7 @@ async def CodeRunner(event):
     sys.stdout = old_stdout
     sys.stderr = old_stderr
     evaluation = None
+    tr = "Results"
     if exc:
         evaluation = exc
         tr = "Errors"
@@ -47,6 +48,7 @@ async def CodeRunner(event):
         tr = "Results"
     else:
         evaluation = "Success!"
+        tr = "Results"
     output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  {tr} : ** \n `{evaluation}`"""
     await event.delete()
     if len(str(output)) < 4000:
