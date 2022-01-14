@@ -8,9 +8,9 @@ async def runner(code , event):
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(event):
     await event.edit("`• Running . . .`")
+    reply = await event.get_reply_message()
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
-    reply = await event.get_reply_message()
     elif not event.reply_to == None:
         if event.reply_to_message.document and event.reply_to_message.document.mime_type == "text/plain":
             media = event.reply_to_message.document
