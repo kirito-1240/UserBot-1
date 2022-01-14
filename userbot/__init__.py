@@ -1,8 +1,5 @@
-import os
-try:
-    from telethon import TelegramClient
-except ModuleNotFoundError:
-    os.system("pip install telethon")
+from telethon import TelegramClient
+from telethon.sessions import StringSession
 from Config import Config
 import sys , time
 
@@ -13,7 +10,7 @@ VERSION = "1.6.3"
 
 try:
     app = TelegramClient(
-        STRING_SESSION,
+        StringSession(str(STRING_SESSION)),
         API_ID,
         API_HASH,
     )
