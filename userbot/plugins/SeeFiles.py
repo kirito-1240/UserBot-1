@@ -1,8 +1,8 @@
 from . import *
 
-@app.on_message(filters.me & filters.regex("(?i)^\.ls(?:\s|$)([\s\S]*)$"))
-async def SeeFiles(client , event):
-    await event.edit_text("`• Please Wait ...`")
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
+async def SeeFiles(event):
+    await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
@@ -39,7 +39,7 @@ async def SeeFiles(client , event):
                     files += "📄" + f"`{contents}`\n"
             else:
                 folders += f"📁`{contents}`\n"
-        output = output + folders + files if files or folders else output + "__empty path__"
+        output = output + folders + files if files or folders else output + "__Empty Path__"
     else:
         size = os.stat(path).st_size
         output = "**• The Details Of Given File :**\n\n"
@@ -63,4 +63,4 @@ async def SeeFiles(client , event):
         output += f"**• Size :** `{convert_bytes(size)}`\n"
         output += f"**• Last Modified Time :** `{time2}`\n"
         output += f"**• Last Accessed Time :** `{time3}`"
-    await event.edit_text(output)
+    await event.edit(output)
