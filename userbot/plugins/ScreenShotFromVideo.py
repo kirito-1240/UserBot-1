@@ -1,8 +1,8 @@
 from . import *
 
-@app.on_message(filters.me & filters.regex("(?i)^\.scrv ?(\d*)?$"))
-async def ScreenShotFromVideo(client , event):
-    await event.edit_text("`• Please Wait ...`")
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scrv ?(\d*)?$"))
+async def ScreenShotFromVideo(event):
+    await event.edit("`• Please Wait ...`")
     if event.reply_to_message and event.reply_to_message.video:
         media = event.reply_to_message.video
         await app.download_media(media , "./inputscr.mp4")
