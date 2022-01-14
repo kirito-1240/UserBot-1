@@ -3,7 +3,7 @@ from . import *
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
     exec("async def coderunner(event , local , chat_id , msg_id , from_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["coderunner"](event , local , event.chat.id , event.message_id , event.from_user.id)
+    return await locals()["coderunner"](event , local , event.chat.id , event.message.id , event.sender_id)
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(event):
