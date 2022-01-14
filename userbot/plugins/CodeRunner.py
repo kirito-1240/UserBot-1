@@ -5,19 +5,20 @@ async def runner(code , event):
     exec("async def coderunner(event , local , chat_id , msg_id , from_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local , event.chat.id , event.message_id , event.from_user.id)
 
-@app.on_message(filters.me & filters.regex("(?i)^/run(?:\s|$)([\s\S]*)$"))
-async def CodeRunner(client , event):
-    await event.edit_text("`• Running . . .`")
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
+async def CodeRunner(event):
+    await event.edit("`• Running . . .`")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
-    elif event.reply_to_message:
+    reply = await event.get_reply_message()
+    elif not event.reply_to == None:
         if event.reply_to_message.document and event.reply_to_message.document.mime_type == "text/plain":
             media = event.reply_to_message.document
             media = await app.download_media(media)
             file = open(media , "r")
             cmd = file.read()
         else:
-            cmd = event.reply_to_message.text
+            cmd = reply.text
     else:
         return await event.edit_text("`• What Should I Run ?`")
     old_stderr = sys.stderr
@@ -45,11 +46,11 @@ async def CodeRunner(client , event):
     output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  Result : ** \n `{evaluation}`"""
     await event.delete()
     if len(str(output)) < 4000:
-        await app.send_message(event.chat.id , output)
+        await app.send_message(event.chat_id , output)
     else:
         output = f"""✮  Your Code : \n /run\n\n{cmd}\n\n✮  Result : \n {evaluation}"""
         with open('Result.txt', 'w') as f:
             f.write(str(output))
             f.close()
-        await app.send_document(event.chat.id, "Result.txt" , caption="**• Your Code Reply Exceeded One Message! \n • See The Answer In The File!**")
+        await app.send_file(event.chat_id, "Result.txt" , caption="**• Your Code Reply Exceeded One Message! \n • See The Answer In The File!**")
         os.remove("./Result.txt")
