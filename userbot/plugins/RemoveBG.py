@@ -1,9 +1,9 @@
 from . import *
 
-@app.on_message(filters.me & filters.regex("(?i)^\.rmbg$"))
-async def RemoveBG(client , event):
-    await event.edit_text("`• Please Wait ...`")
-    if event.reply_to_message and event.reply_to_message.photo:
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rmbg$"))
+async def RemoveBG(event):
+    await event.edit("`• Please Wait ...`")
+    if not event.reply_to == None and event.reply_to_message.photo:
         media = event.reply_to_message.photo
         media = await app.download_media(media)
         response = requests.post("https://api.remove.bg/v1.0/removebg" , files={'image_file': open(media , "rb")} , data={'size': 'auto'} , headers={'X-Api-Key': Config.RMBG_API_KEY})
