@@ -1,4 +1,8 @@
-from telethon import TelegramClient
+import os
+try:
+    from telethon import TelegramClient
+except ModuleNotFoundError:
+    os.system("pip install telethon")
 from Config import Config
 import sys , time
 
