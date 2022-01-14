@@ -6,7 +6,7 @@ async def ScreenShotFromVideo(client , event):
     if event.reply_to_message and event.reply_to_message.video:
         media = event.reply_to_message.video
         await app.download_media(media , "./inputscr.mp4")
-        await event.edit_text("**• Download Completed!**\n`Please Wait For Taking ...`")
+        await event.edit_text("**• Download Completed!**\n`Please Wait For Taking Shots ...`")
         if event.text[5:]:
             time = int(event.text[5:])
             await take_screen_shot("inputscr.mp4" , time , "screenshot.jpg")
