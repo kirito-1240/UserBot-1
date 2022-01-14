@@ -27,4 +27,4 @@ if not os.path.exists("data.json"):
         file.close()
 
 app.start()
-app.run_until_disconected()
+app.run_until_disconnected()
