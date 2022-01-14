@@ -2,8 +2,9 @@ from . import *
 
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
-    exec("async def coderunner(event , local , chat_id , msg_id , from_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["coderunner"](event , local , event.chat.id , event.message.id , event.sender_id)
+    reply = await event.get_reply_message()
+    exec("async def coderunner(event , local , chat_id , msg_id , from_id , reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["coderunner"](event , local , event.chat.id , event.message.id , event.sender_id , reply)
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
 async def CodeRunner(event):
@@ -28,27 +29,30 @@ async def CodeRunner(event):
     stdout, stderr, exc = None, None, None
     try:
         await runner(cmd , event)
-    except Exception:
-        exc = traceback.format_exc()
+    except Exception as e:
+        exc = e
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-    evaluation = ""
+    evaluation = None
     if exc:
         evaluation = exc
+        tr = "Errors"
     elif stderr:
         evaluation = stderr
+        tr = "Errors"
     elif stdout:
         evaluation = stdout
+        tr = "Results"
     else:
         evaluation = "Success!"
-    output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  Result : ** \n `{evaluation}`"""
+    output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  {tr} : ** \n `{evaluation}`"""
     await event.delete()
     if len(str(output)) < 4000:
         await app.send_message(event.chat_id , output)
     else:
-        output = f"""✮  Your Code : \n /run\n\n{cmd}\n\n✮  Result : \n {evaluation}"""
+        output = f"""✮  Your Code : \n /run\n\n{cmd}\n\n✮  {tr} : \n {evaluation}"""
         with open('Result.txt', 'w') as f:
             f.write(str(output))
             f.close()
