@@ -7,3 +7,4 @@ class Config(object):
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     HEROKU_API = os.environ.get("HEROKU_API")
     RMBG_API_KEY = os.environ.get("RMBG_API_KEY")
+    OCR_API_KEY = os.environ.get("OCR_API_KEY")
