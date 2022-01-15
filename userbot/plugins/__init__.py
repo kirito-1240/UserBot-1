@@ -29,6 +29,7 @@ import io
 import shutil
 import pornhub
 import requests
+import cv2
 if os.path.exists("data.json"):
     DATA = open("data.json" , "r").read()
 else:
