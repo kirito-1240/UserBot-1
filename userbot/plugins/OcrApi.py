@@ -21,8 +21,8 @@ async def OcrApi(event):
         try:
             text = result["ParsedResults"][0]["ParsedText"]
             await event.edit(f'''**• Result :** \n `{text}` \n\n 🧾**From OcrApi!**''')
-        except Exception as e:
-            await event.edit(f'''**• Error :** `{e}`''')
+        except Exception:
+            await event.edit("**• An Error Has Occurred!**")
         os.remove("ocrinput.jpg")
     else:
         await event.edit("**• Please Reply To Photo!**")
