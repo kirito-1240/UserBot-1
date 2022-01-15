@@ -1,7 +1,8 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
-import sys , time
+import sys
+import time
 
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
