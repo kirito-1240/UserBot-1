@@ -21,4 +21,4 @@ async def OcrApi(event):
         elif result["IsErroredOnProcessing"]:
             await event.edit(f'''**• Error :** `{result["ErrorMessage"]}`''')
     else:
-        await event.edit("**• Please Reply To Photo!**)
+        await event.edit("**• Please Reply To Photo!**")
