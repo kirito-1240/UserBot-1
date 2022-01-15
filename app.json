@@ -36,6 +36,11 @@
       "description": "Your RMBG_API_KEY!",
       "value": "xz1Qc2AXxtMtnMjyAnUtCvGg",
       "required": false
+    },
+    "OCR_API_KEY": {
+      "description": "Your OCR_API_KEY!",
+      "value": "2ecf0dd48b88957",
+      "required": false
     }
   },
   "addons": [{
