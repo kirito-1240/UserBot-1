@@ -1,4 +1,10 @@
 from . import *
+
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ocrlangs$"))
+async def OcrApiLangs(event):
+    await event.edit("`• Please Wait ...`")
+    await app.send_file(event.chat_id , "userbot/other/ocrlangs.jpg" , caption="**• OcrApi Available Languages!**")
+    await event.delete()
         
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ocr ?(\S*)?$"))
 async def OcrApi(event):
