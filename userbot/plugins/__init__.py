@@ -1,12 +1,5 @@
 from userbot import app , START_TIME , DATABASE_ITEMS
 from Config import Config
-import os
-if os.path.exists("data.json"):
-    DATA = open("data.json" , "r").read()
-else:
-    with open("data.json" , "w") as file:
-    file.write(DATABASE_ITEMS)
-    DATA = open("data.json" , "r").read()
 from userbot.utils import ocr_space_file , chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from telethon import events
 from moviepy.editor import VideoFileClip , AudioFileClip
@@ -36,3 +29,9 @@ import io
 import shutil
 import pornhub
 import requests
+if os.path.exists("data.json"):
+    DATA = open("data.json" , "r").read()
+else:
+    with open("data.json" , "w") as file:
+    file.write(DATABASE_ITEMS)
+    DATA = open("data.json" , "r").read()
