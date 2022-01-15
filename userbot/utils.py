@@ -72,8 +72,10 @@ def convert_time(seconds):
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     weeks, days = divmod(days, 7)
+    months, days = divmod(days, 30)
     result = (
-        ((str(weeks) + "w:") if weeks else "")
+        ((str(months) + "m:") if months else "")
+        + ((str(weeks) + "w:") if weeks else "")
         + ((str(days) + "d:") if days else "")
         + ((str(hours) + "h:") if hours else "")
         + ((str(minutes) + "m:") if minutes else "")
