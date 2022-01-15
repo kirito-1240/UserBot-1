@@ -24,7 +24,7 @@ async def ScreenShotFromVideo(event):
                 await take_screen_shot("inputscr.mp4" , time , f"screenshot{i}.jpg")
                 list.append(f"screenshot{i}.jpg")
             await event.delete()
-            await app.send_file(event.chat_id , list , reply_to=reply.id , caption"**• This ScreenShots Takes From This Video!**")
+            await app.send_file(event.chat_id , list , reply_to=reply.id , caption="**• This ScreenShots Takes From This Video!**")
             for name in list:
                 os.remove(name)
             os.remove("inputscr.mp4")            
