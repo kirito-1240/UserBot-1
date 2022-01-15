@@ -15,9 +15,9 @@ for name in files:
         plugin_name = patt.stem
         try:
             load_plugins(plugin_name.replace(".py", ""))
-            print(f"""• UserBot Has Imported {plugin_name.replace(".py", "")} Plugin""")
+            print(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
-            print(f"""• UserBot Can't Import {plugin_name.replace(".py", "")} Plugin - Becuse Of Error {e}""")
+            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
 print("• Setup Plugins Completed!")
 print("• UserBot Has Been Start Now!")
 
