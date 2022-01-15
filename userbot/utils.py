@@ -1,6 +1,6 @@
 from . import app
 from pathlib import Path
-import ffmpeg , sys , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools
+import requests , ffmpeg , sys , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools
 from Config import Config  
 from time import sleep
 from youtubesearchpython import VideosSearch
