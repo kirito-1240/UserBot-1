@@ -6,7 +6,6 @@ import sys , time
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 STRING_SESSION = Config.STRING_SESSION
-VERSION = "1.6.3"
 
 try:
     app = TelegramClient(
