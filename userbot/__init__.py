@@ -20,9 +20,9 @@ except Exception as e:
 
 
 START_TIME = time.time()
-DATABASE_ITEMS = '''
+DATABASE_ITEMS = """
     {
        "WelcomeChats" : [],
        "GoodByChats" : [],
     }
-'''
+"""
