@@ -21,10 +21,6 @@ for name in files:
 print("• Setup Plugins Completed!")
 print("• UserBot Has Been Start Now!")
 
-if not os.path.exists("data.json"):
-    with open("data.json" , "w") as file:
-        file.write(str('{"WelcomeChats" : []}'))
-        file.close()
 
 app.start()
 app.run_until_disconnected()
