@@ -13,6 +13,6 @@ async def ImageToBinary(event):
         cv2.imwrite("outbin.jpg" , image)
         await app.send_file(event.chat_id , "outbin.jpg" , reply_to=reply.id , caption="**• This Photo Converted To Binary Photo!**")
         await event.delete()
-        os.system("outbin.jpg")
+        os.remove("outbin.jpg")
     else:
         await event.edit("**• Please Reply To Photo!**")
