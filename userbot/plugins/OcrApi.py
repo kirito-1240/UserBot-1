@@ -9,10 +9,10 @@ async def OcrApi(event):
         lang = "eng"
     reply = await event.get_reply_message()
     if not event.reply_to == None and reply.media.photo:
-        media = reply.media.photo
+        media = reply.media
         await app.download_media(media , "ocrinput.jpg")
-        result = ocr_space_file("ocrinput.jpg" , "eng")
-        if result["IsErroredOnProcessing"] and "language" in result["ErrorMessage"][0]:
+        result = ocr_space_file("ocrinput.jpg" , lang)
+        if result["ErrorMessage"] and "language" in result["ErrorMessage"][0]:
             await event.edit("**• Language Not Found!**")
         elif result["ParsedResults"][0]["ParsedText"]:
             await event.edit(f'''**• Result :** \n `{result["ParsedResults"][0]["ParsedText"]}` \n\n __🧾 From OcrApi!__''')
