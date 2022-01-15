@@ -33,5 +33,5 @@ if os.path.exists("data.json"):
     DATA = open("data.json" , "r").read()
 else:
     with open("data.json" , "w") as file:
-    file.write(DATABASE_ITEMS)
-    DATA = open("data.json" , "r").read()
+        file.write(DATABASE_ITEMS)
+        DATA = open("data.json" , "r").read()
