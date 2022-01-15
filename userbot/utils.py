@@ -5,6 +5,12 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
+def ocr_space_file(filename , language="eng"):
+    payload = {'isOverlayRequired': False,'apikey': Config.OCR_API_KEY,'language': language,}
+    with open(filename , 'rb') as file:
+        req = requests.post('https://api.ocr.space/parse/image',files={filename: file},data=payload)
+    return req.json()
+
 async def take_screen_shot(video , duration , image):
     command = f"ffmpeg -ss {duration} -i '{video}' -vframes 1 '{image}'"
     run = await runcmd(command)
