@@ -1,6 +1,6 @@
 from . import app
 from pathlib import Path
-import requests , ffmpeg , sys , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools
+import requests , ffmpeg , sys , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re
 from Config import Config  
 from time import sleep
 from youtubesearchpython import VideosSearch
@@ -17,8 +17,6 @@ def get_alla_video(link , format="480"):
     elif format == "720":
         result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(HD_720p/)(.*)\.mp4(.*)720p"', get)
         url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
-    else:
-        return "**• Your Format Not Found!**"
         
     thumb = re.search('thumbnailUrl" : "(https://nodes.alaatv.com/media/thumbnails/)(\d*/)(.*)\.jpg", "description"', get)
     thumb = thumb[1] + thumb[2] + thumb[3] +  ".jpg"
