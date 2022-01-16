@@ -3,11 +3,11 @@ from . import *
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.alla ?(240|480|720)? (.*)$"))
 async def AllaDownloader(event):
     await event.edit("`• Please Wait . . .`")
-    if event.pattern_match.group(1):
-        format = str(event.pattern_match.group(1))
+    if event.pattern_match[1]:
+        format = str(event.pattern_match[1])
     else:
         format = "480"
-    link = str(event.pattern_match.group(2))
+    link = str(event.pattern_match[2])
     if not re.search("(?i)^https://alaatv.com/c/(\d*)$" , link):
         await event.edit("**• Your Link Is Invalid!**")
         return
