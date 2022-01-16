@@ -5,6 +5,34 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
+def get_alla_video(link , format="480"):
+    get = str(requests.get(link).content)
+    
+    if format == "240":
+        result = re.search('(?i)(https://nodes.alaatv.com/media/)(\d*/)(240p/)(.*)\.mp4"' , get)
+        url = result[1] + result[2] + result[3] + result[4] + ".mp4"
+    elif format == "480":
+        result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(hq/)(.*)\.mp4(.*)480p"', get)
+        url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
+    elif format == "720":
+        result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(HD_720p/)(.*)\.mp4(.*)720p"', get)
+        url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
+    else:
+        return "**• Your Format Not Found!**"
+        
+    thumb = re.search('thumbnailUrl" : "(https://nodes.alaatv.com/media/thumbnails/)(\d*/)(.*)\.jpg", "description"', get)
+    thumb = thumb[1] + thumb[2] + thumb[3] +  ".jpg"
+    
+    serch = re.search('(?i)meta property="og:title" content="(.*)" /><meta property="og:description"', get)
+    string = bytes(serch[1] , 'utf-8')
+    title = string.decode('unicode-escape').encode('latin1').decode('utf-8')
+    
+    serch = re.search('(?i)meta property="og:description" content="(.*)" /><meta property="og:type"', get)
+    string = bytes(serch[1] , 'utf-8')
+    desc = string.decode('unicode-escape').encode('latin1').decode('utf-8')
+    
+    return url , title , thumb , desc
+
 def ocr_space_file(filename , language):
     payload = {'apikey': Config.OCR_API_KEY,'language': language}
     with open(filename , 'rb') as file:
