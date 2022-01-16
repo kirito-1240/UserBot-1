@@ -1,6 +1,6 @@
 from userbot import app , START_TIME
 from Config import Config
-from userbot.utils import ocr_space_file , chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
+from userbot.utils import get_alla_video , ocr_space_file , chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from telethon import events
 from telethon.tl.types import ChannelParticipantsRecent , ChannelParticipantsAdmins
 from moviepy.editor import VideoFileClip , AudioFileClip
