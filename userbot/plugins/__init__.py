@@ -1,4 +1,4 @@
-from userbot import app , START_TIME , DB
+from userbot import app , START_TIME
 from Config import Config
 from userbot.utils import ocr_space_file , chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from telethon import events
