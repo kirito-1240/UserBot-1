@@ -1,7 +1,7 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
-from userbot.startup.database import UserBotDB
+from userbot.database import UserBotDB
 import sys
 import time
 
