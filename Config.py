@@ -8,3 +8,5 @@ class Config(object):
     HEROKU_API = os.environ.get("HEROKU_API")
     RMBG_API_KEY = os.environ.get("RMBG_API_KEY")
     OCR_API_KEY = os.environ.get("OCR_API_KEY")
+    REDIS_URI = os.environ.get("REDIS_URI")
+    REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
