@@ -1,6 +1,7 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
+from userbot.startup.database import UserBotDB
 import sys
 import time
 
@@ -20,4 +21,4 @@ except Exception as e:
 
 
 START_TIME = time.time()
-DATABASE_ITEMS = '{"WelcomeChats" : [] , "GoodByChats" : []}'
+DB = UserBotDB()
