@@ -1,4 +1,4 @@
-from userbot import app , START_TIME , DATABASE_ITEMS
+from userbot import app , START_TIME , DB
 from Config import Config
 from userbot.utils import ocr_space_file , chunks , convert_time , bash , restart_app , load_plugins , convert_bytes , take_screen_shot , runcmd
 from telethon import events
@@ -31,9 +31,3 @@ import shutil
 import pornhub
 import requests
 import cv2
-if os.path.exists("data.json"):
-    DATA = open("data.json" , "r").read()
-else:
-    with open("data.json" , "w") as file:
-        file.write(DATABASE_ITEMS)
-        DATA = open("data.json" , "r").read()
