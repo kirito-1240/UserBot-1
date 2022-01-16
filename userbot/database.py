@@ -2,6 +2,9 @@ import os
 import sys
 from redis import Redis
 from Config import Config
+from logging import getLogger
+
+LOGS = getLogger("UserBot")
 
 class RedisConnection(Redis):
     def __init__(
