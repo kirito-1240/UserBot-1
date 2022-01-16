@@ -18,6 +18,6 @@ async def AllaDownloader(event):
     open('allathumb.jpg', 'wb').write(r.content)
     video = VideoFileClip("inputscr.mp4")
     dur = convert_time(video.duration)
-    await app.send_file(chat_id , "allavideo.mp4" , thumb="allathumb.jpg" , caption=f"**• Title:** ( `{title}` )\n**• Description:** ( `{desc}` )\n**• Quality:** ( `{format}p` )\n**• Duration:** ( `{dur}` )")
+    await app.send_file(event.chat_id , "allavideo.mp4" , thumb="allathumb.jpg" , caption=f"**• Title:** ( `{title}` )\n**• Description:** ( `{desc}` )\n**• Quality:** ( `{format}p` )\n**• Duration:** ( `{dur}` )")
     os.remove("allavideo.mp4")
     os.remove("allathumb.jpg")
