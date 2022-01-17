@@ -1,7 +1,7 @@
 from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.xnxx ?(240|480|720)? (.*)$"))
-async def AllaDownloader(event):
+async def XnxxDownloader(event):
     await event.edit("`• Please Wait . . .`")
     if event.pattern_match[1]:
         quality = str(event.pattern_match[1])
@@ -18,7 +18,10 @@ async def AllaDownloader(event):
     open('xnxxthumb.jpg', 'wb').write(r.content)
     video = VideoFileClip("xnxxvideo.mp4")
     dur = convert_time(video.duration)
+    timer = time.time()
+    async def callback(current, total):
+        await get_progress(current , total , event , timer , "u")
+    await app.send_file(event.chat_id , "xnxxvideo.mp4" , thumb="xnxxthumb.jpg" , progress_callback=callback , caption=f"**• Title:** ( `{title}` )\n**• Description:** ( `{desc}` )\n**• Quality:** ( `{quality}p` )\n**• Duration:** ( `{dur}` )")
     await event.delete()
-    await app.send_file(event.chat_id , "xnxxvideo.mp4" , thumb="xnxxthumb.jpg" , caption=f"**• Title:** ( `{title}` )\n**• Description:** ( `{desc}` )\n**• Quality:** ( `{quality}p` )\n**• Duration:** ( `{dur}` )")
     os.remove("xnxxvideo.mp4")
     os.remove("xnxxthumb.jpg")
