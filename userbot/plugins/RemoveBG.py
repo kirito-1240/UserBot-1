@@ -3,6 +3,7 @@ from . import *
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.rmbg$"))
 async def RemoveBG(event):
     await event.edit("`• Please Wait ...`")
+    reply = await event.get_reply_message()
     if not event.reply_to == None and reply.media.photo:
         media = reply.media.photo
         media = await app.download_media(media)
