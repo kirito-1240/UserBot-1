@@ -15,7 +15,7 @@ def get_xnxx_video(link , quality="480"):
         url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
     title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
     thumb = re.search("html5player\.setThumbUrl\('(.*)'\);" , get)[1]
-    desc = re.search('<meta property="description" content="(.*)" />' , get)[1]
+    desc = re.search('<meta name="description" content="(.*)" />' , get)[1]
     return url , title , thumb , desc
 
 def get_alla_video(link , quality="480"):
