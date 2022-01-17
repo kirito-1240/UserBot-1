@@ -8,11 +8,11 @@ from youtubesearchpython import VideosSearch
 def get_xnxx_video(link , quality="480"):
     get = str(requests.get(link).text)
     if quality == "240":
-        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
+        url = re.search("html5player\.setVideoUrlLow\('(.*)'\);" , get)[1]
     elif quality == "480":
         url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
     elif quality == "720":
-        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
+        url = re.search("html5player\.setVideoHLS\('(.*)'\);" , get)[1]
     title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
     thumb = re.search("html5player\.setThumbUrl\('(.*)'\);" , get)[1]
     desc = re.search('<meta name="description" content="(.*)" />' , get)[1]
