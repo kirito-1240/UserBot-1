@@ -3,6 +3,7 @@ from . import *
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.scrv ?(\d*)?$"))
 async def ScreenShotFromVideo(event):
     await event.edit("`• Please Wait ...`")
+    reply = await event.get_reply_message()
     if not event.reply_to == None and reply.document.mime_type == "video/mp4":
         media = reply.media
         await app.download_media(media , "inputscr.mp4")
