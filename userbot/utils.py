@@ -5,6 +5,19 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
+def get_xnxx_video(link , quality="480"):
+    get = str(requests.get(link).text)
+    if quality == "240":
+        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
+    elif quality == "480":
+        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
+    elif quality == "720":
+        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
+    title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
+    thumb = re.search("html5player\.setThumbUrl\('(.*)'\);" , get)[1]
+    desc = re.search('<meta property="description" content="(.*)" />' , get)[1]
+    return url , title , thumb , desc
+
 def get_alla_video(link , quality="480"):
     get = str(requests.get(link).content)   
     if quality == "240":
