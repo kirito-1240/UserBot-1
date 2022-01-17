@@ -11,11 +11,10 @@ async def XVideosDownloader(event):
     if not re.search("(?i)^https://www.xvideos.com/video(.*)$" , link):
         await event.edit("**• Your Link Is Invalid!**")
         return
-    url , title , thumb , desc = get_xvideos_video(link , quality)
+    url , title , thumb , desc , dur = get_xvideos_video(link , quality)
     r = requests.get(thumb , allow_redirects=True)
     open('xvideosthumb.jpg', 'wb').write(r.content)
-    video = VideoFileClip("xnxxvideo.mp4")
-    dur = convert_time(video.duration)
+    dur = convert_time(dur)
     timer = time.time()
     async def callback(current, total):
         await get_progress(current , total , event , timer , "u")
