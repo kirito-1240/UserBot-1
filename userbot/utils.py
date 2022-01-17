@@ -95,7 +95,7 @@ def load_plugins(plugin_name):
     spec.loader.exec_module(load)
     sys.modules["userbot.plugins." + plugin_name] = load
 
-async def progress(current , total, event, start, type):
+async def get_progress(current , total, event, start, type):
     diff = time.time() - start
     if round(diff % 10.00) == 0 or current == total:
         percentage = current * 100 / total
