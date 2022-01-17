@@ -1,7 +1,7 @@
 from userbot import app , START_TIME
 from Config import Config
 from userbot.utils import (
-    progress,
+    get_progress,
     get_xnxx_video,
     get_alla_video,
     ocr_space_file,
