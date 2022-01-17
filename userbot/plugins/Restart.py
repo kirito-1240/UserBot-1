@@ -6,7 +6,7 @@ async def Restart(event):
     two = "░"
     for i in range(0 , 10):
         c = 9 - int(i)
-        await event.edit(f"""`• Restarting - [ {one*i}{two*c} ]`""")      
+        await event.edit(f"""`• Restarting - {one*i}{two*c}`""")      
     await event.edit("**• Bot Restarted!**")
     await bash("rm -rf /app")
     restart_app()
