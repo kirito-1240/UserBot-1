@@ -8,7 +8,6 @@ async def Restart(event):
         c = 9 - int(i)
         await event.edit(f"""`• Restarting - {one*i}{two*c}`""")      
     await event.edit("**• Bot Restarted!**")
-    await bash("rm -rf /app")
     restart_app()
     await bash("git pull && pip3 install -r requirements.txt")
     await bash("git push -u heroku master")
