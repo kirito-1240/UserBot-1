@@ -6,7 +6,7 @@ async def XnxxDownloader(event):
     if event.pattern_match[1]:
         quality = str(event.pattern_match[1])
     else:
-        quality = "480"
+        quality = "240"
     link = str(event.pattern_match[2])
     if not re.search("(?i)^https://www.xnxx.com/video-(.*)$" , link):
         await event.edit("**• Your Link Is Invalid!**")
