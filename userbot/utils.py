@@ -5,16 +5,16 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
-def get_alla_video(link , format="480"):
+def get_alla_video(link , quality="480"):
     get = str(requests.get(link).content)
     
-    if format == "240":
+    if quality == "240":
         result = re.search('(?i)(https://nodes.alaatv.com/media/)(\d*/)(240p/)(.*)\.mp4"' , get)
         url = result[1] + result[2] + result[3] + result[4] + ".mp4"
-    elif format == "480":
+    elif quality == "480":
         result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(hq/)(.*)\.mp4(.*)480p"', get)
         url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
-    elif format == "720":
+    elif quality == "720":
         result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(HD_720p/)(.*)\.mp4(.*)720p"', get)
         url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
         
