@@ -97,14 +97,21 @@ def load_plugins(plugin_name):
 
 async def get_progress(current , total, event, start, type):
     diff = time.time() - start
+    if type == "d":
+        type = "Downloading . . ."
+    elif type == "u":
+        type = "Uploading . . ."
     if round(diff % 10.00) == 0 or current == total:
         percentage = current * 100 / total
         speed = current / diff
         ttcom = round((total - current) / speed) * 1000
-        progress_str = "`[{0}{1}] {2}%`\n\n".format("".join("●" for i in range(math.floor(percentage / 5))) , "".join("" for i in range(20 - math.floor(percentage / 5))) , round(percentage, 2))
-        tmp = (progress_str + "`{0} of {1}`\n\n`✦ Speed: {2}/s`\n\n`✦ ETA: {3}`\n\n".format(
-                convert_bytes(current) , convert_bytes(total) , convert_bytes(speed) , convert_time(ttcom)))
-        await event.edit("`✦ {}`\n\n{}".format(type, tmp))
+        progress = f"""
+`🌐 {type}`\n
+`[{"".join("●" for i in range(math.floor(percentage / 5)))}]{round(percentage, 2)}%`\n
+**✦ Size: **( `{convert_bytes(current)}` ) **Of** ( `{convert_bytes(total)}` )\n
+**✦ Speed: **( `{convert_bytes(speed)}/s` )\n
+**✦ ETA: **( `{convert_time(ttcom)}` )"""
+        await event.edit(progress)
 
 def convert_bytes(size_bytes):
    if size_bytes == 0:
