@@ -125,22 +125,21 @@ def load_plugins(plugin_name):
     sys.modules["userbot.plugins." + plugin_name] = load
 
 async def get_progress(current , total, event, start, type):
-    diff = time.time() - start
-    if type == "d":
+        if type == "d":
         type = "Downloading . . ."
     elif type == "u":
         type = "Uploading . . ."
-    if round(diff % 10.00) == 0 or current == total:
+    diff = time.time() - start
+    if round(diff % 2.00) == 0 or current == total:
         percentage = current * 100 / total
         speed = current / diff
         ttcom = round((total - current) / speed) * 1000
-        progress = f"""
+        await event.edit(f"""
 `🌐 {type}`\n
 `[{"".join("●" for i in range(math.floor(percentage / 5)))}]{round(percentage, 2)}%`\n
 **✦ Size: **( `{convert_bytes(current)}` ) **Of** ( `{convert_bytes(total)}` )\n
 **✦ Speed: **( `{convert_bytes(speed)}/s` )\n
-**✦ ETA: **( `{convert_time(ttcom)}` )"""
-        await event.edit(progress)
+**✦ ETA: **( `{convert_time(ttcom)}` )""")
 
 def convert_bytes(size_bytes):
    if size_bytes == 0:
