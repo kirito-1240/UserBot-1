@@ -5,6 +5,21 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
+def get_nex1music(link , quality="128"):
+    get = str(requests.get(link).text)
+    result = re.search('<a href="(.*)"><i></i>(.*)</a><a href="(.*)"><i></i>(.*)</a><a href="(.*)"><i></i>(.*)</a></div>' , get)    
+    if quality == "64":
+        url = result[1].replace(" " , "%20")
+    elif quality == "128":
+        url = result[3].replace(" " , "%20")
+    elif quality == "320":
+        url = result[5].replace(" " , "%20")
+    title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
+    thumb = re.search('<meta itemprop="thumbnailUrl" content="(.*)" />' , get)[1]
+    desc = re.search('<meta property="og:description" content="(.*)" />' , get)[1]
+    uploadDate = re.search('<meta itemprop="uploadDate" content="(.*)" />' , get)[1]
+    return url , title , thumb , desc , uploadDate
+
 def get_xvideos_video(link , quality="480"):
     get = str(requests.get(link).text)
     if quality == "240":
