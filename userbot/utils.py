@@ -125,7 +125,7 @@ def load_plugins(plugin_name):
     sys.modules["userbot.plugins." + plugin_name] = load
 
 async def get_progress(current , total, event, start, type):
-        if type == "d":
+    if type == "d":
         type = "Downloading . . ."
     elif type == "u":
         type = "Uploading . . ."
