@@ -21,7 +21,7 @@ async def CodeRunner(event):
         else:
             cmd = reply.text
     else:
-        return await event.edit_text("`• What Should I Run ?`")
+        return await event.edit("`• What Should I Run ?`")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
