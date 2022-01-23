@@ -22,8 +22,10 @@ print("• Setup Plugins Completed!")
 print("• UserBot Has Been Start Now!")
 
 
+async def setup_bot():
+    await app.send_message('me' , 'hi')
 
-app.send_message("me","••••••••••••••••••••")
+setup_bot()
 
 app.start()
 app.run_until_disconnected()
