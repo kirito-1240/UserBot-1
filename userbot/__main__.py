@@ -23,6 +23,7 @@ print("• UserBot Has Been Start Now!")
 
 
 
-app.loop.run_until_complete(app.send_message("me","••••••••••••••••••••"))  
+app.send_message("me","••••••••••••••••••••")
+
 app.start()
 app.run_until_disconnected()
