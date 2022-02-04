@@ -41,16 +41,6 @@
       "description": "Your OCR_API_KEY!",
       "value": "2ecf0dd48b88957",
       "required": false
-    },
-    "REDIS_URI": {
-      "description": "Your REDIS_URI!",
-      "value": "",
-      "required": false
-    },
-    "REDIS_PASSWORD": {
-      "description": "Your REDIS_PASSWORD!",
-      "value": "",
-      "required": false
     }
   },
   "addons": [{
