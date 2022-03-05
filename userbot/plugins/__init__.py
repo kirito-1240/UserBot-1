@@ -47,3 +47,7 @@ import pornhub
 import requests
 import cv2
 import re
+import psutil
+import platform
+import socket
+import uuid
