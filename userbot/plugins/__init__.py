@@ -17,9 +17,6 @@ from datetime import datetime
 from PIL import Image
 from pathlib import Path
 from asyncio import sleep
-from selenium import webdriver
-from deep_translator import GoogleTranslator
-from deep_translator.exceptions import NotValidLength , LanguageNotSupportedException
 import heroku3
 import logging
 import math
@@ -32,12 +29,10 @@ import requests
 import os
 import asyncio
 import sys
-import ffmpeg
 import traceback
 import time
 import io
 import shutil
-import pornhub
 import requests
 import cv2
 import re
