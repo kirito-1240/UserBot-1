@@ -1,6 +1,3 @@
-import os , sys
-from Config import Config
-os.system("pip install redis")
 from redis import Redis
 
 DB = Redis(
