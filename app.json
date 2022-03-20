@@ -52,9 +52,9 @@
       "value": "BotTest_Gp",
       "required": false
     },
-    "DATABASE_URL": {
-      "description": "Your DATABASE_URL!",
-      "value": "postgres://izwqynse:nlt8nDcZtzJ200Afv03dUrs_4p5c29tc@kandula.db.elephantsql.com/izwqynse",
+    "MongoDB_URL": {
+      "description": "Your MongoDB_URL!",
+      "value": "mongodb+srv://userbot:abol83@userbot.smv0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
       "required": false
     }
   }
