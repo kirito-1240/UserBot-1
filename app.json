@@ -52,10 +52,5 @@
       "value": "BotTest_Gp",
       "required": false
     },
-    "MongoDB_URL": {
-      "description": "Your MongoDB_URL!",
-      "value": "mongodb+srv://userbot:abol83@userbot.smv0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-      "required": false
-    }
   }
 }
