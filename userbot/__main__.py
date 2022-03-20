@@ -19,9 +19,9 @@ for name in files:
         except Exception as e:
             print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
 print("• Starting Setup Assistant Plugins ...")
-path = "userbot/plugins/assistant/*.py"
+path = "userbot/assistant/*.py"
 files = glob.glob(path)
-files.remove("userbot/plugins/assistant/__init__.py")
+files.remove("userbot/assistant/__init__.py")
 for name in files:
     with open(name) as a:
         patt = Path(a.name)
