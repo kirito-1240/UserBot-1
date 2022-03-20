@@ -31,3 +31,4 @@ except Exception as e:
     sys.exit()
 
 START_TIME = time.time()
+LOG = Config.LOG_GROUP
