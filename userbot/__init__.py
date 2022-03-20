@@ -33,4 +33,4 @@ except Exception as e:
 
 START_TIME = time.time()
 LOG = Config.LOG_GROUP
-DB = SqlDB(Config.DATATBASE_URL)
+DB = SqlDB(Config.DATABASE_URL)
