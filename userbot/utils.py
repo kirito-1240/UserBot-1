@@ -53,7 +53,7 @@ def restart_app():
 def load_plugins(folder):
     print("• Starting Setup Plugins . . .")
     files = glob.glob(f"userbot/{folder}/*.py")
-    files.remove("userbot/{folder}/__init__.py")
+    files.remove(f"userbot/{folder}/__init__.py")
     for name in files:
         plugin_name = os.path.basename(name)
         try:
@@ -64,9 +64,9 @@ def load_plugins(folder):
             load.logger = logging.getLogger(plugin_name)
             spec.loader.exec_module(load)
             sys.modules[name] = load
-            print(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
+            print(f"• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin")
         except Exception as e:
-            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
+            print(f"• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >")
     print("• Setup Plugins Completed!")
     
 async def AddBot():
