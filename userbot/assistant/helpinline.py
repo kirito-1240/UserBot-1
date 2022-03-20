@@ -6,6 +6,6 @@ async def inline_handler(event):
     results = builder.article(
         title="Hello!",
         text=f"Click Below To Know More!",
-        buttons=Button.inline("Explore", data="explore"),
+        buttons=[[Button.inline("Explore", data="explore")]],
     )
-        await event.answer([results])
+    await event.answer([results])
