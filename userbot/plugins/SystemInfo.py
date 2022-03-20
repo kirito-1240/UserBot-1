@@ -15,7 +15,7 @@ async def CodeRunner(event):
     text += f"**• Mac-Address:** ( `{':'.join(re.findall('..', '%012x' % uuid.getnode()))}` )\n\n"
     boot_time_timestamp = psutil.boot_time()
     bt = datetime.fromtimestamp(boot_time_timestamp)
-    text = "**• 📀 Cpu Information:**\n"
+    text += "**• 📀 Cpu Information:**\n"
     text += f"**• Boot Time:** ( `{bt.year}/{bt.month}/{bt.day}` - `{bt.hour}:{bt.minute}:{bt.second}` )\n"
     text += f"**• Physical Cores:** ( `{psutil.cpu_count(logical=False)}` )\n"
     text += f"**• Total Cores:** ( `{psutil.cpu_count(logical=True)}` )\n"
