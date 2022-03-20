@@ -40,7 +40,6 @@ def restart_app():
     app.restart()
 
 def load_plugins(folder):
-    print("• Starting Setup Plugins . . .")
     files = glob.glob(f"userbot/{folder}/*.py")
     files.remove(f"userbot/{folder}/__init__.py")
     for name in files:
@@ -56,7 +55,6 @@ def load_plugins(folder):
             print(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
             print(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
-    print("• Setup Plugins Completed!")
     
 async def AddBot():
     info = await bot.get_me()
