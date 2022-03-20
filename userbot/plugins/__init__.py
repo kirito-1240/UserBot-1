@@ -5,7 +5,6 @@ from userbot.utils import (
     ocr_space_file,
     chunks,
     convert_time,
-    bash,
     restart_app,
     convert_bytes,
     take_screen_shot,
