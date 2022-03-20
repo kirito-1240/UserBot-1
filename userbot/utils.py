@@ -116,24 +116,25 @@ def restart_app():
     app = Heroku.apps()[Config.HEROKU_APP_NAME]
     app.restart()
 
-def load_plugins(plugin_name):
-    path = Path(f"userbot/plugins/{plugin_name}.py")
-    name = "userbot.plugins.{}".format(plugin_name)
-    spec = importlib.util.spec_from_file_location(name, path)
-    load = importlib.util.module_from_spec(spec)
-    load.logger = logging.getLogger(plugin_name)
-    spec.loader.exec_module(load)
-    sys.modules["userbot.plugins." + plugin_name] = load
-
-def load_pluginss(plugin_name):
-    path = Path(f"userbot/assistant/{plugin_name}.py")
-    name = "userbot.assistant.{}".format(plugin_name)
-    spec = importlib.util.spec_from_file_location(name, path)
-    load = importlib.util.module_from_spec(spec)
-    load.logger = logging.getLogger(plugin_name)
-    spec.loader.exec_module(load)
-    sys.modules["userbot.assistant." + plugin_name] = load
-
+def load_plugins(folder):
+    print("• Starting Setup Plugins . . .")
+    files = glob.glob(f"userbot/{folder}/*.py")
+    files.remove("userbot/{folder}/__init__.py")
+    for name in files:
+        plugin_name = os.path.basename(name)
+        try:
+            path = Path(f"userbot/{folder}/{plugin_name}")
+            name = "userbot.{}.{}".format(folder , plugin_name.replace(".py" , ""))
+            spec = importlib.util.spec_from_file_location(name, path)
+            load = importlib.util.module_from_spec(spec)
+            load.logger = logging.getLogger(plugin_name)
+            spec.loader.exec_module(load)
+            sys.modules[name] = load
+            print(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
+        except Exception as e:
+            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")- Error : < {e} >""")
+    print("• Setup Plugins Completed!")
+    
 async def AddBot():
     info = await bot.get_me()
     try:
