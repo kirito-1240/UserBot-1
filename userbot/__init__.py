@@ -18,5 +18,15 @@ except Exception as e:
     print(f"• Error On Create App : {e}")
     sys.exit()
 
+try:
+    app.tgbot = bot = TelegramClient(
+        "UserBotAssistant",
+        API_ID,
+        API_HASH,
+    ).start(bot_token=BOT_TOKEN)
+
+except Exception as e:
+    print(f"• Error On Create App Assistant: {e}")
+    sys.exit()
 
 START_TIME = time.time()
