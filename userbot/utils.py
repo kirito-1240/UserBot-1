@@ -8,8 +8,7 @@ from youtubesearchpython import VideosSearch
 
 def create_buttons(items):
     buttons = []
-    list1 = []
-    list2 = []
+    list = []
     for item in items:
         name = os.path.basename(item).replace(".py" , "")
         list.append([[Button.inline(f"• {name.title()} •",data=f"help_{name}")]])
