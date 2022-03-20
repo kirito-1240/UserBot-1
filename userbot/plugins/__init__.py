@@ -2,16 +2,11 @@ from userbot import app , bot , START_TIME , LOG
 from Config import Config
 from userbot.utils import (
     get_progress,
-    get_xnxx_video,
-    get_xvideos_video,
-    get_nex1music,
-    get_alla_video,
     ocr_space_file,
     chunks,
     convert_time,
     bash,
     restart_app,
-    load_plugins,
     convert_bytes,
     take_screen_shot,
     runcmd,
