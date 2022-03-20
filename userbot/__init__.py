@@ -14,7 +14,7 @@ try:
         StringSession(str(STRING_SESSION)),
         API_ID,
         API_HASH,
-    )
+    ).start()
 except Exception as e:
     print(f"• Error On Create App : {e}")
     sys.exit()
