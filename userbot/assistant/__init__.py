@@ -12,8 +12,8 @@ try:
         "UserBotAssistant",
         API_ID,
         API_HASH,
-        bot_token=BOT_TOKEN,
-    )
+    ).start(bot_token=BOT_TOKEN)
+
 except Exception as e:
     print(f"• Error On Create App Assistant: {e}")
     sys.exit()
