@@ -30,17 +30,6 @@ async def runcmd(cmd):
         process.pid,
     )
 
-async def bash(cmd):
-    process = await asyncio.create_subprocess_shell(
-        cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await process.communicate()
-    err = stderr.decode().strip()
-    out = stdout.decode().strip()
-    return out, err
-
 def chunks(elements, size):
     n = max(1, size)
     return (elements[i:i + n] for i in range(0, len(elements), n))
@@ -64,9 +53,9 @@ def load_plugins(folder):
             load.logger = logging.getLogger(plugin_name)
             spec.loader.exec_module(load)
             sys.modules[name] = load
-            print(f"• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin")
+            print(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
-            print(f"• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >")
+            print(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
     print("• Setup Plugins Completed!")
     
 async def AddBot():
