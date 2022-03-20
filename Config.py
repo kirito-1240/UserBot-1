@@ -9,3 +9,4 @@ class Config(object):
     HEROKU_API = os.environ.get("HEROKU_API")
     RMBG_API_KEY = os.environ.get("RMBG_API_KEY")
     OCR_API_KEY = os.environ.get("OCR_API_KEY")
+    LOG_GROUP = os.environ.get("LOG_GROUP")
