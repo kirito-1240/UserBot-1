@@ -8,8 +8,10 @@ import glob
 
 async def setup():
     me = await app.get_me()
+    print("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
+    print("• Setup Plugins Completed!")
     await AddBot()
     if me.username:
         username = "@" + me.username
