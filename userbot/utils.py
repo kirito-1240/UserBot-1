@@ -125,13 +125,13 @@ def load_plugins(plugin_name):
     sys.modules["userbot.plugins." + plugin_name] = load
 
 def load_pluginss(plugin_name):
-    path = Path(f"userbot/plugins/assistant/{plugin_name}.py")
-    name = "userbot.plugins.assistant.{}".format(plugin_name)
+    path = Path(f"userbot/assistant/{plugin_name}.py")
+    name = "userbot.assistant.{}".format(plugin_name)
     spec = importlib.util.spec_from_file_location(name, path)
     load = importlib.util.module_from_spec(spec)
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
-    sys.modules["userbot.plugins.assistant." + plugin_name] = load
+    sys.modules["userbot.assistant." + plugin_name] = load
 
 async def get_progress(current , total, event, start, type):
     if type == "d":
