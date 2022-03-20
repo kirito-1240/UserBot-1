@@ -1,4 +1,5 @@
-from . import app
+from . import app , bot
+from telethon import functions
 from pathlib import Path
 import ffmpeg , sys , time , requests , os , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re
 from Config import Config  
@@ -132,6 +133,27 @@ def load_pluginss(plugin_name):
     load.logger = logging.getLogger(plugin_name)
     spec.loader.exec_module(load)
     sys.modules["userbot.assistant." + plugin_name] = load
+
+async def AddBot():
+    info = await bot.get_me()
+    try:
+        await app(
+            functions.messages.AddChatUserRequest(
+                Config.LOG_GROUP,
+                user_id=info.username,
+                fwd_limit=1000000,
+            )
+        )
+    except BaseException:
+        try:
+            await app(
+                functions.channels.InviteToChannelRequest(
+                    channel=Config.LOG_GROUP,
+                    users=[info.username],
+                )
+            )
+        except Exception as e:
+            pass
 
 async def get_progress(current , total, event, start, type):
     if type == "d":
