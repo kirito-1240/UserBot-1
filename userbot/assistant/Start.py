@@ -1,5 +1,4 @@
-from userbot import bot
-from telethon import events , Button
+from . import *
 
 @bot.on(events.NewMessage(pattern="(?i)^\/start$"))
 async def Start_Assistant(event):
