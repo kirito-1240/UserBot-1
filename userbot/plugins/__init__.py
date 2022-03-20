@@ -1,4 +1,4 @@
-from userbot import app , START_TIME
+from userbot import app , bot , START_TIME , LOG
 from Config import Config
 from userbot.utils import (
     get_progress,
