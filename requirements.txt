@@ -7,7 +7,6 @@ heroku3
 speedtest-cli
 youtube-search-python
 youtube_dl
-deep_translator
 requests
 psycopg2
 pytgcalls==3.0.0.dev21
