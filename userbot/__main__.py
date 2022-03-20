@@ -36,10 +36,10 @@ for name in files:
 print("• Setup All Plugins Completed!")
 print("• UserBot And AssistantBot Has Been Start Now!")
 
-async def setup(bot):
+async def setup():
     await bot.send_message("@Mrabolii" , "test")
 
-setup(bot)
+bot.loop.run_until_complete(setup())
 
 app.start()
 app.run_until_disconnected()
