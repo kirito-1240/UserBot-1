@@ -1,6 +1,7 @@
 from userbot.utils import load_plugins
 from pathlib import Path
 from . import app
+from .assistant import bot
 import logging , sys , os
 import importlib
 import glob
@@ -22,4 +23,5 @@ print("• Setup Plugins Completed!")
 print("• UserBot Has Been Start Now!")
 
 app.start()
+bot.start()
 app.run_until_disconnected()
