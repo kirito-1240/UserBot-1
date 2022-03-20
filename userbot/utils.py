@@ -6,6 +6,20 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
+def create_buttons(items):
+    buttons = []
+    list1 = []
+    list2 = []
+    for item in items:
+        name = os.path.basename(item).replace(".py" , "")
+        list.append([[Button.inline(f"• {name.title()} •",data=f"help_{name}")]])
+        if len(list) == 2:
+            buttons.append([list[0] , list[1]])
+            list = []
+    if len(list) > 0:
+        buttons.append([list[0]])          
+    return buttons
+
 def ocr_space_file(filename , language):
     payload = {'apikey': Config.OCR_API_KEY,'language': language}
     with open(filename , 'rb') as file:
