@@ -1,4 +1,4 @@
-from userbot.database import set_key , get_key , del_key , keys
+from userbot.db import set_key , get_key , del_key , keys
 
 def add_user(id):
     users = get_key("BOT_USERS")
