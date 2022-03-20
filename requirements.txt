@@ -1,16 +1,13 @@
 telethon
 tgcrypto
 moviepy
-ffmpeg
-ffmpeg-python
 Pillow
 psutil
-selenium
 heroku3
 speedtest-cli
 youtube-search-python
 youtube_dl
 deep_translator
 requests
-pornhubapi
+psycopg2
 pytgcalls==3.0.0.dev21
