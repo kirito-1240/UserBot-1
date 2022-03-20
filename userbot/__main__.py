@@ -1,7 +1,6 @@
 from userbot.utils import load_plugins , load_pluginss
 from pathlib import Path
-from . import app
-from .assistant import bot
+from . import app , bot
 import logging , sys , os
 import importlib
 import glob
