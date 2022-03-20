@@ -1,7 +1,7 @@
 from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ping$"))
-async def Ping(event):
+async def ping(event):
     start = datetime.now()
     await event.edit("**Pong!!**")
     end = datetime.now()
