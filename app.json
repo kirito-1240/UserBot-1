@@ -41,6 +41,16 @@
       "description": "Your OCR_API_KEY!",
       "value": "2ecf0dd48b88957",
       "required": false
+    },
+    "LOG_GROUP": {
+      "description": "Your LOG_GROUP!",
+      "value": "BotTest_Gp",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "Your DATABASE_URL!",
+      "value": "",
+      "required": false
     }
   },
   "addons": [{
