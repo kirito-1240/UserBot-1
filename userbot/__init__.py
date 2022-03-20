@@ -7,6 +7,7 @@ import time
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 STRING_SESSION = Config.STRING_SESSION
+BOT_TOKEN = Config.BOT_TOKEN
 
 try:
     app = TelegramClient(
