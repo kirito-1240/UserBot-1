@@ -66,7 +66,7 @@ def load_plugins(folder):
             sys.modules[name] = load
             print(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
-            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")- Error : < {e} >""")
+            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
     print("• Setup Plugins Completed!")
     
 async def AddBot():
