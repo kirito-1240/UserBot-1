@@ -9,7 +9,7 @@ DB = Redis(
             retry_on_timeout=True,
         )
         
-def keys:
+def keys():
     return DB.keys
 
 def set_key(key, value):
