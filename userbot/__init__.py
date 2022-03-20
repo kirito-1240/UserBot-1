@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from userbot.utils import SqlDB
+from userbot.database import SqlDB
 from telethon.sessions import StringSession
 from Config import Config
 import sys
@@ -33,4 +33,3 @@ except Exception as e:
 
 START_TIME = time.time()
 LOG = Config.LOG_GROUP
-DB = SqlDB(Config.DATABASE_URL)
