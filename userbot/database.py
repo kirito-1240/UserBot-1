@@ -28,10 +28,6 @@ class SqlDB:
         self.re_cache()
 
     @property
-    def name(self):
-        return "SQL"
-
-    @property
     def usage(self):
         self._cursor.execute(
             "SELECT pg_size_pretty(pg_relation_size('UserBot')) AS size"
@@ -47,12 +43,9 @@ class SqlDB:
     def keys(self):
         self._cursor.execute(
             "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = 'UserBot'"
-        )  # case sensitive
+        )
         data = self._cursor.fetchall()
         return [_[0] for _ in data]
-
-    def ping(self):
-        return True
 
     def get_key(self, variable):
         if variable in self._cache:
@@ -81,8 +74,6 @@ class SqlDB:
             )
         except (psycopg2.errors.UndefinedColumn, psycopg2.errors.SyntaxError):
             pass
-        except BaseException as er:
-            LOGS.exception(er)
         self._cache.update({key: value})
         self._cursor.execute(f"ALTER TABLE UserBot ADD (%s) TEXT", (str(key),))
         self._cursor.execute(
