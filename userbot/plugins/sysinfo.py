@@ -1,7 +1,7 @@
 from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^.sysinfo$"))
-async def CodeRunner(event):
+async def sysinfo(event):
     await event.edit("`• Please Wait . . .`")
     text = "**• 💻 System Information:**\n"
     uname = platform.uname()
