@@ -57,16 +57,5 @@
       "value": "postgres://izwqynse:nlt8nDcZtzJ200Afv03dUrs_4p5c29tc@kandula.db.elephantsql.com/izwqynse",
       "required": false
     }
-  },
-  "addons": [{
-    "plan": "heroku-postgresql",
-    "options": {
-      "version": "12"
-    }
-  }],
-  "buildpacks": [{
-    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-  },{
-    "url": "heroku/python"
-  }]
+  }
 }
