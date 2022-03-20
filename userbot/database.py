@@ -4,7 +4,7 @@ os.system("pip install redis")
 from redis import Redis
 
 DB = Redis(
-            host="redis-15411.c251.east-us-mz.azure.cloud.redislabs.com:15411",
+            host="redis-15411.c251.east-us-mz.azure.cloud.redislabs.com",
             password="wIYq4gH5lxQmGVgyk24LZiihAeMNVkVQ",
             port=15411,
             decode_responses=True,
