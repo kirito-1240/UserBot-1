@@ -8,7 +8,6 @@ import time
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 STRING_SESSION = Config.STRING_SESSION
-BOT_TOKEN = Config.BOT_TOKEN
 
 try:
     app = TelegramClient(
@@ -25,7 +24,7 @@ try:
         "UserBotAssistant",
         API_ID,
         API_HASH,
-    ).start(bot_token=BOT_TOKEN)
+    ).start(bot_token=Config.BOT_TOKEN)
 
 except Exception as e:
     print(f"• Error On Create App Assistant: {e}")
