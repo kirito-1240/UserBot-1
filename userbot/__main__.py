@@ -6,7 +6,6 @@ import importlib
 import glob
 
 async def setup():
-    me = await app.get_me()
     path = "userbot/plugins/*.py"
     files = glob.glob(path)
     files.remove("userbot/plugins/__init__.py")
