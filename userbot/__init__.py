@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from .utils import SqlDB
+from userbot.utils import SqlDB
 from telethon.sessions import StringSession
 from Config import Config
 import sys
