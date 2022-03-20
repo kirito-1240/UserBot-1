@@ -1,48 +1,42 @@
 from userbot.utils import load_plugins , load_pluginss
 from pathlib import Path
-from . import app , bot
+from . import app , bot , LOG
 import logging , sys , os
 import importlib
 import glob
 
-print("• Starting Setup Plugins ...")
-path = "userbot/plugins/*.py"
-files = glob.glob(path)
-files.remove("userbot/plugins/__init__.py")
-for name in files:
-    with open(name) as a:
-        patt = Path(a.name)
-        plugin_name = patt.stem
-        try:
-            load_plugins(plugin_name.replace(".py", ""))
-            print(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
-        except Exception as e:
-            print(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
-print("• Starting Setup Assistant Plugins ...")
-path = "userbot/assistant/*.py"
-files = glob.glob(path)
-files.remove("userbot/assistant/__init__.py")
-for name in files:
-    with open(name) as a:
-        patt = Path(a.name)
-        plugin_name = patt.stem
-        try:
-            load_pluginss(plugin_name.replace(".py", ""))
-            print(f"""• AssistantBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
-        except Exception as e:
-            print(f"""• AssistantBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
-
-print("• Setup All Plugins Completed!")
-print("• UserBot And AssistantBot Has Been Start Now!")
-
 async def setup():
-    await app.send_message("@Mrabolii" , "test")
+    edit = await bot.send_message(LOG , "`• Starting Setup Plugins ...`")
+    path = "userbot/plugins/*.py"
+    files = glob.glob(path)
+    files.remove("userbot/plugins/__init__.py")
+    for name in files:
+        with open(name) as a:
+            patt = Path(a.name)
+            plugin_name = patt.stem
+            try:
+                load_plugins(plugin_name.replace(".py", ""))
+                await edit.reply(f"""• UserBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
+            except Exception as e:
+                await edit.reply(f"""• UserBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
+    editt = await bot.send_message(LOG , "`• Starting Setup Assistant Plugins ...`")
+    path = "userbot/assistant/*.py"
+    files = glob.glob(path)
+    files.remove("userbot/assistant/__init__.py")
+    for name in files:
+        with open(name) as a:
+            patt = Path(a.name)
+            plugin_name = patt.stem
+            try:
+                load_pluginss(plugin_name.replace(".py", ""))
+                await editt.reply(f"""• AssistantBot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
+            except Exception as e:
+                await editt.reply(f"""• AssistantBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
 
-app.loop.run_until_complete(setup())
+    await bot.send_message(LOG , "• Setup All Plugins Completed!")
+    await bot.send_message(LOG , "• UserBot And AssistantBot Has Been Start Now!")
 
-async def setupp():
-    await bot.send_message("@Mrabolii" , "test")
 
-bot.loop.run_until_complete(setupp())
+bot.loop.run_until_complete(setup())
 
 app.run_until_disconnected()
