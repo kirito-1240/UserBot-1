@@ -20,7 +20,7 @@ except Exception as e:
     sys.exit()
 
 try:
-    app.tgbot = bot = TelegramClient(
+    bot = TelegramClient(
         "UserBotAssistant",
         API_ID,
         API_HASH,
