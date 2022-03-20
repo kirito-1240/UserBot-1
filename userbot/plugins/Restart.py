@@ -9,7 +9,6 @@ async def Restart(event):
         await event.edit(f"""`• Restarting - {one*i}{two*c}`""")      
     await event.edit("**• Bot Restarted!**")
     restart_app()
-    await bash("git pull && pip3 install -r requirements.txt")
-    await bash("git push -u heroku master")
+    await runcmd("git pull && git push -u heroku master")
     os.execl(sys.executable, sys.executable, "-m", "userbot")
 
