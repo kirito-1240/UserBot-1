@@ -1,4 +1,4 @@
-from userbot.utils import load_plugins , load_pluginss
+from userbot.utils import load_plugins , load_pluginss , AddBot
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG
@@ -33,6 +33,7 @@ async def setup():
             except Exception as e:
                 print(f"""• AssistantBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
     print("• Setup Plugins Completed!")
+    await AddBot()
     if me.username:
         username = "@" + me.username
     else:
