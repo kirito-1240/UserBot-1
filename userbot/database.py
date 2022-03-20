@@ -6,7 +6,7 @@ from pymongo import MongoClient
 DBClient = MongoClient(Config.MongoDB_URL)
 DB = DBClient["UserBot"]
     
-def get_keys(self):
+def get_keys():
     return DB.list_collection_names()
 
 def set_key(key , value):
