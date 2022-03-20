@@ -77,11 +77,11 @@ async def AddBot():
         pass
         
 
-async def get_progress(current , total, event, start, type):
+async def get_progress(event, current , total, start, type, filename):
     if type == "d":
-        type = "Downloading . . ."
+        type = f"Downloading {filename} . . ."
     elif type == "u":
-        type = "Uploading . . ."
+        type = f"Uploading {filename} . . ."
     diff = time.time() - start
     if round(diff % 2.00) == 0 or current == total:
         percentage = current * 100 / total
