@@ -1,7 +1,7 @@
 from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
-async def SeeFiles(event):
+async def ls(event):
     await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
