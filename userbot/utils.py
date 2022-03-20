@@ -1,22 +1,9 @@
 from . import app , bot
-from telethon import functions , events , Button
+from telethon import functions
 from pathlib import Path
 import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re
 from Config import Config  
 from asyncio import sleep
-
-def create_buttons(items):
-    buttons = []
-    list = []
-    for item in items:
-        name = os.path.basename(item).replace(".py" , "")
-        list.append([Button.inline(f"• {name.title()} •",data=f"help_{name}")])
-        if len(list) == 2:
-            buttons.append([list[0] , list[1]])
-            list = []
-    if len(list) > 0:
-        buttons.append([list[0]])          
-    return buttons
 
 def ocr_space_file(filename , language):
     payload = {'apikey': Config.OCR_API_KEY,'language': language}
