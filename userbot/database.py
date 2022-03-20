@@ -1,6 +1,6 @@
 import os , sys
 from Config import Config
-os.system("pip install pymongo")
+os.system("pip install pymongo[srv]")
 from pymongo import MongoClient
 
 DBClient = MongoClient(Config.MongoDB_URL)
