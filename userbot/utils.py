@@ -6,72 +6,6 @@ from Config import Config
 from time import sleep
 from youtubesearchpython import VideosSearch
 
-def get_nex1music(link , quality="128"):
-    get = str(requests.get(link).text)
-    result = re.search('<a href="(.*)"><i></i>(.*)</a><a href="(.*)"><i></i>(.*)</a><a href="(.*)"><i></i>(.*)</a></div>' , get)    
-    if quality == "64":
-        url = result[1].replace(" " , "%20")
-    elif quality == "128":
-        url = result[3].replace(" " , "%20")
-    elif quality == "320":
-        url = result[5].replace(" " , "%20")
-    title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
-    thumb = re.search('<meta itemprop="thumbnailUrl" content="(.*)" />' , get)[1]
-    desc = re.search('<meta property="og:description" content="(.*)" />' , get)[1]
-    uploadDate = re.search('<meta itemprop="uploadDate" content="(.*)" />' , get)[1]
-    return url , title , thumb , desc , uploadDate
-
-def get_xvideos_video(link , quality="480"):
-    get = str(requests.get(link).text)
-    if quality == "240":
-        url = re.search("html5player\.setVideoUrlLow\('(.*)'\);" , get)[1]
-    elif quality == "480":
-        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
-    elif quality == "720":
-        url = re.search("html5player\.setVideoHLS\('(.*)'\);" , get)[1]
-    title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
-    thumb = re.search("html5player\.setThumbUrl\('(.*)'\);" , get)[1]
-    desc = re.search('<meta name="description" content="(.*)"/>' , get)[1]  
-    dur = re.search('<meta property="og:duration" content="(\d*)" />' , get)[1]
-    return url , title , thumb , desc , dur
-
-def get_xnxx_video(link , quality="480"):
-    get = str(requests.get(link).text)
-    if quality == "240":
-        url = re.search("html5player\.setVideoUrlLow\('(.*)'\);" , get)[1]
-    elif quality == "480":
-        url = re.search("html5player\.setVideoUrlHigh\('(.*)'\);" , get)[1]
-    elif quality == "720":
-        url = re.search("html5player\.setVideoHLS\('(.*)'\);" , get)[1]
-    title = re.search('<meta property="og:title" content="(.*)" />' , get)[1]
-    thumb = re.search("html5player\.setThumbUrl\('(.*)'\);" , get)[1]
-    desc = re.search('<meta name="description" content="(.*)" />' , get)[1]
-    return url , title , thumb , desc
-
-def get_alla_video(link , quality="480"):
-    get = str(requests.get(link).content)   
-    if quality == "240":
-        result = re.search('(?i)(https://nodes.alaatv.com/media/)(\d*/)(240p/)(.*)\.mp4"' , get)
-        url = result[1] + result[2] + result[3] + result[4] + ".mp4"
-    elif quality == "480":
-        result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(hq/)(.*)\.mp4(.*)480p"', get)
-        url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
-    elif quality == "720":
-        result = re.search('(https://nodes.alaatv.com/media/)(\d*/)(HD_720p/)(.*)\.mp4(.*)720p"', get)
-        url = result[1] + result[2] + result[3] + result[4] + ".mp4"    
-        
-    thumb = re.search('thumbnailUrl" : "(https://nodes.alaatv.com/media/thumbnails/)(\d*/)(.*)\.jpg", "description"', get)
-    thumb = thumb[1] + thumb[2] + thumb[3] +  ".jpg"
-    
-    serch = re.search('(?i)meta property="og:title" content="(.*)" /><meta property="og:description"', get)
-    string = bytes(serch[1] , 'utf-8')
-    title = string.decode('unicode-escape').encode('latin1').decode('utf-8')
-    
-    serch = re.search('(?i)meta property="og:description" content="(.*)" /><meta property="og:type"', get)
-    string = bytes(serch[1] , 'utf-8')
-    desc = string.decode('unicode-escape').encode('latin1').decode('utf-8') 
-    return url , title , thumb , desc
-
 def ocr_space_file(filename , language):
     payload = {'apikey': Config.OCR_API_KEY,'language': language}
     with open(filename , 'rb') as file:
@@ -138,23 +72,10 @@ def load_plugins(folder):
 async def AddBot():
     info = await bot.get_me()
     try:
-        await app(
-            functions.messages.AddChatUserRequest(
-                Config.LOG_GROUP,
-                user_id=info.username,
-                fwd_limit=1000000,
-            )
-        )
-    except BaseException:
-        try:
-            await app(
-                functions.channels.InviteToChannelRequest(
-                    channel=Config.LOG_GROUP,
-                    users=[info.username],
-                )
-            )
-        except Exception as e:
-            pass
+        await app(functions.messages.AddChatUserRequest(Config.LOG_GROUP , user_id=info.username))
+    except:
+        pass
+        
 
 async def get_progress(current , total, event, start, type):
     if type == "d":
