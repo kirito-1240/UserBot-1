@@ -8,5 +8,5 @@ speedtest-cli
 youtube-search-python
 youtube_dl
 requests
-pymongo[srv]
+redis
 pytgcalls==3.0.0.dev21
