@@ -10,7 +10,7 @@ def create_buttons(items):
     list = []
     for item in items:
         name = os.path.basename(item).replace(".py" , "")
-        list.append([[Button.inline(f"• {name.title()} •",data=f"help_{name}")]])
+        list.append([Button.inline(f"• {name.title()} •",data=f"help_{name}")])
         if len(list) == 2:
             buttons.append([list[0] , list[1]])
             list = []
