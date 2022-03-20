@@ -1,6 +1,5 @@
 import os
 import sys
-os.system("pip install psycopg2")
 import psycopg2
 
 def get_data(self_, key):
