@@ -1,11 +1,11 @@
 from . import *
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.restart$"))
-async def Restart(event):
+async def restart(event):
     one = "█"
     two = "░"
-    for i in range(0 , 10):
-        c = 9 - int(i)
+    for i in range(0 , 8):
+        c = 7 - int(i)
         await event.edit(f"""`• Restarting - {one*i}{two*c}`""")      
     await event.edit("**• Bot Restarted!**")
     restart_app()
