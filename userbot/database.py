@@ -12,7 +12,14 @@ DB = Redis(
             retry_on_timeout=True,
         )
         
-set_key = DB.set
-get_key = DB.get
-get_keys = DB.keys
-del_key = DB.delete
+def keys(key, value):
+    return DB.keys
+
+def set_key(key, value):
+    return DB.set(str(key) , str(value))
+
+def get_key(key):
+    return DB.get(str(key))
+
+def del_key(self, key):
+    return DB.delete(str(key))
