@@ -32,7 +32,7 @@ async def setup():
             except Exception as e:
                 print(f"""• AssistantBot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
     print("• Setup Plugins Completed!")
-    await bot.send_file(LOG , "./userbot/others/setup.jpg" , caption="• UserBot And AssistantBot Has Been Start Now!"" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+    await bot.send_file(LOG , "./userbot/other/bot.jpg" , caption="• UserBot And AssistantBot Has Been Start Now!"" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
 
 bot.loop.run_until_complete(setup())
 
