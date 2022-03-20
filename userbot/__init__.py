@@ -1,6 +1,5 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from userbot.database import MongoDB
 from Config import Config
 import sys
 import time
@@ -32,4 +31,3 @@ except Exception as e:
 
 START_TIME = time.time()
 LOG = Config.LOG_GROUP
-DB = MongoDB(Config.MongoDB_URL)
