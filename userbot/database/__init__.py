@@ -1,12 +1,21 @@
 import os
-os.system("pip install pymongo[srv]")
-from pymongo import MongoClient
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import scoped_session, sessionmaker
+from Config import Config
 
-cl = MongoClient(
-             "mongodb+srv://userbot:abol83@userbot.smv0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-              username="userbot",
-              password="abol83",
-              serverSelectionTimeoutMS=5000
-         )
-
-DB = cl["UserBot"]
+def start() -> scoped_session:
+    if "postgres://" in Config.DATABASE_URL:
+        database_url = Config.DATABASE_URL.replace("postgres:", "postgresql:")      
+    else:
+        database_url = Config.DATABASE_URL
+    engine = create_engine(database_url)
+    BASE.metadata.bind = engine
+    BASE.metadata.create_all(engine)
+    return scoped_session(sessionmaker(bind=engine, autoflush=False))
+try:
+    BASE = declarative_base()
+    SESSION = start()
+except AttributeError as e:
+    print("DATABASE_URL Is Not Configured.")
+    print(str(e))
