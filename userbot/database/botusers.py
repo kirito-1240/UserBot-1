@@ -17,18 +17,10 @@ def add_user(user_id):
         SESSION.commit()
 
 def get_user(user_id):
-    try:
-        result = SESSION.query(Bot_Users).get(str(user_id))
-        if result:
-            return True
-        return False
-    finally:
-        SESSION.close()
+    result = SESSION.query(Bot_Users).get(str(user_id))
+    if result:
+        return True
+    return False
 
 def get_users():
-    try:
-        return SESSION.query(Bot_Users).all()
-    except BaseException:
-        return None
-    finally:
-        SESSION.close()
+    return SESSION.query(Bot_Users).all()
