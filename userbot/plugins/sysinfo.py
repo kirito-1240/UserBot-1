@@ -1,6 +1,7 @@
 from userbot import app
 from userbot.utils import convert_time , convert_bytes
 from telethon import events
+from datetime import datetime
 import re
 import psutil
 import platform
@@ -27,30 +28,30 @@ async def sysinfo(event):
     text += f"**• Physical Cores:** ( `{psutil.cpu_count(logical=False)}` )\n"
     text += f"**• Total Cores:** ( `{psutil.cpu_count(logical=True)}` )\n"
     cpufreq = psutil.cpu_freq()
-    text += f"**• Max Frequency:** ( `{cpufreq.max:.2f}` )Mhz\n"
-    text += f"**• Min Frequency:** ( `{cpufreq.min:.2f}` )Mhz\n"
-    text += f"**• Current Frequency:** ( `{cpufreq.current:.2f}` )Mhz\n\n"
+    text += f"**• Max Frequency:** ( `{cpufreq.max:.2f}Mhz` )\n"
+    text += f"**• Min Frequency:** ( `{cpufreq.min:.2f}Mhz` )\n"
+    text += f"**• Current Frequency:** ( `{cpufreq.current:.2f}Mhz` )\n\n"
     text += "**• CPU Usage Per Core:**\n"
     for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
-        text += f"**    Core {i}:** ( `{percentage}` )%\n"
-    text += f"**• Total CPU Usage:** ( `{psutil.cpu_percent()}` )%\n\n"
+        text += f"**    Core {i}:** ( `{percentage}%` )\n"
+    text += f"**• Total CPU Usage:** ( `{psutil.cpu_percent()}%` )\n\n"
     text += "**💾 Memory Information:**\n"
     svmem = psutil.virtual_memory()
     text += f"**• Total:** ( `{convert_bytes(svmem.total)}` )\n"
     text += f"**• Available:** ( `{convert_bytes(svmem.available)}` )\n"
     text += f"**• Used:** ( `{convert_bytes(svmem.used)}` )\n"
-    text += f"**• Percentage:** ( `{svmem.percent}` )%\n\n"
+    text += f"**• Percentage:** ( `{svmem.percent}%` )\n\n"
     text += "**📱 Swap:**\n"
     swap = psutil.swap_memory()
     text += f"**• Total:** ( `{convert_bytes(swap.total)}` )\n"
     text += f"**• Free:** ( `{convert_bytes(swap.free)}` )\n"
     text += f"**• Used:** ( `{convert_bytes(swap.used)}` )\n"
-    text += f"**• Percentage:** ( `{swap.percent}` )%\n\n"
+    text += f"**• Percentage:** ( `{swap.percent}%` )\n\n"
     text += "**💿 Disk Information:**\n"
     partition = psutil.disk_partitions()[0]
     partition_usage = psutil.disk_usage(partition.mountpoint)
     text += f"**• Total Size:** ( `{convert_bytes(partition_usage.total)}` )\n"
     text += f"**• Used:** ( `{convert_bytes(partition_usage.used)}` )\n"
     text += f"**• Free:** ( `{convert_bytes(partition_usage.free)}` )\n"
-    text += f"**• Percentage:** ( `{partition_usage.percent}` )%"
+    text += f"**• Percentage:** ( `{partition_usage.percent}%` )"
     await event.edit(text)
