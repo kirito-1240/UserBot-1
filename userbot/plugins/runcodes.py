@@ -1,6 +1,8 @@
 from userbot import app , bot
 from userbot.utils import runcmd
 from telethon import events
+import os
+import sys
 
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
