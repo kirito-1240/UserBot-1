@@ -11,4 +11,4 @@ async def check_user(user_id):
     return bool(Lol)
 
 async def get_all_users():
-    return [s async for s in db.find()]
+    return db.find()
