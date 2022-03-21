@@ -1,7 +1,7 @@
 import os
 os.system("pip install sqlalchemy-json")
 os.system("pip install sqlalchemy")
-os.system("pip install psycopg2")
+os.system("pip install psycopg2==2.9.3")
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
