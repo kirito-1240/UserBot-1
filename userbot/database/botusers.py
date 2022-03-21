@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, UnicodeText
 
 from . import BASE, SESSION
 
-
 class Bot_Starters(BASE):
     __tablename__ = "BOT_USERS"
     user_id = Column(String(14), primary_key=True)
