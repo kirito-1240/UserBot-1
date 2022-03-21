@@ -5,7 +5,7 @@ from . import BASE, SESSION
 class Bot_Users(BASE):
     __tablename__ = "BOT_USERS"
     user_id = Column(String(14), primary_key=True)
-    def __init__(self , user_id , date):
+    def __init__(self , user_id):
         self.user_id = str(user_id)
 
 Bot_Users.__table__.create(checkfirst=True)
