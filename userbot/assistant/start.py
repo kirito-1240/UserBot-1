@@ -6,7 +6,7 @@ from userbot.database.botusers import add_starter_to_db
 @bot.on(events.NewMessage(pattern="(?i)^\/start$"))
 async def Start(event):
     try:
-        info = await app.get_entity(event.peer_id.user_id)
+        info = await bot.get_entity(event.peer_id.user_id)
         if info['username']:
             username = info['username']
         else:
