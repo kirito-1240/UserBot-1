@@ -1,4 +1,8 @@
-from . import *
+from userbot import app
+from userbot.utils import restart_app , runcmd
+from telethon import events
+import os
+import sys
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.restart$"))
 async def restart(event):
