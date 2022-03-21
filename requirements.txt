@@ -9,9 +9,6 @@ youtube-search-python
 youtube_dl
 requests
 redis
-sqlalchemy-json
-sqlalchemy
-psycopg2==2.9.3
 pymongo
 dnspython
 pytz
