@@ -10,7 +10,7 @@ def add_user(id):
     users = get_all_users("BOT_USERS")
     if not is_added(id):
         users.append(id)
-        return set_key("BOT_USERS", users):
+        return set_key("BOT_USERS", users)
     
 def users_count():
     return len(get_key("BOT_USERS"))
