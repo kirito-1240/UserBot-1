@@ -1,6 +1,5 @@
 from userbot import bot
 from telethon import events , Button
-from userbot.utils import convert_time
 from userbot.database.botusers import add_user , get_users
 
 @bot.on(events.NewMessage(pattern="(?i)^\/start$"))
