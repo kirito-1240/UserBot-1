@@ -5,7 +5,8 @@ from pymongo import MongoClient
 cl = MongoClient(
              "mongodb+srv://userbot:abol83@userbot.smv0r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
               username="userbot",
-              password="abol83"
+              password="abol83",
+              serverSelectionTimeoutMS=5000
          )
 
 DB = cl["UserBot"]
