@@ -17,7 +17,7 @@ async def setup():
         username = "@" + me.username
     else:
         username = f"[{me.first_name}](tg://user?id={me.id})"
-    await bot.send_file(LOG , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can User The RoBot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+    await bot.send_file(LOG , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
 
 bot.loop.run_until_complete(setup())
 
