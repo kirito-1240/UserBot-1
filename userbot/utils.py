@@ -40,7 +40,6 @@ def restart_app():
 
 def load_plugins(folder):
     files = glob.glob(f"userbot/{folder}/*.py")
-    files.remove(f"userbot/{folder}/__init__.py")
     for name in files:
         plugin_name = os.path.basename(name)
         try:
