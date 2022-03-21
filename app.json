@@ -49,12 +49,12 @@
     },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
-      "value": "BotTest_Gp",
+      "value": "",
       "required": false
     },
-    "DATABASE_URL": {
-      "description": "Your DATABASE_URL!",
-      "value": "BotTest_Gp",
+    "MongoDB_URL": {
+      "description": "Your MongoDB_URL!",
+      "value": "",
       "required": false
     },
   }
