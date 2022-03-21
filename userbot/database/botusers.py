@@ -1,26 +1,14 @@
-from sqlalchemy import Column, String, UnicodeText
+from . import DB
 
-from . import BASE, SESSION
+db = DB["BOT_USERS"]
 
-class Bot_Users(BASE):
-    __tablename__ = "BOT_USERS"
-    user_id = Column(String(14), primary_key=True)
-    def __init__(self , user_id):
-        self.user_id = str(user_id)
+async def add_user(user_id):
+    if check_user(user_id) is False:
+        await db.insert_one({"user_id": user_id})
 
-Bot_Users.__table__.create(checkfirst=True)
+async def check_user(user_id):
+    Lol = await db.find_one({"user_id": user_id})
+    return bool(Lol)
 
-def add_user(user_id):
-    if not get_user(user_id):
-        user = Bot_Users(str(user_id))
-        SESSION.add(user)
-        SESSION.commit()
-
-def get_user(user_id):
-    result = SESSION.query(Bot_Users).get(str(user_id))
-    if result:
-        return True
-    return False
-
-def get_users():
-    return SESSION.query(Bot_Users).all()
+async def get_all_users():
+    return [s async for s in db.find()]
