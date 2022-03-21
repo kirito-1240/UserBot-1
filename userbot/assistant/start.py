@@ -7,6 +7,6 @@ async def Start(event):
     try:
         add_user(event.peer_id.user_id)
         await event.reply(f"**• Hello!**\n\n**• Welcome To Best Self Manager Bot 😎**" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
-    except:
-        pass
+    except Exception as e:
+        print(e)
         
