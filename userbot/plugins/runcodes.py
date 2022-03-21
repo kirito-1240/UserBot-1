@@ -3,6 +3,7 @@ from userbot.utils import runcmd
 from telethon import events
 import os
 import sys
+import io
 
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
