@@ -1,4 +1,11 @@
-from . import *
+from userbot import app
+from userbot.utils import convert_time , convert_bytes
+from telethon import events
+import re
+import psutil
+import platform
+import socket
+import uuid
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^.sysinfo$"))
 async def sysinfo(event):
