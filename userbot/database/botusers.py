@@ -16,9 +16,7 @@ class Bot_Starters(BASE):
         self.date = date
         self.username = username
 
-
 Bot_Starters.__table__.create(checkfirst=True)
-
 
 def add_starter_to_db(
     user_id,
@@ -40,7 +38,6 @@ def add_starter_to_db(
     SESSION.commit()
     return True
 
-
 def del_starter_from_db(user_id):
     to_check = get_starter_details(user_id)
     if not to_check:
@@ -50,7 +47,6 @@ def del_starter_from_db(user_id):
     SESSION.commit()
     return True
 
-
 def get_starter_details(user_id):
     try:
         _result = SESSION.query(Bot_Starters).get(str(user_id))
@@ -59,7 +55,6 @@ def get_starter_details(user_id):
         return None
     finally:
         SESSION.close()
-
 
 def get_all_starters():
     try:
