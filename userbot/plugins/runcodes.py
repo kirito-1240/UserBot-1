@@ -1,8 +1,9 @@
-from . import *
+from userbot import app , bot
+from userbot.utils import runcmd
+from telethon import events
 
 async def runner(code , event):
     local = lambda _x: print(_format.yaml_format(_x))
-    reply = await event.get_reply_message()
     exec("async def coderunner(event , local): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local)
 
@@ -12,14 +13,6 @@ async def runcodes(event):
     reply = await event.get_reply_message()
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
-    elif not event.reply_to == None:
-        if event.reply_to_message.document and event.reply_to_message.document.mime_type == "text/plain":
-            media = event.reply_to_message.document
-            media = await app.download_media(media)
-            file = open(media , "r")
-            cmd = file.read()
-        else:
-            cmd = reply.text
     else:
         return await event.edit("`• What Should I Run ?`")
     old_stderr = sys.stderr
