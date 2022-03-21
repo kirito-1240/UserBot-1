@@ -1,16 +1,14 @@
-from userbot.db import set_key , get_key
+from . import DB
 
-def get_all_users(key):
-    return get_key(key) or []
+db = DB["BOT_USERS"]
 
-def is_added(id):
-    return id in get_all_users("BOT_USERS")
+def add_user(user_id):
+    if check_user(user_id) is False:
+        db.insert_one({"user_id": user_id})
 
-def add_user(id):
-    users = get_all_users("BOT_USERS")
-    if not is_added(id):
-        users.append(id)
-        return set_key("BOT_USERS", users)
-    
-def users_count():
-    return len(get_key("BOT_USERS"))
+def check_user(user_id):
+    Lol = db.find_one({"user_id": user_id})
+    return bool(Lol)
+
+def get_all_users():
+    return [s for s in db.find()]
