@@ -52,5 +52,10 @@
       "value": "BotTest_Gp",
       "required": false
     },
+    "DATABASE_URL": {
+      "description": "Your DATABASE_URL!",
+      "value": "BotTest_Gp",
+      "required": false
+    },
   }
 }
