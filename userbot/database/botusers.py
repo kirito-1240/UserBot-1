@@ -11,19 +11,10 @@ class Bot_Users(BASE):
 Bot_Users.__table__.create(checkfirst=True)
 
 def add_user(user_id):
-    to_check = get_user(user_id)
-    if not to_check:
+    if not get_user(user_id):
         user = Bot_Users(str(user_id))
         SESSION.add(user)
         SESSION.commit()
-        return True
-    rem = SESSION.query(Bot_Users).get(str(user_id))
-    SESSION.delete(rem)
-    SESSION.commit()
-    user = Bot_Users(str(user_id))
-    SESSION.add(user)
-    SESSION.commit()
-    return True
 
 def get_user(user_id):
     try:
