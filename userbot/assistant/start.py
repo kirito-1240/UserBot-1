@@ -16,7 +16,7 @@ async def Start(event):
 **• Welcome To Best Self Manager Bot 😎**
 
 **• Your ID:** ( `{info.id}` )
-**• Join Time:** ( `{convert_time(time.time() -inf.date)}` )
+**• Join Time:** ( `{convert_time(time.time() - int(inf.date))}` )
 **• Bot Users:** ( `{count}` )
 """
 , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
