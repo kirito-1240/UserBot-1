@@ -9,4 +9,8 @@ youtube-search-python
 youtube_dl
 requests
 redis
+sqlalchemy-json
+sqlalchemy
+pymongo
+dnspython
 pytgcalls==3.0.0.dev21
