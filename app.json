@@ -12,19 +12,19 @@
   "env": {
     "API_ID": {
       "description": "Your API_ID!",
-      "value": ""
+      "value": "3814063"
     },
     "API_HASH": {
       "description": "Your API_HASH!",
-      "value": ""
+      "value": "8112715c52fc0faa5b6e11e26e565bb6"
     },
     "STRING_SESSION": {
       "description": "Your STRING_SESSION!",
-      "value": ""
+      "value": "1BJWap1wBu6XlHRhbTl-KmTr_baOOU2CHwgPa0IjPWAVvM9N-pbMh_c7SClYjo4SOjl8pBDDnnM2ajXwsd-ty3TT5mWqjzlQM_iaUGN6JDX8wp3Ayl5UZTFfOQP2w-FLzZqO4GC1Qaum28Fh9SvbIhmnP8W-aoRyuzKtM3w9m1CAT1BPsGfUAEd1urXtxbUIjulEW5P2PyMwkVr2AKTV9DuNP3MyGznzLrbTuiYrQTtpiI7m4RfRSDm6n6LaBNpWXC1SqUw-20rAwkU_aIsZNuSjzbbvRkVZ8lm9tKKO4biSbkGswX0euQFZc8ec6ms7N5xwSU03sSZW6dVCqy1Qj9i4N4h3uJ8E="
     },
     "HEROKU_API": {
       "description": "Your HEROKU_API!",
-      "value": "",
+      "value": "3025d700-aaca-428f-86c1-a5acb78255fb",
       "required": false
     },
     "HEROKU_APP_NAME": {
@@ -49,12 +49,22 @@
     },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
-      "value": "",
+      "value": "2116524948:AAEBIakgFI8Og_c4xzm4FM_MXTH-ectwjSM",
       "required": false
     },
-    "MongoDB_URL": {
-      "description": "Your MongoDB_URL!",
-      "value": "",
+    "REDIS_URL": {
+      "description": "Your REDIS_URL!",
+      "value": "redis-15411.c251.east-us-mz.azure.cloud.redislabs.com",
+      "required": false
+    },
+    "REDIS_PASSWORD": {
+      "description": "Your REDIS_PASSWORD!",
+      "value": "wIYq4gH5lxQmGVgyk24LZiihAeMNVkVQ",
+      "required": false
+    },
+    "REDIS_PORT": {
+      "description": "Your REDIS_PORT!",
+      "value": "15411",
       "required": false
     },
   },
