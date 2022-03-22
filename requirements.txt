@@ -10,7 +10,7 @@ youtube-search-python
 youtube_dl
 requests
 redis
-pymongo[srv]
+pymongo
 dnspython
 pytz
 pytgcalls==3.0.0.dev21
