@@ -4,6 +4,7 @@ moviepy
 Pillow
 psutil
 heroku3
+ffmpeg-python
 speedtest-cli
 youtube-search-python
 youtube_dl
