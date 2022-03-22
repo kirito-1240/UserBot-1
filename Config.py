@@ -10,4 +10,6 @@ class Config(object):
     RMBG_API_KEY = os.environ.get("RMBG_API_KEY")
     OCR_API_KEY = os.environ.get("OCR_API_KEY")
     LOG_GROUP = os.environ.get("LOG_GROUP")
-    MongoDB_URL = os.environ.get("MongoDB_URL")
+    REDIS_URL = os.environ.get("REDIS_URL")
+    REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+    REDIS_PORT = os.environ.get("REDIS_PORT")
