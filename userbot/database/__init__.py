@@ -1,8 +1,11 @@
-import os
-os.system("pip install pymongo[srv]")
-from pymongo import MongoClient
+from redis import Redis
 from Config import Config
 
-client = MongoClient(Config.MongoDB_URL , serverSelectionTimeoutMS=5000)
-
-DB = client["UserBot"]
+DB = Redis(
+            host=Config.REDIS_URL,
+            password=Config.REDIS_PASSWORD,
+            port=Config.REDIS_PORT,
+            decode_responses=True,
+            socket_timeout=5,
+            retry_on_timeout=True,
+        )
