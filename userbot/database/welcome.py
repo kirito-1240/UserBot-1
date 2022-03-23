@@ -11,7 +11,7 @@ def set_welcome(chat_id , msg):
     else:
         del chats[chat_id]
         chats.update({chat_id: msg})
-        return udB.set_key("WELCOME_CHATS", chats)
+        return DB.set_key("WELCOME_CHATS", chats)
 
 def get_welcome(chat_id):
     chats = get_chats()
