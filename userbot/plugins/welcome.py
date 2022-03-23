@@ -1,6 +1,6 @@
 from userbot import app , LOG
 from telethon import events
-from userbot.database.welcome import add_welcome, get_welcome, get_chats, del_welcome
+from userbot.database.welcome import add_welcome, get_welcome, del_welcome
 
 @app.on(events.ChatAction)
 async def send_welcome(event):
