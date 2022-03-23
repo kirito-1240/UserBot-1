@@ -1,5 +1,3 @@
-/run
-
 from userbot.database import DB
 
 def get_chats():
