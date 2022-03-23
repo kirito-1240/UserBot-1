@@ -62,9 +62,23 @@ async def set_welcome(event):
     if not reply:
         await event.edit("**• Please Reply To Message!**")
         return
-    await app.send_message(LOG , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The {title}:\n**• Don't Delete This Message!!**")
+    await app.send_message(LOG , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The ( {title} ):**\n**• Don't Delete This Message!!**")
     forward = await app.forward_messages(LOG , messages=reply , from_peer=event.chat_id , silent=True)
     chat_id = event.chat_id
     msg_id = forward.id
     add_welcome(chat_id, msg_id)
     await event.edit("**• Welcome Message On This Chat Was Saved!**")
+
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.gwelcome$"))
+async def set_welcome(event):
+    await event.edit("`• Please Wait . . .`")
+    id = get_welcome(event.chat_id)
+    if not id:
+        await event.edit("**• Welcome Message For This Chat Not Saved!**")
+        return
+    await event.edit(f"**• Welcome Message In This Chat:**\n**• Chat ID:** `{event.chat_id}`")
+    try:
+        msg = await app.get_messages(LOG, ids=int(id))
+    except:
+        return
+    await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
