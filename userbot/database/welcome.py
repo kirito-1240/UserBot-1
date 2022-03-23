@@ -3,7 +3,7 @@ from userbot.database import DB
 def get_chats():
     return DB.get_key("WELCOME_CHATS") or {}
 
-def set_welcome(chat_id , msg_id):
+def add_welcome(chat_id, msg_id):
     chats = get_chats()
     if not get_welcome(chat_id):
         chats.update({chat_id: msg_id})
