@@ -2,7 +2,7 @@ from userbot import app
 from telethon import events
 from userbot.database.welcome import set_welcome , get_welcome , get_chats , del_welcome
 
-@catub.on(events.ChatAction)
+@app.on(events.ChatAction)
 async def send_welcome(event):
     msg = get_welcome(event.chat_id)
     if msg and (event.user_joined or event.user_added) and not (await event.get_user()).bot):
