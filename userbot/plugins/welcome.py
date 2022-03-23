@@ -1,6 +1,6 @@
 from userbot import app , LOG
 from telethon import events
-from userbot.database.welcome import set_welcome , get_welcome , get_chats , del_welcome
+from userbot.database.welcome import add_welcome, get_welcome, get_chats, del_welcome
 
 @app.on(events.ChatAction)
 async def send_welcome(event):
@@ -66,5 +66,5 @@ async def set_welcome(event):
     forward = await app.forward_messages(LOG , messages=reply , from_peer=event.chat_id , silent=True)
     chat_id = event.chat_id
     msg_id = forward.id
-    set_welcome(chat_id , msg_id)
+    add_welcome(chat_id, msg_id)
     await event.edit("**• Welcome Message On This Chat Was Saved!**")
