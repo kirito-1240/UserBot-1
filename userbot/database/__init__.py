@@ -1,6 +1,14 @@
 from redis import Redis
 from Config import Config
 
+def get_data(self, key):
+    data = self.get(str(key))
+    if data:
+        try:
+            data = eval(data)
+        except BaseException:
+            pass
+    return data
 
 class RedisDB:
     def __init__(self):
