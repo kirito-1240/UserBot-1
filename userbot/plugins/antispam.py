@@ -20,9 +20,9 @@ async def set_lim(event):
     set_limit(lim)
     await event.edit(f"**• Anti Spam Limit Was Set To ( {lim} )!**")
 
-@app.on(events.NewMessage(incoming=True))
+@app.on(events.NewMessage(incoming=True , func=lambda e: e.is_private))
 async def add_users(event):
-    if get_power() == "on" and not event.from_id:
+    if get_power() == "on":
         if int(get_user(event.peer_id.user_id)) == int(get_limit()):
             await event.reply("**• Your Warns Were Exceeded!**\n\n__• You Are Blocked!__")
             await app(functions.contacts.BlockRequest(id=event.peer_id.user_id))
