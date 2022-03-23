@@ -21,7 +21,7 @@ def get_welcome(chat_id):
         return None
 
 def del_welcome(chat_id):
-    chats = json.loads(get_chats())
+    chats = get_chats()
     if get_welcome(chat_id):
         del chats[chat_id]
         return DB.set_key("WELCOME_CHATS", chats)
