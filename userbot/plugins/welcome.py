@@ -44,4 +44,5 @@ async def send_welcome(event):
                 my_mention=my_mention,
             ),
             file=msg.media,
+            entities=msg.entities
         )
