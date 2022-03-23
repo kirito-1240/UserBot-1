@@ -6,7 +6,7 @@ import os
 @bot.on(events.NewMessage(pattern="(?i)^\/users$"))
 async def Start(event):
     id = (await app.get_me()).id
-    if event.from_id.user_id == id:
+    if event.peer_id.user_id == id:
         count = len(get_users())
         users = ""
         c = 1
