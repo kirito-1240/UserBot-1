@@ -1,6 +1,6 @@
 from userbot import app , LOG
 from telethon import events
-from userbot.database.welcome import add_welcome, get_welcome, del_welcome
+from userbot.database.welcome import add_welcome, get_welcome, del_welcome , clean_welcomes
 
 @app.on(events.ChatAction)
 async def send_welcome(event):
@@ -82,3 +82,18 @@ async def set_welcome(event):
     except:
         return
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
+
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dwelcome$"))
+async def set_welcome(event):
+    await event.edit("`• Please Wait . . .`")
+    id = del_welcome(event.chat_id)
+    if not id:
+        await event.edit("**• Welcome Message For This Chat Not Saved!**")
+    else:
+        await event.edit(f"**• Welcome Message In This Chat Deleted!**")
+
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cwelcomes$"))
+async def set_welcome(event):
+    await event.edit("`• Please Wait . . .`")
+    clean_welcomes()
+    await event.edit(f"**• Welcome Messages Was Cleaned!**")
