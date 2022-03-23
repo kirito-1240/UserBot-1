@@ -30,4 +30,4 @@ async def add_users(event):
         else:
             add_user(event.peer_id.user_id)
             if int(get_user(event.peer_id.user_id)) == 0 or int(get_user(event.peer_id.user_id)) % 3 == 0:
-                await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )""")
+                await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Your Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )""")
