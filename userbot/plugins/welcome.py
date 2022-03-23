@@ -53,7 +53,6 @@ async def send_welcome(event):
             parse_mode="html",
         )
 
-
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.swelcome$"))
 async def set_welcome(event):
     await event.edit("`• Please Wait . . .`")
