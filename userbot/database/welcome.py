@@ -3,14 +3,14 @@ from userbot.database import DB
 def get_chats():
     return DB.get_key("WELCOME_CHATS") or {}
 
-def set_welcome(chat_id , msg):
+def set_welcome(chat_id , message , media , entity):
     chats = get_chats()
     if not get_welcome(chat_id):
-        chats.update({chat_id: msg})
+        chats.update({chat_id: {"message": msg , "media": media , "entities": entity}})
         return DB.set_key("WELCOME_CHATS", chats)
     else:
-        del chats[chat_id]
-        chats.update({chat_id: msg})
+        DB.del_key(chats[chat_id])
+        chats.update({chat_id: {"message": msg , "media": media , "entities": entity}})
         return DB.set_key("WELCOME_CHATS", chats)
 
 def get_welcome(chat_id):
