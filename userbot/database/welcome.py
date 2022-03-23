@@ -5,7 +5,7 @@ def get_chats():
 
 def set_welcome(chat_id , msg):
     chats = get_chats()
-    if chat_id not in chats:
+    if not get_welcome(chat_id):
         chats.update({chat_id: msg})
         return DB.set_key("WELCOME_CHATS", chats)
     else:
@@ -15,12 +15,13 @@ def set_welcome(chat_id , msg):
 
 def get_welcome(chat_id):
     chats = get_chats()
-    if chat_id in chats:
+    try:
         return chats[chat_id]
-
+    except:
+        return None
 
 def del_welcome(chat_id):
     chats = get_chats()
-    if chat_id in chats:
+    if get_welcome(chat_id):
         del chats[chat_id]
         return udB.set_key("WELCOME_CHATS", chats)
