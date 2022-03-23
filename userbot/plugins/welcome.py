@@ -11,7 +11,7 @@ async def send_welcome(event):
         except:
             pass
         try:
-            msg = await app.get_messages(BOTLOG_CHATID, ids=int(id))
+            msg = await app.get_messages(LOG, ids=int(id))
         except:
             return
         a_user = await event.get_user()
