@@ -6,11 +6,11 @@ def get_chats():
 def set_welcome(chat_id , message , media , entity):
     chats = get_chats()
     if not get_welcome(chat_id):
-        chats.update({chat_id: {"message": msg , "media": media , "entities": entity}})
+        chats.update({chat_id: {"message": message , "media": media , "entities": entity}})
         return DB.set_key("WELCOME_CHATS", chats)
     else:
         DB.del_key(chats[chat_id])
-        chats.update({chat_id: {"message": msg , "media": media , "entities": entity}})
+        chats.update({chat_id: {"message": message , "media": media , "entities": entity}})
         return DB.set_key("WELCOME_CHATS", chats)
 
 def get_welcome(chat_id):
