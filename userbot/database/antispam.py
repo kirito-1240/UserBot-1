@@ -29,7 +29,7 @@ def get_user(user_id):
         return 0
 
 def del_user(user_id):
-    chats = get_users()
+    users = get_users()
     if get_user(user_id):
         del users[user_id]
         return DB.set_key("ANTI_SPAM_USERS", users)
