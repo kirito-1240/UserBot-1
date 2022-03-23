@@ -14,3 +14,5 @@ async def Start(event):
 __• Thanks For Using . . .__
 """
 , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+    except:
+        pass
