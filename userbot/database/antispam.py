@@ -17,22 +17,16 @@ def get_users():
 
 def add_user(user_id):
     users = get_users()
-    if not get_user(user_id):
-        users.update({user_id: 1})
-        return DB.set_key("ANTI_SPAM_USERS", users)
-    else:
-        del users[user_id]
-        DB.set_key("ANTI_SPAM_USERS", users)
-        count = int(get_user(user_id)) + 1
-        users.update({user_id: count})
-        return DB.set_key("ANTI_SPAM_USERS", users)
+    count = int(get_user(user_id)) + 1
+    users.update({user_id: count})
+    return DB.set_key("ANTI_SPAM_USERS", users)
 
 def get_user(user_id):
     users = get_users()
     try:
         return users[user_id]
     except:
-        return None
+        return 0
 
 def del_user(user_id):
     chats = get_users()
