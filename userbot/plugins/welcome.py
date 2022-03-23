@@ -32,7 +32,7 @@ async def send_welcome(event):
         my_fullname = f"{my_first} {my_last}" if my_last else my_first
         my_username = f"@{me.username}" if me.username else my_mention
         await event.reply(
-            msg.message.format(
+            msg.text.format(
                 mention=mention,
                 title=title,
                 count=count,
