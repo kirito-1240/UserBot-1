@@ -53,3 +53,16 @@ async def send_welcome(event):
             link_preview=True,
             parse_mode="html",
         )
+
+
+@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.swelcome$"))
+async def set_welcome(event):
+    await event.edit("`• Please Wait . . .`")
+    title = (await event.get_chat()).title
+    reply = await event.get_reply_message()
+    if not reply:
+        await event.edit("**• Please Reply To Message!**")
+    await app.send_message(LOG , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The {title}:\n**• Don't Delete This Message!!**")
+    forward = await app.forward_messages(entity=LOG , messages=reply , from_peer=event.chat_id, silent=True)
+    set_welcome(event.chat_id , forward.id)
+    await event.edit("**• Welcome Message On This Chat Was Saved!**)
