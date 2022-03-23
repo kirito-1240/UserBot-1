@@ -1,15 +1,19 @@
-from userbot import app
+from userbot import app , LOG
 from telethon import events
 from userbot.database.welcome import set_welcome , get_welcome , get_chats , del_welcome
 
 @app.on(events.ChatAction)
 async def send_welcome(event):
-    msg = get_welcome(event.chat_id)
+    id = get_welcome(event.chat_id)
     if msg and (event.user_joined or event.user_added) and not (await event.get_user()).bot:
         try:
             await event.delete()
         except:
             pass
+        try:
+            msg = await app.get_messages(BOTLOG_CHATID, ids=int(id))
+        except:
+            return
         a_user = await event.get_user()
         chat = await event.get_chat()
         me = await event.client.get_me()
@@ -28,7 +32,7 @@ async def send_welcome(event):
         my_fullname = f"{my_first} {my_last}" if my_last else my_first
         my_username = f"@{me.username}" if me.username else my_mention
         await event.reply(
-            msg["message"].format(
+            msg.message.format(
                 mention=mention,
                 title=title,
                 count=count,
@@ -43,6 +47,6 @@ async def send_welcome(event):
                 my_username=my_username,
                 my_mention=my_mention,
             ),
-            file=msg["media"],
-            entities=msg["entities"],
+            file=msg.media,
+            entities=msg.entities,
         )
