@@ -32,7 +32,7 @@ def get_user(user_id):
     try:
         return users[user_id]
     except:
-        return "0"
+        return None
 
 def del_user(user_id):
     chats = get_users()
