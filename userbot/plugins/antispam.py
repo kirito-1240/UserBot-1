@@ -22,14 +22,14 @@ async def set_lim(event):
 
 @app.on(events.NewMessage(incoming=True , func=lambda e: e.is_private))
 async def add_users(event):
+    add_user(event.peer_id.user_id)
     if get_power() == "on":
-        if get_user(event.peer_id.user_id) and int(get_user(event.peer_id.user_id)) == int(get_limit()):
+        if int(get_user(event.peer_id.user_id)) == int(get_limit()):
             await event.reply("**• Your Warns Were Exceeded!**\n\n__• You Are Blocked!__")
             await app(functions.contacts.BlockRequest(id=event.peer_id.user_id))
             info = await app.get_entity(event.peer_id.user_id)
-            await app.send_message(LOG, f"**• User {info.first_name} For Spam In Pv Has Been Blocked!**")
+            await app.send_message(LOG, f"""**• User ({info.username} or [{info.first_name}](tg://user?id={info.id}))\nFor Spam In Pv Has Been Blocked You Can Get And Unblock This User!**""")
             del_user(event.peer_id.user_id)
         else:
-            add_user(event.peer_id.user_id)
             if int(get_user(event.peer_id.user_id)) == 0 or int(get_user(event.peer_id.user_id)) % 3 == 0:
-                await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Your Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )""")
+                await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Your Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )**""")
