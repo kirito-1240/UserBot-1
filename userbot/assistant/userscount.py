@@ -12,7 +12,7 @@ async def Start(event):
         c = 1
         for user in get_users():
             users += f"{c}- `{user}`\n"
-   ‌‌‌‌         c += 1
+            c += 1
         try:
             await event.reply(f"**• Users Count:** ( `{count}` )\n\n{users}")
         except:
