@@ -5,6 +5,6 @@ def get_users():
 
 def add_user(user_id):
     users = get_users()
-    if user_id not in users:
-        users.append(user_id)
+    if str(user_id) not in users:
+        users.append(str(user_id))
         return DB.set_key("BOT_USERS", users)
