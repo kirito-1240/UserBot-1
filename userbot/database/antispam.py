@@ -22,7 +22,8 @@ def add_user(user_id):
         users.update({user_id: count})
         return DB.set_key("ANTI_SPAM_USERS", users)
     else:
-        DB.del_key(users[user_id])
+        del users[user_id]
+        DB.set_key("ANTI_SPAM_USERS", users)
         users.update({user_id: count})
         return DB.set_key("ANTI_SPAM_USERS", users)
 
