@@ -64,5 +64,7 @@ async def set_welcome(event):
         return
     await app.send_message(LOG , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The {title}:\n**• Don't Delete This Message!!**")
     forward = await app.forward_messages(LOG , messages=reply , from_peer=event.chat_id , silent=True)
-    set_welcome(event.chat_id , forward.id)
+    chat_id = event.chat_id
+    msg_id = forward.id
+    set_welcome(chat_id , msg_id)
     await event.edit("**• Welcome Message On This Chat Was Saved!**")
