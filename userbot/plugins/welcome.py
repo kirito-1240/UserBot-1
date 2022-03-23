@@ -14,6 +14,7 @@ async def send_welcome(event):
             msg = await app.get_messages(LOG, ids=int(id))
         except:
             return
+        await event.reply(str(msg))
         a_user = await event.get_user()
         chat = await event.get_chat()
         me = await event.client.get_me()
