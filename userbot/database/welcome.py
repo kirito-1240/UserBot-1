@@ -23,5 +23,10 @@ def get_welcome(chat_id):
 def del_welcome(chat_id):
     chats = get_chats()
     if get_welcome(chat_id):
-        del chats[chat_id]
+        DB.del_key(chats[chat_id])
         return DB.set_key("WELCOME_CHATS", chats)
+    else:
+        return False
+
+def clean_welcomes():
+    DB.del_key("WELCOME_CHATS")
