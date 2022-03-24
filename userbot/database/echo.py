@@ -26,6 +26,6 @@ def del_user(user_id):
     users = get_users()
     if get_user(user_id):
         del users[user_id]
-        return DB.set_key("ANTI_SPAM_USERS", users)
+        return DB.set_key("ECHO_USERS", users)
     else:
         return False
