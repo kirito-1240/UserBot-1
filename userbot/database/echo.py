@@ -1,21 +1,28 @@
 from . import DB
 
-def get_users():
-    return DB.get_key("ECHO_USERS") or []
+def get_chats():
+    return DB.get_key("ECHO_USERS") or {}
 
-def add_user(user_id):
-    users = get_users()
-    if not users:
-        if user_id not in users:
-            return DB.set_key("ECHO_USERS", [user_id])
-    else:
-        if user_id not in users:
-            users.append(user_id)
-            return DB.set_key("ECHO_USERS", users)  
+def add_echo(chat_id, user_id):
+    chats = get_chats()
+    if not get_echo(chat_id):
+        chats.update({chat_id: user_id})
+        return DB.set_key("ECHO_USERS", chats)
 
-def del_user(user_id):
-    users = get_users()
-    if user_id in users:
-        return DB.del_key("ECHO_USERS", user_id)
+def get_echo(chat_id):
+    chats = get_chats()
+    try:
+        return chats[chat_id]
+    except:
+        return None
+
+def del_echo(chat_id):
+    chats = get_chats()
+    if get_echo(chat_id):
+        del chats[chat_id]
+        return DB.set_key("ECHO_USERS", chats)
     else:
         return False
+
+def clean_echos():
+    DB.del_key("ECHO_USERS")
