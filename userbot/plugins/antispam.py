@@ -23,7 +23,7 @@ async def set_lim(event):
 @app.on(events.NewMessage(incoming=True , func=lambda e: e.is_private))
 async def add_users(event):
     add_user(event.peer_id.user_id)
-    if get_power() == "on":
+    if get_power() == "on" and not (await event.get_user()).bot:
         if int(get_user(event.peer_id.user_id)) == int(get_limit()):
             await event.reply("**• Your Warns Were Exceeded!**\n\n__• You Are Blocked!__")
             await app(functions.contacts.BlockRequest(id=event.peer_id.user_id))
