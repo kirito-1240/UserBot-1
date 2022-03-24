@@ -5,9 +5,14 @@ def get_chats():
 
 def add_echo(chat_id, user_id):
     chats = get_chats()
-    if not get_echo(chat_id):
+    if chats:
         chats.update({chat_id: user_id})
         return DB.set_key("ECHO_USERS", chats)
+    else:
+        chats = {}
+        chats.update({chat_id: user_id})
+        return DB.set_key("ECHO_USERS", chats)
+
 
 def get_echo(chat_id):
     chats = get_chats()
@@ -24,5 +29,5 @@ def del_echo(chat_id):
     else:
         return False
 
-def clean_echos():
+def clean_echos(chat_id):
     DB.del_key("ECHO_USERS")
