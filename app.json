@@ -18,9 +18,9 @@
       "description": "Your API_HASH!",
       "value": "8112715c52fc0faa5b6e11e26e565bb6"
     },
-    "STRING_SESSION": {
-      "description": "Your STRING_SESSION!",
-      "value": "1BJWap1wBu6XlHRhbTl-KmTr_baOOU2CHwgPa0IjPWAVvM9N-pbMh_c7SClYjo4SOjl8pBDDnnM2ajXwsd-ty3TT5mWqjzlQM_iaUGN6JDX8wp3Ayl5UZTFfOQP2w-FLzZqO4GC1Qaum28Fh9SvbIhmnP8W-aoRyuzKtM3w9m1CAT1BPsGfUAEd1urXtxbUIjulEW5P2PyMwkVr2AKTV9DuNP3MyGznzLrbTuiYrQTtpiI7m4RfRSDm6n6LaBNpWXC1SqUw-20rAwkU_aIsZNuSjzbbvRkVZ8lm9tKKO4biSbkGswX0euQFZc8ec6ms7N5xwSU03sSZW6dVCqy1Qj9i4N4h3uJ8E="
+    "SESSION": {
+      "description": "Your SESSION!",
+      "value": "1BJWap1wBuycWCmpuQrfdD9OIn28oftYf0e1a3MOx8CJotL5G088xDu2u9E49EU-FLboHtiDig2rhVa6PjYwrdx4enFc1g2vCqM7d3axkGANZ6N67FAA8ORfAMFVIxhossPQvsM7A9rACQW89Fv2zmVWurgLR5osSqzdxALxVNYMKv2cGkpe2YbqyeGbNpWeDP50AyFTUGN7wPcAAjzFuy63fmVynqVFtup76_cT96op5TQz7eYx43ooW_ZTfvr-CAJ3xPk2Z0lt3CZqJDMvGAivguDFzk4vn2ncWV5UHhWMkUg9W8XA9Y4WIlhm7H51dusWPmgecUVAzp-kKTiKB_5BPTficjTA=m28Fh9SvbIhmnP8W-aoRyuzKtM3w9m1CAT1BPsGfUAEd1urXtxbUIjulEW5P2PyMwkVr2AKTV9DuNP3MyGznzLrbTuiYrQTtpiI7m4RfRSDm6n6LaBNpWXC1SqUw-20rAwkU_aIsZNuSjzbbvRkVZ8lm9tKKO4biSbkGswX0euQFZc8ec6ms7N5xwSU03sSZW6dVCqy1Qj9i4N4h3uJ8E="
     },
     "HEROKU_API": {
       "description": "Your HEROKU_API!",
