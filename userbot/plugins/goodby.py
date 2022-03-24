@@ -50,7 +50,6 @@ async def send_goodby(event):
             file=msg.media,
             formatting_entities=msg.entities,
             link_preview=True,
-            parse_mode="html",
         )
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.sgoodby$"))
@@ -92,7 +91,7 @@ async def d_goodby(event):
         await event.edit(f"**• Goodby Message In This Chat Deleted!**")
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cgoodbys$"))
-async def set_goodby(event):
+async def c_goodby(event):
     await event.edit("`• Please Wait . . .`")
     clean_goodbys()
     await event.edit(f"**• Goodby Messages Was Cleaned!**")
