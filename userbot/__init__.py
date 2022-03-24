@@ -6,11 +6,11 @@ import time
 
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
-STRING_SESSION = Config.STRING_SESSION
+SESSION = Config.SESSION
 
 try:
     app = TelegramClient(
-        StringSession(str(STRING_SESSION)),
+        StringSession(str(SESSION)),
         API_ID,
         API_HASH,
     ).start()
