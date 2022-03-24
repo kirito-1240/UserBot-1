@@ -20,8 +20,8 @@ async def send_goodby(event):
         title = (await event.get_chat()).title
         participants = await event.client.get_participants(chat)
         count = len(participants)
-        mention = "<a href='tg://user?id={}'>{}</a>".format(a_user.id, a_user.first_name)
-        my_mention = "<a href='tg://user?id={}'>{}</a>".format(me.id, me.first_name)
+        mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+        my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
         first = a_user.first_name
         last = a_user.last_name
         fullname = f"{first} {last}" if last else first
@@ -54,7 +54,7 @@ async def send_goodby(event):
         )
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.sgoodby$"))
-async def set_goodby(event):
+async def s_goodby(event):
     await event.edit("`• Please Wait . . .`")
     title = (await event.get_chat()).title
     reply = await event.get_reply_message()
@@ -69,7 +69,7 @@ async def set_goodby(event):
     await event.edit("**• Goodby Message On This Chat Was Saved!**")
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ggoodby$"))
-async def set_goodby(event):
+async def g_goodby(event):
     await event.edit("`• Please Wait . . .`")
     id = get_goodby(event.chat_id)
     if not id:
@@ -83,7 +83,7 @@ async def set_goodby(event):
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dgoodby$"))
-async def set_goodby(event):
+async def d_goodby(event):
     await event.edit("`• Please Wait . . .`")
     id = del_goodby(event.chat_id)
     if not id:
