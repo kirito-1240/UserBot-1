@@ -5,27 +5,17 @@ def get_users():
 
 def add_user(user_id):
     users = get_users()
-    if str(type(users)) == "<class 'list'>":
+    if not users:
+        if user_id not in users:
+            return DB.set_key("ECHO_USERS", [user_id])
+    else:
         if user_id not in users:
             users.append(user_id)
-            return DB.set_key("ECHO_USERS", users)
-    else:
-        users = [get_users()]
-        if user_id not in users:
-            users.append(user_id)
-            return DB.set_key("ECHO_USERS", users)
-            
-def get_user(user_id):
-    users = get_users()
-    if user_id in users:
-        return True
-    else:
-        return False
+            return DB.set_key("ECHO_USERS", users)  
 
 def del_user(user_id):
     users = get_users()
-    if get_user(user_id):
-        del users[user_id]
-        return DB.set_key("ECHO_USERS", users)
+    if user_id in users:
+        return DB.del_key("ECHO_USERS", user_id)
     else:
         return False
