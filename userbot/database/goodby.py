@@ -1,4 +1,4 @@
-from userbot.database import DB
+from . import DB
 
 def get_chats():
     return DB.get_key("GOODBY_CHATS") or {}
