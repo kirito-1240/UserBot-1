@@ -50,6 +50,7 @@ async def send_goodby(event):
             file=msg.media,
             formatting_entities=msg.entities,
             link_preview=True,
+            parse_mode='html',
         )
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.sgoodby$"))
