@@ -20,8 +20,8 @@ async def send_welcome(event):
         title = (await event.get_chat()).title
         participants = await event.client.get_participants(chat)
         count = len(participants)
-        mention = "<a href='tg://user?id={}'>{}</a>".format(a_user.id, a_user.first_name)
-        my_mention = "<a href='tg://user?id={}'>{}</a>".format(me.id, me.first_name)
+        mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+        my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
         first = a_user.first_name
         last = a_user.last_name
         fullname = f"{first} {last}" if last else first
@@ -54,7 +54,7 @@ async def send_welcome(event):
         )
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.swelcome$"))
-async def set_welcome(event):
+async def s_welcome(event):
     await event.edit("`• Please Wait . . .`")
     title = (await event.get_chat()).title
     reply = await event.get_reply_message()
@@ -69,7 +69,7 @@ async def set_welcome(event):
     await event.edit("**• Welcome Message On This Chat Was Saved!**")
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.gwelcome$"))
-async def set_welcome(event):
+async def g_welcome(event):
     await event.edit("`• Please Wait . . .`")
     id = get_welcome(event.chat_id)
     if not id:
@@ -83,7 +83,7 @@ async def set_welcome(event):
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dwelcome$"))
-async def set_welcome(event):
+async def d_welcome(event):
     await event.edit("`• Please Wait . . .`")
     id = del_welcome(event.chat_id)
     if not id:
@@ -92,7 +92,7 @@ async def set_welcome(event):
         await event.edit(f"**• Welcome Message In This Chat Deleted!**")
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.cwelcomes$"))
-async def set_welcome(event):
+async def c_welcome(event):
     await event.edit("`• Please Wait . . .`")
     clean_welcomes()
     await event.edit(f"**• Welcome Messages Was Cleaned!**")
