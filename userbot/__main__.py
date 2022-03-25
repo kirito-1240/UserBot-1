@@ -1,4 +1,4 @@
-from userbot.utils import load_plugins, update_envs
+from userbot.utils import load_plugins
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
@@ -13,7 +13,6 @@ async def setup():
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
     LOGS.info("• Starting Added Environments To Database . . .")
-    update_envs()
     LOGS.info("• Environments Successfuly Added To Database!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
