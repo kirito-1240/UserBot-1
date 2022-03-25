@@ -8,7 +8,6 @@ import importlib
 import glob
 
 async def setup():
-    me = await app.get_me()
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
@@ -21,6 +20,7 @@ async def setup():
         print(chat)
         await app.edit_message(chat.split("||")[1], chat.split("||")[0], "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
+    me = await app.get_me()
     if me.username:
         username = "@" + me.username
     else:
