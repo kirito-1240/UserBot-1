@@ -1,6 +1,6 @@
 from userbot import app
 from userbot.utils import restart_app , runcmd
-from telethon import events
+from userbot.events import alien
 from userbot.database import DB
 import os
 import sys
