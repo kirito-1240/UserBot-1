@@ -1,4 +1,4 @@
-from userbot import app , LOG
+from userbot import app
 from telethon import events
 from userbot.database.echo import add_echo, get_echo, del_echo , clean_echos
 
@@ -6,7 +6,7 @@ from userbot.database.echo import add_echo, get_echo, del_echo , clean_echos
 async def send_echo(event):
     get = get_echo(event.chat_id)
     if get and event.from_id.user_id == int(get):
-        await app.send_message(event.chat_id , event.text , file=event.media , formatting_entities=event.entities , parse_mode="md")
+        await app.send_message(event.chat_id , event.text , file=event.media , formatting_entities=event.entities , parse_mode='md')
 
 @app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.addecho ?(.*)?$"))
 async def a_echo(event):
