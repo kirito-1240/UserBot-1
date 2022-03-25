@@ -1,5 +1,5 @@
 from userbot import app , LOGS , LOG_GROUP
-import os , sys
+import os , sys , asyncio
 from time import gmtime, strftime
 from traceback import format_exc
 from telethon import events
