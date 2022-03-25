@@ -1,5 +1,6 @@
 from . import app , bot , LOG_GROUP , LOGS
 from userbot.database import DB
+from Config import Config
 from pathlib import Path
 import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re  
 from asyncio import sleep
