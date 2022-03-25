@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from userbot.database import DB
+from Config import Config
 import sys , time
 from logging import getLogger
 
@@ -8,10 +8,10 @@ LOGS = getLogger("BOT")
 LOGSU = getLogger("USER-BOT")
 LOGSA = getLogger("ASSISTANT-BOT")
 START_TIME = time.time()
-LOG = DB.get_key("LOG_GROUP")
-API_ID = DB.get_key("API_ID")
-API_HASH = DB.get_key("API_HASH")
-SESSION = DB.get_key("SESSION")
+LOG = Config.LOG_GROUP
+API_ID = Config.API_ID
+API_HASH = Config.API_HASH
+SESSION = Config.SESSION
 
 try:
     app = TelegramClient(
