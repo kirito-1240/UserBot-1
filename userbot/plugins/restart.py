@@ -5,7 +5,7 @@ from userbot.database import DB
 import os
 import sys
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.restart$"))
+@alien(pattern="(?i)^\.restart$")
 async def restart(event):
     one = "█"
     two = "░"
