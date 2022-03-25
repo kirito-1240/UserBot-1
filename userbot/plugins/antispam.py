@@ -1,4 +1,4 @@
-from userbot import app , LOG
+from userbot import app , LOG_GROUP
 from telethon import events, functions
 from userbot.database.antispam import add_user, get_user, del_user, set_power, get_power, set_limit, get_limit
 
@@ -28,7 +28,7 @@ async def add_users(event):
             await event.reply("**• Your Warns Were Exceeded!**\n\n__• You Are Blocked!__")
             await app(functions.contacts.BlockRequest(id=event.peer_id.user_id))
             info = await app.get_entity(event.peer_id.user_id)
-            await app.send_message(LOG, f"**• User** [{info.first_name}](tg://user?id={info.id})\n**For Spam In Pv Has Been Blocked You Can Get And Unblock This User!**")
+            await app.send_message(LOG_GROUP, f"**• User** [{info.first_name}](tg://user?id={info.id})\n**For Spam In Pv Has Been Blocked You Can Get And Unblock This User!**")
             del_user(event.peer_id.user_id)
         else:
             if int(get_user(event.peer_id.user_id)) == 0 or int(get_user(event.peer_id.user_id)) % 3 == 0:
