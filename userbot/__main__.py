@@ -26,5 +26,4 @@ async def setup():
     await bot.send_file(LOG , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
 
 bot.loop.run_until_complete(setup())
-
 app.run_until_disconnected()
