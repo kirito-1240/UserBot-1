@@ -1,6 +1,4 @@
 from userbot import app , LOGS , LOG_GROUP
-from asyncio import create_subprocess_exec as asyncsubshell
-from asyncio import subprocess as asyncsub
 import os , sys
 from time import gmtime, strftime
 from traceback import format_exc
