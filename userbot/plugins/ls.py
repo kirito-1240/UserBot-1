@@ -1,10 +1,10 @@
 from userbot import app
 from userbot.utils import convert_bytes
-from telethon import events
+from events import alien
 from pathlib import Path
 import os
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$"))
+@alien("(?i)^\.ls(?:\s|$)([\s\S]*)$")
 async def ls(event):
     await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
