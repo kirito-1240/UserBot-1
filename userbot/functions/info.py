@@ -2,33 +2,13 @@ import math
 from telethon.tl import functions, types
 from userbot import LOGS
 
-
-async def get_uinfo(e):
-    user, data = None, None
-    reply = await e.get_reply_message()
-    if reply:
-        user = await e.client.get_entity(reply.sender_id)
-        data = e.pattern_match.group(1)
-    else:
-        ok = e.pattern_match.group(1).split(maxsplit=1)
-        if len(ok) > 1:
-            data = ok[1]
-        try:
-            user = await e.client.get_entity(await e.client.parse_id(ok[0]))
-        except IndexError:
-            pass
-        except ValueError as er:
-            await e.eor(str(er))
-            return None, None
-    return user, data
-
 async def get_chat_info(chat, event):
     if isinstance(chat, types.Channel):
         chat_info = await event.client(functions.channels.GetFullChannelRequest(chat))
     elif isinstance(chat, types.Chat):
         chat_info = await event.client(functions.messages.GetFullChatRequest(chat))
     else:
-        return await event.eor("`Use this for Group/Channel.`")
+        return await event.edit("`Use this for Group/Channel.`")
     full = chat_info.full_chat
     chat_photo = full.chat_photo
     broadcast = getattr(chat, "broadcast", False)
