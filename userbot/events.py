@@ -88,14 +88,6 @@ def alien(**args):
             ftext += f"**• Event Trigger:**\n ( `{event.text}` )\n\n"
             ftext += f"**• Traceback Info:**\n ( `{str(format_exc())}` )\n\n"
             ftext += "**• Error Text:**\n ( `{str(sys.exc_info()[1])}` )"
-            ftext += "\n\n\nLast 10 commits:\n"
-            command = "git log --pretty=format:\"%an: %s\" -10"
-            process = await asyncsubshell(command,
-                                          stdout=asyncsub.PIPE,
-                                          stderr=asyncsub.PIPE)
-            stdout, stderr = await process.communicate()
-            result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-            ftext += result
             file = open("Error.log", "w+")
             file.write(ftext)
             file.close()
