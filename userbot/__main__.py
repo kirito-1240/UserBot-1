@@ -19,7 +19,7 @@ async def setup():
     chat = DB.get_key("RESTART")
     if chat:
         print(chat)
-        await app.edit_message(chat.split("||")[0], chat.split("||")[1], "**• Ok, Restart Bot Successfuly!**")
+        await app.edit_message(chat.split("||")[1], chat.split("||")[0], "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
     if me.username:
         username = "@" + me.username
