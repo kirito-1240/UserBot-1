@@ -32,9 +32,15 @@ class RedisDB:
         for keys in self.keys():
             self._cache.update({keys: self.get_key(keys)})
 
-    @property
+    def name(self):
+        return "Redis"
+
     def usage(self):
-        return sum(self.db.memory_usage(x) for x in self.keys())
+        allusage = 0
+        for x in self.keys():
+            usage = self.db.memory_usage(x)
+            allusage += usage
+        return allusage
 
     def set_key(self, key, value):
         value = str(value)
