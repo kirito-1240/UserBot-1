@@ -1,7 +1,7 @@
 from userbot.utils import load_plugins, update_envs
 from pathlib import Path
 from telethon import Button
-from . import app , bot , LOG , LOGS , LOGSU , LOGSA
+from . import app , bot , LOG_GROUP , LOGS
 from userbot.database import DB
 import logging , sys , os
 import importlib
@@ -23,7 +23,7 @@ async def setup():
         username = "@" + me.username
     else:
         username = f"[{me.first_name}](tg://user?id={me.id})"
-    await bot.send_file(LOG , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+    await bot.send_file(LOG_GROUP , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
 
 bot.loop.run_until_complete(setup())
 app.run_until_disconnected()
