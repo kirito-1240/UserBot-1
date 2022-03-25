@@ -23,11 +23,11 @@ async def set_lim(event):
 
 @alien(incoming=True , outgoing=False , private_only=True)
 async def add_users(event):
-    add_user(event.peer_id.user_id)
     if get_power() == "on" and not (await event.get_user()).bot:
+        add_user(event.peer_id.user_id)
         if int(get_user(event.peer_id.user_id)) == int(get_limit()):
             await event.reply("**• Your Warns Were Exceeded!**\n\n__• You Are Blocked!__")
-            await app(functions.contacts.BlockRequest(id=event.peer_id.user_id))
+            await app(functions.co    add_user(event.peer_id.user_id)ntacts.BlockRequest(id=event.peer_id.user_id))
             info = await app.get_entity(event.peer_id.user_id)
             await app.send_message(LOG_GROUP, f"**• User** [{info.first_name}](tg://user?id={info.id})\n**For Spam In Pv Has Been Blocked You Can Get And Unblock This User!**")
             del_user(event.peer_id.user_id)
