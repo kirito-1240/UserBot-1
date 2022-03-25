@@ -1,6 +1,6 @@
 from userbot import app
 from userbot.utils import convert_time , convert_bytes
-from telethon import events
+from userbot.events import alien
 from datetime import datetime
 import re
 import psutil
@@ -8,7 +8,7 @@ import platform
 import socket
 import uuid
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^.sysinfo$"))
+@alien(pattern="(?i)^.sysinfo$")
 async def sysinfo(event):
     await event.edit("`• Please Wait . . .`")
     text = "**• 💻 System Information:**\n"
