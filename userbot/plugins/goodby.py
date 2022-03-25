@@ -1,4 +1,5 @@
 from userbot import app , LOG_GROUP
+from telethon import events
 from userbot.events import alien
 from userbot.database.goodby import add_goodby, get_goodby, del_goodby , clean_goodbys
 
