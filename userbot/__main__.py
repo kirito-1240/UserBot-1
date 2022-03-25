@@ -18,7 +18,7 @@ async def setup():
     LOGS.info("• Setup Plugins Completed!")
     chat = DB.get_key("RESTART")
     if chat:
-        await app.edit_message(chat.split("_")[0] , chat.split("_")[1])
+        await app.edit_message(chat.split("_")[0] , chat.split("_")[1] , "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
     if me.username:
         username = "@" + me.username
