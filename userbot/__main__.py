@@ -1,4 +1,4 @@
-from userbot.utils import load_plugins , AddBot , update_envs
+from userbot.utils import load_plugins, update_envs
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG , LOGS , LOGSU , LOGSA
@@ -19,7 +19,6 @@ async def setup():
     load_plugins("plugins")
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
-    await AddBot()
     if me.username:
         username = "@" + me.username
     else:
