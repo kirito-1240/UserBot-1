@@ -1,8 +1,9 @@
 from userbot import app , LOG_GROUP
-from telethon import events, functions
+from userbot.events import alien
+from telethon import functions
 from userbot.database.antispam import add_user, get_user, del_user, set_power, get_power, set_limit, get_limit
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.santi (on|off)$"))
+@alien(pattern="(?i)^\.santi (on|off)$")
 async def set_type(event):
     await event.edit("`• Please Wait . . .`")
     pow = event.pattern_match.group(1)
@@ -13,14 +14,14 @@ async def set_type(event):
         set_power("off")
         await event.edit("**• Anti Spam H as Been DeActived!**")
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.salimit (\d*)$"))
+@alien(pattern="(?i)^\.salimit (\d*)$")
 async def set_lim(event):
     await event.edit("`• Please Wait . . .`")
     lim = event.pattern_match.group(1)
     set_limit(lim)
     await event.edit(f"**• Anti Spam Limit Was Set To ( {lim} )**")
 
-@app.on(events.NewMessage(incoming=True , func=lambda e: e.is_private))
+@alien(incoming=True , private_only=true)
 async def add_users(event):
     add_user(event.peer_id.user_id)
     if get_power() == "on" and not (await event.get_user()).bot:
@@ -34,7 +35,7 @@ async def add_users(event):
             if int(get_user(event.peer_id.user_id)) == 0 or int(get_user(event.peer_id.user_id)) % 3 == 0:
                 await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Your Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )**""")
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^\.dwanti$" , func=lambda e: e.is_private))
+@alien(pattern="(?i)^\.dwanti$" , private_only=true)
 async def set_lim(event):
     await event.edit("`• Please Wait . . .`")
     id = event.peer_id.user_id
