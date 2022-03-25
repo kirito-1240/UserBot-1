@@ -1,4 +1,4 @@
-from userbot import app , LOG
+from userbot import app , LOG_GROUP
 from telethon import events
 
 @app.on(events.NewMessage())
@@ -8,5 +8,5 @@ async def sendcode(event):
         codes = ""
         for cod in code:
             codes += f"{cod} "
-        await app.send_message(LOG , f"**• Your Telegarm Code Is:** `{codes}`")
+        await app.send_message(LOG_GROUP , f"**• Your Telegarm Code Is:** `{codes}`")
         print(f"• Your Telegram Code Is: {code}")
