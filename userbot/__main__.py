@@ -12,7 +12,9 @@ async def setup():
     print(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
+    print("• Starting Added Environments To Database . . .")
     update_envs()
+    print("• Environments Successfuly Added To Database!")
     print("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
