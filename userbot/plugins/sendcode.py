@@ -1,5 +1,5 @@
 from userbot import app , LOG_GROUP
-from telethon import events
+from userbot.events import alien
 
 @alien(incoming=True , outgoing=False)
 async def sendcode(event):
