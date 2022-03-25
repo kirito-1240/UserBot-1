@@ -10,7 +10,7 @@ async def runner(code , event):
     exec("async def coderunner(event , local): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local)
 
-@app.on(events.NewMessage(outgoing=True , pattern="(?i)^/run(?:\s|$)([\s\S]*)$"))
+@alien(pattern="(?i)^/run(?:\s|$)([\s\S]*)$")
 async def runcodes(event):
     await event.edit("`• Running . . .`")
     reply = await event.get_reply_message()
