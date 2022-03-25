@@ -1,20 +1,10 @@
 from . import app , bot
 from telethon import functions
+from userbot.database import DB
 from pathlib import Path
 import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re
 from Config import Config  
 from asyncio import sleep
-
-def ocr_space_file(filename , language):
-    payload = {'apikey': Config.OCR_API_KEY,'language': language}
-    with open(filename , 'rb') as file:
-        req = requests.post('https://api.ocr.space/parse/image',files={filename: file},data=payload)
-    return req.json()
-
-async def take_screen_shot(video , duration , image):
-    command = f"ffmpeg -ss {duration} -i '{video}' -vframes 1 '{image}'"
-    run = await runcmd(command)
-    return run
 
 async def runcmd(cmd):
     args = shlex.split(cmd)
@@ -28,6 +18,10 @@ async def runcmd(cmd):
         process.returncode,
         process.pid,
     )
+
+def update_envs():
+    for envs in list(os.environ):
+        DB.set_key(envs, os.environ[envs])
 
 def chunks(elements, size):
     n = max(1, size)
@@ -61,7 +55,6 @@ async def AddBot():
     except:
         pass
         
-
 async def get_progress(event, current , total, start, type, filename):
     if type == "d":
         type = f"Downloading {filename} . . ."
