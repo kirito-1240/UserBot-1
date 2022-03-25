@@ -45,7 +45,7 @@ def load_plugins(folder):
             sys.modules[name] = load
             LOGS.info(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
-            LOGS.error(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
+            LOGS.info(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
             
 async def get_progress(event, current , total, start, type, filename):
     if type == "d":
