@@ -1,9 +1,8 @@
-from . import app , bot
+from . import app , bot , LOG , LOGS , LOGSU , LOGSA
 from telethon import functions
 from userbot.database import DB
 from pathlib import Path
-import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re
-from Config import Config  
+import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re  
 from asyncio import sleep
 
 async def runcmd(cmd):
@@ -22,7 +21,7 @@ async def runcmd(cmd):
 def update_envs():
     for envs in list(os.environ):
         DB.set_key(envs, os.environ[envs])
-        print(f"• ( {envs} -> {os.environ[envs]} ) Added To Database")
+        LOGS.info(f"• ( {envs} -> {os.environ[envs]} ) Added To Database")
 
 def chunks(elements, size):
     n = max(1, size)
@@ -45,14 +44,14 @@ def load_plugins(folder):
             load.logger = logging.getLogger(plugin_name)
             spec.loader.exec_module(load)
             sys.modules[name] = load
-            print(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
+            LOGS.info(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
-            print(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
+            LOGS.error(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
     
 async def AddBot():
     info = await bot.get_me()
     try:
-        await app(functions.messages.AddChatUserRequest(Config.LOG_GROUP , user_id=info.username))
+        await app(functions.messages.AddChatUserRequest(LOG , user_id=info.username))
     except:
         pass
         
