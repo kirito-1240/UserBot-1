@@ -85,7 +85,7 @@ def alien(**args):
             ftext += f"**• Sender ID:** ( `{event.sender_id}` )\n\n"
             ftext += f"**• Event Trigger:**\n ( `{event.text}` )\n\n"
             ftext += f"**• Traceback Info:**\n ( `{str(format_exc())}` )\n\n"
-            ftext += "**• Error Text:**\n ( `{str(sys.exc_info()[1])}` )
+            ftext += "**• Error Text:**\n ( `{str(sys.exc_info()[1])}` )"
             ftext += "\n\n\nLast 10 commits:\n"
             command = "git log --pretty=format:\"%an: %s\" -10"
             process = await asyncsubshell(command,
