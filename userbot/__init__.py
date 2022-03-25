@@ -2,11 +2,17 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
 import sys , time
-from logging import getLogger
+import logging
 
-LOGS = getLogger("BOT")
-LOGSU = getLogger("USER-BOT")
-LOGSA = getLogger("ASSISTANT-BOT")
+logging.basicConfig(
+    format="[%(name)s - %(asctime)s] : %(message)s",
+    level=logging.INFO,
+    datefmt="%H:%M:%S",
+)
+
+LOGS = logging.getLogger("BOT")
+LOGSU = logging.getLogger("USER-BOT")
+LOGSA = logging.getLogger("ASSISTANT-BOT")
 START_TIME = time.time()
 LOG = Config.LOG_GROUP
 API_ID = Config.API_ID
@@ -20,7 +26,7 @@ try:
         API_HASH,
     ).start()
 except Exception as e:
-    LOGS.error(f"• Error On Create App : {e}")
+    LOGS.info(f"• Error On Create App : {e}")
 
 try:
     bot = TelegramClient(
@@ -30,4 +36,4 @@ try:
     ).start(bot_token=Config.BOT_TOKEN)
 
 except Exception as e:
-    LOGSA.error(f"• Error On Create App Assistant: {e}")
+    LOGSA.info(f"• Error On Create App Assistant: {e}")
