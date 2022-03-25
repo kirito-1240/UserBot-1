@@ -76,7 +76,7 @@ def alien(**args):
                 LOGS.info(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
                 await event.delete()
                 await asyncio.sleep(e.seconds + 5)
-            except Exception as e:
+            except:
                 date = strftime("%Y-%m-%d - %H:%M:%S", gmtime())
                 ftext = "**• Alien Userbot Logs •**\n\n"
                 ftext += f"**• Date:** `{date}`\n"
