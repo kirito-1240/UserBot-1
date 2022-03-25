@@ -8,7 +8,6 @@ import importlib
 import glob
 
 async def setup():
-    HELP_CMDS = {}
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
