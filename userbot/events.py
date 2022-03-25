@@ -28,18 +28,6 @@ def alien(**args):
     
     def decorator(func):
         async def wrapper(event):
-            if pattern:
-                return
-            if event.via_bot_id or event.fwd_from:
-                return
-            if groups_only and not event.is_group:
-                return
-            if private_only and not event.is_private:
-                return
-            if incoming and event.out:
-                return
-            if outgoing and not event.out:
-                return
             try:
                 await func(event)
             except events.StopPropagation:
