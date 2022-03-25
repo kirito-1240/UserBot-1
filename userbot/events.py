@@ -22,12 +22,25 @@ def alien(**args):
     pattern = args.get("pattern" , None)
     group_only = args.get("group_only" , False)
     private_only = args.get("private_only" , False)
+    channel_only = args.get("channel_only" , False)
     incoming = args.get("incoming" , False)
     outgoing = args.get("outgoing" , True)
     edited = args.get("edited" , True)
     
     def decorator(func):
         async def wrapper(event):
+            if event.via_bot_id or event.fwd_from:
+                return
+            if group_only and not event.is_group:
+                return
+            if private_only and not event.is_private:
+                return
+            if channel_only and not event.post:
+                return
+            if incoming and event.out:
+                return
+            if outgoing and not event.out:
+                return
             try:
                 await func(event)
             except events.StopPropagation:
@@ -90,7 +103,6 @@ def alien(**args):
             await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
             await event.client.send_file(LOG_GROUP, "Error.log", caption="**• Alien UserBot Logs!**")
             remove("Error.log")
-
         if edited:
             app.add_event_handler(wrapper, events.MessageEdited(**args))
         app.add_event_handler(wrapper, events.NewMessage(**args))
