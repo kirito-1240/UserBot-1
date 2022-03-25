@@ -2,12 +2,16 @@ from userbot.utils import load_plugins , AddBot
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG
+from userbot.database import DB
 import logging , sys , os
 import importlib
 import glob
 
 async def setup():
     me = await app.get_me()
+    print(f"• Connecting To {DB.name} Database . . .")
+    if DB.ping():
+        LOGS.info(f"• Connected To {DB.name} Database Successfully!")
     print("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
