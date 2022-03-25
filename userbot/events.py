@@ -76,19 +76,17 @@ def alien(**args):
                 LOGS.info(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
                 await event.delete()
                 await asyncio.sleep(e.seconds + 5)
-            except BaseException as e:
-                LOGS.info(e)
-            date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-            ftext = "**------- Alien Userbot Logs ------**\n\n"
-            ftext += f"**• Date:** ( `{date}` )\n"
-            ftext += f"**• Chat ID:** ( `{event.chat_id}` )\n"
-            ftext += f"**• Sender ID:** ( `{event.sender_id}` )\n\n"
-            ftext += f"**• Event Trigger:**\n ( `{event.text}` )\n\n"
-            ftext += f"**• Traceback Info:**\n ( `{format_exc()}` )\n\n"
-            ftext += f"**• Error Text:**\n ( `{sys.exc_info()[1]}` )"
-            await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
-            await event.client.send_message(LOG_GROUP , ftext)
-            os.remove("Error.log")
+            except Exception as e:
+                date = strftime("%Y-%m-%d - %H:%M:%S", gmtime())
+                ftext = "**• Alien Userbot Logs •**\n\n"
+                ftext += f"**• Date:** `{date}`\n"
+                ftext += f"**• Chat ID:** `{event.chat_id}`\n"
+                ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
+                ftext += f"**• Event Trigger:**\n `{event.text}`\n\n"
+                ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
+                ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
+                await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
+                await event.client.send_message(LOG_GROUP , ftext)
         if edited:
             app.add_event_handler(wrapper, events.MessageEdited(**args))
         app.add_event_handler(wrapper, events.NewMessage(**args))
