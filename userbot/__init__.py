@@ -5,6 +5,13 @@ import sys , time
 from logging import getLogger
 
 LOGS = getLogger("BOT")
+LOGSU = getLogger("USER-BOT")
+LOGSA = getLogger("ASSISTANT-BOT")
+START_TIME = time.time()
+LOG = DB.get_key("LOG_GROUP")
+API_ID = DB.get_key("API_ID")
+API_HASH = DB.get_key("API_HASH")
+SESSION = DB.get_key("SESSION")
 
 try:
     app = TelegramClient(
@@ -24,11 +31,3 @@ try:
 
 except Exception as e:
     LOGSA.error(f"• Error On Create App Assistant: {e}")
-
-LOGSU = getLogger("USER-BOT")
-LOGSA = getLogger("ASSISTANT-BOT")
-START_TIME = time.time()
-LOG = DB.get_key("LOG_GROUP")
-API_ID = DB.get_key("API_ID")
-API_HASH = DB.get_key("API_HASH")
-SESSION = DB.get_key("SESSION")
