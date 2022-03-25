@@ -1,4 +1,4 @@
-from . import app , bot , LOG , LOGS , LOGSU , LOGSA
+from userbot import app, bot, LOG, LOGS
 from telethon import functions
 from userbot.database import DB
 from pathlib import Path
