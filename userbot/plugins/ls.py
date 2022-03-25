@@ -1,6 +1,6 @@
 from userbot import app
 from userbot.utils import convert_bytes
-from events import alien
+from userbot.events import alien
 from pathlib import Path
 import os
 
