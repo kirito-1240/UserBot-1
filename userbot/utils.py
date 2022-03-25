@@ -1,5 +1,3 @@
-from userbot import app, bot, LOG, LOGS
-from telethon import functions
 from userbot.database import DB
 from pathlib import Path
 import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re  
@@ -47,14 +45,7 @@ def load_plugins(folder):
             LOGS.info(f"""• Bot Has Imported ( {plugin_name.replace(".py", "")} ) Plugin""")
         except Exception as e:
             LOGS.error(f"""• Bot Can't Import ( {plugin_name.replace(".py", "")} ) Plugin - Error : < {e} >""")
-    
-async def AddBot():
-    info = await bot.get_me()
-    try:
-        await app(functions.messages.AddChatUserRequest(LOG , user_id=info.username))
-    except:
-        pass
-        
+            
 async def get_progress(event, current , total, start, type, filename):
     if type == "d":
         type = f"Downloading {filename} . . ."
