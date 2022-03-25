@@ -22,6 +22,7 @@ async def runcmd(cmd):
 def update_envs():
     for envs in list(os.environ):
         DB.set_key(envs, os.environ[envs])
+        print(f"• ( {envs} -> {os.environ[envs]} ) Added To Database")
 
 def chunks(elements, size):
     n = max(1, size)
