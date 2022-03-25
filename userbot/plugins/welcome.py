@@ -1,4 +1,4 @@
-from userbot import app , LOG
+from userbot import app , LOG_GROUP
 from telethon import events
 from userbot.database.welcome import add_welcome, get_welcome, del_welcome , clean_welcomes
 
@@ -11,7 +11,7 @@ async def send_welcome(event):
         except:
             pass
         try:
-            msg = await app.get_messages(LOG, ids=int(id))
+            msg = await app.get_messages(LOG_GROUP, ids=int(id))
         except:
             return
         a_user = await event.get_user()
@@ -61,8 +61,8 @@ async def s_welcome(event):
     if not reply:
         await event.edit("**• Please Reply To Message!**")
         return
-    await app.send_message(LOG , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The ( {title} ):**\n**• Don't Delete This Message!!**")
-    forward = await app.forward_messages(LOG , messages=reply , from_peer=event.chat_id , silent=True)
+    await app.send_message(LOG_GROUP , f"**• Welcome Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Welcome For The ( {title} ):**\n**• Don't Delete This Message!!**")
+    forward = await app.forward_messages(LOG_GROUP , messages=reply , from_peer=event.chat_id , silent=True)
     chat_id = event.chat_id
     msg_id = forward.id
     add_welcome(chat_id, msg_id)
@@ -77,7 +77,7 @@ async def g_welcome(event):
         return
     await event.edit(f"**• Welcome Message In This Chat:**\n**• Chat ID:** `{event.chat_id}`")
     try:
-        msg = await app.get_messages(LOG, ids=int(id))
+        msg = await app.get_messages(LOG_GROUP, ids=int(id))
     except:
         return
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
