@@ -1,8 +1,7 @@
 from userbot import app , LOGS , LOG_GROUP
 from asyncio import create_subprocess_exec as asyncsubshell
 from asyncio import subprocess as asyncsub
-from os import remove
-import sys
+import os , sys
 from time import gmtime, strftime
 from traceback import format_exc
 from telethon import events
@@ -102,7 +101,7 @@ def alien(**args):
             file.close()
             await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
             await event.client.send_file(LOG_GROUP, "Error.log", caption="**• Alien UserBot Logs!**")
-            remove("Error.log")
+            os.remove("Error.log")
         if edited:
             app.add_event_handler(wrapper, events.MessageEdited(**args))
         app.add_event_handler(wrapper, events.NewMessage(**args))
