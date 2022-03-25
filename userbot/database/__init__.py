@@ -32,9 +32,11 @@ class RedisDB:
         for keys in self.keys():
             self._cache.update({keys: self.get_key(keys)})
 
+    @property
     def name(self):
         return "Redis"
 
+    @property
     def usage(self):
         allusage = 0
         for x in self.keys():
