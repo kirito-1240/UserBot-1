@@ -12,12 +12,13 @@ async def setup():
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
-    LOGS.info("• Starting Added Environments To Database . . .")
-    LOGS.info("• Environments Successfuly Added To Database!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
+    chat = DB.set_key("RESTART")
+    await app.edit_message(chat.split("_")[0] , chat.split("_")[1])
+    DB.del_key("RESTART")
     if me.username:
         username = "@" + me.username
     else:
