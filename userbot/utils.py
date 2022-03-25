@@ -18,13 +18,6 @@ async def runcmd(cmd):
         process.pid,
     )
 
-def update_envs():
-    f = open("Config.py","r")
-    read = f.readlines() 
-    for envs in list(os.environ):
-        if re.search(envs , str(read)) and envs not in ["PORT" , "_"]:
-            DB.set_key(envs, os.environ[envs])
-  
 def chunks(elements, size):
     n = max(1, size)
     return (elements[i:i + n] for i in range(0, len(elements), n))
