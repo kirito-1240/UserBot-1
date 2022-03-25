@@ -1,4 +1,4 @@
-from userbot.utils import load_plugins , AddBot
+from userbot.utils import load_plugins , AddBot , update_envs
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG
@@ -12,6 +12,7 @@ async def setup():
     print(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
+    update_envs()
     print("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
