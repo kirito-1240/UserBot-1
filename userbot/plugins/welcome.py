@@ -1,5 +1,6 @@
 from userbot import app , LOG_GROUP
 from telethon import events
+from userbot.events import alien
 from userbot.database.welcome import add_welcome, get_welcome, del_welcome , clean_welcomes
 
 @app.on(events.ChatAction)
