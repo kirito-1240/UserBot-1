@@ -4,7 +4,8 @@ from userbot.database import DB
 import sys , time
 from logging import getLogger
 
-LOGS = getLogger("USER-BOT")
+LOGS = getLogger("BOT")
+LOGSU = getLogger("USER-BOT")
 LOGSA = getLogger("ASSISTANT-BOT")
 START_TIME = time.time()
 LOG = DB.get_key("LOG_GROUP")
