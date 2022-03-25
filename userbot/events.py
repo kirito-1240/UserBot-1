@@ -84,8 +84,8 @@ def alien(**args):
             ftext += f"**• Chat ID:** ( `{event.chat_id}` )\n"
             ftext += f"**• Sender ID:** ( `{event.sender_id}` )\n\n"
             ftext += f"**• Event Trigger:**\n ( `{event.text}` )\n\n"
-            ftext += f"**• Traceback Info:**\n ( `{str(format_exc())}` )\n\n"
-            ftext += "**• Error Text:**\n ( `{str(sys.exc_info()[1])}` )"
+            ftext += f"**• Traceback Info:**\n ( `{format_exc()}` )\n\n"
+            ftext += f"**• Error Text:**\n ( `{sys.exc_info()[1]}` )"
             await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
             await event.client.send_message(LOG_GROUP , ftext)
             os.remove("Error.log")
