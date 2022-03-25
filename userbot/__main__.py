@@ -17,8 +17,9 @@ async def setup():
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
     chat = DB.set_key("RESTART")
-    await app.edit_message(chat.split("_")[0] , chat.split("_")[1])
-    DB.del_key("RESTART")
+    if chat:
+        await app.edit_message(chat.split("_")[0] , chat.split("_")[1])
+        DB.del_key("RESTART")
     if me.username:
         username = "@" + me.username
     else:
