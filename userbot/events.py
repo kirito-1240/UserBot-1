@@ -28,6 +28,8 @@ def alien(**args):
     
     def decorator(func):
         async def wrapper(event):
+            if pattern:
+                return
             if event.via_bot_id or event.fwd_from:
                 return
             if groups_only and not event.is_group:
