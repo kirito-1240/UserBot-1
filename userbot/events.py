@@ -82,7 +82,7 @@ def alien(**args):
             except BaseException as e:
                 LOGS.info(e)
             date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-            ftext += "**------- USERBOT LOGS ------**\n\n"
+            ftext = "**------- USERBOT LOGS ------**\n\n"
             ftext += f"**• Date:** ( `{date}` )\n"
             ftext += f"**• Chat ID:** ( `{event.chat_id}` )\n"
             ftext += f"**• Sender ID:** ( `{event.sender_id}` )\n\n"
