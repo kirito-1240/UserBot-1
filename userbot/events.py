@@ -104,10 +104,11 @@ def alien_asst(**args):
     channel_only = args.get("channel_only" , False)
     incoming = args.get("incoming" , True)
     outgoing = args.get("outgoing" , False)
+    me_only = args.get("me_only" , False)
     edited = args.get("edited" , True)
     via_bot = args.get("via_bot" , False)
     fwd = args.get("fwd" , False)
-    
+    my_id = (await app.get_me()).id
     def decorator(func):
         async def wrapper(event):
             if via_bot and not event.via_bot_id:
@@ -123,6 +124,10 @@ def alien_asst(**args):
             if incoming and event.out:
                 return
             if outgoing and not event.out:
+                return
+            if me_only and not event.from_id and not event.from_id.user_id == my_id:
+                return
+            if me_only and not event.peer_id.user_id and not event.peer_id.user_id == my_id:
                 return
             try:
                 await func(event)
