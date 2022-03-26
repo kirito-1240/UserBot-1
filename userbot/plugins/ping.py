@@ -6,7 +6,7 @@ import time
 
 @alien(pattern="(?i)^\.ping$")
 async def ping(event):
-    start = datetime.nows()
+    start = datetime.now()
     await event.edit("**Pong!!**")
     end = datetime.now()
     ms = (end - start).microseconds / 1000
