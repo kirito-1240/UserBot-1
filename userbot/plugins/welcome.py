@@ -97,3 +97,15 @@ async def c_welcome(event):
     await event.edit("`• Please Wait . . .`")
     clean_welcomes()
     await event.edit(f"**• Welcome Messages Was Cleaned!**")
+
+
+from userbot.database import CMDS_HELP
+plugin = ((__name__).split(".")[-1])
+CMDS_HELP.update(
+    {
+        plugin:{
+            "info": "To Get Welcome For New Members In Groups!",
+            "cmds": {".swelcome": "To Set Welcome Message For Thsi Chat!" , ".gwelcome": "To Get Welcome Message From This Chat!" , ".dwelcome": "To Delete Welcome Message From This Chat!" , ".cwelcomes": "To Clean Welcome Messages In All Groups!"},
+            "exm": [".swelcome [reply]", ".gwelcome", ".dwelcome", ".cwelcomes"],
+       }
+    }
