@@ -97,7 +97,7 @@ def alien(**args):
         return wrapper
     return decorator
 
-def alien(**args):
+def alien_asst(**args):
     pattern = args.get("pattern" , None)
     group_only = args.get("group_only" , False)
     private_only = args.get("private_only" , False)
