@@ -1,9 +1,9 @@
 from userbot import bot
 from telethon import Button
-from userbot.events import alien
+from userbot.events import alien_asst
 from userbot.database.botusers import add_user
 
-@alien(pattern="(?i)^\/start$")
+@alien_asst(pattern="(?i)^\/start$")
 async def Start(event):
     try:
         add_user(event.peer_id.user_id)
