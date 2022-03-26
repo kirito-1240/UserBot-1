@@ -135,27 +135,27 @@ def alien_asst(**args):
             except MessageIdInvalidError:
                 LOGS.info("• Sorry, Message Was Deleted Or Cant Be Found!")
             except BotInlineDisabledError:
-                await event.edit("`• Sorry, Please Turn On Inline Mode For Our Bot!`")
+                await event.reply("`• Sorry, Please Turn On Inline Mode For Our Bot!`")
                 await asyncio.sleep(5)
                 await event.delete()
             except ChatSendStickersForbiddenError:
-                await event.edit("`• Sorry, Im Guess I Can't Send Stickers In This Chat!`")
+                await event.reply("`• Sorry, Im Guess I Can't Send Stickers In This Chat!`")
                 await asyncio.sleep(5)
                 await event.delete()
             except BotResponseTimeoutError:
-                await event.edit("`• Sorry, The Bot Didnt Answer To Your Query In Time!`")
+                await event.reply("`• Sorry, The Bot Didnt Answer To Your Query In Time!`")
                 await asyncio.sleep(5)
                 await event.delete()                    
             except ChatSendMediaForbiddenError:
-                await event.edit("`• Sorry, You Can't Send Media In This Chat!`")
+                await event.reply("`• Sorry, You Can't Send Media In This Chat!`")
                 await asyncio.sleep(5)
                 await event.delete()
             except AlreadyInConversationError:
-                await event.edit("`• Sorry, A Conversation Is Already Happening With The Given Chat. Try Again After Some Time!`")
+                await event.reply("`• Sorry, A Conversation Is Already Happening With The Given Chat. Try Again After Some Time!`")
                 await asyncio.sleep(5)
                 await event.delete()
             except ChatSendInlineForbiddenError:
-                await event.edit("`• Sorry, You Can't Send Inline Messages In This Chat!`")
+                await event.reply("`• Sorry, You Can't Send Inline Messages In This Chat!`")
                 await asyncio.sleep(5)
                 await event.delete()
             except FloodWaitError as e:
@@ -171,7 +171,7 @@ def alien_asst(**args):
                 ftext += f"**• Event Trigger:**\n `{event.text}`\n\n"
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
-                await event.edit("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
+                await event.reply("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext) 
         if edited:
             bot.add_event_handler(wrapper, events.MessageEdited(**args))
