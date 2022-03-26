@@ -11,6 +11,7 @@ async def setup():
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
+    CMDS_HELP = {}
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
@@ -20,13 +21,6 @@ async def setup():
         print(edit)
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
-    LOGS.info("• Starting Update Cmds Help . . .")
-    if DB.get_key("CMDS_HELP"):
-        DB.del_key("CMDS_HELP")
-    CMDS = CMDS_HELP or {}
-    DB.set_key("CMDS_HELP", CMDS)
-    CMDS_HELP = {}
-    LOGS.info("• Update Cmds Help Completed!")   
     me = await app.get_me()
     if me.username:
         username = "@" + me.username
