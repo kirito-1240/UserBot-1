@@ -66,4 +66,3 @@ class RedisDB:
         return bool(self.delete(str(key)))
 
 DB = RedisDB()
-CMDS_HELP = {}
