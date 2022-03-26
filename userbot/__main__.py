@@ -2,7 +2,7 @@ from userbot.utils import load_plugins
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
-from userbot.database import DB , CMDS_HELP
+from userbot.database import DB
 import logging , sys , os
 import importlib
 import glob
@@ -11,14 +11,12 @@ async def setup():
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
-    CMDS_HELP = {}
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
     if DB.get_key("RESTART"):
         edit = DB.get_key("RESTART")
-        print(edit)
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
     me = await app.get_me()
