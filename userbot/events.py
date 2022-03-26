@@ -97,6 +97,9 @@ def alien(**args):
         return wrapper
     return decorator
 
+async def my_id():
+    return ((await app.get_me()).id)
+
 def alien_asst(**args):
     pattern = args.get("pattern" , None)
     group_only = args.get("group_only" , False)
@@ -108,7 +111,7 @@ def alien_asst(**args):
     edited = args.get("edited" , True)
     via_bot = args.get("via_bot" , False)
     fwd = args.get("fwd" , False)
-    my_id = (await app.get_me()).id
+
     def decorator(func):
         async def wrapper(event):
             if via_bot and not event.via_bot_id:
@@ -125,9 +128,9 @@ def alien_asst(**args):
                 return
             if outgoing and not event.out:
                 return
-            if me_only and not event.from_id and not event.from_id.user_id == my_id:
+            if me_only and not event.from_id and not event.from_id.user_id == int(my_id()):
                 return
-            if me_only and not event.peer_id.user_id and not event.peer_id.user_id == my_id:
+            if me_only and not event.peer_id.user_id and not event.peer_id.user_id == int(my_id()):
                 return
             try:
                 await func(event)
