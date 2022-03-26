@@ -1,4 +1,4 @@
-from userbot import LOGS , app , LOG_GROUP
+from userbot import LOGS
 import os , re , random
 try:
     from bs4 import BeautifulSoup
@@ -51,7 +51,6 @@ async def google_search(query):
     result = []
     pdata = soup.find_all("a", href=re.compile("url="))
     for data in pdata:
-        await app.send_message(LOG_GROUP , str(data))
         if not data.find("div"):
             continue
         try:
@@ -62,6 +61,6 @@ async def google_search(query):
                     "description": data.find_all("div")[-1].text,
                 }
             )
-        except BaseException as er:
-            LOGS.info(er)
+        except:
+            pass
     return result
