@@ -12,4 +12,4 @@ async def googlesearch(event):
         if x["title"]:
             co += 1
             result += f'**{co} -** [{x["title"]}]({x["link"]})\n\n'
-    await event.reply(result)
+    await event.edit(result)
