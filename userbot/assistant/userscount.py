@@ -1,9 +1,10 @@
 from userbot import app , bot
-from telethon import events , Button
+from telethon import Button
+from userbot.events import alien_asst
 from userbot.database.botusers import get_users
 import os
 
-@bot.on(events.NewMessage(pattern="(?i)^\/users$"))
+@alien_aast(pattern="(?i)^\/users$")
 async def Start(event):
     id = (await app.get_me()).id
     if event.peer_id.user_id == id:
