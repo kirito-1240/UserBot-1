@@ -1,7 +1,7 @@
 import os
 try:
     import aiohttp
-excpet:
+except:
     os.system("pip install aiohttp")
     import aiohttp
 
