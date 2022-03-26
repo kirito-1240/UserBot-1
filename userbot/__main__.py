@@ -2,7 +2,7 @@ from userbot.utils import load_plugins
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
-from userbot.database import DB
+from userbot.database import DB , CMDS_HELP
 import logging , sys , os
 import importlib
 import glob
@@ -20,6 +20,12 @@ async def setup():
         print(edit)
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
+    LOGS.info("• Starting Update Cmds Help . . .")
+    if DB.get_key("CMDS_HELP"):
+        DB.del_key("CMDS_HELP")
+    DB.set_key("CMDS_HELP" , CMDS_HELP)
+    CMDS_HELP = {}
+    LOGS.info("• Update Cmds Help Completed!")   
     me = await app.get_me()
     if me.username:
         username = "@" + me.username
