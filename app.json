@@ -67,6 +67,11 @@
       "value": "15411",
       "required": false
     },
+    "TZ": {
+      "description": "Your TZ!",
+      "value": "Asia/Tehran",
+      "required": false
+    },
   },
   "buildpacks": [{
     "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
