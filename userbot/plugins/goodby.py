@@ -97,3 +97,16 @@ async def c_goodby(event):
     await event.edit("`• Please Wait . . .`")
     clean_goodbys()
     await event.edit(f"**• Goodby Messages Was Cleaned!**")
+
+
+from userbot.database import CMDS_HELP
+plugin = ((__name__).split(".")[-1])
+CMDS_HELP.update(
+    {
+        plugin:{
+            "info": "To Get Goodby For New Members In Groups!",
+            "cmds": {".sgoodby": "To Set Goodby Message For Thsi Chat!" , ".ggoodby": "To Get Goodby Message From This Chat!" , ".dgoodby": "To Delete Goodby Message From This Chat!" , ".cgoodbys": "To Clean Goodby Messages In All Groups!" , },
+            "exm": [".sgoodby [reply]", ".ggoodby", ".dgoodby", ".cgoodbys"],
+       }
+    }
+)
