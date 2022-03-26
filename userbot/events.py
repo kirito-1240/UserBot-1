@@ -23,10 +23,14 @@ def alien(**args):
     incoming = args.get("incoming" , False)
     outgoing = args.get("outgoing" , True)
     edited = args.get("edited" , True)
+    via_bot = args.get("via_bot" , False)
+    fwd = args.get("fwd" , False)
     
     def decorator(func):
         async def wrapper(event):
-            if event.via_bot_id or event.fwd_from:
+            if via_bot and not event.via_bot_id:
+                return
+            if fwd and not event.fwd_from:
                 return
             if group_only and not event.is_group:
                 return
@@ -85,7 +89,7 @@ def alien(**args):
                 ftext += f"**• Event Trigger:**\n `{event.text}`\n\n"
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
-                await event.edit("`• Sorry, My Userbot Has Crashed. The Error Logs Are Stored In The Userbot Log Chat!`")
+                await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext)
         if edited:
             app.add_event_handler(wrapper, events.MessageEdited(**args))
