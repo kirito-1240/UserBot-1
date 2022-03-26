@@ -1,4 +1,4 @@
-from userbot import LOGS
+from userbot import LOGS , app , LOG_GROUP
 import os , re , random
 try:
     from bs4 import BeautifulSoup
@@ -51,6 +51,7 @@ async def google_search(query):
     result = []
     pdata = soup.find_all("a", href=re.compile("url="))
     for data in pdata:
+        await app.send_message(LOG_GROUP , str(data))
         if not data.find("div"):
             continue
         try:
