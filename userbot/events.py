@@ -17,6 +17,7 @@ from telethon.errors import (
 
 def alien(**args):
     pattern = args.get("pattern" , None)
+    info = args.get("info" , None)
     group_only = args.get("group_only" , False)
     private_only = args.get("private_only" , False)
     channel_only = args.get("channel_only" , False)
