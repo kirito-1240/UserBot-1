@@ -9,8 +9,8 @@ speedtest-cli
 youtube-search-python
 youtube_dl
 requests
+bs4
+aiohttp
 redis
-pymongo
-dnspython
 pytz
 pytgcalls==3.0.0.dev21
