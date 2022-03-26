@@ -1,5 +1,6 @@
 from userbot import app , START_TIME
 from userbot.events import alien
+from userbot.database import CMDS_HELP
 from datetime import datetime
 from userbot.utils import convert_time
 import time
@@ -12,3 +13,11 @@ async def ping(event):
     ms = (end - start).microseconds / 1000
     uptime = convert_time(time.time() - START_TIME)
     await event.edit(f"**• Pong!!** `{ms}`\n**• Uptime :** `{uptime}`")
+
+CMDS_HELP.update(
+    {
+        "plugin_info": "To Get Ping And Uptime For Your Bot!",
+        "cmds": {".ping": "To Get Ping And Uptime!"},
+        "exm": [".ping"],
+    }
+)
