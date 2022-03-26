@@ -1,4 +1,4 @@
-from Assistantbot import app , bot , LOGS , LOG_GROUP
+from userbot import app , bot , LOGS , LOG_GROUP
 import os , sys , asyncio
 from time import gmtime, strftime
 from traceback import format_exc
