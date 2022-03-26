@@ -13,15 +13,3 @@ async def googlesearch(event):
             co += 1
             result += f'**{co} -** [{x["title"]}]({x["link"]})\n\n'
     await event.edit(result)
-
-
-from userbot.database import CMDS_HELP
-plugin = ((__name__).split(".")[-1])
-CMDS_HELP.update(
-    {
-        plugin:{
-            "info": "To Search From Google!",
-            "cmds": {".gsearch": "To Search From Google By Query!"},
-            "exm": [".gsearch [query]"],
-       }
-    }
