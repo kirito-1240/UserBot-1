@@ -14,10 +14,15 @@ async def ping(event):
     uptime = convert_time(time.time() - START_TIME)
     await event.edit(f"**• Pong!!** `{ms}`\n**• Uptime :** `{uptime}`")
 
+
+
+plugin = ((__name__).split(".")[-1])
 CMDS_HELP.update(
     {
-        "plugin_info": "To Get Ping And Uptime For Your Bot!",
-        "cmds": {".ping": "To Get Ping And Uptime!"},
-        "exm": [".ping"],
+        plugin:{
+            "info": "To Get Ping And Uptime For Your Bot!",
+            "cmds": {".ping": "To Get Ping And Uptime!"},
+            "exm": [".ping"],
+       }
     }
 )
