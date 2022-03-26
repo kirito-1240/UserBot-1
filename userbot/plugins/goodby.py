@@ -105,7 +105,7 @@ CMDS_HELP.update(
     {
         plugin:{
             "info": "To Get Goodby For New Members In Groups!",
-            "cmds": {".sgoodby": "To Set Goodby Message For Thsi Chat!" , ".ggoodby": "To Get Goodby Message From This Chat!" , ".dgoodby": "To Delete Goodby Message From This Chat!" , ".cgoodbys": "To Clean Goodby Messages In All Groups!" , },
+            "cmds": {".sgoodby": "To Set Goodby Message For Thsi Chat!" , ".ggoodby": "To Get Goodby Message From This Chat!" , ".dgoodby": "To Delete Goodby Message From This Chat!" , ".cgoodbys": "To Clean Goodby Messages In All Groups!"},
             "exm": [".sgoodby [reply]", ".ggoodby", ".dgoodby", ".cgoodbys"],
        }
     }
