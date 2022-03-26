@@ -4,7 +4,7 @@ from userbot.events import alien_asst
 from userbot.database.botusers import get_users
 import os
 
-@alien_aast(pattern="(?i)^\/users$")
+@alien_asst(pattern="(?i)^\/users$")
 async def Start(event):
     id = (await app.get_me()).id
     if event.peer_id.user_id == id:
