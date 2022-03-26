@@ -23,7 +23,8 @@ async def setup():
     LOGS.info("• Starting Update Cmds Help . . .")
     if DB.get_key("CMDS_HELP"):
         DB.del_key("CMDS_HELP")
-    DB.set_key("CMDS_HELP" , CMDS_HELP)
+    CMDS = CMDS_HELP or {}
+    DB.set_key("CMDS_HELP", CMDS)
     CMDS_HELP = {}
     LOGS.info("• Update Cmds Help Completed!")   
     me = await app.get_me()
