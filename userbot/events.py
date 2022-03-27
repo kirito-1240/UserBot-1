@@ -16,8 +16,6 @@ from telethon.errors import (
     MessageNotModifiedError,
 )
 
-my_id = int(DB.get_key("MY_ID"))
-
 def alien(
         pattern=None,
         groups_only=False,
@@ -188,6 +186,7 @@ def alien_asst(
                 await event.client.send_message(LOG_GROUP , ftext) 
         if pattern is not None:
             if sudo_only:
+                my_id = int(DB.get_key("MY_ID"))
                 if edited:
                     bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[my_id], **kwargs))
                 bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[my_id], **kwargs))
@@ -197,6 +196,7 @@ def alien_asst(
                 bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         else:
             if sudo_only:
+                my_id = int(DB.get_key("MY_ID"))
                 if edited:
                     bot.add_event_handler(wrapper, events.MessageEdited(from_users=[my_id], **kwargs))
                 bot.add_event_handler(wrapper, events.NewMessage(from_users=[my_id], **kwargs))
