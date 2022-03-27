@@ -17,9 +17,8 @@ from telethon.errors import (
 
 def alien(**args):
     pattern = args.get("pattern" , None)
-    info = args.get("info" , None)
     group_only = args.get("group_only" , False)
-    private_only = args.get("private_only" , False)
+    privates_only = args.get("privates_only" , False)
     channel_only = args.get("channel_only" , False)
     incoming = args.get("incoming" , False)
     outgoing = args.get("outgoing" , True)
@@ -35,7 +34,7 @@ def alien(**args):
                 return
             if group_only and not event.is_group:
                 return
-            if private_only and not event.is_private:
+            if privates_only and not event.is_private:
                 return
             if channel_only and not event.post:
                 return
@@ -108,7 +107,7 @@ def alien_asst(**args):
     channel_only = args.get("channel_only" , False)
     incoming = args.get("incoming" , True)
     outgoing = args.get("outgoing" , False)
-    me_only = args.get("me_only" , False)
+    my_only = args.get("my_only" , False)
     edited = args.get("edited" , True)
     via_bot = args.get("via_bot" , False)
     fwd = args.get("fwd" , False)
@@ -129,9 +128,9 @@ def alien_asst(**args):
                 return
             if outgoing and not event.out:
                 return
-            if me_only and not event.from_id and not event.from_id.user_id == int(my_id()):
+            if my_only and not event.from_id and not event.from_id.user_id == int(my_id()):
                 return
-            if me_only and not event.peer_id.user_id and not event.peer_id.user_id == int(my_id()):
+            if my_only and not event.peer_id.user_id and not event.peer_id.user_id == int(my_id()):
                 return
             try:
                 await func(event)
