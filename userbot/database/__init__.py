@@ -1,7 +1,7 @@
 from redis import Redis
 import os
-os.system("pip3 install pymongo[srv]")
-from pymongo import MongoClient
+os.system("pip3 install motor")
+from motor import motor_asyncio
 from Config import Config
 
 def get_data(self, key):
@@ -75,7 +75,7 @@ class RedisDB:
 
 class MongoDB:
     def __init__(self, MongoDB_URL):
-        self.dB = MongoClient(MongoDB_URL, serverSelectionTimeoutMS=5000)
+        self.dB = motor_asyncio.AsyncIOMotorClient(MongoDB_URL)
         self.db = self.dB["AlienUserBot"]
         self.recache()
 
