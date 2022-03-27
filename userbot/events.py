@@ -116,8 +116,8 @@ def alien_asst(**args):
     groups_only = args.get("groups_only", False)
     privates_only = args.get("privates_only", False)
     channels_only = args.get("channels_only", False)
-    outgoing = args.get("outgoing", True)
-    incoming = args.get("incoming", False)
+    outgoing = args.get("outgoing", False)
+    incoming = args.get("incoming", True)
     edited = args.get("edited", True)
 
     if "groups_only" in args:
