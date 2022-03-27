@@ -16,16 +16,14 @@ from telethon.errors import (
     MessageNotModifiedError,
 )
 
-def alien(
-        pattern=None,
-        groups_only=False,
-        privates_only=False,
-        channels_only=False,
-        outgoing=True,
-        incoming=True,
-        edited=True,
-        **kwargs,
-    ):
+def alien(**args):
+    pattern = args.get("pattern", None)
+    groups_only = args.get("groups_only", False)
+    privates_only = args.get("privates_only", False)
+    channels_only = args.get("channels_only", False)
+    outgoing = args.get("outgoing", True)
+    incoming = args.get("incoming", False)
+    edited = args.get("edited", True)
     
     def decorator(func):
         async def wrapper(event):
@@ -94,28 +92,21 @@ def alien(
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext)
-        if pattern is not None:
-            if edited:
-                app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
-            app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
-        else:
-            if edited:
-                app.add_event_handler(wrapper, events.MessageEdited(**kwargs))
-            app.add_event_handler(wrapper, events.NewMessage(**kwargs))
+        if edited:
+            app.add_event_handler(wrapper, events.MessageEdited(**args))
+        app.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
     return decorator
 
-def alien_asst(
-        pattern=None,
-        groups_only=False,
-        privates_only=False,
-        channels_only=False,
-        outgoing=True,
-        incoming=True,
-        edited=True,
-        sudo_only=False,
-        **kwargs,
-    ):
+def alien_asst(**args):
+    pattern = args.get("pattern", None)
+    groups_only = args.get("groups_only", False)
+    privates_only = args.get("privates_only", False)
+    channels_only = args.get("channels_only", False)
+    outgoing = args.get("outgoing", True)
+    incoming = args.get("incoming", False)
+    edited = args.get("edited", True)
+    sudo_only = args.get("sudo_only", False)
 
     def decorator(func):
         async def wrapper(event):
@@ -131,6 +122,9 @@ def alien_asst(
                 return
             if event.fwd_from and event.via_bot_id:
                 return
+            if sudo_only:
+                my_id = DB.get_key("MY_ID")
+                args["from_users"] = [my_id]
             try:
                 await func(event)
             except events.StopPropagation:
@@ -184,25 +178,8 @@ def alien_asst(
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.reply("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext) 
-        if pattern is not None:
-            if sudo_only:
-                my_id = int(DB.get_key("MY_ID"))
-                if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[my_id], **kwargs))
-                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[my_id], **kwargs))
-            else:
-                if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
-                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
-        else:
-            if sudo_only:
-                my_id = int(DB.get_key("MY_ID"))
-                if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(from_users=[my_id], **kwargs))
-                bot.add_event_handler(wrapper, events.NewMessage(from_users=[my_id], **kwargs))
-            else:
-                if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(**kwargs))
-                bot.add_event_handler(wrapper, events.NewMessage(**kwargs))
+        if edited:
+            bot.add_event_handler(wrapper, events.MessageEdited(**args))
+        bot.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
     return decorator
