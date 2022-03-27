@@ -13,3 +13,4 @@ class Config(object):
     REDIS_URL = os.environ.get("REDIS_URL")
     REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
     REDIS_PORT = os.environ.get("REDIS_PORT")
+    MongoDB_URL = os.environ.get("MongoDB_URL")
