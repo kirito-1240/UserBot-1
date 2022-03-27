@@ -47,9 +47,13 @@ def alien(**args):
             except KeyboardInterrupt:
                 pass
             except MessageNotModifiedError:
-                LOGS.info("• Sorry, Message Was Same As Previous Message!")
+                await event.edit("`• Sorry, Message Was Same As Previous Message!`")
+                await asyncio.sleep(5)
+                await event.delete()
             except MessageIdInvalidError:
-                LOGS.info("• Sorry, Message Was Deleted Or Cant Be Found!")
+                await event.edit("`• Sorry, Message Was Deleted Or Cant Be Found!`")
+                await asyncio.sleep(5)
+                await event.delete()
             except BotInlineDisabledError:
                 await event.edit("`• Sorry, Please Turn On Inline Mode For Our Bot!`")
                 await asyncio.sleep(5)
@@ -75,7 +79,7 @@ def alien(**args):
                 await asyncio.sleep(5)
                 await event.delete()
             except FloodWaitError as e:
-                LOGS.info(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
+                LOGS.error(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
                 await event.delete()
                 await asyncio.sleep(e.seconds + 5)
             except:
@@ -128,9 +132,13 @@ def alien_asst(**args):
             except KeyboardInterrupt:
                 pass
             except MessageNotModifiedError:
-                LOGS.info("• Sorry, Message Was Same As Previous Message!")
+                await event.edit("`• Sorry, Message Was Same As Previous Message!`")
+                await asyncio.sleep(5)
+                await event.delete()
             except MessageIdInvalidError:
-                LOGS.info("• Sorry, Message Was Deleted Or Cant Be Found!")
+                await event.edit("`• Sorry, Message Was Deleted Or Cant Be Found!`")
+                await asyncio.sleep(5)
+                await event.delete()
             except BotInlineDisabledError:
                 await event.reply("`• Sorry, Please Turn On Inline Mode For Our Bot!`")
                 await asyncio.sleep(5)
@@ -156,7 +164,7 @@ def alien_asst(**args):
                 await asyncio.sleep(5)
                 await event.delete()
             except FloodWaitError as e:
-                LOGS.info(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
+                LOGS.error(f"• Sorry, A Flood Wait Of {e.seconds} Occured. Please Wait For {e.seconds} Seconds And Try Again!")
                 await event.delete()
                 await asyncio.sleep(e.seconds + 5)
             except:
