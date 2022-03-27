@@ -11,6 +11,8 @@ async def setup():
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
+    else:
+        LOGS.error(f"• Connecting To {DB.name} Database Unavailable!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
