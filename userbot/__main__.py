@@ -12,10 +12,13 @@ async def setup():
     load_plugins("plugins")
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
-    if DB.get_key("RESTART"):
-        edit = DB.get_key("RESTART")
-        await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
-        DB.del_key("RESTART")
+    try:
+        if DB.get_key("RESTART"):
+            edit = DB.get_key("RESTART")
+            await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
+            DB.del_key("RESTART")
+    except:
+        pass
     me = await app.get_me()
     if DB.get_key("MY_ID"):
         DB.del_key("MY_ID")
