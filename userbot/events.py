@@ -17,9 +17,7 @@ from telethon.errors import (
 
 def alien(**args):
     pattern = args.get("pattern" , None)
-    group_only = args.get("group_only" , False)
-    privates_only = args.get("privates_only" , False)
-    channel_only = args.get("channel_only" , False)
+    type = args.get("type" , "all")
     incoming = args.get("incoming" , False)
     outgoing = args.get("outgoing" , True)
     edited = args.get("edited" , True)
@@ -28,19 +26,19 @@ def alien(**args):
     
     def decorator(func):
         async def wrapper(event):
-            if via_bot and not event.via_bot_id:
+            if type == "groups" and not event.is_group:
                 return
-            if fwd and not event.fwd_from:
+            elif type == "privates" and not event.is_private:
                 return
-            if group_only and not event.is_group:
+            elif type == "channels" and not event.post:
                 return
-            if privates_only and not event.is_private:
-                return
-            if channel_only and not event.post:
+            if outgoing and not event.out:
                 return
             if incoming and event.out:
                 return
-            if outgoing and not event.out:
+            if via_bot and not event.via_bot_id:
+                return
+            if fwd and not event.fwd_from:
                 return
             try:
                 await func(event)
@@ -97,40 +95,24 @@ def alien(**args):
         return wrapper
     return decorator
 
-async def my_id():
-    return ((await app.get_me()).id)
-
 def alien_asst(**args):
     pattern = args.get("pattern" , None)
-    group_only = args.get("group_only" , False)
-    private_only = args.get("private_only" , False)
-    channel_only = args.get("channel_only" , False)
+    type = args.get("type" , "all")
     incoming = args.get("incoming" , True)
     outgoing = args.get("outgoing" , False)
-    my_only = args.get("my_only" , False)
     edited = args.get("edited" , True)
-    via_bot = args.get("via_bot" , False)
-    fwd = args.get("fwd" , False)
 
     def decorator(func):
         async def wrapper(event):
-            if via_bot and not event.via_bot_id:
+            if type == "groups" and not event.is_group:
                 return
-            if fwd and not event.fwd_from:
+            elif type == "privates" and not event.is_private:
                 return
-            if group_only and not event.is_group:
-                return
-            if private_only and not event.is_private:
-                return
-            if channel_only and not event.post:
+            elif type == "channels" and not event.post:
                 return
             if incoming and event.out:
                 return
             if outgoing and not event.out:
-                return
-            if my_only and not event.from_id and not event.from_id.user_id == int(my_id()):
-                return
-            if my_only and not event.peer_id.user_id and not event.peer_id.user_id == int(my_id()):
                 return
             try:
                 await func(event)
