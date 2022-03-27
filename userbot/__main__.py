@@ -3,11 +3,15 @@ from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
 from userbot.database import DB
+from userbot.utils import runcmd
 import os, sys
 import importlib
 import glob
 
 async def setup():
+    LOGS.info("• Starting Updating Requirements . . .")
+    await runcmd("pip install -r requirements.txt")
+    LOGS.info("• Update Requirements Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
