@@ -21,7 +21,7 @@ async def set_lim(event):
     set_limit(lim)
     await event.edit(f"**• Anti Spam Limit Was Set To ( {lim} )**")
 
-@alien(incoming=True, outgoing=False, event.peer_id.user_id)
+@alien(incoming=True, outgoing=False, type="privates")
 async def add_users(event):
     if get_power() == "on" and not (await event.get_user()).bot:
         add_user(event.peer_id.user_id)
