@@ -14,11 +14,11 @@ def get_data(self, key):
     return data
 
 class RedisDB:
-    def __init__(self):
+    def __init__(self, REDIS_URL, REDIS_PASSWORD, REDIS_PORT):
         self.db = Redis(
-                host=Config.REDIS_URL,
-                password=Config.REDIS_PASSWORD,
-                port=Config.REDIS_PORT,
+                host=REDIS_URL,
+                password=REDIS_PASSWORD,
+                port=REDIS_PORT,
                 decode_responses=True,
                 socket_timeout=5,
                 retry_on_timeout=True,
@@ -74,8 +74,8 @@ class RedisDB:
         return True
 
 class MongoDB:
-    def __init__(self):
-        self.dB = MongoClient(Config.MongoDB_URL, serverSelectionTimeoutMS=5000)
+    def __init__(self, MongoDB_URL):
+        self.dB = MongoClient(MongoDB_URL, serverSelectionTimeoutMS=5000)
         self.db = self.dB["AlienUserBot"]
         self.recache()
 
@@ -135,6 +135,6 @@ class MongoDB:
         return True
 
 if Config.REDIS_URL:
-    DB = RedisDB()
+    DB = RedisDB(Config.REDIS_URL, Config.REDIS_PASSWORD, Config.REDIS_PORT)
 else:
-    DB = MongoDB()
+    DB = MongoDB(Config.MongoDB_URL)
