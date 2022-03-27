@@ -23,7 +23,6 @@ def alien(**args):
     channels_only = args.get("channels_only", False)
     outgoing = args.get("outgoing", True)
     incoming = args.get("incoming", False)
-    edited = args.get("edited", True)
 
     if "groups_only" in args:
         del args['groups_only']
@@ -35,8 +34,6 @@ def alien(**args):
         del args['outgoing']
     if "incoming" in args:
         del args['incoming']      
-    if "edited" in args:
-        del args['edited']
 
     def decorator(func):
         async def wrapper(event):
@@ -105,47 +102,18 @@ def alien(**args):
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext)
-        if edited:
-            app.add_event_handler(wrapper, events.MessageEdited(**args))
+        app.add_event_handler(wrapper, events.MessageEdited(**args))
         app.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
     return decorator
 
 def alien_asst(**args):
     pattern = args.get("pattern", None)
-    groups_only = args.get("groups_only", False)
-    privates_only = args.get("privates_only", False)
-    channels_only = args.get("channels_only", False)
-    outgoing = args.get("outgoing", False)
-    incoming = args.get("incoming", True)
-    edited = args.get("edited", True)
-
-    if "groups_only" in args:
-        del args['groups_only']
-    if "privates_only" in args:
-        del args['privates_only']
-    if "channels_only" in args:
-        del args['channels_only']
-    if "outgoing" in args:
-        del args['outgoing']
-    if "incoming" in args:
-        del args['incoming']      
-    if "edited" in args:
-        del args['edited']
-
     def decorator(func):
         async def wrapper(event):
-            if groups_only and not event.is_group:
+            if not event.is_private:
                 return
-            if privates_only and not event.is_private:
-                return
-            if channels_only and not event.post:
-                return
-            if outgoing and not event.out:
-                return
-            if incoming and event.out:
-                return
-            if event.fwd_from and event.via_bot_id:
+            if event.fwd_from or event.via_bot_id:
                 return
             try:
                 await func(event)
@@ -199,9 +167,8 @@ def alien_asst(**args):
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.reply("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
-                await event.client.send_message(LOG_GROUP , ftext) 
-        if edited:
-            bot.add_event_handler(wrapper, events.MessageEdited(**args))
+                await event.client.send_message(LOG_GROUP , ftext)
+        bot.add_event_handler(wrapper, events.MessageEdited(**args))
         bot.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
     return decorator
