@@ -95,6 +95,9 @@ def alien(**args):
         return wrapper
     return decorator
 
+async def my_id():
+    return (await app.get_me()).id
+
 def alien_asst(**args):
     pattern = args.get("pattern" , None)
     type = args.get("type" , "all")
