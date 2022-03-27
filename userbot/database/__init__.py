@@ -1,4 +1,5 @@
 from redis import Redis
+from pymongo import MongoClient
 from Config import Config
 
 def get_data(self, key):
@@ -25,12 +26,12 @@ class RedisDB:
         self.keys = self.db.keys
         self.ping = self.db.ping
         self.delete = self.db.delete
-        self.re_cache()
+        self.recache()
 
-    def re_cache(self):
-        self._cache = {}
+    def recache(self):
+        self.cache = {}
         for keys in self.keys():
-            self._cache.update({keys: self.get_key(keys)})
+            self.cache.update({keys: self.get_key(keys)})
 
     @property
     def name(self):
@@ -50,19 +51,88 @@ class RedisDB:
             value = eval(value)
         except BaseException:
             pass
-        self._cache.update({key: value})
+        self.cache.update({key: value})
         return self.set(str(key), str(value))
 
     def get_key(self, key):
-        if key in self._cache:
-            return self._cache[key]
-        _ = get_data(self, key)
-        self._cache.update({key: _})
-        return _
+        if key in self.cache:
+            return self.cache[key]
+        get = get_data(self, key)
+        self.cache.update({key: get})
+        return get
 
     def del_key(self, key):
-        if key in self._cache:
-            del self._cache[key]
+        if key in self.cache:
+            del self.cache[key]
         return bool(self.delete(str(key)))
+        
+    def flushall(self):
+        for x in self.keys():
+            self.del_key(x)
+        return True
 
-DB = RedisDB()
+class MongoDB:
+    def __init__(self):
+        self.dB = MongoClient(Config.MongoDB_URL, serverSelectionTimeoutMS=5000)
+        self.db = self.dB["AlienUserBot"]
+        self.recache()
+
+    @property
+    def name(self):
+        return "Mongo"
+
+    @property
+    def usage(self):
+        return self.db.command("dbstats")["dataSize"]
+
+    def recache(self):
+        self.cache = {}
+        for key in self.keys():
+            self.cache.update({key: self.get_key(key)})
+
+    def ping(self):
+        if self.dB.server_info():
+            return True
+
+    def keys(self):
+        return self.db.list_collection_names()
+
+    def set_key(self, key, value):
+        if key in self.keys():
+            self.db[key].replace_one({"_id": key}, {"value": str(value)})
+        else:
+            self.db[key].insert_one({"_id": key, "value": str(value)})
+        self.cache.update({key: value})
+        return True
+
+    def del_key(self, key):
+        if key in self.keys():
+            try:
+                del self.cache[key]
+            except KeyError:
+                pass
+            self.db.drop_collection(key)
+            return True
+
+    def get_key(self, key):
+        if key in self.cache:
+            return self.cache[key]
+        if key in self.keys():
+            value = get_data(self, key)
+            self.cache.update({key: value})
+            return value
+        return None
+
+    def get(self, key):
+        if x := self.db[key].find_one({"_id": key}):
+            return x["value"]
+
+    def flushall(self):
+        self.dB.drop_database("AlienUserBot")
+        self.cache = {}
+        return True
+
+if Config.REDIS_URL:
+    DB = RedisDB()
+else:
+    DB = MongoDB()
