@@ -75,7 +75,7 @@ class RedisDB:
 
 class MongoDB:
     def __init__(self):
-        self.dB = = MongoClient(Config.MongoDB_URL, serverSelectionTimeoutMS=5000)
+        self.dB = MongoClient(Config.MongoDB_URL, serverSelectionTimeoutMS=5000)
         self.db = self.dB["AlienUserBot"]
         self.recache()
 
@@ -134,7 +134,7 @@ class MongoDB:
         self.cache = {}
         return True
 
-if Config.REDIS_URL:
+if Config.REDIS_URL and Config.REDIS_PASSWORD and Config.REDIS_PORT:
     DB = RedisDB()
-else:
+elif Config.MongoDB_URL:
     DB = MongoDB()
