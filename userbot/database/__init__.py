@@ -1,7 +1,4 @@
 from redis import Redis
-import os
-os.system("pip3 install motor")
-from motor import motor_asyncio
 from Config import Config
 
 async def get_data(self, key):
@@ -73,68 +70,4 @@ class RedisDB:
             self.del_key(x)
         return True
 
-class MongoDB:
-    def __init__(self, MongoDB_URL):
-        self.dB = motor_asyncio.AsyncIOMotorClient(MongoDB_URL)
-        self.db = self.dB["AlienUserBot"]
-        self.recache()
-
-    @property
-    def name(self):
-        return "Mongo"
-
-    @property
-    def usage(self):
-        return (await self.db.command("dbstats")["dataSize"])
-
-    def recache(self):
-        self.cache = {}
-        for key in self.keys():
-            self.cache.update({key: self.get_key(key)})
-
-    def ping(self):
-        if self.dB.server_info():
-            return True
-
-    async def keys(self):
-        return (await self.db.list_collection_names())
-
-    async def set_key(self, key, value):
-        if key in self.keys():
-            await self.db[key].replace_one({"_id": key}, {"value": str(value)})
-        else:
-            await self.db[key].insert_one({"_id": key, "value": str(value)})
-        self.cache.update({key: value})
-        return True
-
-    async def del_key(self, key):
-        if key in await self.keys():
-            try:
-                del self.cache[key]
-            except KeyError:
-                pass
-            await self.db.drop_collection(key)
-            return True
-
-    async def get_key(self, key):
-        if key in self.cache:
-            return self.cache[key]
-        if key in await self.keys():
-            value = await get_data(self, key)
-            self.cache.update({key: value})
-            return value
-        return None
-
-    async def get(self, key):
-        if x := await self.db[key].find_one({"_id": key}):
-            return x["value"]
-
-    async def flushall(self):
-        await self.dB.drop_database("AlienUserBot")
-        self.cache = {}
-        return True
-
-if Config.REDIS_URL:
-    DB = RedisDB(Config.REDIS_URL, Config.REDIS_PASSWORD, Config.REDIS_PORT)
-else:
-    DB = MongoDB(Config.MongoDB_URL)
+DB = RedisDB(Config.REDIS_URL, Config.REDIS_PASSWORD, Config.REDIS_PORT)
