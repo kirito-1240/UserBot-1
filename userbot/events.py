@@ -1,6 +1,7 @@
 from userbot import app , bot , LOGS , LOG_GROUP
 import os , sys , asyncio
 from time import gmtime, strftime
+from userbot.database import DB
 from traceback import format_exc
 from telethon import events
 from telethon.errors import (
@@ -14,6 +15,8 @@ from telethon.errors import (
     MessageIdInvalidError,
     MessageNotModifiedError,
 )
+
+my_id = int(DB.get_key("MY_ID"))
 
 def alien(
         pattern=None,
@@ -104,9 +107,6 @@ def alien(
         return wrapper
     return decorator
 
-async def my_id():
-    return (await app.get_me()).id
-
 def alien_asst(
         pattern=None,
         groups_only=False,
@@ -189,8 +189,8 @@ def alien_asst(
         if pattern is not None:
             if sudo_only:
                 if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[int(my_id())], **kwargs))
-                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[int(my_id())], **kwargs))
+                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[my_id], **kwargs))
+                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[my_id], **kwargs))
             else:
                 if edited:
                     bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
@@ -198,8 +198,8 @@ def alien_asst(
         else:
             if sudo_only:
                 if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(**kwargs, from_users=[int(my_id())]))
-                bot.add_event_handler(wrapper, events.NewMessage(**kwargs, from_users=[int(my_id())]))
+                    bot.add_event_handler(wrapper, events.MessageEdited(from_users=[my_id], **kwargs))
+                bot.add_event_handler(wrapper, events.NewMessage(from_users=[my_id], **kwargs))
             else:
                 if edited:
                     bot.add_event_handler(wrapper, events.MessageEdited(**kwargs))
