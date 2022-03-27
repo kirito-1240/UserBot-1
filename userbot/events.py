@@ -95,8 +95,8 @@ def alien(
                 await event.client.send_message(LOG_GROUP , ftext)
         if pattern is not None:
             if edited:
-                app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern))
-            app.add_event_handler(wrapper, events.NewMessage(pattern=pattern))
+                app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+            app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         else:
             if edited:
                 app.add_event_handler(wrapper, events.MessageEdited(**kwargs))
@@ -189,12 +189,12 @@ def alien_asst(
         if pattern is not None:
             if sudo_only:
                 if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[int(my_id())]))
-                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[int(my_id())]))
+                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, from_users=[int(my_id())], **kwargs))
+                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, from_users=[int(my_id())], **kwargs))
             else:
                 if edited:
-                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern))
-                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern))
+                    bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+                bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         else:
             if sudo_only:
                 if edited:
