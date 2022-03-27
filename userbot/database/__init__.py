@@ -4,8 +4,8 @@ os.system("pip3 install motor")
 from motor import motor_asyncio
 from Config import Config
 
-def get_data(self, key):
-    data = self.get(str(key))
+async def get_data(self, key):
+    data = await self.get(str(key))
     if data:
         try:
             data = eval(data)
@@ -85,7 +85,7 @@ class MongoDB:
 
     @property
     def usage(self):
-        return self.db.command("dbstats")["dataSize"]
+        return (await self.db.command("dbstats")["dataSize"])
 
     def recache(self):
         self.cache = {}
@@ -96,41 +96,41 @@ class MongoDB:
         if self.dB.server_info():
             return True
 
-    def keys(self):
-        return self.db.list_collection_names()
+    async def keys(self):
+        return (await self.db.list_collection_names())
 
-    def set_key(self, key, value):
+    async def set_key(self, key, value):
         if key in self.keys():
-            self.db[key].replace_one({"_id": key}, {"value": str(value)})
+            await self.db[key].replace_one({"_id": key}, {"value": str(value)})
         else:
-            self.db[key].insert_one({"_id": key, "value": str(value)})
+            await self.db[key].insert_one({"_id": key, "value": str(value)})
         self.cache.update({key: value})
         return True
 
-    def del_key(self, key):
-        if key in self.keys():
+    async def del_key(self, key):
+        if key in await self.keys():
             try:
                 del self.cache[key]
             except KeyError:
                 pass
-            self.db.drop_collection(key)
+            await self.db.drop_collection(key)
             return True
 
-    def get_key(self, key):
+    async def get_key(self, key):
         if key in self.cache:
             return self.cache[key]
-        if key in self.keys():
-            value = get_data(self, key)
+        if key in await self.keys():
+            value = await get_data(self, key)
             self.cache.update({key: value})
             return value
         return None
 
-    def get(self, key):
-        if x := self.db[key].find_one({"_id": key}):
+    async def get(self, key):
+        if x := await self.db[key].find_one({"_id": key}):
             return x["value"]
 
-    def flushall(self):
-        self.dB.drop_database("AlienUserBot")
+    async def flushall(self):
+        await self.dB.drop_database("AlienUserBot")
         self.cache = {}
         return True
 
