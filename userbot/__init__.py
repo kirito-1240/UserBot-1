@@ -5,12 +5,11 @@ import sys , time
 import logging
 
 logging.basicConfig(
-    format="[%(asctime)s] : %(message)s",
-    level=logging.INFO,
+    format="[ %(levelname)s - %(asctime)s ] : %(message)s",
     datefmt="%H:%M:%S",
 )
 
-LOGS = logging.getLogger("BOT")
+LOGS = logging.getLogger("Alien-Userbot")
 START_TIME = time.time()
 LOG_GROUP = Config.LOG_GROUP
 API_ID = Config.API_ID
@@ -24,7 +23,7 @@ try:
         API_HASH,
     ).start()
 except Exception as e:
-    LOGS.info(f"• Error On Create App : {e}")
+    LOGS.error(f"• Error On Create App : {e}")
 
 try:
     bot = TelegramClient(
@@ -34,4 +33,4 @@ try:
     ).start(bot_token=Config.BOT_TOKEN)
 
 except Exception as e:
-    LOGSA.info(f"• Error On Create App Assistant: {e}")
+    LOGS.error(f"• Error On Create App Assistant: {e}")
