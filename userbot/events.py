@@ -24,7 +24,20 @@ def alien(**args):
     outgoing = args.get("outgoing", True)
     incoming = args.get("incoming", False)
     edited = args.get("edited", True)
-    
+
+    if "groups_only" in args:
+        del args['groups_only']
+    if "privates_only" in args:
+        del args['privates_only']
+    if "channels_only" in args:
+        del args['channels_only']
+    if "outgoing" in args:
+        del args['outgoing']
+    if "incoming" in args:
+        del args['incoming']      
+    if "edited" in args:
+        del args['edited']
+
     def decorator(func):
         async def wrapper(event):
             if groups_only and not event.is_group:
@@ -106,7 +119,19 @@ def alien_asst(**args):
     outgoing = args.get("outgoing", True)
     incoming = args.get("incoming", False)
     edited = args.get("edited", True)
-    sudo_only = args.get("sudo_only", False)
+
+    if "groups_only" in args:
+        del args['groups_only']
+    if "privates_only" in args:
+        del args['privates_only']
+    if "channels_only" in args:
+        del args['channels_only']
+    if "outgoing" in args:
+        del args['outgoing']
+    if "incoming" in args:
+        del args['incoming']      
+    if "edited" in args:
+        del args['edited']
 
     def decorator(func):
         async def wrapper(event):
@@ -122,9 +147,6 @@ def alien_asst(**args):
                 return
             if event.fwd_from and event.via_bot_id:
                 return
-            if sudo_only:
-                my_id = DB.get_key("MY_ID")
-                args["from_users"] = [my_id]
             try:
                 await func(event)
             except events.StopPropagation:
