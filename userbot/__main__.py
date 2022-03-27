@@ -8,11 +8,6 @@ import importlib
 import glob
 
 async def setup():
-    LOGS.info(f"• Connecting To {DB.name} Database . . .")
-    if DB.ping():
-        LOGS.info(f"• Connected To {DB.name} Database Successfully!")
-    else:
-        LOGS.error(f"• Connecting To {DB.name} Database Unavailable!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
@@ -30,6 +25,12 @@ async def setup():
     else:
         username = f"[{me.first_name}](tg://user?id={me.id})"
     await bot.send_file(LOG_GROUP , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+    LOGS.info(f"• Connecting To {DB.name} Database . . .")
+    if DB.ping():
+        LOGS.info(f"• Connected To {DB.name} Database Successfully!")
+    else:
+        LOGS.error(f"• Connecting To {DB.name} Database Unavailable!")
+    LOGS.info("• UserBot And AssistantBot Has Been Start Now!")
 
 bot.loop.run_until_complete(setup())
 app.run_until_disconnected()
