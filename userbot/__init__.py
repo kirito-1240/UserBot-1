@@ -2,12 +2,7 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
 import sys , time
-import logging
-
-logging.basicConfig(
-    format="[ %(levelname)s - %(asctime)s ] : %(message)s",
-    datefmt="%H:%M:%S",
-)
+from userbot.core.logger import logging
 
 LOGS = logging.getLogger("Alien-Userbot")
 START_TIME = time.time()
