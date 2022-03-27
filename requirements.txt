@@ -15,3 +15,5 @@ redis
 pymongo[srv]
 pytz
 pytgcalls==3.0.0.dev21
+pymongo[srv]
+psycopg2
