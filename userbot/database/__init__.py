@@ -1,7 +1,5 @@
 from redis import Redis
 import os
-os.system("pip install pymongo[srv]")
-from pymongo import MongoClient
 from Config import Config
 
 def get_data(self, key):
