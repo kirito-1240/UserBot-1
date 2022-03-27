@@ -110,6 +110,10 @@ def alien_asst(**args):
                 return
             elif type == "channels" and not event.post:
                 return
+            elif type == "me" and event.peer_id.user_id and not event.peer_id.user_id == int(my_id()):
+                return
+            elif type == "me" and event.from_id and not event.from_id.user_id == int(my_id()):
+                return
             if incoming and event.out:
                 return
             if outgoing and not event.out:
