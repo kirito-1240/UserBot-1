@@ -4,7 +4,7 @@ from Config import Config
 import sys , time
 from userbot.core.logger import logging
 
-LOGS = logging.getLogger("Alien-Userbot")
+LOGS = logging.getLogger("Alien-UserBot")
 START_TIME = time.time()
 LOG_GROUP = Config.LOG_GROUP
 API_ID = Config.API_ID
