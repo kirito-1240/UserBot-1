@@ -23,7 +23,7 @@ async def add_to_db():
 async def add_log_group():
     async for chat in app.iter_dialogs():
         if chat.title == "⚠️ My Alien Logs ⚠️":
-            DB.set_key("LOG_GROUP" , chat.id)
+            DB.set_key("LOG_GROUP" , str(chat.id).replace("-100", ""))
             return chat.title
     try:
         result = await app(
@@ -34,7 +34,8 @@ async def add_log_group():
             )
         )
         chat_id = result.chats[0].id
-        DB.set_key("LOG_GROUP" , chat_id)
+        print(chat_id)
+        DB.set_key("LOG_GROUP" , str(chat_id).replace("-100", ""))
         photo = await download_file(DB.get_key("LOG_GROUP_PIC"), "LOG_GROUP_PIC.jpg")
         photo = await app.upload_file(photo)
         await app(EditPhotoRequest(chat_id, InputChatUploadedPhoto(photo)))
