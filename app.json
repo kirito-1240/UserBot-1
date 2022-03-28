@@ -32,16 +32,6 @@
       "value": "",
       "required": false
     },
-    "RMBG_API_KEY": {
-      "description": "Your RMBG_API_KEY!",
-      "value": "xz1Qc2AXxtMtnMjyAnUtCvGg",
-      "required": false
-    },
-    "OCR_API_KEY": {
-      "description": "Your OCR_API_KEY!",
-      "value": "2ecf0dd48b88957",
-      "required": false
-    },
     "LOG_GROUP": {
       "description": "Your LOG_GROUP!",
       "value": "BotTest_Gp",
