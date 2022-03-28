@@ -1,4 +1,5 @@
-from userbot import app , bot , LOGS , LOG_GROUP
+from userbot import app, bot
+from userbot.core.logger import LOGS
 from telethon import events , Button
 from telethon.events import CallbackQuery, InlineQuery
 import os , sys , asyncio, re
@@ -94,7 +95,7 @@ def alien(
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
-                await event.client.send_message(LOG_GROUP , ftext)
+                await event.client.send_message(DB.get_key("LOG_GROUP"), ftext)
         app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         return wrapper
@@ -159,7 +160,7 @@ def alien_asst(pattern=None, owner=False, **kwargs):
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.reply("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
-                await event.client.send_message(LOG_GROUP , ftext)
+                await event.client.send_message(DB.get_key("LOG_GROUP") , ftext)
         bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         return wrapper
@@ -180,7 +181,7 @@ def alien_callback(data=None, owner=True, **kwargs):
                 ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
-                await event.client.send_message(LOG_GROUP , ftext)
+                await event.client.send_message(DB.get_key("LOG_GROUP") , ftext)
         bot.add_event_handler(wrapper, CallbackQuery(data=data, **kwargs))
     return decorator
 
@@ -199,6 +200,6 @@ def alien_inline(pattern=None, owner=True, **kwargs):
                 ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
-                await event.client.send_message(LOG_GROUP , ftext)
+                await event.client.send_message(DB.get_key("LOG_GROUP") , ftext)
         bot.add_event_handler(wrapper, InlineQuery(pattern=pattern, **kwargs))
     return decorator
