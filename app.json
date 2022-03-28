@@ -32,11 +32,6 @@
       "value": "",
       "required": false
     },
-    "LOG_GROUP": {
-      "description": "Your LOG_GROUP!",
-      "value": "BotTest_Gp",
-      "required": false
-    },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
       "value": "2116524948:AAEBIakgFI8Og_c4xzm4FM_MXTH-ectwjSM",
@@ -44,7 +39,7 @@
     },
     "REDIS_URL": {
       "description": "Your REDIS_URL!",
-      "value": "redis-15411.c251.east-us-mz.azure.cloud.redislabs.com",
+      "value": "redis-15411.c251.east-us-mz.azure.cloud.redislabs.com:15411",
       "required": false
     },
     "REDIS_PASSWORD": {
@@ -52,13 +47,8 @@
       "value": "wIYq4gH5lxQmGVgyk24LZiihAeMNVkVQ",
       "required": false
     },
-    "REDIS_PORT": {
-      "description": "Your REDIS_PORT!",
-      "value": "15411",
-      "required": false
-    },
     "TZ": {
-      "description": "Your TZ!",
+      "description": "Your TIMEZONE!",
       "value": "Asia/Tehran",
       "required": false
     },
