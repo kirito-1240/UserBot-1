@@ -1,9 +1,7 @@
 from userbot import LOGS
 from redis import Redis
-from pymongo import MongoClient
-import psycopg2
 import os
-from Config import Config
+import Config
 
 def get_data(self, key):
     data = self.get(str(key))
@@ -76,70 +74,4 @@ class RedisDB:
             self.del_key(x)
         return True
 
-
-class MongoDB:
-    def __init__(self):
-        self.dB = MongoClient(Config.MongoDB_URL)
-        self.db = self.dB["AlienUserBot"]
-        self.recache()
-
-    @property
-    def name(self):
-        return "Mongo"
-
-    @property
-    def usage(self):
-        return self.db.command("dbstats")["dataSize"]
-
-    def recache(self):
-        self.cache = {}
-        for key in self.keys():
-            self.cache.update({key: self.get_key(key)})
-
-    def ping(self):
-        if self.dB.server_info():
-            return True
-
-    def keys(self):
-        return self.db.list_collection_names()
-
-    def set_key(self, key, value):
-        if key in self.keys():
-            self.db[key].replace_one({"id": key}, {"value": str(value)})
-        else:
-            self.db[key].insert_one({"id": key, "value": str(value)})
-        self.cache.update({key: value})
-        return True
-
-    def del_key(self, key):
-        if key in self.keys():
-            try:
-                del self.cache[key]
-            except KeyError:
-                pass
-            self.db.drop_collection(key)
-            return True
-
-    def get_key(self, key):
-        if key in self.cache:
-            return self.cache[key]
-        if key in self.keys():
-            value = get_data(self, key)
-            self.cache.update({key: value})
-            return value
-        return None
-
-    def get(self, key):
-        if x := self.db[key].find_one({"id": key}):
-            return x["value"]
-
-    def flushall(self):
-        self.dB.drop_database("AlienUserBot")
-        self.cache = {}
-        return True
-
-
-if Config.REDIS_URL and Config.REDIS_PASSWORD:
-    DB = RedisDB()
-elif Config.MongoDB_URL:
-    DB = MongoDB()
+DB = RedisDB()
