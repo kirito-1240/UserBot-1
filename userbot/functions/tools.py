@@ -1,15 +1,7 @@
 from userbot import LOGS
 import os , re , random
-try:
-    from bs4 import BeautifulSoup
-except:
-    os.system("pip install bs4")
-    from bs4 import BeautifulSoup
-try:
-    import aiohttp
-except:
-    os.system("pip install aiohttp")
-    import aiohttp
+from bs4 import BeautifulSoup
+import aiohttp
 
 async def async_searcher(url, post=False, headers=None, params=None, json=None, data=None, re_json=False, re_content=False, real=False):
     async with aiohttp.ClientSession(headers=headers) as client:
