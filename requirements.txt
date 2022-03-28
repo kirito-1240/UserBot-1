@@ -12,7 +12,7 @@ requests
 bs4
 aiohttp
 redis
-pymongo[srv]
+aiocorn
 pytz
 pytgcalls==3.0.0.dev21
 pymongo[srv]
