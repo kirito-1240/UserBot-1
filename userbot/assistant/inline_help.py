@@ -17,14 +17,9 @@ IN_BTTS = [
 
 @alien_inline(pattern="inline_help")
 async def inline_help(event):
-    res = [
-            await event.builder.article(
-                title="Alien Userbot",
-                url="https://t.me/TheUltroid",
-                description="• Alien Userbot Inline Help!",
-                text=MSG,
-                thumb="/userbot/other/bot.jpg",
-                buttons=IN_BTTS,
-            )
-        ]
-    await event.answer([res])
+    result = await event.builder.photo(
+            file="userbot/other/bot.jpg",
+            text=MSG,
+            buttons=IN_BTTS,
+        )
+    await event.answer([result])
