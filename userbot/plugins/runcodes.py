@@ -6,14 +6,16 @@ import sys
 import io
 
 async def runner(code , event):
+    chat = await event.get_chat()
+    send = await event.get_sender()
+    reply = await event.get_reply_message()
     local = lambda _x: print(_format.yaml_format(_x))
-    exec("async def coderunner(event , local): "+ "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["coderunner"](event , local)
+    exec("async def coderunner(event , local, chat_id, send_id, reply, reply_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["coderunner"](event , local, chat.id, send.id, reply, reply.id)
 
 @alien(pattern="(?i)^/run(?:\s|$)([\s\S]*)$")
 async def runcodes(event):
     await event.edit("`• Running . . .`")
-    reply = await event.get_reply_message()
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
@@ -31,28 +33,33 @@ async def runcodes(event):
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-    evaluation = None
-    tr = "Results"
+    result = None
     if exc:
-        evaluation = exc
-        tr = "Errors"
+        result = exc
     elif stderr:
-        evaluation = stderr
-        tr = "Errors"
+        result = stderr
     elif stdout:
-        evaluation = stdout
-        tr = "Results"
+        result = stdout
     else:
-        evaluation = "Success!"
-        tr = "Results"
-    output = f"""**✮  Your Code : ** \n `/run\n\n{cmd}`\n\n**✮  {tr} : ** \n `{evaluation}`"""
-    await event.delete()
-    if len(str(output)) < 4000:
-        await app.send_message(event.chat_id , output)
-    else:
-        output = f"""✮  Your Code : \n /run\n\n{cmd}\n\n✮  {tr} : \n {evaluation}"""
-        with open('Result.txt', 'w') as f:
-            f.write(str(output))
-            f.close()
-        await app.send_file(event.chat_id, "Result.txt" , caption="**• Your Code Reply Exceeded One Message! \n • See The Answer In The File!**")
-        os.remove("./Result.txt")
+        result = "Success!"
+    try:
+        await app.send_message(event.chat_id , f"""
+**• Code:** 
+`/run
+{cmd}`
+
+**• Output:** 
+`{result}`
+""")
+    except:
+        open('Result.txt', 'w').write(str(result))
+        await app.send_file(event.chat_id, "Result.txt" , caption=f"""
+**• Code:** 
+`/run
+{cmd}`
+
+**• Output:** 
+__In File!__
+""")
+        os.remove("Result.txt")
+   await event.delete()
