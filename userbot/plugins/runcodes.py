@@ -62,4 +62,4 @@ async def runcodes(event):
 __In File!__
 """)
         os.remove("Result.txt")
-   await event.delete()
+    await event.delete()
