@@ -10,6 +10,5 @@ class Config(object):
     HEROKU_API = os.environ.get("HEROKU_API")
     REDIS_URL = os.environ.get("REDIS_URL", None)
     REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", None)
-    REDIS_PORT = os.environ.get("REDIS_PORT", None)
     MongoDB_URL = os.environ.get("MongoDB_URL", None)
     DATABASE_URL = os.environ.get("DATABASE_URL", None)
