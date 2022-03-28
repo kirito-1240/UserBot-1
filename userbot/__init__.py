@@ -1,12 +1,13 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from Config import Config
+from userbot.database import DB
 import sys , time
 from userbot.core.logger import logging
 
 LOGS = logging.getLogger("Alien-UserBot")
 START_TIME = time.time()
-LOG_GROUP = Config.LOG_GROUP
+LOG_GROUP = DB.get_key("LOG_GROUP")
 API_ID = Config.API_ID
 API_HASH = Config.API_HASH
 SESSION = Config.SESSION
