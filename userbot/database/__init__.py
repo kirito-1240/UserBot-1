@@ -191,12 +191,10 @@ class SqlDB:
     def set_key(self, key, value):
         try:
             self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN IF EXISTS (%s)", (str(key)))
-        except (psycopg2.errors.UndefinedColumn, psycopg2.errors.SyntaxError):
+        except:
             pass
-        except BaseException as er:
-            LOGS.error(er)
         self.cache.update({key: value})
-        self.cursor.execute(f"ALTER TABLE Alien ADD (%s) TEXT", (str(key),))
+        self.cursor.execute(f"ALTER TABLE Alien ADD (%s) TEXT", (str(key)))
         self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", (str(key), str(value)))
         return True
 
