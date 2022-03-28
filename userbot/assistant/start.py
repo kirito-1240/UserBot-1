@@ -2,6 +2,7 @@ from userbot import bot
 from telethon import Button
 from userbot.events import alien_asst
 from userbot.database.botusers import add_user
+from userbot.database import DB
 
 @alien_asst(pattern="(?i)^\/start$")
 async def start(event):
@@ -12,5 +13,4 @@ async def start(event):
 **• Welcome To The Best Self Manager Bot 😎**
 
 __• Thanks For Using . . .__
-"""
-, buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
+""")
