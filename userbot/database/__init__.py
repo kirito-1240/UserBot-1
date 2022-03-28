@@ -1,4 +1,7 @@
+from userbot import LOGS
 from redis import Redis
+from pymongo import MongoClient
+import psycopg2
 import os
 from Config import Config
 
@@ -71,6 +74,7 @@ class RedisDB:
             self.del_key(x)
         return True
 
+
 class MongoDB:
     def __init__(self):
         self.dB = MongoClient(Config.MongoDB_URL, serverSelectionTimeoutMS=5000)
@@ -132,7 +136,99 @@ class MongoDB:
         self.cache = {}
         return True
 
+
+class SqlDB:
+    def __init__(self):
+        self.connection = psycopg2.connect(dsn=Config.DATABASE_URL)
+        self.connection.autocommit = True
+        self.cursor = self.connection.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS Alien ()")
+        self.recache()
+
+    @property
+    def name(self):
+        return "SQL"
+
+    @property
+    def usage(self):
+        self.cursor.execute("SELECT pg_size_pretty(pg_relation_size('Alien')) AS size")
+        data = self.cursor.fetchall()
+        return int(data[0][0].split()[0])
+
+    def recache(self):
+        self.cache = {}
+        for key in self.keys():
+            self.cache.update({key: self.get_key(key)})
+
+    def keys(self):
+        self.cursor.execute("SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = 'Alien'")
+        data = self.cursor.fetchall()
+        return [x[0] for x in data]
+
+    def ping(self):
+        return True
+
+    def get_key(self, variable):
+        if variable in self.cache:
+            return self.cache[variable]
+        get = get_data(self, variable)
+        self.cache.update({variable: get})
+        return get
+
+    def get(self, variable):
+        try:
+            self.cursor.execute(f"SELECT (%s) FROM Alien", (str(variable),))
+        except psycopg2.errors.UndefinedColumn:
+            return None
+        data = self.cursor.fetchall()
+        if not data:
+            return None
+        if len(data) >= 1:
+            for i in data:
+                if i[0]:
+                    return i[0]
+
+    def set_key(self, key, value):
+        try:
+            self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN IF EXISTS (%s)", (str(key)))
+        except (psycopg2.errors.UndefinedColumn, psycopg2.errors.SyntaxError):
+            pass
+        except BaseException as er:
+            LOGS.error(er)
+        self.cache.update({key: value})
+        self.cursor.execute(f"ALTER TABLE Alien ADD (%s) TEXT", (str(key),))
+        self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", (str(key), str(value)))
+        return True
+
+    def del_key(self, key):
+        if key in self.cache:
+            del self.cache[key]
+        try:
+            self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN (%s)", (str(key),))
+        except psycopg2.errors.UndefinedColumn:
+            return False
+        return True
+
+    delete = del_key
+
+    def flushall(self):
+        self.cache.clear()
+        self.cursor.execute("DROP TABLE Alien")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS Alien ()")
+        return True
+
+    def rename(self, key1, key2):
+        name = self.get_key(key1)
+        if name:
+            self.del_key(key1)
+            self.set_key(key2, name)
+            return 0
+        return 1
+
+
 if Config.REDIS_URL and Config.REDIS_PASSWORD and Config.REDIS_PORT:
     DB = RedisDB()
 elif Config.MongoDB_URL:
     DB = MongoDB()
+elif Config.DATABASE_URL:
+    DB = SqlDB()
