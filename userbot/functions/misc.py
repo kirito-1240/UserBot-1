@@ -35,7 +35,8 @@ async def add_log_group():
         chat_id = result.chats[0].id
         DB.set_key("LOG_GROUP" , chat_id)
         photo = await download_file(DB.get_key("LOG_GROUP_PIC"), "LOG_GROUP_PIC.jpg")
-        await app(EditPhotoRequest(chat_id, photo))
+        photo = await app.upload_file(photo)
+        await app(EditPhotoRequest(chat_id, InputChatUploadedPhoto(photo)))
         os.remove(photo)
     except BaseException as er:
         LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
