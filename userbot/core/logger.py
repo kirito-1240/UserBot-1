@@ -5,3 +5,5 @@ logging.basicConfig(
     level=logging.INFO,
     datefmt="%H:%M:%S",
 )
+
+LOGS = logging.getLogger("Alien-UserBot")
