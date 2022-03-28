@@ -194,7 +194,6 @@ class SqlDB:
         except:
             pass
         self.cache.update({key: value})
-        self.cursor.execute(f"ALTER TABLE Alien ADD (%s) TEXT", (str(key)))
         self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", (str(key), str(value)))
         return True
 
@@ -202,7 +201,7 @@ class SqlDB:
         if key in self.cache:
             del self.cache[key]
         try:
-            self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN (%s)", (str(key),))
+            self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN (%s)", (str(key)))
         except psycopg2.errors.UndefinedColumn:
             return False
         return True
