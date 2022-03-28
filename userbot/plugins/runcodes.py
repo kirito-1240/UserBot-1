@@ -10,8 +10,8 @@ async def runner(code , event):
     send = await event.get_sender()
     reply = await event.get_reply_message()
     local = lambda _x: print(_format.yaml_format(_x))
-    exec("async def coderunner(event , local, chat_id, send_id, reply, reply_id): "+ "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["coderunner"](event , local, chat.id, send.id, reply, reply.id)
+    exec("async def coderunner(event , local, chat_id, send_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["coderunner"](event , local, chat.id, send.id, reply)
 
 @alien(pattern="(?i)^/run(?:\s|$)([\s\S]*)$")
 async def runcodes(event):
