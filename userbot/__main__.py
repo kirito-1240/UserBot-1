@@ -1,8 +1,9 @@
 from userbot.utils import load_plugins
-from userbot.functions.misc import add_to_db
+from userbot.functions.misc import add_to_db, add_log_group
 from pathlib import Path
 from telethon import Button
-from . import app , bot , LOG_GROUP , LOGS
+from userbot.core.logger import LOGS
+from . import app, bot
 from userbot.database import DB
 from userbot.utils import runcmd
 import os, sys
@@ -21,6 +22,9 @@ async def setup():
     LOGS.info("• Starting Added Vars To Database . . .")
     await add_to_db()
     LOGS.info("• Added Vars To Database Completed!")
+    LOGS.info("• Creating Log Group . . .")
+    await add_log_group()
+    LOGS.info("• Create Log Group Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
@@ -29,7 +33,7 @@ async def setup():
         edit = DB.get_key("RESTART")
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")
-    await bot.send_message(LOG_GROUP , f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
+    await bot.send_message(DB.get_key("LOG_GROUP"), f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
     LOGS.info("• UserBot And AssistantBot Has Been Start Now!")
 
 bot.loop.run_until_complete(setup())
