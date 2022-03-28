@@ -19,25 +19,15 @@ from telethon.errors import (
     MessageNotModifiedError,
 )
 
-def alien(**args):
-    pattern = args.get("pattern", None)
-    groups_only = args.get("groups_only", False)
-    privates_only = args.get("privates_only", False)
-    channels_only = args.get("channels_only", False)
-    outgoing = args.get("outgoing", True)
-    incoming = args.get("incoming", False)
-
-    if "groups_only" in args:
-        del args['groups_only']
-    if "privates_only" in args:
-        del args['privates_only']
-    if "channels_only" in args:
-        del args['channels_only']
-    if "outgoing" in args:
-        del args['outgoing']
-    if "incoming" in args:
-        del args['incoming']      
-
+def alien(
+    pattern=None,
+    groups_only=False,
+    privates_only=False,
+    channels_only=False,
+    outgoing=True,
+    incoming=False,
+    **kwargs,
+):
     def decorator(func):
         async def wrapper(event):
             if groups_only and not event.is_group:
@@ -105,8 +95,8 @@ def alien(**args):
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext)
-        app.add_event_handler(wrapper, events.MessageEdited(**args))
-        app.add_event_handler(wrapper, events.NewMessage(**args))
+        app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+        app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         return wrapper
     return decorator
 
