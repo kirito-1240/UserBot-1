@@ -1,4 +1,5 @@
-from userbot import app, bot, LOGS
+from userbot import app, bot
+from userbot.core.logger import LOGS
 from telethon import functions
 from telethon.tl.functions.channels import EditPhotoRequest
 from telethon.tl.types import InputChatUploadedPhoto
