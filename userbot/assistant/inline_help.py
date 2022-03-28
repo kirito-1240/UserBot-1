@@ -16,18 +16,13 @@ def create_buttons(items):
     buttons.append([Button.inline("• Close •", data="close_menu")])          
     return [buttons]
 
-files = glob.glob("userbot/plugins/*.py")
-result = []
-for file in sorted(files):
-    name = os.path.basename(file).replace(".py" , "")
-    result.append(str(name.title()))
-plugin_list = result
-
-
 @alien_inline(pattern="alien_inline_help")
 async def inline_help(event):
-    for x in plugin_list[0]:
-        buttons.append([Button.url("• Support• ", url="https://t.me/MxAboli")]    
+    files = glob.glob("userbot/plugins/*.py")
+    plugin_list = []
+    for file in sorted(files):
+        name = os.path.basename(file).replace(".py" , "")
+        plugin_list.append(str(name.title()))
     result = await event.builder.article(
             title="Alien Userbot",
             text="**Alien - UserBot**\n➖➖➖➖➖➖➖➖➖➖\n**Owner**: @MxAboli\n**Assistant**: @ManagerSelfBot\n➖➖➖➖➖➖➖➖➖➖",
