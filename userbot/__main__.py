@@ -1,4 +1,5 @@
 from userbot.utils import load_plugins
+from userbot.functions.misc import add_info_to_db
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
@@ -23,6 +24,10 @@ async def setup():
             DB.del_key("RESTART")
     except:
         pass
+    print(DB.get_key("OWNER_ID"))
+    LOGS.info("• Starting Added Owner and Assistant Bot Info To Database . . .")
+    await add_info_to_db()
+    LOGS.info("• Added Owner and Assistant Bot Info To Database Completed!")
     me = await app.get_me()
     if DB.get_key("MY_ID"):
         DB.del_key("MY_ID")
