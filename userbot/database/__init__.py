@@ -194,7 +194,7 @@ class SqlDB:
         except:
             pass
         self.cache.update({key: value})
-        self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", (str(key), str(value)))
+        self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", key, value))
         return True
 
     def del_key(self, key):
