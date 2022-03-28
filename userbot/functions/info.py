@@ -1,6 +1,6 @@
 import math
 from telethon.tl import functions, types
-from userbot import LOGS
+from userbot.core.logger import LOGS
 
 async def get_chat_info(chat, event):
     if isinstance(chat, types.Channel):
