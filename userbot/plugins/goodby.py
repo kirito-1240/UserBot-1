@@ -1,7 +1,10 @@
-from userbot import app , LOG_GROUP
+from userbot import app
 from telethon import events
 from userbot.events import alien
+from userbot.database import DB
 from userbot.database.goodby import add_goodby, get_goodby, del_goodby , clean_goodbys
+
+LOG_GROUP = int(DB.get_key("LOG_GROUP"))
 
 @app.on(events.ChatAction)
 async def send_goodby(event):
