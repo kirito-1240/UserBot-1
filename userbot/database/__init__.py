@@ -191,10 +191,10 @@ class SqlDB:
     def set_key(self, key, value):
         try:
             self.cursor.execute(f"ALTER TABLE Alien DROP COLUMN IF EXISTS (%s)", (str(key)))
+            self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", key, value)
         except:
             pass
         self.cache.update({key: value})
-        self.cursor.execute(f"INSERT INTO Alien (%s) values (%s)", key, value))
         return True
 
     def del_key(self, key):
