@@ -1,9 +1,8 @@
-from . import app , bot , LOG_GROUP , LOGS
+from . import app, bot
 from userbot.database import DB
-from Config import Config
+import Config
 from pathlib import Path
-import os , sys , time , requests , heroku3 , logging , math , importlib , glob , shlex , asyncio , functools , re  
-from asyncio import sleep
+import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, functools, re  
 
 async def runcmd(cmd):
     args = shlex.split(cmd)
