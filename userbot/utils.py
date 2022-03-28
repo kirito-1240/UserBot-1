@@ -1,5 +1,6 @@
 from . import app, bot
 from userbot.database import DB
+from userbot.core.logger import LOGS
 import Config
 from pathlib import Path
 import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, functools, re  
