@@ -3,6 +3,14 @@ import os , re , random
 from bs4 import BeautifulSoup
 import aiohttp
 
+async def download_file(link, name):
+    async with aiohttp.ClientSession() as ses:
+        async with ses.get(link) as re_ses:
+            file = await aiofiles.open(name, "wb")
+            await file.write(await re_ses.read())
+            await file.close()
+    return name
+
 async def async_searcher(url, post=False, headers=None, params=None, json=None, data=None, re_json=False, re_content=False, real=False):
     async with aiohttp.ClientSession(headers=headers) as client:
         if post:
