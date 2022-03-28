@@ -14,7 +14,7 @@ def create_buttons(items):
     if len(list) > 0:
         buttons.append([list[0]])
     buttons.append([Button.inline("• Close •", data="close_menu")])          
-    return [buttons]
+    return buttons
 
 @alien_inline(pattern="alien_inline_help")
 async def inline_help(event):
