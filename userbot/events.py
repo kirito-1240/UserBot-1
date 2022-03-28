@@ -163,7 +163,7 @@ def alien_asst(pattern=None, owner=False, **kwargs):
                 await asyncio.sleep(e.seconds + 5)
             except:
                 date = strftime("%Y-%m-%d - %H:%M:%S", gmtime())
-                ftext = "**• Alien Assian Logs •**\n\n"
+                ftext = "**• Alien Assistant Logs •**\n\n"
                 ftext += f"**• Date:** `{date}`\n"
                 ftext += f"**• Chat ID:** `{event.chat_id}`\n"
                 ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
@@ -177,22 +177,40 @@ def alien_asst(pattern=None, owner=False, **kwargs):
         return wrapper
     return decorator
 
-def alien_callback(data=None, **kwargs):
+def alien_callback(data=None, owner=True, **kwargs):
     def decorator(func):
         async def wrapper(event):
+            if owner and not event.sender_id == int(DB.get_key("OWNER_ID")):
+                return
             try:
                 await func(event)
-            except Exception as er:
-                LOGS.error(er)
+            except:
+                date = strftime("%Y-%m-%d - %H:%M:%S", gmtime())
+                ftext = "**• Alien Assistant Logs •**\n\n"
+                ftext += f"**• Date:** `{date}`\n"
+                ftext += f"**• Chat ID:** `{event.chat_id}`\n"
+                ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
+                ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
+                ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
+                await event.client.send_message(LOG_GROUP , ftext)
         bot.add_event_handler(wrapper, CallbackQuery(data=data, **kwargs))
     return decorator
 
-def alien_inline(pattern=None, **kwargs):
+def alien_inline(pattern=None, owner=True, **kwargs):
     def decorator(func):
         async def wrapper(event):
+            if owner and not event.sender_id == int(DB.get_key("OWNER_ID")):
+                return
             try:
                 await func(event)
-            except Exception as er:
-                LOGS.error(er)
+            except:
+                date = strftime("%Y-%m-%d - %H:%M:%S", gmtime())
+                ftext = "**• Alien Assistant Logs •**\n\n"
+                ftext += f"**• Date:** `{date}`\n"
+                ftext += f"**• Chat ID:** `{event.chat_id}`\n"
+                ftext += f"**• Sender ID:** `{event.sender_id}`\n\n"
+                ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
+                ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
+                await event.client.send_message(LOG_GROUP , ftext)
         bot.add_event_handler(wrapper, InlineQuery(pattern=pattern, **kwargs))
     return decorator
