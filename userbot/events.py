@@ -1,5 +1,8 @@
 from userbot import app , bot , LOGS , LOG_GROUP
-import os , sys , asyncio
+from telethon import events , Button
+from telethon.events import CallbackQuery, InlineQuery
+import os , sys , asyncio, re
+from telethon.tl.types import InputWebDocument
 from time import gmtime, strftime
 from userbot.database import DB
 from traceback import format_exc
@@ -107,13 +110,14 @@ def alien(**args):
         return wrapper
     return decorator
 
-def alien_asst(**args):
-    pattern = args.get("pattern", None)
+def alien_asst(pattern=None, owner=False, **kwargs):
+    if pattern:
+        kwargs["pattern"] = pattern
+    if owner:
+        kwargs["from_users"] = pattern
     def decorator(func):
         async def wrapper(event):
-            if not event.is_private:
-                return
-            if event.fwd_from or event.via_bot_id:
+            if not event.is_private or event.fwd_from or event.via_bot_id:
                 return
             try:
                 await func(event)
@@ -171,4 +175,24 @@ def alien_asst(**args):
         bot.add_event_handler(wrapper, events.MessageEdited(**args))
         bot.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
+    return decorator
+
+def alien_callback(data=None, **kwargs):
+    def decorator(func):
+        async def wrapper(event):
+            try:
+                await func(event)
+            except Exception as er:
+                LOGS.error(er)
+        bot.add_event_handler(wrapper, CallbackQuery(data=data, **kwargs))
+    return decorator
+
+def alien_inline(pattern=None, **kwargs):
+    def decorator(func):
+        async def wrapper(event):
+            try:
+                await func(event)
+            except Exception as er:
+                LOGS.error(er)
+        bot.add_event_handler(wrapper, InlineQuery(pattern=pattern, **kwargs))
     return decorator
