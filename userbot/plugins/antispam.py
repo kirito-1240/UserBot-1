@@ -1,7 +1,10 @@
-from userbot import app , LOG_GROUP
+from userbot import app
 from userbot.events import alien
+from userbot.database import DB
 from telethon import functions
 from userbot.database.antispam import add_user, get_user, del_user, set_power, get_power, set_limit, get_limit
+
+LOG_GROUP = int(DB.get_key("LOG_GROUP"))
 
 @alien(pattern="(?i)^\.santi (on|off)$")
 async def set_type(event):
