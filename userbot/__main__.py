@@ -1,5 +1,5 @@
 from userbot.utils import load_plugins
-from userbot.functions.misc import add_info_to_db
+from userbot.functions.misc import add_to_db
 from pathlib import Path
 from telethon import Button
 from . import app , bot , LOG_GROUP , LOGS
@@ -18,9 +18,9 @@ async def setup():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
     else:
         LOGS.error(f"• Connecting To {DB.name} Database Unavailable!")
-    LOGS.info("• Starting Added Owner and Assistant Bot Info To Database . . .")
-    await add_info_to_db()
-    LOGS.info("• Added Owner and Assistant Bot Info To Database Completed!")
+    LOGS.info("• Starting Added Vars To Database . . .")
+    await add_to_db()
+    LOGS.info("• Added Vars To Database Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
