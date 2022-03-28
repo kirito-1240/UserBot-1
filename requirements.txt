@@ -11,6 +11,7 @@ youtube_dl
 requests
 bs4
 aiohttp
+aiofiles
 redis
 pytz
 pytgcalls==3.0.0.dev21
