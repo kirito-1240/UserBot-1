@@ -24,18 +24,10 @@ async def setup():
             DB.del_key("RESTART")
     except:
         pass
-    print(DB.get_key("OWNER_ID"))
     LOGS.info("• Starting Added Owner and Assistant Bot Info To Database . . .")
     await add_info_to_db()
     LOGS.info("• Added Owner and Assistant Bot Info To Database Completed!")
-    me = await app.get_me()
-    if DB.get_key("MY_ID"):
-        DB.del_key("MY_ID")
-    DB.set_key("MY_ID" , str(me.id))
-    if me.username:
-        username = "@" + me.username
-    else:
-        username = f"[{me.first_name}](tg://user?id={me.id})"
+    username = DB.get_key("OWNER_NAME")
     await bot.send_file(LOG_GROUP , "./userbot/other/bot.jpg" , caption=f"**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {username}" , buttons=[[Button.url("• Support •", url="https://t.me/MrAbolii")]])
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
