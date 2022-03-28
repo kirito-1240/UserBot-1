@@ -1,5 +1,5 @@
-from userbot import LOGS
-import os , re , random
+from userbot.core.logger import LOGS
+import os, re, random
 from bs4 import BeautifulSoup
 import aiohttp, aiofiles
 
