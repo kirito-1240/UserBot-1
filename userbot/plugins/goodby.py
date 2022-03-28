@@ -49,7 +49,6 @@ async def send_goodby(event):
                 my_mention=my_mention,
             ),
             file=msg.media,
-            formatting_entities=msg.entities,
             link_preview=True,
             parse_mode='html',
         )
