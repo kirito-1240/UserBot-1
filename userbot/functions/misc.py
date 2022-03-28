@@ -23,7 +23,7 @@ async def add_log_group():
     async for chat in app.iter_dialogs():
         if chat.title == "⚠️ My Alien Logs ⚠️":
             DB.set_key("LOG_GROUP" , chat.id)
-            return x.title
+            return chat.title
     try:
         result = await app(
             functions.channels.CreateChannelRequest(
