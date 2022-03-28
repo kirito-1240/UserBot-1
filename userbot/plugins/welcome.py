@@ -21,8 +21,8 @@ async def send_welcome(event):
         title = (await event.get_chat()).title
         participants = await event.client.get_participants(chat)
         count = len(participants)
-        mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-        my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+        mention = "<a href='tg://user?id={}'>{}</a>".format(a_user.id, a_user.first_name)
+        my_mention = "<a href='tg://user?id={}'>{}</a>".format(me.id, me.first_name)
         first = a_user.first_name
         last = a_user.last_name
         fullname = f"{first} {last}" if last else first
@@ -49,7 +49,6 @@ async def send_welcome(event):
                 my_mention=my_mention,
             ),
             file=msg.media,
-            formatting_entities=msg.entities,
             link_preview=True,
             parse_mode='html',
         )
