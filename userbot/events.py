@@ -111,13 +111,11 @@ def alien(**args):
     return decorator
 
 def alien_asst(pattern=None, owner=False, **kwargs):
-    if pattern:
-        kwargs["pattern"] = pattern
-    if owner:
-        kwargs["from_users"] = pattern
     def decorator(func):
         async def wrapper(event):
             if not event.is_private or event.fwd_from or event.via_bot_id:
+                return
+            if owner and not event.sender_id == int(DB.get_key("OWNER_ID")):
                 return
             try:
                 await func(event)
@@ -172,8 +170,8 @@ def alien_asst(pattern=None, owner=False, **kwargs):
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
                 await event.reply("`• Sorry, Alien Assistantbot Has Crashed. The Error Logs Are Stored In The Alien Assistantbot Log Group!`")
                 await event.client.send_message(LOG_GROUP , ftext)
-        bot.add_event_handler(wrapper, events.MessageEdited(**args))
-        bot.add_event_handler(wrapper, events.NewMessage(**args))
+        bot.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+        bot.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         return wrapper
     return decorator
 
