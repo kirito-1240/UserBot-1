@@ -4,7 +4,7 @@ from userbot.events import alien_asst
 from userbot.database.botusers import get_users
 import os
 
-@alien_asst(pattern="(?i)^\/users$")
+@alien_asst(pattern="(?i)^\/users$", owner=True)
 async def userscount(event):
     count = len(get_users())
     users = ""
