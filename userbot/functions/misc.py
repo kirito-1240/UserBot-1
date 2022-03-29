@@ -41,7 +41,7 @@ async def add_log_group():
     if info.username:
         username = info.username
     else:
-        username = f"""Alien_{str(DB.get_key("OWNER_ID))}_Logs"""
+        username = "Alien_" + str(DB.get_key("OWNER_ID")) + "_Logs"
         await app(functions.channels.UpdateUsernameRequest(chat_id , username))
     DB.set_key("START_PIC" , str(username))
     if isinstance(info.photo, ChatPhotoEmpty):
