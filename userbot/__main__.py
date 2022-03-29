@@ -23,7 +23,8 @@ async def setup():
     await add_to_db()
     LOGS.info("• Added Vars To Database Completed!")
     LOGS.info("• Creating Log Group . . .")
-    await add_log_group()
+    username = await add_log_group()
+    LOGS.info(f"• Log Group: @{username}")
     LOGS.info("• Create Log Group Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
@@ -33,7 +34,7 @@ async def setup():
         edit = DB.get_key("RESTART")
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")    
-    await bot.send_message(int(DB.get_key("OWNER_ID")), "**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** {}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
+    await bot.send_message(DB.get_key("LOG_GROUP"), "**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** @{}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
     LOGS.info("• Alien UserBot Has Been Start Now!")
 
 bot.loop.run_until_complete(setup())
