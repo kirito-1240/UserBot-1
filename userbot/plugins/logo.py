@@ -15,7 +15,7 @@ async def googlesearch(event):
     photo = await download_file(random.choice(photo), "last.jpg")
     font = random.choice(glob.glob("userbot/other/fonts/*"))
     await event.reply(str(font))
-    stroke_width = (int(len(text)) / 2) + 2
+    stroke_width = int(len(text))
     LogoMaker.make_logo(photo, text, font, "output.png", fill=random.choice(colors), stroke_width=stroke_width, stroke_fill=random.choice(colors))
     await app.send_file(event.chat_id, "output.png", caption=f"""**• Logo By:** {DB.get_key("OWNER_NAME")}""")
     await event.delete()
