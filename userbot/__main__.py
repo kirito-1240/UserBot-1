@@ -29,14 +29,11 @@ async def setup():
     load_plugins("plugins")
     load_plugins("assistant")
     LOGS.info("• Setup Plugins Completed!")
-    try:
-        if DB.get_key("RESTART"):
-            edit = DB.get_key("RESTART")
-            await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
-            DB.del_key("RESTART")
-        await bot.send_message(int(DB.get_key("LOG_GROUP")), f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
-    except:
-        pass
+    if DB.get_key("RESTART"):
+        edit = DB.get_key("RESTART")
+        await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
+        DB.del_key("RESTART")
+    await bot.send_message(int(DB.get_key("LOG_GROUP")), f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
     LOGS.info("• UserBot And AssistantBot Has Been Start Now!")
 
 bot.loop.run_until_complete(setup())
