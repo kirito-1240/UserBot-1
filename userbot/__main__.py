@@ -1,5 +1,5 @@
 from userbot.utils import load_plugins
-from userbot.functions.misc import add_to_db, add_log_group
+from userbot.functions.misc import add_to_db, add_log_group, add_asst_bot
 from pathlib import Path
 from telethon import Button
 from userbot.core.logger import LOGS
@@ -24,6 +24,7 @@ async def setup():
     LOGS.info("• Added Vars To Database Completed!")
     LOGS.info("• Creating Log Group . . .")
     await add_log_group()
+    await add_asst_bot()
     LOGS.info("• Create Log Group Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
