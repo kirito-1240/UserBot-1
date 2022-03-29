@@ -16,7 +16,9 @@ async def googlesearch(event):
     font = random.choice(glob.glob("userbot/other/fonts/*"))
     await event.reply(str(font))
     stroke_width = int(len(text))
-    LogoMaker.make_logo(photo, text, font, "output.png", fill=random.choice(colors), stroke_width=stroke_width, stroke_fill=random.choice(colors))
+    if stroke_width < 4:
+        return await event.edit("**• Please Enter A Text Larger Than 4 Word!**")
+    LogoMaker.make_logo(photo, text, font, "output.png", fill=random.choice(colors), stroke_width=stroke_width / 2, stroke_fill=random.choice(colors))
     await app.send_file(event.chat_id, "output.png", caption=f"""**• Logo By:** {DB.get_key("OWNER_NAME")}""")
     await event.delete()
     os.remove("output.png")
