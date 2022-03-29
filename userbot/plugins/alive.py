@@ -15,7 +15,7 @@ async def googlesearch(event):
 **💡 Telethon Version :** ( `{version.__version__}` )
 **💡 Python Version :** ( `{python_version()}` )
 **💡 Uptime :** ( `{uptime}` )
-**💡 Database :** ( `{BB.name}` )
+**💡 Database :** ( `{DB.name}` )
 **💡 Master:** ( {DB.get_key("OWNER")} )
 """, file=DB.get_key("ALIVE_PIC"))
     await event.delete()
