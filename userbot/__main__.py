@@ -34,7 +34,7 @@ async def setup():
             edit = DB.get_key("RESTART")
             await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
             DB.del_key("RESTART")
-        await bot.send_message(DB.get_key("LOG_GROUP"), f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
+        await bot.send_message(int(DB.get_key("LOG_GROUP")), f"""**• UserBot And AssistantBot Has Been Start Now!**\n\n**• You Can Use The Robot:** {DB.get_key("OWNER_NAME")}""")
     except:
         pass
     LOGS.info("• UserBot And AssistantBot Has Been Start Now!")
