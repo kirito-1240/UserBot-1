@@ -29,7 +29,7 @@ async def check_log_group():
 
 async def add_log_group():
     check = await check_log_group()
-    if check:
+    if check is not False:
         chat_id = check
     else:
         try:
@@ -44,7 +44,7 @@ async def add_log_group():
             return logs.error("• something went wrong , create a group and set its id on config var log_group!")    
         chat_id = result.chats[0].id
     info = await app.get_entity(chat_id)
-    if info.username is not None:
+    if info.username:
         username = info.username
     else:
         try:
