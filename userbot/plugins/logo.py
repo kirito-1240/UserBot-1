@@ -5,11 +5,11 @@ from userbot.functions.logo import LogoMaker
 from userbot.database import DB
 import random, glob, os
 
-@alien(pattern="(?i)^.logo (.*)$")
+@alien(pattern="(?i)^\.logo (\s|$)([\s\S]*)$")
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     text = str(event.pattern_match.group(1))
-    colors = ["green", "blue", "red", "black white", "orange", "yellow", "purple", "pink", "gray"]
+    colors = ["green", "blue", "red", "black", "white", "orange", "yellow", "purple", "pink", "gray"]
     query = random.choice(["blur", "blur background", "background", "neon lights", "lights", "wallpaper"])
     photo = await unsplashsearch(query)
     photo = await download_file(random.choice(photo), "last.jpg")
