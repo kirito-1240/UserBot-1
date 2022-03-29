@@ -25,7 +25,7 @@ async def googlesearch(event):
         LogoMaker.make_logo(photo, text, font, "output.png", fill=random.choice(colors), stroke_width=(stroke_width / 2) + 2, stroke_fill=random.choice(colors))
     except:
         return await event.edit("**• Error, Please Try Again!**")
-    await app.send_file(event.chat_id, "output.png", caption=f"""**• Logo By:** {DB.get_key("OWNER_NAME")}""")
+    await app.send_file(event.chat_id, "output.png", caption=f"""**• Logo By:** {DB.get_key("OWNER")}""")
     await event.delete()
     os.remove("output.png")
     os.remove(photo)
