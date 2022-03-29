@@ -4,8 +4,6 @@ from userbot.events import alien
 from userbot.database import DB
 from userbot.database.goodby import add_goodby, get_goodby, del_goodby , clean_goodbys
 
-LOG_GROUP = int(DB.get_key("LOG_GROUP"))
-
 @app.on(events.ChatAction)
 async def send_goodby(event):
     id = get_goodby(event.chat_id)
@@ -15,7 +13,7 @@ async def send_goodby(event):
         except:
             pass
         try:
-            msg = await app.get_messages(LOG_GROUP, ids=int(id))
+            msg = await app.get_messages(DB.get_key("LOG_GROUP"), ids=int(id))
         except:
             return
         a_user = await event.get_user()
@@ -64,8 +62,8 @@ async def s_goodby(event):
     if not reply:
         await event.edit("**• Please Reply To Message!**")
         return
-    await app.send_message(LOG_GROUP , f"**• Goodby Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Goodby For The ( {title} ):**\n**• Don't Delete This Message!!**")
-    forward = await app.forward_messages(LOG_GROUP , messages=reply , from_peer=event.chat_id , silent=True)
+    await app.send_message(DB.get_key("LOG_GROUP") , f"**• Goodby Message Was Saved!**\n**• Chat ID:** `{event.chat_id}`\n\n**• The Following Message Is Saved As The Goodby For The ( {title} ):**\n**• Don't Delete This Message!!**")
+    forward = await app.forward_messages(DB.get_key("LOG_GROUP") , messages=reply , from_peer=event.chat_id , silent=True)
     chat_id = event.chat_id
     msg_id = forward.id
     add_goodby(chat_id, msg_id)
@@ -80,7 +78,7 @@ async def g_goodby(event):
         return
     await event.edit(f"**• Goodby Message In This Chat:**\n**• Chat ID:** `{event.chat_id}`")
     try:
-        msg = await app.get_messages(LOG_GROUP, ids=int(id))
+        msg = await app.get_messages(DB.get_key("LOG_GROUP"), ids=int(id))
     except:
         return
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
