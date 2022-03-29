@@ -44,7 +44,7 @@ async def add_log_group():
             return logs.error("• something went wrong , create a group and set its id on config var log_group!")    
         chat_id = result.chats[0].id
     info = await app.get_entity(chat_id)
-    if info.username:
+    if info.username is not None:
         username = info.username
     else:
         try:
@@ -52,7 +52,7 @@ async def add_log_group():
             await app(functions.channels.UpdateUsernameRequest(chat_id , username))
         except:
             return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
-    DB.set_key("START_PIC" , str(username))
+    DB.set_key("LOG_GROUP" , str(username))
     try:
         if isinstance(info.photo, ChatPhotoEmpty):
             photo = await download_file(DB.get_key("LOG_GROUP_PIC"), "LOG_GROUP_PIC.jpg")
