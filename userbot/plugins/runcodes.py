@@ -46,6 +46,7 @@ async def runcodes(event):
         await app.send_message(event.chat_id , f"""
 **• Code:** 
 `/run
+
 {cmd}`
 
 **• Output:** 
@@ -56,6 +57,7 @@ async def runcodes(event):
         await app.send_file(event.chat_id, "Result.txt" , caption=f"""
 **• Code:** 
 `/run
+
 {cmd}`
 
 **• Output:** 
