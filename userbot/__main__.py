@@ -8,7 +8,7 @@ from userbot.database import DB
 from userbot.utils import runcmd
 import os, sys
 import importlib
-import glob
+import glob, random
 
 async def setup():
     LOGS.info("• Starting Updating Requirements . . .")
@@ -33,8 +33,9 @@ async def setup():
     if DB.get_key("RESTART"):
         edit = DB.get_key("RESTART")
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
-        DB.del_key("RESTART")  
-    await bot.send_file(DB.get_key("LOG_GROUP"), DB.get_key("START_PIC"), caption="**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** @{}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
+        DB.del_key("RESTART") 
+    file = random.choice(DB.get_key("START_PIC"))
+    await bot.send_file(DB.get_key("LOG_GROUP"), file, caption="**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** @{}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
     LOGS.info("• Alien UserBot Has Been Start Now!")
 
 bot.loop.run_until_complete(setup())
