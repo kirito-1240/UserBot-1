@@ -63,3 +63,11 @@ async def google_search(query):
         except:
             pass
     return result
+
+async def unsplashsearch(query):
+    query = query.replace(" ", "-")
+    link = "https://unsplash.com/s/photos/" + query
+    extra = await async_searcher(link, re_content=True)
+    res = BeautifulSoup(extra, "html.parser", from_encoding="utf-8")
+    all = res.find_all("img", "YVj9w")
+    return [image["src"] for image in all]
