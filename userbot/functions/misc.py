@@ -25,18 +25,18 @@ async def add_log_group():
     async for chat in app.iter_dialogs():
         if chat.title == "⚠️ My Alien Logs ⚠️":
             chat_id = chat.id
-        else:
-            try:
-                result = await app(
+    else:
+        try:
+            result = await app(
                     functions.channels.CreateChannelRequest(
                         title="⚠️ My Alien Logs ⚠️",
                         about="🚫 Please Don`t Delete This Group 🚫",
                         megagroup=True,
                     )
                 )
-            except:
-                return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")      
-            chat_id = result.chats[0].id
+        except:
+            return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")      
+        chat_id = result.chats[0].id
     info = await app.get_entity(chat_id)
     if info.username:
         username = info.username
