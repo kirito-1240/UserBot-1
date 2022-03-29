@@ -11,6 +11,7 @@ try:
         StringSession(str(Config.SESSION)),
         Config.API_ID,
         Config.API_HASH,
+        device_model="Alien Userbot",
     ).start()
 except Exception as e:
     LOGS.error(f"• Error On Create App : {e}")
