@@ -24,23 +24,29 @@ async def add_to_db():
 async def add_log_group():
     async for chat in app.iter_dialogs():
         if chat.title == "⚠️ My Alien Logs ⚠️":
-            DB.set_key("LOG_GROUP" , str(chat.id).replace("-100", ""))
-            return chat.title
-    try:
-        result = await app(
-            functions.channels.CreateChannelRequest(
-                title="⚠️ My Alien Logs ⚠️",
-                about="🚫 Please Don`t Delete This Group 🚫",
-                megagroup=True,
-            )
-        )
-        chat_id = result.chats[0].id
-        DB.set_key("LOG_GROUP" , str(chat_id).replace("-100", ""))
-    except:
-        LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
-    chat = await app.get_entity(chat_id)
-    if isinstance(chat.photo, ChatPhotoEmpty):
+            chat_id = chat.id
+        else:
+            try:
+                result = await app(
+                    functions.channels.CreateChannelRequest(
+                        title="⚠️ My Alien Logs ⚠️",
+                        about="🚫 Please Don`t Delete This Group 🚫",
+                        megagroup=True,
+                    )
+                )
+            except:
+                return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")      
+            chat_id = result.chats[0].id
+    info = await app.get_entity(chat_id)
+    if info.username:
+        username = info.username
+    else:
+        username = "Alien_" + str(DB.get_key("OWNER_ID)) + "_Logs"
+        await app(functions.channels.UpdateUsernameRequest(chat_id , username))
+    DB.set_key("START_PIC" , str(username))
+    if isinstance(info.photo, ChatPhotoEmpty):
         photo = await download_file(DB.get_key("LOG_GROUP_PIC"), "LOG_GROUP_PIC.jpg")
         photo = await app.upload_file(photo)
         await app(EditPhotoRequest(chat_id, InputChatUploadedPhoto(photo)))
         os.remove(photo)
+    return username
