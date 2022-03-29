@@ -61,35 +61,3 @@ async def add_log_group():
             os.remove(photo)
     except:
         return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
-
-async def add_asst_bot():
-    me = await bot.get_me()
-    username = f"@{me.username}"
-    sir = DB.get_key("OWNER_NAME")
-    if me.photo:
-        return
-    await app.send_message("botfather", "/cancel")
-    await asyncio.sleep(1)
-    await app.send_message("botfather", "/setuserpic")
-    await asyncio.sleep(1)
-    await app.send_message("botfather", username)
-    await asyncio.sleep(1)
-    await app.send_file("botfather", DB.get_key("ASSISTANT_BOT_PIC"))
-    await asyncio.sleep(2)
-    await app.send_message("botfather", "/setabouttext")
-    await asyncio.sleep(1)
-    await app.send_message("botfather", username)
-    await asyncio.sleep(1)
-    await app.send_message("botfather", f"💡 Hello 💡!! I'm Alien Assistant Bot Of {sir}")
-    await asyncio.sleep(2)
-    await app.send_message("botfather", "/setdescription")
-    await asyncio.sleep(1)
-    await app.send_message("botfather", username)
-    await asyncio.sleep(1)
-    await app.send_message("botfather",f"💡 Powerful Alien Assistant Bot 💡\n💡 Master ~ {sir}")
-    await asyncio.sleep(2)
-    await app.send_message("botfather", "/setinline")
-    await asyncio.sleep(1)
-    await app.send_message("botfather", username)
-    await asyncio.sleep(1)
-    await app.send_message("botfather",f"Alien Search . . .")
