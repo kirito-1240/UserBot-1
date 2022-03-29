@@ -10,6 +10,7 @@ import os, sys, asyncio
 async def add_to_db():
     app_info = await app.get_me()
     bot_info = await bot.get_me()
+    DB.set_key("OWNER" , f"[{app_info.first_name}](tg://user?id={app_info.id})")
     DB.set_key("OWNER_ID" , app_info.id)
     DB.set_key("OWNER_NAME" , app_info.first_name)
     if app_info.username:
