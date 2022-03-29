@@ -2,7 +2,7 @@ from userbot import app, bot
 from userbot.core.logger import LOGS
 from telethon import functions
 from telethon.tl.functions.channels import EditPhotoRequest
-from telethon.tl.types import InputChatUploadedPhoto
+from telethon.tl.types import InputChatUploadedPhoto, ChatPhotoEmpty
 from userbot.database import DB
 from userbot.functions.tools import download_file
 import os, sys
@@ -34,11 +34,12 @@ async def add_log_group():
             )
         )
         chat_id = result.chats[0].id
-        print(chat_id)
         DB.set_key("LOG_GROUP" , str(chat_id).replace("-100", ""))
+    except:
+        LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
+    chat = await app.get_entity(chat_id)
+    if isinstance(chat.photo, ChatPhotoEmpty):
         photo = await download_file(DB.get_key("LOG_GROUP_PIC"), "LOG_GROUP_PIC.jpg")
         photo = await app.upload_file(photo)
         await app(EditPhotoRequest(chat_id, InputChatUploadedPhoto(photo)))
         os.remove(photo)
-    except BaseException as er:
-        LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
