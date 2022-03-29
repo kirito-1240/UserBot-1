@@ -5,7 +5,7 @@ from userbot.functions.logo import LogoMaker
 from userbot.database import DB
 import random, glob, os
 
-@alien(pattern="(?i)^\.logo (\s|$)([\s\S]*)$")
+@alien(pattern="(?i)^\.logo (.*)$")
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     text = str(event.pattern_match.group(1))
@@ -14,9 +14,7 @@ async def googlesearch(event):
     photo = await unsplashsearch(query)
     photo = await download_file(random.choice(photo), "last.jpg")
     font = random.choice(glob.glob("userbot/other/fonts/*"))
-    await event.reply(str(photo))
-    await event.reply(str(font))
-    stroke_width = int(len(text)) / 2
+    stroke_width = (int(len(text)) / 2) + 1
     LogoMaker.make_logo(photo, text, font, "output.png", fill=random.choice(colors), stroke_width=stroke_width, stroke_fill=random.choice(colors))
     await app.send_file(event.chat_id, "output.png", caption=f"""**• Logo By:** {DB.get_key("OWNER_NAME")}""")
     await event.delete()
