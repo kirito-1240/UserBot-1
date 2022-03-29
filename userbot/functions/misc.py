@@ -19,7 +19,7 @@ async def add_to_db():
     DB.set_key("ASSISTANT_USERNAME" , bot_info.username)
     DB.set_key("LOG_GROUP_PIC" , "https://telegra.ph/file/494ecda6ce2914d4816f9.jpg")
     DB.set_key("ASSISTANT_BOT_PIC" , "https://telegra.ph/file/63e58861cdf1d0718302d.jpg")
-    DB.set_key("START_PIC" , ["https://telegra.ph/file/9f679f8e9ac417f2b8bd9.jpg", "http://telegra.ph/file/181078c24eda9f550a063.jpg"])
+    DB.set_key("START_PIC" , ["http://telegra.ph/file/2d3ea8948c4995b7e60aa.jpg", "https://telegra.ph/file/9f679f8e9ac417f2b8bd9.jpg", "http://telegra.ph/file/181078c24eda9f550a063.jpg"])
 
 async def check_log_group():
     async for chat in app.iter_dialogs():
