@@ -1,7 +1,7 @@
 from userbot import app, bot
 from userbot.core.logger import LOGS
 from telethon import functions
-from telethon.tl.functions.channels import EditPhotoRequest
+from telethon.tl.functions.channels import InviteToChannelRequest, EditPhotoRequest
 from telethon.tl.types import InputChatUploadedPhoto, ChatPhotoEmpty
 from userbot.database import DB
 from userbot.functions.tools import download_file
@@ -61,3 +61,10 @@ async def add_log_group():
             os.remove(photo)
     except:
         return LOGS.error("• Something Went Wrong , Create A Group And Set Its Id On Config Var LOG_GROUP!")
+
+async def add_asst_bot():
+    me = await bot.get_me()
+    try:
+        await app(InviteToChannelRequest(DB.get_key("LOG_GROUP"), [me.username]))
+    except Exception as er:
+            LOGS.error("• Error while Adding Assistant to Log Group!")
