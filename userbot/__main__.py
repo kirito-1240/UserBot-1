@@ -23,8 +23,7 @@ async def setup():
     await add_to_db()
     LOGS.info("• Added Vars To Database Completed!")
     LOGS.info("• Creating Log Group . . .")
-    username = await add_log_group()
-    LOGS.info(f"• Log Group: @{username}")
+    await add_log_group()
     LOGS.info("• Create Log Group Completed!")
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
@@ -35,7 +34,7 @@ async def setup():
         await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
         DB.del_key("RESTART")  
     try:  
-        await bot.send_message(DB.get_key("LOG_GROUP"), "**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** @{}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
+        await bot.send_file(DB.get_key("LOG_GROUP"), DB.get_key("START_PIC"), caption="**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** `{}`\n**• Assistant:** @{}".format(DB.get_key("OWNER_NAME"), DB.get_key("ASSISTANT_USERNAME")))
     except:
         pass
     LOGS.info("• Alien UserBot Has Been Start Now!")
