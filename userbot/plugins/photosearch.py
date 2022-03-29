@@ -20,7 +20,7 @@ async def photosearch(event):
         c += 1
         if c == 10:
             return
-    await app.send_file(event.chat_id, list, caption=f"""**• Photos By:** {DB.get_key("OWNER_NAME")}""")
+    await app.send_file(event.chat_id, list, caption=f"""**• Photos By:** {DB.get_key("OWNER")}""")
     await event.delete()
     for photo in list:
         os.remove(photo)
