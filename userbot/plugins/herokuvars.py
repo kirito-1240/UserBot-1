@@ -11,7 +11,7 @@ async def set_var(event):
     await event.edit("`• Please Wait . . .`")
     key = str(event.pattern_match.group(1))
     value = event.pattern_match.group(2)
-    CONFIG = app.config()
+    CONFIG = APP.config()
     if key in CONFIG:
         CONFIG[key] = value
         await event.edit(f"**• Updated Var In Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `{value}` )")
@@ -23,7 +23,7 @@ async def set_var(event):
 async def set_var(event):
     await event.edit("`• Please Wait . . .`")
     key = str(event.pattern_match.group(1))
-    CONFIG = app.config()
+    CONFIG = APP.config()
     if key in CONFIG:
         await event.edit(f"**• Deleted Var From Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `{CONFIG[key]}` )")
         del CONFIG[key]
