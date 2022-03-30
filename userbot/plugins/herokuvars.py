@@ -14,10 +14,10 @@ async def set_var(event):
     CONFIG = app.config()
     if key in CONFIG:
         CONFIG[key] = value
-        await event.edit(f"**• Updated Var In Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `(value}` )")
+        await event.edit(f"**• Updated Var In Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `({value}` )")
     else:
         CONFIG[key] = value
-        await event.edit(f"**• Set New Var In Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `(value}` )")
+        await event.edit(f"**• Set New Var In Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `({value}` )")
 
 @alien(pattern="delv (.*)")
 async def set_var(event):
@@ -25,7 +25,7 @@ async def set_var(event):
     key = str(event.pattern_match.group(1))
     CONFIG = app.config()
     if key in CONFIG:
-        await event.edit(f"**• Deleted Var From Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `(CONFIG[key]}` )")
+        await event.edit(f"**• Deleted Var From Heroku:**\n\n**• Key:** ( `{key}` )\n**• Value:** ( `({CONFIG[key]}` )")
         del CONFIG[key]
     else:
         await event.edit(f"**• This Var Is Not In Heroku!**")
