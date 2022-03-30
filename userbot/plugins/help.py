@@ -1,7 +1,7 @@
 from userbot import app , bot
 from userbot.events import alien
 
-@alien(pattern="(?i)^\.help$")
+@alien(pattern="help")
 async def help(event):
     await event.edit("`• Please Wait . . .`")
     me = await bot.get_me()
