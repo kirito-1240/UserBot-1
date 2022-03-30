@@ -4,7 +4,7 @@ from userbot.events import alien
 from pathlib import Path
 import os
 
-@alien(pattern="(?i)^\.ls(?:\s|$)([\s\S]*)$")
+@alien(pattern="ls(?:\s|$)([\s\S]*)")
 async def ls(event):
     await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
