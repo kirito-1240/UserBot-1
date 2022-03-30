@@ -4,7 +4,7 @@ from userbot.database import DB
 from telethon import functions
 from userbot.database.antispam import add_user, get_user, del_user, set_power, get_power, set_limit, get_limit
 
-@alien(pattern="(?i)^\.santi (on|off)$")
+@alien(pattern="santi (on|off)")
 async def set_type(event):
     await event.edit("`• Please Wait . . .`")
     pow = event.pattern_match.group(1)
@@ -15,7 +15,7 @@ async def set_type(event):
         set_power("off")
         await event.edit("**• Anti Spam H as Been DeActived!**")
 
-@alien(pattern="(?i)^\.salimit (\d*)$")
+@alien(pattern="salimit (\d*)")
 async def set_lim(event):
     await event.edit("`• Please Wait . . .`")
     lim = event.pattern_match.group(1)
@@ -36,7 +36,7 @@ async def add_users(event):
             if int(get_user(event.peer_id.user_id)) == 0 or int(get_user(event.peer_id.user_id)) % 3 == 0:
                 await event.reply(f"""**• Please Not Send Pms On My Pv In This Time!**\n\n**• Your Warns: ( {get_user(event.peer_id.user_id)}/{get_limit()} )**""")
 
-@alien(pattern="(?i)^\.dwanti$", privates_only=True)
+@alien(pattern="dwanti", privates_only=True)
 async def set_lim(event):
     await event.edit("`• Please Wait . . .`")
     id = event.peer_id.user_id
