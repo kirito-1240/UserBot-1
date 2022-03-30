@@ -8,7 +8,7 @@ import platform
 import socket
 import uuid
 
-@alien(pattern="(?i)^.sysinfo$")
+@alien(pattern="sysinfo")
 async def sysinfo(event):
     await event.edit("`• Please Wait . . .`")
     text = "**• 💻 System Information:**\n"
