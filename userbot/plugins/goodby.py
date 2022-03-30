@@ -54,7 +54,7 @@ async def send_goodby(event):
             parse_mode='html',
         )
 
-@alien(pattern="(?i)^\.sgoodby$")
+@alien(pattern="sgoodby")
 async def s_goodby(event):
     await event.edit("`• Please Wait . . .`")
     title = (await event.get_chat()).title
@@ -69,7 +69,7 @@ async def s_goodby(event):
     add_goodby(chat_id, msg_id)
     await event.edit("**• Goodby Message On This Chat Was Saved!**")
 
-@alien(pattern="(?i)^\.ggoodby$")
+@alien(pattern="ggoodby")
 async def g_goodby(event):
     await event.edit("`• Please Wait . . .`")
     id = get_goodby(event.chat_id)
@@ -83,7 +83,7 @@ async def g_goodby(event):
         return
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
 
-@alien(pattern="(?i)^\.dgoodby$")
+@alien(pattern="dgoodby")
 async def d_goodby(event):
     await event.edit("`• Please Wait . . .`")
     id = del_goodby(event.chat_id)
@@ -92,7 +92,7 @@ async def d_goodby(event):
     else:
         await event.edit(f"**• Goodby Message In This Chat Deleted!**")
 
-@alien(pattern="(?i)^\.cgoodbys$")
+@alien(pattern="cgoodbys")
 async def c_goodby(event):
     await event.edit("`• Please Wait . . .`")
     clean_goodbys()
