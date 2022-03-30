@@ -99,7 +99,10 @@ def alien(
                 ftext += f"**• Event Trigger:**\n `{event.text}`\n\n"
                 ftext += f"**• Traceback Info:**\n `{format_exc()}`\n\n"
                 ftext += f"**• Error Text:**\n `{sys.exc_info()[1]}`"
-                await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
+                try:
+                    await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
+                except:
+                    pass
                 await event.client.send_message(DB.get_key("LOG_GROUP"), ftext)
         app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
