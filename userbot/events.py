@@ -30,9 +30,8 @@ def alien(
     incoming=False,
     **kwargs,
 ):
-    if pattern and Config.COMMAND_HANDLER:
-        reg = "(?i)^\\" + Config.COMMAND_HANDLER
-        pattern = re.compile(reg + pattern + "$")
+    if pattern:
+        pattern = re.compile("(?i)^\\" + Config.COMMAND_HANDLER + pattern + "$")
         
     def decorator(func):
         async def wrapper(event):
