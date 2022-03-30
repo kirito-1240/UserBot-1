@@ -8,6 +8,7 @@ from time import gmtime, strftime
 from userbot.database import DB
 from traceback import format_exc
 from telethon import events
+import Config
 from telethon.errors import (
     AlreadyInConversationError,
     BotInlineDisabledError,
@@ -29,6 +30,8 @@ def alien(
     incoming=False,
     **kwargs,
 ):
+    if pattern:
+        pattern = f"(?i)^\{Config.COMMAND_HANDLER}{pattern}$"
     def decorator(func):
         async def wrapper(event):
             if groups_only and not event.is_group:
