@@ -31,7 +31,9 @@ def alien(
     **kwargs,
 ):
     if pattern:
-        pattern = f"(?i)^\{Config.COMMAND_HANDLER}{pattern}$"
+        reg = "\\" + Config.COMMAND_HANDLER
+        pattern = re.compile(reg + pattern)
+        
     def decorator(func):
         async def wrapper(event):
             if groups_only and not event.is_group:
