@@ -6,7 +6,7 @@ import Config
 import os
 import sys
 
-@alien(pattern="(?i)^\.restart$")
+@alien(pattern="restart")
 async def restart(event):
     one = "█"
     two = "░"
