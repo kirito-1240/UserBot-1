@@ -26,16 +26,16 @@ def alien(
     groups_only=False,
     privates_only=False,
     channels_only=False,
-    COMMAND_HANDLER=None,
+    handler=None,
     outgoing=True,
     incoming=False,
     **kwargs,
 ):
-    if pattern and COMMAND_HANDLER:
-        reg = "(?i)^\\" + COMMAND_HANDLER
+    if pattern and handler:
+        reg = "(?i)^\" + handler
         pattern = re.compile(reg + pattern + "$")
     elif pattern and Config.COMMAND_HANDLER:
-        reg = "(?i)^\\" + Config.COMMAND_HANDLER
+        reg = "(?i)^\" + Config.COMMAND_HANDLER
         pattern = re.compile(reg + pattern + "$")
         
     def decorator(func):
