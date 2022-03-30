@@ -5,7 +5,7 @@ from userbot.functions.logo import LogoMaker
 from userbot.database import DB
 import random, glob, os
 
-@alien(pattern="(?i)^\.logo (.*)$")
+@alien(pattern="logo (.*)")
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     text = str(event.pattern_match.group(1))
