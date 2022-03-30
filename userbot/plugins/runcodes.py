@@ -13,7 +13,7 @@ async def runner(code , event):
     exec("async def coderunner(event , local, chat_id, send_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, send.id, reply)
 
-@alien(pattern="run(?:\s|$)([\s\S]*)")
+@alien(pattern="run(?:\s|$)([\s\S]*)", COMMAND_HANDLER="/")
 async def runcodes(event):
     await event.edit("`• Running . . .`")
     if event.text[4:]:
