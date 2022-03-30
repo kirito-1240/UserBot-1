@@ -54,7 +54,7 @@ async def send_welcome(event):
             parse_mode='html',
         )
 
-@alien(pattern="(?i)^\.swelcome$")
+@alien(pattern="swelcome")
 async def s_welcome(event):
     await event.edit("`• Please Wait . . .`")
     title = (await event.get_chat()).title
@@ -69,7 +69,7 @@ async def s_welcome(event):
     add_welcome(chat_id, msg_id)
     await event.edit("**• Welcome Message On This Chat Was Saved!**")
 
-@alien(pattern="(?i)^\.gwelcome$")
+@alien(pattern="gwelcome")
 async def g_welcome(event):
     await event.edit("`• Please Wait . . .`")
     id = get_welcome(event.chat_id)
@@ -83,7 +83,7 @@ async def g_welcome(event):
         return
     await event.reply(msg.text, file=msg.media, formatting_entities=msg.entities,)
 
-@alien(pattern="(?i)^\.dwelcome$")
+@alien(pattern="dwelcome")
 async def d_welcome(event):
     await event.edit("`• Please Wait . . .`")
     id = del_welcome(event.chat_id)
@@ -92,7 +92,7 @@ async def d_welcome(event):
     else:
         await event.edit(f"**• Welcome Message In This Chat Deleted!**")
 
-@alien(pattern="(?i)^\.cwelcomes$")
+@alien(pattern="cwelcomes")
 async def c_welcome(event):
     await event.edit("`• Please Wait . . .`")
     clean_welcomes()
