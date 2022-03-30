@@ -13,12 +13,12 @@ async def photosearch(event):
     if not photos:
         return await event.edit("**• Not Found Photo For Your Query!**")
     list = []
-    c = 1
+    c = 0
     for x in photos:
         photo = await download_file(photos[c], f"photo{c}.jpg")
         list.append(photo)
         c += 1
-        if c == 10:
+        if c == 9:
             return
     await app.send_file(event.chat_id, list, caption=f"""**• Photos By:** {DB.get_key("OWNER")}""")
     await event.delete()
