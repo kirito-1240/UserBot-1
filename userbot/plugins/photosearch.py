@@ -14,8 +14,8 @@ async def photosearch(event):
         return await event.edit("**• Not Found Photo For Your Query!**")
     list = []
     c = 0
-    for x in photos:
-        photo = await download_file(photos[c], f"photo{c}.jpg")
+    for photo in photos:
+        photo = await download_file(photo, f"photo{c}.jpg")
         list.append(photo)
         c += 1
         if c == 9:
