@@ -6,7 +6,7 @@ from platform import python_version
 from telethon import version
 import time
 
-@alien(pattern="(?i)^\.alive$")
+@alien(pattern="alive")
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     uptime = convert_time(time.time() - START_TIME)
