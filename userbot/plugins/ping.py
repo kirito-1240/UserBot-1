@@ -4,7 +4,7 @@ from datetime import datetime
 from userbot.utils import convert_time
 import time
 
-@alien(pattern="(?i)^\.ping$")
+@alien(pattern="ping")
 async def ping(event):
     start = datetime.now()
     await event.edit("**Pong!!**")
