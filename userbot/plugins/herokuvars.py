@@ -6,7 +6,7 @@ import Config, heroku3
 Heroku = heroku3.from_key(Config.HEROKU_API)
 APP = Heroku.apps()[Config.HEROKU_APP_NAME]
 
-@alien(pattern="setv (.*) | (.*)")
+@alien(pattern="setv (.*) \| (.*)")
 async def set_var(event):
     await event.edit("`• Please Wait . . .`")
     key = str(event.pattern_match.group(1))
