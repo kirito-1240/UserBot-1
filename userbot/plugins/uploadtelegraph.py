@@ -4,7 +4,7 @@ from userbot.functions.helper import media_type
 from html_telegraph_poster import upload_image
 import os
 
-@alien(pattern="(?i)^\.uptel$")
+@alien(pattern="uptel")
 async def uploadtelegraph(event):
     await event.edit("`• Please Wait . . .`")
     reply = await event.get_reply_message()
