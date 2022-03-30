@@ -2,7 +2,7 @@ from userbot import app
 from userbot.events import alien
 from userbot.functions.tools import google_search
 
-@alien(pattern="(?i)^.gsearch (.*)$")
+@alien(pattern="gsearch (.*)")
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     query = str(event.pattern_match.group(1))
