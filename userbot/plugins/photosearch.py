@@ -19,10 +19,12 @@ async def photosearch(event):
         list.append(photo)
         c += 1
         if c == 10:
-            await app.send_file(event.chat_id, list, caption=f"""**• Photos By:** {DB.get_key("OWNER")}""")
-            await event.delete()
+            await app.send_file(event.chat_id, list, caption=f"""**• Query:** ( `{query}` )\n**• Count:** ( `{len(photos)}` )\n\n**• Photos By:** {DB.get_key("OWNER")}""")
             for photo in list:
                 os.remove(photo)
             list = []
-        if c == 50:
-            return
+    if len(list) != 0:
+        await app.send_file(event.chat_id, list, caption=f"""**• Query:** ( `{query}` )\n**• Count:** ( `{len(photos)}` )\n\n**• Photos By:** {DB.get_key("OWNER")}""")
+        for photo in list:
+            os.remove(photo) 
+    await event.delete()
