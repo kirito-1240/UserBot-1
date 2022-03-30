@@ -5,7 +5,7 @@ from userbot.functions.logo import LogoMaker
 from userbot.database import DB
 import random, glob, os
 
-@alien(pattern="(?i)^\.psearch (.*)$")
+@alien(pattern="(?i)^\.sphoto (.*)$")
 async def photosearch(event):
     await event.edit("`• Please Wait . . .`")
     query = str(event.pattern_match.group(1))
@@ -15,7 +15,7 @@ async def photosearch(event):
     list = []
     c = 1
     for x in photos:
-        photo = await download_file(photos[x], f"photo{x}.jpg")
+        photo = await download_file(photos[c], f"photo{c}.jpg")
         list.append(photo)
         c += 1
         if c == 10:
