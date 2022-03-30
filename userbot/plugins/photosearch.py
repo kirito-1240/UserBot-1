@@ -5,7 +5,7 @@ from userbot.functions.logo import LogoMaker
 from userbot.database import DB
 import random, glob, os
 
-@alien(pattern="(?i)^\.sphoto (.*)$")
+@alien(pattern="sphoto (.*)")
 async def photosearch(event):
     await event.edit("`• Please Wait . . .`")
     query = str(event.pattern_match.group(1))
