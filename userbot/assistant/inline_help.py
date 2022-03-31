@@ -1,6 +1,6 @@
 from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
-from userbot.database import DB
+from userbot.database import DB, PLUGINS, PLUGINS_HELP
 from telethon import Button
 import Config
 import os, glob, re, random
@@ -10,7 +10,7 @@ PIC = random.choice(DB.get_key("START_PIC"))
 
 @alien_inline("alien", owner=True)
 async def help(event):
-    files = glob.glob("userbot/plugins/*.py")
+    files = PLUGINS
     list = []
     emoji = DB.get_key("HELP_EMOJI") or "•"
     for file in sorted(files[0:10]):
@@ -39,7 +39,7 @@ async def help(event):
 @alien_callback(re.compile("page_(.*)"), owner=True)
 async def help_pages(event):
     data = int(event.pattern_match.group(1).decode('utf-8'))
-    files = glob.glob("userbot/plugins/*.py")
+    files = PLUGINS
     start = int(f"{(data - 1)}0")
     end = start + 10
     if end > len(files):
@@ -56,7 +56,7 @@ async def help_pages(event):
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
-    if end =< len(files):
+    if end <= len(files):
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
     text = f"""
