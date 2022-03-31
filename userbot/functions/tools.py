@@ -2,6 +2,7 @@ from userbot.core.logger import LOGS
 import os, re, random
 from bs4 import BeautifulSoup
 import aiohttp, aiofiles
+import carbon
 
 async def download_file(link, name):
     async with aiohttp.ClientSession() as ses:
@@ -30,10 +31,8 @@ random_headers = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100 101 Firefox/22.0",
     "Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) "
-    "Chrome/19.0.1084.46 Safari/536.5",
-    "Mozilla/5.0 (Windows; Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) "
-    "Chrome/19.0.1084.46 Safari/536.5",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) ",
+    "Mozilla/5.0 (Windows; Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) ",
     "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
 ]
 
@@ -71,3 +70,19 @@ async def unsplashsearch(query):
     res = BeautifulSoup(extra, "html.parser", from_encoding="utf-8")
     all = res.find_all("img", "YVj9w")
     return [image["src"] for image in all]
+
+def rgba(r: int, g: int, b: int, a: float) -> str:
+    return f'rgba({r}, {g}, {b}, {a})'
+
+async def Carbon(code, file_name="carbonAlien.png", lang="auto"):
+    color= rgba(random.randint(20,255), random.randint(20,255), random.randint(20,255), random.randint(20,255))
+    font = random.choice(["Hack", "Anonymous Pro", "Cascadia Code", "Droid Sans Mono", "Fantasque Sans Mono", "Fira Code", "Ibm Plex Mono", "Monoid", "Source Code Pro", "Space Mono", "Inconsolata", "Jetbrains Mono", "Ubuntu Mono"])
+    options = {
+        'code': code,
+        'language': lang,
+        'backgroundColor': color,
+        'fontFamily': font,
+    }
+    image = await async_searcher("https://carbonara.vercel.app/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
+    open(file_name, 'wb').write(image)
+    return file_name
