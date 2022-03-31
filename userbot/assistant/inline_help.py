@@ -6,7 +6,7 @@ import os, glob, re
 from userbot.database import PLUGINS_HELP
 
 
-@alien_inline("alien_inline_help", owner=True)
+@alien_inline("alien", owner=True)
 async def alien_help(event):
     files = glob.glob("userbot/plugins/*.py")
     text = f"""
@@ -21,11 +21,11 @@ async def alien_help(event):
         list = []
         for file in sorted(files[0:10]):
             name = str(os.path.basename(file).replace(".py" , ""))
-            list.append(Button.inline(f"• {name.title()} •", data=f"alien_help_plugin_{name}_1"))
+            list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_1"))
         buttons = []
         for key in chunks(list, 2):
             buttons.append(key)
-        buttons.append([Button.inline(f"• Next •", data="alien_help_page_2")])
+        buttons.append([Button.inline(f"• Next •", data="page_2")])
         text += "**• Page:** ( 1 )"
         result = event.builder.article(
             title="Alien Help Menu",
@@ -37,7 +37,7 @@ async def alien_help(event):
         list = []
         for file in sorted(files):
             name = str(os.path.basename(file).replace(".py" , ""))
-            list.append(Button.inline(f"• {name} •", data=f"alien_help_plugin_{name}_1"))
+            list.append(Button.inline(f"• {name} •", data=f"plugin_{name}_1"))
         buttons = []
         for key in chunks(list, 2):
             buttons.append(key)
@@ -48,7 +48,7 @@ async def alien_help(event):
         )
         await event.answer([result])
 
-@alien_callback(re.compile("alien_help_page_(.*)"), owner=True)
+@alien_callback(re.compile("page_(.*)"), owner=True)
 async def alien_help_pages(event):
     await event.edit(str(event))
     data = int(event.pattern_match.group(1))
@@ -60,14 +60,14 @@ async def alien_help_pages(event):
     list = []
     for file in sorted(files[start:end]):
         name = str(os.path.basename(file).replace(".py" , ""))
-        list.append(Button.inline(f"• {name.title()} •", data=f"alien_help_plugin_{name}_{data}"))
+        list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_{data}"))
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
-    buttons.append([Button.inline(f"• Back •", data=f"alien_help_page_{(data-1)}")])
-    buttons.append([Button.inline(f"• Close •", data="alien_help_close")])
+    buttons.append([Button.inline(f"• Back •", data=f"page_{(data-1)}")])
+    buttons.append([Button.inline(f"• Close •", data="close")])
     if not end > len(files):
-        buttons.append([Button.inline(f"• Next •", data=f"alien_help_page_{(data+1)}")])
+        buttons.append([Button.inline(f"• Next •", data=f"page_{(data+1)}")])
     text = f"""
 **• Alien Userbot Help Menu!**
 
@@ -79,7 +79,38 @@ async def alien_help_pages(event):
 """
     await event.edit(text, buttons=buttons)
 
-@alien_callback("alien_help_plugin_(.*)_(.*)", owner=True)
+@alien_callback("page_(.*)", owner=True)
+async def alien_help_pages(event):
+    await event.edit(str(event))
+    data = int(event.pattern_match.group(1))
+    files = glob.glob("userbot/plugins/*.py")
+    start = int(f"{(data - 1)}0")
+    end = start + 10
+    if end > len(files):
+        end = len(files)
+    list = []
+    for file in sorted(files[start:end]):
+        name = str(os.path.basename(file).replace(".py" , ""))
+        list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_{data}"))
+    buttons = []
+    for key in chunks(list, 2):
+        buttons.append(key)
+    buttons.append([Button.inline(f"• Back •", data=f"page_{(data-1)}")])
+    buttons.append([Button.inline(f"• Close •", data="close")])
+    if not end > len(files):
+        buttons.append([Button.inline(f"• Next •", data=f"page_{(data+1)}")])
+    text = f"""
+**• Alien Userbot Help Menu!**
+
+**• Master:** {DB.get_key("OWNER")}
+**• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
+
+**• Plugins Count:** ( `{len(files)}` )
+**• Page:** ( {data} )
+"""
+    await event.edit(text, buttons=buttons)
+
+@alien_callback("plugin(.*)_(.*)", owner=True)
 async def alien_help_plugins(event):
     data = str(event.pattern_match.group(1))
     page = int(event.pattern_match.group(2))
