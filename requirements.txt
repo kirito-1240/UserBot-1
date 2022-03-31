@@ -1,4 +1,4 @@
-telethon
+https://github.com/New-dev0/Telethon/archive/PlayTime.zip
 tgcrypto
 moviepy
 Pillow
