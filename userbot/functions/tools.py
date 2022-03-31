@@ -2,7 +2,6 @@ from userbot.core.logger import LOGS
 import os, re, random
 from bs4 import BeautifulSoup
 import aiohttp, aiofiles
-import carbon
 
 async def download_file(link, name):
     async with aiohttp.ClientSession() as ses:
