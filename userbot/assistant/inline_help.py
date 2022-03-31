@@ -25,7 +25,7 @@ async def alien_help(event):
         for key in chunks(list, 2):
             buttons.append(key)
         buttons.append([Button.inline(f"• Next •", data="alien_help_page_2")])
-        text += "\n**• Page:** ( 1 )"
+        text += "**• Page:** ( 1 )"
         result = event.builder.article(
             title="Alien Help Menu",
             text=text,
@@ -65,7 +65,7 @@ async def alien_help(event):
     if not end > len(files):
         buttons.append([Button.inline(f"• Next •", data=f"alien_help_page_{(data+1)}")])
     buttons.append([Button.inline(f"• Back •", data=f"alien_help_page_{(data-1)}")])
-text = f"""
+    text = f"""
 **• Alien Userbot Help Menu!**
 
 **• Master:** {DB.get_key("OWNER")}
