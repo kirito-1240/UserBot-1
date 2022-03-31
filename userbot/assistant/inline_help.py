@@ -11,9 +11,10 @@ PIC = random.choice(DB.get_key("START_PIC"))
 async def alien_help(event):
     files = glob.glob("userbot/plugins/*.py")
     list = []
+    emoji = DB.get_key("HELP_EMOJI") or "•"
     for file in sorted(files[0:10]):
         name = str(os.path.basename(file).replace(".py" , ""))
-        list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_1"))
+        list.append(Button.inline(f"{emoji} {name.title()} {emoji}", data=f"plugin_{name}_1"))
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
@@ -42,10 +43,11 @@ async def alien_help_pages(event):
     end = start + 10
     if end > len(files):
         end = len(files)
+    emoji = DB.get_key("HELP_EMOJI") or "•"
     list = []
     for file in sorted(files[start:end]):
         name = str(os.path.basename(file).replace(".py" , ""))
-        list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_{data}"))
+        list.append(Button.inline(f"{emoji} {name.title()} {emoji}", data=f"plugin_{name}_{data}"))
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
