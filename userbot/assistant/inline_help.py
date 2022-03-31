@@ -57,7 +57,7 @@ async def alien_help_pages(event):
     other.append(Button.inline(f"❌ Close ❌", data="close"))
     if not end > len(files):
         other.append(Button.inline(f"Next ▶️", data=f"page_{(data+1)}"))
-    buttons.append([other])
+    buttons.append(other)
     text = f"""
 **• Alien Userbot Help Menu!**
 
