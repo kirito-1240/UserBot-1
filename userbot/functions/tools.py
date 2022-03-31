@@ -75,12 +75,10 @@ def rgba(r: int, g: int, b: int, a: float) -> str:
 
 async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     color= rgba(random.randint(20,255), random.randint(20,255), random.randint(20,255), random.randint(20,255))
-    font = random.choice(["Hack", "Anonymous Pro", "Cascadia Code", "Droid Sans Mono", "Fantasque Sans Mono", "Fira Code", "Ibm Plex Mono", "Monoid", "Source Code Pro", "Space Mono", "Inconsolata", "Jetbrains Mono", "Ubuntu Mono"])
     options = {
         'code': code,
         'language': lang,
-        'backgroundColor': color,
-        'fontFamily': font,
+        'backgroundColor': color
     }
     image = await async_searcher("https://carbonara.vercel.app/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
     open(file_name, 'wb').write(image)
