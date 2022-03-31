@@ -54,10 +54,10 @@ async def help_pages(event):
         buttons.append(key)
     other = []    
     if data != 1:
-        other.append(Button.inline(f"◀️ Back", data=f"page_{(data-1)}"))
-    other.append(Button.inline(f"❌ Close ❌", data="close_{data}"))
+        other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
+    other.append(Button.inline("❌ Close ❌", data="close_{data}"))
     if not end > len(files):
-        other.append(Button.inline(f"Next ▶️", data=f"page_{(data+1)}"))
+        other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
     text = f"""
 **• Alien Userbot Help Menu!**
@@ -74,7 +74,7 @@ async def help_pages(event):
 @alien_callback(re.compile("close_(.*)"), owner=True)
 async def close(event):
     page = int(event.pattern_match.group(2))
-    buttons = [Button.inline(f"♻️ Open Again ♻️", data=f"page_{page})]
+    buttons = [Button.inline("♻️ Open Again ♻️", data=f"page_{page}")]
     await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
 
 @alien_callback(re.compile("plugin_(.*)_(.*)"), owner=True)
@@ -89,8 +89,8 @@ async def help_plugins(event):
         for com in info["commands"]:
             text += "\n     {}".format(com.format(cmdh=Config.COMMAND_HANDLER))
         buttons = [
-                Button.inline(f"📍 Send Plugin 📍", data=f"sendplug_{data}"),
-                Button.inline(f"⬅️ Back ⬅️", data=f"page_{page}"))
+                Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}"),
+                Button.inline("⬅️ Back ⬅️", data=f"page_{page}"))
             ]
         await event.edit(text, buttons=buttons)
     else:
