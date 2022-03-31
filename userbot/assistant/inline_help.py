@@ -79,38 +79,8 @@ async def alien_help_pages(event):
 """
     await event.edit(text, buttons=buttons)
 
-@alien_callback("page_(.*)", owner=True)
-async def alien_help_pages(event):
-    await event.edit(str(event))
-    data = int(event.pattern_match.group(1))
-    files = glob.glob("userbot/plugins/*.py")
-    start = int(f"{(data - 1)}0")
-    end = start + 10
-    if end > len(files):
-        end = len(files)
-    list = []
-    for file in sorted(files[start:end]):
-        name = str(os.path.basename(file).replace(".py" , ""))
-        list.append(Button.inline(f"• {name.title()} •", data=f"plugin_{name}_{data}"))
-    buttons = []
-    for key in chunks(list, 2):
-        buttons.append(key)
-    buttons.append([Button.inline(f"• Back •", data=f"page_{(data-1)}")])
-    buttons.append([Button.inline(f"• Close •", data="close")])
-    if not end > len(files):
-        buttons.append([Button.inline(f"• Next •", data=f"page_{(data+1)}")])
-    text = f"""
-**• Alien Userbot Help Menu!**
 
-**• Master:** {DB.get_key("OWNER")}
-**• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
-
-**• Plugins Count:** ( `{len(files)}` )
-**• Page:** ( {data} )
-"""
-    await event.edit(text, buttons=buttons)
-
-@alien_callback("plugin(.*)_(.*)", owner=True)
+@alien_callback(re.compile("plugin(.*)_(.*)"), owner=True)
 async def alien_help_plugins(event):
     data = str(event.pattern_match.group(1))
     page = int(event.pattern_match.group(2))
