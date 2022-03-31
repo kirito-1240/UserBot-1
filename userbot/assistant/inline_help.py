@@ -2,9 +2,8 @@ from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
 from userbot.database import DB, PLUGINS, PLUGINS_HELP
 from telethon import Button
-import Config
 import os, glob, re, random
-from userbot.database import PLUGINS_HELP
+import Config
 
 PIC = random.choice(DB.get_key("START_PIC"))
 
