@@ -6,7 +6,7 @@ import os, glob
 
 @alien_inline("test_(.*)", owner=True)
 async def alien_help(event):
-    data = event.data_match.group(1)
+    data = event.data.group(1)
     result = event.builder.article(title="Alien", text=str(data))
     await event.answer([result])
 
