@@ -29,7 +29,6 @@ async def alien_help(event):
 """
     result = event.builder.photo(
         file=PIC,
-        title="Alien Help Menu",
         text=text,
         buttons=buttons,
     )
