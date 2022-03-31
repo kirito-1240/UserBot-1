@@ -75,3 +75,4 @@ class RedisDB:
         return True
 
 DB = RedisDB()
+PLUGINS_HELP = {}
