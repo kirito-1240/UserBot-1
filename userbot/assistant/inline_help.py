@@ -5,6 +5,7 @@ from telethon import Button
 import os, glob, re, random
 import Config
 
+PIC = random.choice(DB.get_key("INLINE_PIC"))
 
 @alien_inline("alien", owner=True)
 async def help(event):
@@ -28,7 +29,7 @@ async def help(event):
 **• Page:** ( 1 )
 """
     result = event.builder.photo(
-        file=random.choice(DB.get_key("START_PIC")),
+        file=PIC,
         text=text,
         buttons=buttons,
     )
@@ -68,7 +69,7 @@ async def help_pages(event):
 **• Plugins Count:** ( `{len(files)}` )
 **• Page:** ( {data} )
 """
-    await event.edit(text, file=random.choice(DB.get_key("START_PIC")), buttons=buttons)
+    await event.edit(text, file=PIC, buttons=buttons)
 
 
 @alien_callback(re.compile("close_(.*)"), owner=True)
@@ -108,4 +109,4 @@ async def help_plugins(event):
     else:
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
     buttons = [Button.inline("⬅️ Back ⬅️", data=f"plugin_{data}_{page}")]
-    await event.edit(text, file=file, thumb="userbot/other/bot.jpg", buttons=buttons)
+    await event.edit(text, file=file, thumb="userbot/other/extra.jpg", buttons=buttons)
