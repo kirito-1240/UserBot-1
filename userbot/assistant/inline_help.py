@@ -55,7 +55,7 @@ async def help_pages(event):
     other = []    
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
-    other.append(Button.inline("❌ Close ❌", data="close_{data}"))
+    other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
     if not end > len(files):
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
@@ -81,8 +81,7 @@ async def close(event):
 async def help_plugins(event):
     data = str(event.pattern_match.group(1))
     page = int(event.pattern_match.group(2))
-    print(data)
-    if data in PLUGINS_HELP:
+    try:
         info = PLUGINS_HELP[data] 
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
         text += f"""\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
@@ -94,5 +93,5 @@ async def help_plugins(event):
                 Button.inline("⬅️ Back ⬅️", data=f"page_{page}"),
             ]
         await event.edit(text, buttons=buttons)
-    else:
-        await event.answer("• Not Available Help For This Plugin!", alert=True)
+    except Exception as e:
+        await event.answer(f"• Not Available Help For This Plugin! {e}", alert=True)
