@@ -73,7 +73,7 @@ async def help_pages(event):
 
 @alien_callback(re.compile("close_(.*)"), owner=True)
 async def close(event):
-    page = int(event.pattern_match.group(2))
+    page = int(event.pattern_match.group(1))
     buttons = [Button.inline("♻️ Open Again ♻️", data=f"page_{page}")]
     await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
 
@@ -81,6 +81,7 @@ async def close(event):
 async def help_plugins(event):
     data = str(event.pattern_match.group(1))
     page = int(event.pattern_match.group(2))
+    print(data)
     if data in PLUGINS_HELP:
         info = PLUGINS_HELP[data] 
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
@@ -94,4 +95,4 @@ async def help_plugins(event):
             ]
         await event.edit(text, buttons=buttons)
     else:
-        await event.answer("• Not Available Help For This Plugin!", show_alert=True)
+        await event.answer("• Not Available Help For This Plugin!", alert=True)
