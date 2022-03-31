@@ -90,7 +90,7 @@ async def help_plugins(event):
             text += "\n     {}".format(com.format(cmdh=Config.COMMAND_HANDLER))
         buttons = [
                 Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}"),
-                Button.inline("⬅️ Back ⬅️", data=f"page_{page}"))
+                Button.inline("⬅️ Back ⬅️", data=f"page_{page}"),
             ]
         await event.edit(text, buttons=buttons)
     else:
