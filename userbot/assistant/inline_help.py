@@ -38,7 +38,7 @@ async def help(event):
 
 @alien_callback(re.compile("page_(.*)"), owner=True)
 async def help_pages(event):
-    data = int(event.pattern_match.group(1))
+    data = int(event.pattern_match.group(1).decode('utf-8'))
     files = glob.glob("userbot/plugins/*.py")
     start = int(f"{(data - 1)}0")
     end = start + 10
@@ -56,7 +56,7 @@ async def help_pages(event):
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
-    if not end > len(files):
+    if end =< len(files):
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
     text = f"""
@@ -73,15 +73,15 @@ async def help_pages(event):
 
 @alien_callback(re.compile("close_(.*)"), owner=True)
 async def close(event):
-    page = int(event.pattern_match.group(1))
+    page = int(event.pattern_match.group(1).decode('utf-8'))
     buttons = [Button.inline("♻️ Open Again ♻️", data=f"page_{page}")]
     await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
 
 @alien_callback(re.compile("plugin_(.*)_(.*)"), owner=True)
 async def help_plugins(event):
-    data = str(event.pattern_match.group(1))
-    page = int(event.pattern_match.group(2))
-    try:
+    data = str(event.pattern_match.group(1).decode('utf-8'))
+    page = int(event.pattern_match.group(2).decode('utf-8'))
+    if data in PLUGINS_HELP:
         info = PLUGINS_HELP[data] 
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
         text += f"""\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
@@ -93,5 +93,5 @@ async def help_plugins(event):
                 Button.inline("⬅️ Back ⬅️", data=f"page_{page}"),
             ]
         await event.edit(text, buttons=buttons)
-    except Exception as e:
-        await event.answer(f"• Not Available Help For This Plugin! {e}", alert=True)
+    else:
+        await event.answer("• Not Available Help For This Plugin!", alert=True)
