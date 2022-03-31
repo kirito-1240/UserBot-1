@@ -6,8 +6,7 @@ import os, glob
 
 @alien_inline("test_(.*)", owner=True)
 async def alien_help(event):
-    data = event.data.group(1)
-    result = event.builder.article(title="Alien", text=str(data))
+    result = event.builder.article(title="Alien", text=str(event))
     await event.answer([result])
 
 @alien_inline("alien_inline_help", owner=True)
@@ -29,7 +28,7 @@ async def alien_help(event):
         buttons = []
         for key in chunks(list, 2):
             buttons.append(key)
-        buttons.append([Button.inline(f"• Next •", data=f"page_2")])
+        buttons.append([Button.inline(f"• Next •", data="alien_help_page_2")])
         text += "\n**• Page:** ( 1 )"
         result = event.builder.article(
             title="Alien Help Menu",
@@ -51,3 +50,4 @@ async def alien_help(event):
             buttons=buttons,
         )
         await event.answer([result])
+
