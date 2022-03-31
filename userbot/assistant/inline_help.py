@@ -23,7 +23,7 @@ async def help_func(event):
     ]
     all = split_list(list, 2)
     fl = split_list(all, 5)
-    fl.append([Button.inline("Next", data=f"page_{int(pages)+1}")])
+    fl.append([Button.inline("Next", data="page_1")])
     result = event.builder.article(
         title="Alien Help Menu",
         text=str(count),
