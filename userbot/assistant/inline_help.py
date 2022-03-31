@@ -2,7 +2,7 @@ from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
 from userbot.database import DB
 from telethon import Button
-import os, glob
+import os, glob, re
 from userbot.database import PLUGINS_HELP
 
 
@@ -48,8 +48,9 @@ async def alien_help(event):
         )
         await event.answer([result])
 
-@alien_callback("alien_help_page_(.*)", owner=True)
+@alien_callback(re.compile("alien_help_page_(.*)"), owner=True)
 async def alien_help_pages(event):
+    await event.edit(str(event))
     data = int(event.pattern_match.group(1))
     files = glob.glob("userbot/plugins/*.py")
     start = int(f"{(data - 1)}0")
