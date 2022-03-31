@@ -27,6 +27,6 @@ async def help_func(event):
     result = event.builder.article(
         title="Alien Help Menu",
         text=str(count),
-        buttons=fl,
+        buttons=[fl],
     )
     await event.answer([result])
