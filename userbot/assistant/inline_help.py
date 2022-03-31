@@ -102,8 +102,8 @@ async def help_plugins(event):
     if data in PLUGINS_HELP:
         info = PLUGINS_HELP[data] 
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
-        text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
-        text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
+        text += f"""\n\n** 🧾 Information:** ( `{info["info"]}` )"""
+        text += f"""\n\n\n** ♻️ Commands** ( `{len(info["commands"])}` ):"""
         for com in info["commands"]:
             text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
     else:
