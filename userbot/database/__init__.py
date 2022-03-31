@@ -1,6 +1,6 @@
 from userbot import LOGS
 from redis import Redis
-import os
+import os, glob
 import Config
 
 def get_data(self, key):
@@ -76,3 +76,4 @@ class RedisDB:
 
 DB = RedisDB()
 PLUGINS_HELP = {}
+PLUGINS = glob.glob("userbot/plugins/*.py")
