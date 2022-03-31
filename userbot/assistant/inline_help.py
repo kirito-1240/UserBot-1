@@ -4,9 +4,9 @@ from userbot.database import DB
 from telethon import Button
 import os, glob
 
-@alien_inline(re.compile("test_(.*)"), owner=True)
+@alien_inline("test_(.*)", owner=True)
 async def alien_help(event):
-    data = event.data_match.group(1).decode("utf-8")
+    data = event.data_match.group(1)
     result = event.builder.article(title="Alien", text=str(data))
     await event.answer([result])
 
