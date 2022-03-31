@@ -2,13 +2,14 @@ from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
 from userbot.database import DB
 from telethon import Button
+import Config
 import os, glob, re, random
 from userbot.database import PLUGINS_HELP
 
 PIC = random.choice(DB.get_key("START_PIC"))
 
 @alien_inline("alien", owner=True)
-async def alien_help(event):
+async def help(event):
     files = glob.glob("userbot/plugins/*.py")
     list = []
     emoji = DB.get_key("HELP_EMOJI") or "•"
@@ -18,7 +19,7 @@ async def alien_help(event):
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
-    buttons.append([Button.inline("❌ Close ❌", data="close") , Button.inline("Next ▶️", data="page_2")])
+    buttons.append([Button.inline("❌ Close ❌", data="close_1") , Button.inline("Next ▶️", data="page_2")])
     text = f"""
 **• Alien Userbot Help Menu!**
 
@@ -36,7 +37,7 @@ async def alien_help(event):
     await event.answer([result])
 
 @alien_callback(re.compile("page_(.*)"), owner=True)
-async def alien_help_pages(event):
+async def help_pages(event):
     data = int(event.pattern_match.group(1))
     files = glob.glob("userbot/plugins/*.py")
     start = int(f"{(data - 1)}0")
@@ -54,7 +55,7 @@ async def alien_help_pages(event):
     other = []    
     if data != 1:
         other.append(Button.inline(f"◀️ Back", data=f"page_{(data-1)}"))
-    other.append(Button.inline(f"❌ Close ❌", data="close"))
+    other.append(Button.inline(f"❌ Close ❌", data="close_{data}"))
     if not end > len(files):
         other.append(Button.inline(f"Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
@@ -69,8 +70,28 @@ async def alien_help_pages(event):
 """
     await event.edit(text, file=PIC, buttons=buttons)
 
+
+@alien_callback(re.compile("close_(.*)"), owner=True)
+async def close(event):
+    page = int(event.pattern_match.group(2))
+    buttons = [Button.inline(f"♻️ Open Again ♻️", data=f"page_{page})]
+    await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
+
 @alien_callback(re.compile("plugin_(.*)_(.*)"), owner=True)
-async def alien_help_plugins(event):
+async def help_plugins(event):
     data = str(event.pattern_match.group(1))
     page = int(event.pattern_match.group(2))
-    await event.edit(f"{data} - {page}")
+    if data in PLUGINS_HELP:
+        info = PLUGINS_HELP[data] 
+        text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
+        text += f"""\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
+        text += f"""\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
+        for com in info["commands"]:
+            text += "\n     {}".format(com.format(cmdh=Config.COMMAND_HANDLER))
+        buttons = [
+                Button.inline(f"📍 Send Plugin 📍", data=f"sendplug_{data}"),
+                Button.inline(f"⬅️ Back ⬅️", data=f"page_{page}"))
+            ]
+        await event.edit(text, buttons=buttons)
+    else:
+        await event.answer("• Not Available Help For This Plugin!", show_alert=True)
