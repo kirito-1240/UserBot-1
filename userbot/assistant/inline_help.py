@@ -51,7 +51,7 @@ async def alien_help(event):
 async def alien_help(event):
     data = int(event.pattern_match.group(1))
     files = glob.glob("userbot/plugins/*.py")
-    start = int(f"{data}0")
+    start = int(f"{(data - 1)}0")
     end = start + 10
     if end > len(files):
         end = len(files)
