@@ -4,6 +4,12 @@ from userbot.database import DB
 from telethon import Button
 import os, glob
 
+@alien_inline(re.compile("test_(.*)"), owner=True)
+async def alien_help(event):
+    data = event.data_match.group(1).decode("utf-8")
+    result = event.builder.article(title="Alien", text=str(data))
+    await event.answer([result])
+
 @alien_inline("alien_inline_help", owner=True)
 async def alien_help(event):
     files = glob.glob("userbot/plugins/*.py")
@@ -15,7 +21,7 @@ async def alien_help(event):
 
 **• Plugins Count:** ( `{len(files)}` )
 """
-    if len(files) > 20:
+    if len(files) > 10:
         list = []
         for file in sorted(files[0:10]):
             name = str(os.path.basename(file).replace(".py" , ""))
