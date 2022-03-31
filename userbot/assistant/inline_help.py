@@ -2,6 +2,13 @@ from userbot.events import alien_inline, alien_callback
 import os, glob
 from telethon import Button
 
+def split_list(List, index):
+    new_ = []
+    while List:
+        new_.extend([List[:index]])
+        List = List[index:]
+    return new_
+
 @alien_inline("alien_inline_help", owner=True)
 async def help_func(event):
     files = glob.glob("userbot/plugins/*.py")
