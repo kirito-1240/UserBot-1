@@ -82,14 +82,28 @@ async def help_plugins(event):
     if data in PLUGINS_HELP:
         info = PLUGINS_HELP[data] 
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
-        text += f"""\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
-        text += f"""\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
+        text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
+        text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
         for com in info["commands"]:
-            text += "\n     {}".format(com.format(cmdh=Config.COMMAND_HANDLER))
-        buttons = [
-                Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}"),
-                Button.inline("⬅️ Back ⬅️", data=f"page_{page}"),
-            ]
+            text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
+        buttons = [[Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}_{page}")], [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]]
         await event.edit(text, buttons=buttons)
     else:
         await event.answer("• Not Available Help For This Plugin!", alert=True)
+
+@alien_callback(re.compile("sendplug_(.*)_(.*)"), owner=True)
+async def help_plugins(event):
+    data = str(event.pattern_match.group(1).decode('utf-8'))
+    page = str(event.pattern_match.group(2).decode('utf-8'))
+    file = f"userbot/plugins/{data}.py"
+    if data in PLUGINS_HELP:
+        info = PLUGINS_HELP[data] 
+        text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
+        text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
+        text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
+        for com in info["commands"]:
+            text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
+    else:
+        text = f"** 💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
+    buttons = [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]
+    await event.edit(text, file=file, buttons=buttons)
