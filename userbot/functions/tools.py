@@ -80,6 +80,6 @@ async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
         'language': lang,
         'backgroundColor': color
     }
-    image = await async_searcher("https://carbonara.vercel.app/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
+    image = await async_searcher("https://carbonara-42.herokuapp.com/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
     open(file_name, 'wb').write(image)
     return file_name
