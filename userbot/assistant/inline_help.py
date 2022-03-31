@@ -11,11 +11,11 @@ async def alien_help(event):
 **• Alien Userbot Help Menu!**
 
 **• Master:** {DB.get_key("OWNER")}
-**• Assistant:** {DB.get_key("ASSISTANT_USERNAME")}
+**• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
 
 **• Plugins Count:** ( `{len(files)}` )
 """
-    if len(files) > 15:
+    if len(files) > 20:
         list = []
         for file in sorted(files[0:10]):
             name = str(os.path.basename(file).replace(".py" , ""))
@@ -23,7 +23,8 @@ async def alien_help(event):
         buttons = []
         for key in chunks(list, 2):
             buttons.append(key)
-        buttons.append([Button.inline(f"• Next •", data=f"page_1")])
+        buttons.append([Button.inline(f"• Next •", data=f"page_2")])
+        text += "\n**• Page:** ( 1 )"
         result = event.builder.article(
             title="Alien Help Menu",
             text=text,
