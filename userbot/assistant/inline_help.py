@@ -10,7 +10,7 @@ import Config
 async def help(event):
     files = PLUGINS
     list = []
-    emoji = DB.get_key("HELP_EMOJI") or "•"
+    emoji = Config.HELP_EMOJI or "•"
     for file in sorted(files[0:10]):
         name = str(os.path.basename(file).replace(".py" , ""))
         list.append(Button.inline(f"{emoji} {name.title()} {emoji}", data=f"plugin_{name}_1"))
@@ -44,7 +44,7 @@ async def help_pages(event):
     end = start + 10
     if end > len(files):
         end = len(files)
-    emoji = DB.get_key("HELP_EMOJI") or "•"
+    emoji = Config.HELP_EMOJI or "•"
     list = []
     for file in sorted(files[start:end]):
         name = str(os.path.basename(file).replace(".py" , ""))
