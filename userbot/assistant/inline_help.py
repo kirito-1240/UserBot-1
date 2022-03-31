@@ -39,6 +39,8 @@ async def help_pages(event):
     data = int(event.pattern_match.group(1).decode('utf-8'))
     files = PLUGINS
     start = int(f"{(data - 1)}0")
+    if start == 00:
+        start = 0
     end = start + 10
     if end > len(files):
         end = len(files)
