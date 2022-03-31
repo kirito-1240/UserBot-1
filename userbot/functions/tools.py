@@ -73,7 +73,7 @@ async def unsplashsearch(query):
 def rgba(r: int, g: int, b: int, a: float) -> str:
     return f'rgba({r}, {g}, {b}, {a})'
 
-async def Carbon(code, file_name="carbonAlien.png", lang="auto"):
+async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     color= rgba(random.randint(20,255), random.randint(20,255), random.randint(20,255), random.randint(20,255))
     font = random.choice(["Hack", "Anonymous Pro", "Cascadia Code", "Droid Sans Mono", "Fantasque Sans Mono", "Fira Code", "Ibm Plex Mono", "Monoid", "Source Code Pro", "Space Mono", "Inconsolata", "Jetbrains Mono", "Ubuntu Mono"])
     options = {
