@@ -105,5 +105,5 @@ async def help_plugins(event):
             text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
     else:
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
-    buttons = [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]
+    buttons = [Button.inline("⬅️ Back ⬅️", data=f"plugin_{data}_{page}")]
     await event.edit(text, file=file, thumb="other/bot.jpg", buttons=buttons)
