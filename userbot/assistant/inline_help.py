@@ -108,4 +108,4 @@ async def help_plugins(event):
     else:
         text = f"** 💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
     buttons = [Button.inline("⬅️ Back ⬅️", data=f"plugin_{data}_{page}")]
-    await event.edit(text, file=file, thumb="other/bot.jpg", buttons=buttons)
+    await event.edit(text, file=file, thumb="userbot/other/bot.jpg", buttons=buttons)
