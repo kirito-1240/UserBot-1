@@ -42,3 +42,17 @@ async def set_lim(event):
     id = event.peer_id.user_id
     del_user(id)
     await event.edit(f"**• Anti Spam Warns Deleted For This User!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Prevent From Spam On Your Pv!",
+        "commands": {
+            "{cmdh}santi on": "To Active Antispam!",
+            "{cmdh}santi off": "To DeActive Antispam!",
+            "{cmdh}salimit [limit]": "To Set Limit For Antispam!",
+            "{cmdh}dwanti": "To Delete Warns From A User!",
+        },
+    }
+})
