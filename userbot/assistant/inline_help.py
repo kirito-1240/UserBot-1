@@ -20,6 +20,7 @@ async def help(event):
     for key in chunks(list, 2):
         buttons.append(key)
     count = round(len(files) / 10)
+    buttons.append([Button.inline("➖➖➖➖➖➖➖➖➖➖", data="empty")])
     buttons.append([Button.inline("◀️ Back", data=f"page_{count}"), Button.inline("Next ▶️", data="page_2")])
     buttons.append([Button.inline("❌ Close ❌", data="close_1")])
     text = f"""
@@ -56,7 +57,8 @@ async def help_pages(event):
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
-    other = []    
+    other = []
+    buttons.append([Button.inline("➖➖➖➖➖➖➖➖➖➖", data="empty")])   
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     else:
@@ -84,6 +86,10 @@ async def close(event):
     page = int(event.pattern_match.group(1).decode('utf-8'))
     buttons = [Button.inline("♻️ Open Again ♻️", data=f"page_{page}")]
     await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
+
+@alien_callback("empty", owner=True)
+async def close(event):
+    await event.answer("• This Is A Display Button!", alert=True)
 
 @alien_callback(re.compile("plugin_(.*)_(.*)"), owner=True)
 async def help_plugins(event):
