@@ -16,3 +16,15 @@ async def googlesearch(event):
     file = await Carbon(code)
     await app.send_file(event.chat_id, file, caption=f"""**• Carbonised By:** {DB.get_key("OWNER")}""")
     await event.delete()
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Create Carbon Images!",
+        "commands": {
+            "{cmdh}carbon [text]": "To Create Carbon From Given Text!",
+            "{cmdh}carbon [reply]": "To Create Carbon From Reply Message!",
+        },
+    }
+})
