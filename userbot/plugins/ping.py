@@ -18,6 +18,8 @@ name = (__name__).split(".")[-1]
 PLUGINS_HELP.update({
     name:{
         "info": "To Get Ping And Uptime!",
-        "commands": ["{cmdh}ping"],
+        "commands": {
+            "{cmdh}ping": "To Get Ping And Uptime!",
+        },
     }
 })
