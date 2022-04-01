@@ -13,3 +13,14 @@ async def googlesearch(event):
             co += 1
             result += f'**{co} -** [{x["title"]}]({x["link"]})\n\n'
     await event.edit(result)
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Search On Google!",
+        "commands": {
+            "{cmdh}gsearch [query]": "To Search On Google By Given Query!",
+        },
+    }
+})
