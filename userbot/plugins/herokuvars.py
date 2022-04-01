@@ -29,3 +29,15 @@ async def set_var(event):
         del CONFIG[key]
     else:
         await event.edit(f"**• This Var Is Not In Heroku!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Edit Vars In Heroku Vars!",
+        "commands": {
+            "{cmdh}setv [key] | [value]": "To Set Or Update Var In Heroku!",
+            "{cmdh}delv [key]": "To Delete Var From Heroku!",
+        },
+    }
+})
