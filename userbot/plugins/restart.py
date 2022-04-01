@@ -19,3 +19,14 @@ async def restart(event):
         restart_app()
     await runcmd("git pull")
     os.execl(sys.executable, "python3", "-m", "userbot")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Restart Your Userbot!",
+        "commands": {
+            "{cmdh}restart": "To Restart Your Userbot!",
+        },
+    }
+})
