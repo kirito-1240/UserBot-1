@@ -1,52 +1,11 @@
 from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
-from userbot.database import DB, PLUGINS, ADMIN_PLUGINS, BOT_PLUGINS, FUN_PLUGINS, MISC_PLUGINS, TOOLS_PLUGINS, UTILS_PLUGINS
+from userbot.database import DB, PLUGINS, PLUGINS_HELP
 from telethon import Button
 import os, glob, re, random
 import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC"))
-
-def main_menu():
-    text = f"""
-**• Alien Userbot Help Menu!**
-
-**• Master:** {DB.get_key("OWNER")}
-**• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
-
-**• Category Count:** ( `6` )
-**• Plugins Count:** ( `{len(PLUGINS)}` )
-**• Page:** ( 1 )
-"""
-    buttons = [
-        (
-            Button.inline(f"👮‍♂️ Admin ({len(ADMIN_PLUGINS)})", data="admin_menu"),
-            Button.inline(f"🤖 Bot ({len(BOT_PLUGINS)})", data="bot_menu"),
-        ),
-        (
-            Button.inline(f"🎨 Fun ({len(FUN_PLUGINS)})", data="fun_menu"),
-            Button.inline(f"🧩 Misc ({len(MISC_PLUGINS)})", data="misc_menu"),
-        ),
-        (
-            Button.inline(f"🧰 Tools ({len(TOOLS_PLUGINS)})", data="tools_menu"),
-            Button.inline(f"🗂 Utils ({len(UTILS_PLUGINS)})", data="utils_menu"),
-        ),
-        (
-            Button.inline("🔒 Close Menu", data="close"),
-        ),
-    ]
-
-    return text, buttons
-
-@alien_inline("aliens", owner=True)
-async def help(event):
-    text, buttons = main_menu()
-    result = event.builder.photo(
-        file=PIC,
-        text=text,
-        buttons=buttons,
-    )
-    await event.answer([result])
 
 @alien_inline("alien", owner=True)
 async def help(event):
@@ -59,7 +18,8 @@ async def help(event):
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
-    buttons.append([Button.inline("❌ Close ❌", data="close_1") , Button.inline("Next ▶️", data="page_2")])
+    count = round(len(files) / 10)
+    buttons.append([Button.inline("◀️ Back", data=f"page_{count}"), Button.inline("❌ Close ❌", data="close_1") , Button.inline("Next ▶️", data="page_2")])
     text = f"""
 **• Alien Userbot Help Menu!**
 
