@@ -1,6 +1,6 @@
 from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
-from userbot.database import DB, PLUGINS, PLUGINS_HELP, ADMIN_PLUGINS, BOT_PLUGINS, FUN_PLUGINS, MISC_PLUGINS, TOOLS_PLUGINS, UTILS_PLUGINS
+from userbot.database import DB, PLUGINS, ADMIN_PLUGINS, BOT_PLUGINS, FUN_PLUGINS, MISC_PLUGINS, TOOLS_PLUGINS, UTILS_PLUGINS
 from telethon import Button
 import os, glob, re, random
 import Config
