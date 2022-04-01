@@ -103,12 +103,12 @@ from userbot.database import PLUGINS_HELP
 name = (__name__).split(".")[-1]
 PLUGINS_HELP.update({
     name:{
-        "info": "To Get Ping And Uptime!",
+        "info": "To Goodby Message For Leaving Members!",
         "commands": {
-            "{cmdh}swelcome [reply]": "To Get Ping And Uptime!",
-            "{cmdh}gwelcome": "To Get Ping And Uptime!",
-            "{cmdh}dwelcome": "To Get Ping And Uptime!",
-            "{cmdh}cwelcomea": "To Get Ping And Uptime!",
+            "{cmdh}sgoodby [reply]": "To Set Goodby Message For Chat!",
+            "{cmdh}ggoodby": "To Get Goodby Message In Chat!",
+            "{cmdh}dgoodby": "To Delete Goodby Message From Chat!",
+            "{cmdh}cgoodbys": "To Clean Goodby Messages On All Chats!",
         },
     }
 })
