@@ -38,6 +38,16 @@ def main_menu():
 
     return text, buttons
 
+@alien_inline("aliens", owner=True)
+async def help(event):
+    text, buttons = main_menu()
+    result = event.builder.photo(
+        file=PIC,
+        text=text,
+        buttons=buttons,
+    )
+    await event.answer([result])
+
 @alien_inline("alien", owner=True)
 async def help(event):
     files = PLUGINS
