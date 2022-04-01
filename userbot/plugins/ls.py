@@ -68,3 +68,15 @@ async def ls(event):
         output += f"**• Last Modified Time :** `{time2}`\n"
         output += f"**• Last Accessed Time :** `{time3}`"
     await event.edit(output)
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Get Files In A Directory!",
+        "commands": {
+            "{cmdh}ls": "To Get Files In Current Directory!",
+            "{cmdh}ls [path]": "To Get Files In Given Directory!",
+        },
+    }
+})
