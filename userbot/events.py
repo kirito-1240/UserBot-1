@@ -177,6 +177,7 @@ def alien_callback(data=None, owner=True, **kwargs):
     def decorator(func):
         async def wrapper(event):
             if owner and not event.sender_id == int(DB.get_key("OWNER_ID")):
+                await event.answer("• This is Not For You!", alert=True)
                 return
             try:
                 await func(event)
