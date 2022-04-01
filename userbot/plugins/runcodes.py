@@ -61,3 +61,14 @@ __In File!__
 """)
         os.remove("Result.txt")
     await event.delete()
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Run Python Codes!",
+        "commands": {
+            "{cmdh}run [code]": "To Run Given Python Code!",
+        },
+    }
+})
