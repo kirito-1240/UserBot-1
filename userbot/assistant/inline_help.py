@@ -7,6 +7,13 @@ import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC"))
 
+def total_commands():
+    count = 0
+    for plugin in PLUGINS:
+        for plug in plugin["commands"]:
+            count += 1
+    return count
+
 @alien_inline("alien", owner=True)
 async def help(event):
     files = PLUGINS
@@ -27,6 +34,7 @@ async def help(event):
 **• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
 
 **• Plugins Count:** ( `{len(files)}` )
+**• Commands Count:** ( `{total_commands()}` )
 **• Page:** ( 1 )
 """
     result = event.builder.photo(
@@ -73,6 +81,7 @@ async def help_pages(event):
 **• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
 
 **• Plugins Count:** ( `{len(files)}` )
+**• Commands Count:** ( `{total_commands()}` )
 **• Page:** ( {data} )
 """
     await event.edit(text, file=PIC, buttons=buttons)
