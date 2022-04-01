@@ -1,8 +1,8 @@
 from userbot.events import alien_inline, alien_callback
-from userbot.utils import chunks
+from userbot.utils import chunks, convert_bytes
 from userbot.database import DB, PLUGINS, PLUGINS_HELP
 from telethon import Button
-import os, glob, re, random
+import os, glob, re, random, time
 import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC"))
@@ -106,13 +106,17 @@ async def help_plugins(event):
     page = str(event.pattern_match.group(2).decode('utf-8'))
     file = f"userbot/plugins/{data}.py"
     if data in PLUGINS_HELP:
-        info = PLUGINS_HELP[data] 
-        text = f"** 💡 Plugin Name:** ( `{data.title()}` )"
-        text += f"""\n\n** 🧾 Information:** ( `{info["info"]}` )"""
-        text += f"""\n\n\n** ♻️ Commands** ( `{len(info["commands"])}` ):"""
-        for com in info["commands"]:
-            text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
+        info = PLUGINS_HELP[data]
+        size = os.stat(file).st_size
+        text = "**💡 The Details Of Sended Plugin File:**\n\n"
+        time.ctime(os.path.getctime(file))
+        time2 = time.ctime(os.path.getmtime(file))
+        time3 = time.ctime(os.path.getatime(file))
+        text += f"**• Plugin Name:** ( `{data.title()}` )\n"
+        text += f"**• Size:** ( `{convert_bytes(size)}` )\n"
+        text += f"**• Last Modified Time:** ( `{time2}` )\n"
+        text += f"**• Last Accessed Time:** ( `{time3}` )"
     else:
-        text = f"** 💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
+        text = f"**💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
     buttons = [Button.inline("⬅️ Back ⬅️", data=f"plugin_{data}_{page}")]
     await event.edit(text, file=file, thumb="userbot/other/extra.jpg", buttons=buttons)
