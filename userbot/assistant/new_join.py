@@ -1,6 +1,8 @@
 from userbot import app, bot
 from telethon import events, Button
 from userbot.database import DB
+from userbot.events import alien_callback
+import re
 
 async def new_join(event):
     user = await event.get_user()
