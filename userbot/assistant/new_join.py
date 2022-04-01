@@ -12,7 +12,7 @@ async def new_join(event):
     else:
         chat = f"[{chat.title}](https://t.me/c/{chat.id})"
     type = "bot" if event.client._bot else "user"
-    buttons = [Button.inline("• Leave Chat •" data=f"leave_{type}_{event.chat_id}")]
+    buttons = [Button.inline("• Leave Chat •", data=f"leave_{type}_{event.chat_id}")]
     if event.user_added:
         tmp = event.added_by
         text = f"#ADD_LOG\n\n{tmp} just added {user} to {chat}."
