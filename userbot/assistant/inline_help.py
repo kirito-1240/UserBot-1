@@ -64,7 +64,7 @@ async def help_pages(event):
     else:
         count = round(len(files) / 10)
         other.append(Button.inline("◀️ Back", data=f"page_{count}"))
-    if len(files[start:end]) < 10 or data == 1:
+    if not len(files[start:end]) < 10 or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     else:
         other.append(Button.inline("Next ▶️", data="page_1"))
