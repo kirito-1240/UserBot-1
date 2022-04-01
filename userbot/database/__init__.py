@@ -75,5 +75,5 @@ class RedisDB:
         return True
 
 DB = RedisDB()
-PLUGINS = glob.glob("userbot/plugins/*.py")
+PLUGINS = sorted(glob.glob("userbot/plugins/*.py"))
 PLUGINS_HELP = {}
