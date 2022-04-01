@@ -26,6 +26,7 @@ async def help(event):
 
 **• Master:** {DB.get_key("OWNER")}
 **• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
+
 **• Plugins Count:** ( `{len(files)}` )
 **• Page:** ( 1 )
 """
@@ -76,7 +77,6 @@ async def help_pages(event):
 **• Page:** ( {data} )
 """
     await event.edit(text, file=PIC, buttons=buttons)
-
 
 @alien_callback(re.compile("close_(.*)"), owner=True)
 async def close(event):
