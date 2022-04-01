@@ -19,3 +19,14 @@ async def googlesearch(event):
 **💡 Master:** ( {DB.get_key("OWNER")} )
 """, file=DB.get_key("ALIVE_PIC"))
     await event.delete()
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Chack Alive Userbot!",
+        "commands": {
+            "{cmdh}alive": "To Check Alive Userbot!",
+        },
+    }
+})
