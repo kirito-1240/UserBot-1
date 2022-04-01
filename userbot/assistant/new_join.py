@@ -33,13 +33,13 @@ async def leave_chat(event):
         info = await app.get_entity(chat_id)
         await app.delete_dialog(chat_id)
         if info.username:
-           await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.username))
-       else:
-           await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.title))  
+            await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.username))
+        else:
+            await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.title))  
     else:
         info = await bot.get_entity(chat_id)
         await bot.delete_dialog(chat_id)
         if info.username:
-           await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.username))
-       else:
-           await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.title))
+            await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.username))
+        else:
+            await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.title))
