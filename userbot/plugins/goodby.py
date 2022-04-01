@@ -97,3 +97,18 @@ async def c_goodby(event):
     await event.edit("`• Please Wait . . .`")
     clean_goodbys()
     await event.edit(f"**• Goodby Messages Was Cleaned!**")
+
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Get Ping And Uptime!",
+        "commands": {
+            "{cmdh}swelcome [reply]": "To Get Ping And Uptime!",
+            "{cmdh}gwelcome": "To Get Ping And Uptime!",
+            "{cmdh}dwelcome": "To Get Ping And Uptime!",
+            "{cmdh}cwelcomea": "To Get Ping And Uptime!",
+        },
+    }
+})
