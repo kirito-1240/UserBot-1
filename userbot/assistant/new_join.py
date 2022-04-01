@@ -6,6 +6,7 @@ import re
 
 async def new_join(event):
     chat = await event.get_chat()
+    user = await event.get_user()
     if not (user and user.is_self):
         return
     if chat.username:
