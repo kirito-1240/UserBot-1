@@ -94,7 +94,7 @@ async def help_plugins(event):
         text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
         text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
         for com in info["commands"]:
-            text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
+            text += "\n    `{}` - ( `{}` )".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
         buttons = [[Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}_{page}")], [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]]
         await event.edit(text, file=PIC, buttons=buttons)
     else:
