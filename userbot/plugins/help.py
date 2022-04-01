@@ -1,6 +1,5 @@
 from userbot import app , bot
 from userbot.events import alien
-from userbot.database import PLUGINS_HELP
 import Config
 
 @alien(pattern="help ?(.*)?")
@@ -24,9 +23,9 @@ async def help(event):
         await results[0].click(event.chat_id)
         await event.delete()
 
-from userbot.database import PLUGINS_HELP
+from userbot.database import ADMIN_PLUGINS
 name = (__name__).split(".")[-1]
-PLUGINS_HELP.update({
+ADMIN_PLUGINS.update({
     name:{
         "info": "To Get Help From Userbot!",
         "commands": ["{cmdh}help"],
