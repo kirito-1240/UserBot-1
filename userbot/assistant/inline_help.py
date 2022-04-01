@@ -57,7 +57,7 @@ async def help_pages(event):
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
-    if end < len(files[start:end]) or data == 1:
+    if len(files[start:end]) == 10 or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     buttons.append(other)
     text = f"""
