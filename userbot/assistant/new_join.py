@@ -13,7 +13,7 @@ async def new_join(event):
         chat = chat.username
     else:
         chat = f"[{chat.title}](https://t.me/c/{chat.id})"
-    buttons = [Button.inline("• Leave Chat •", data=f"leave_{chat.id}")]
+    buttons = [Button.inline("• Leave Chat •", data=f"leave_{event.chat_id}")]
     text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
