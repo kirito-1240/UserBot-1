@@ -1,11 +1,42 @@
 from userbot.events import alien_inline, alien_callback
 from userbot.utils import chunks
-from userbot.database import DB, PLUGINS, PLUGINS_HELP
+from userbot.database import DB, PLUGINS, PLUGINS_HELP, ADMIN_PLUGINS, BOT_PLUGINS, FUN_PLUGINS, MISC_PLUGINS, TOOLS_PLUGINS, UTILS_PLUGINS
 from telethon import Button
 import os, glob, re, random
 import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC"))
+
+def main_menu():
+    text = f"""
+**• Alien Userbot Help Menu!**
+
+**• Master:** {DB.get_key("OWNER")}
+**• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
+
+**• Category Count:** ( `6` )
+**• Plugins Count:** ( `{len(PLUGINS)}` )
+**• Page:** ( 1 )
+"""
+    buttons = [
+        (
+            Button.inline(f"👮‍♂️ Admin ({len(ADMIN_PLUGINS)})", data="admin_menu"),
+            Button.inline(f"🤖 Bot ({len(BOT_PLUGINS)})", data="bot_menu"),
+        ),
+        (
+            Button.inline(f"🎨 Fun ({len(FUN_PLUGINS)})", data="fun_menu"),
+            Button.inline(f"🧩 Misc ({len(MISC_PLUGINS)})", data="misc_menu"),
+        ),
+        (
+            Button.inline(f"🧰 Tools ({len(TOOLS_PLUGINS)})", data="tools_menu"),
+            Button.inline(f"🗂 Utils ({len(UTILS_PLUGINS)})", data="utils_menu"),
+        ),
+        (
+            Button.inline("🔒 Close Menu", data="close"),
+        ),
+    ]
+
+    return text, buttons
 
 @alien_inline("alien", owner=True)
 async def help(event):
