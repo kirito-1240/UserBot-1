@@ -56,9 +56,14 @@ async def help_pages(event):
     other = []    
     if data != 1:
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
+    else:
+        count = round(len(files) / 10)
+        other.append(Button.inline("◀️ Back", data=f"page_{count}"))
     other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
     if len(files[start:end]) == 10 or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
+    else:
+        other.append(Button.inline("Next ▶️", data="page_1"))
     buttons.append(other)
     text = f"""
 **• Alien Userbot Help Menu!**
