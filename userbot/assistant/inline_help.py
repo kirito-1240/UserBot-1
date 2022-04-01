@@ -7,13 +7,6 @@ import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC"))
 
-def total_commands():
-    count = 0
-    for plugin in PLUGINS:
-        for plug in plugin["commands"]:
-            count += 1
-    return count
-
 @alien_inline("alien", owner=True)
 async def help(event):
     files = PLUGINS
@@ -26,15 +19,14 @@ async def help(event):
     for key in chunks(list, 2):
         buttons.append(key)
     count = round(len(files) / 10)
-    buttons.append([Button.inline("◀️ Back", data=f"page_{count}"), Button.inline("❌ Close ❌", data="close_1") , Button.inline("Next ▶️", data="page_2")])
+    buttons.append([Button.inline("◀️ Back", data=f"page_{count}"), Button.inline("Next ▶️", data="page_2")])
+    buttons.append([Button.inline("❌ Close ❌", data="close_1")])
     text = f"""
 **• Alien Userbot Help Menu!**
 
 **• Master:** {DB.get_key("OWNER")}
 **• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
-
 **• Plugins Count:** ( `{len(files)}` )
-**• Commands Count:** ( `{total_commands()}` )
 **• Page:** ( 1 )
 """
     result = event.builder.photo(
@@ -68,12 +60,12 @@ async def help_pages(event):
     else:
         count = round(len(files) / 10)
         other.append(Button.inline("◀️ Back", data=f"page_{count}"))
-    other.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
     if len(files[start:end]) == 10 or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
     else:
         other.append(Button.inline("Next ▶️", data="page_1"))
     buttons.append(other)
+    buttons.append(Button.inline("❌ Close ❌", data=f"close_{data}"))
     text = f"""
 **• Alien Userbot Help Menu!**
 
@@ -81,7 +73,6 @@ async def help_pages(event):
 **• Assistant:** @{DB.get_key("ASSISTANT_USERNAME")}
 
 **• Plugins Count:** ( `{len(files)}` )
-**• Commands Count:** ( `{total_commands()}` )
 **• Page:** ( {data} )
 """
     await event.edit(text, file=PIC, buttons=buttons)
