@@ -96,7 +96,7 @@ async def help_plugins(event):
         for com in info["commands"]:
             text += "\n  `{}`\n    `{}`\n".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
         buttons = [[Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}_{page}")], [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]]
-        await event.edit(text, file=PIC, buttons=buttons)
+        await event.edit(text, buttons=buttons)
     else:
         await event.answer("• Not Available Help For This Plugin!", alert=True)
 
