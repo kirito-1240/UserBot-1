@@ -97,3 +97,17 @@ async def c_welcome(event):
     await event.edit("`• Please Wait . . .`")
     clean_welcomes()
     await event.edit(f"**• Welcome Messages Was Cleaned!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Welcome Message For New Members!",
+        "commands": {
+            "{cmdh}swelcome [reply]": "To Set Welcome Message For Chat!",
+            "{cmdh}gwelcome": "To Get Welcome Message In Chat!",
+            "{cmdh}dwelcome": "To Delete Welcome Message From Chat!",
+            "{cmdh}cwelcomea": "To Clean Welcome Messages On All Chats!",
+        },
+    }
+})
