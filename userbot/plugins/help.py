@@ -23,9 +23,9 @@ async def help(event):
         await results[0].click(event.chat_id)
         await event.delete()
 
-from userbot.database import ADMIN_PLUGINS
+from userbot.database import PLUGINS_HELP
 name = (__name__).split(".")[-1]
-ADMIN_PLUGINS.update({
+PLUGINS_HELP.update({
     name:{
         "info": "To Get Help From Userbot!",
         "commands": ["{cmdh}help"],
