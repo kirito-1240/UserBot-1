@@ -28,6 +28,9 @@ name = (__name__).split(".")[-1]
 PLUGINS_HELP.update({
     name:{
         "info": "To Get Help From Userbot!",
-        "commands": ["{cmdh}help"],
+        "commands": {
+            "{cmdh}help": "To Get Help From Userbot!",
+            "{cmdh}help [plugin_name]": "To Get Help From A Plugin!",
+        },
     }
 })
