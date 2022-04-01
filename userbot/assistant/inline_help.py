@@ -6,8 +6,10 @@ from telethon import Button
 import os, glob, re, random, time
 import Config
 
-PIC = random.choice(DB.get_key("INLINE_PIC"))
-PIC = await download_file(PIC, "INLINE_PIC.jpg") 
+async def INLINE_PIC():
+    PIC = random.choice(DB.get_key("INLINE_PIC"))
+    PIC = await download_file(PIC, "INLINE_PIC.jpg")
+    return PIC 
 
 @alien_inline("alien", owner=True)
 async def help(event):
@@ -32,6 +34,7 @@ async def help(event):
 **• Plugins Count:** ( `{len(files)}` )
 **• Page:** ( 1 )
 """
+    PIC = await INLINE_PIC()
     result = event.builder.photo(
         file=PIC,
         text=text,
@@ -78,6 +81,7 @@ async def help_pages(event):
 **• Plugins Count:** ( `{len(files)}` )
 **• Page:** ( {data} )
 """
+    PIC = await INLINE_PIC()
     await event.edit(text, file=PIC, buttons=buttons)
 
 @alien_callback(re.compile("close_(.*)"), owner=True)
@@ -98,6 +102,7 @@ async def help_plugins(event):
         for com in info["commands"]:
             text += "\n  `{}`\n    `{}`\n".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
         buttons = [[Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}_{page}")], [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]]
+        PIC = await INLINE_PIC()
         await event.edit(text, file=PIC, buttons=buttons)
     else:
         await event.answer("• Not Available Help For This Plugin!", alert=True)
