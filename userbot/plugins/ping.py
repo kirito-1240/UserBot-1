@@ -13,9 +13,9 @@ async def ping(event):
     uptime = convert_time(time.time() - START_TIME)
     await event.edit(f"**• Pong!!** `{ms}`\n**• Uptime :** `{uptime}`")
 
-from userbot.database import PLUGINS_HELP
+from userbot.database import ADMIN_PLUGINS
 name = (__name__).split(".")[-1]
-PLUGINS_HELP.update({
+ADMIN_PLUGINS.update({
     name:{
         "info": "To Get Ping And Uptime!",
         "commands": ["{cmdh}ping"],
