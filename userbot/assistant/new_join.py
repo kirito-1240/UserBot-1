@@ -10,10 +10,11 @@ async def new_join(event):
     if not (user and user.is_self):
         return
     if chat.username:
-        username = "@" + chat.username
+        username =  f"[{chat.title}](https://t.me/{chat.username}/{event.action_message.id})"
     else:
-        username = f"[{chat.title}](https://t.me/c/{chat.id})"
-    buttons = [Button.inline("• Leave Chat •", data=f"leave_{chat.id}")]
+        username = f"[{chat.title}](https://t.me/c/{chat.id}/{event.action_message.id})"
+    type = "bot" if event.client._bot else "app"
+    buttons = [Button.inline("• Leave Chat •", data=f"leave_{chat.id}_{type}")]
     text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
@@ -31,17 +32,16 @@ bot.add_event_handler(new_join, events.ChatAction(func=lambda x: x.user_added))
 
 @alien_callback(re.compile("leave_(.*)_(.*)"), owner=True)
 async def leave_chat(event):
-    type = str(event.data_match.group(1).decode("utf-8"))
-    chat_id = int(event.data_match.group(2).decode("utf-8"))
-    try:
+    chat_id = int(event.data_match.group(1).decode("utf-8"))
+    type = str(event.data_match.group(2).decode("utf-8"))
+    if type == "app":
         info = await app.get_entity(chat_id)
         await app.delete_dialog(chat_id)
         if info.username:
             await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.username))
         else:
             await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.title))  
-    except Exception as e:
-        print(e)
+    else:
         info = await bot.get_entity(chat_id)
         await bot.delete_dialog(chat_id)
         if info.username:
