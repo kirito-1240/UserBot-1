@@ -28,3 +28,14 @@ async def photosearch(event):
         for photo in list:
             os.remove(photo) 
     await event.delete()
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Search And Get Images!",
+        "commands": {
+            "{cmdh}sphoto [query]": "To Search Images For Given Query!",
+        },
+    }
+})
