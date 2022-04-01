@@ -55,3 +55,14 @@ async def sysinfo(event):
     text += f"**• Free:** ( `{convert_bytes(partition_usage.free)}` )\n"
     text += f"**• Percentage:** ( `{partition_usage.percent}%` )"
     await event.edit(text)
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Get System Information!",
+        "commands": {
+            "{cmdh}sysinfo": "To Get System Information!",
+        },
+    }
+})
