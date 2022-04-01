@@ -2,7 +2,7 @@ from userbot import app
 from userbot.utils import convert_bytes
 from userbot.events import alien
 from pathlib import Path
-import os
+import os, time
 
 @alien(pattern="ls(?:\s|$)([\s\S]*)")
 async def ls(event):
