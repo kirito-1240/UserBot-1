@@ -15,3 +15,14 @@ async def uploadtelegraph(event):
         os.remove(photo)
     else:
         await event.edit("**• Please Reply To Photo!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Upload Photos On Telegraph!",
+        "commands": {
+            "{cmdh}uptel": "To Upload Replyed Photo On Telegraph!",
+        },
+    }
+})
