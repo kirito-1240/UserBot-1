@@ -29,3 +29,14 @@ async def googlesearch(event):
     await event.delete()
     os.remove("output.png")
     os.remove(photo)
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Create Beautiful Logos!",
+        "commands": {
+            "{cmdh}logo [text]": "To Create Logo By Given Text!",
+        },
+    }
+})
