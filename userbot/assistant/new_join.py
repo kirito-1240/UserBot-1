@@ -10,18 +10,19 @@ async def new_join(event):
     if not (user and user.is_self):
         return
     if chat.username:
-        chat = chat.username
+        username = "@" + chat.username
     else:
-        chat = f"[{chat.title}](https://t.me/c/{chat.id})"
-    buttons = [Button.inline("• Leave Chat •", data=f"leave_{event.chat_id}")]
+        username = f"[{chat.title}](https://t.me/c/{chat.id})"
+    buttons = [Button.inline("• Leave Chat •", data=f"leave_{chat.id}")]
     text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
 **• New Join To The Group/Channel!**
 
 **• Group/Channel Info:**
+   **• Title:** ( {chat.title} )
    **• ID:** ( {chat.id} )
-   **• Chat:** ( {chat} )
+   **• Username:** ( {username} )
 """
     await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
 
