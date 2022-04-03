@@ -4,6 +4,7 @@ from userbot.events import alien
 import os
 import sys
 import io
+import traceback
 
 async def runner(code , event):
     chat = await event.get_chat()
@@ -28,7 +29,7 @@ async def runcodes(event):
     try:
         await runner(cmd , event)
     except Exception as e:
-        exc = e
+        exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
@@ -36,31 +37,35 @@ async def runcodes(event):
     result = None
     if exc:
         result = exc
+        res = "Errors"
     elif stderr:
         result = stderr
+        res = "Errors"
     elif stdout:
         result = stdout
+        res = "Results"
     else:
         result = "Success!"
+        res = "Results"
     try:
-        await app.send_message(event.chat_id , f"""
+        await event.edit(f"""
 **• Code:** 
 `{event.text}`
 
-**• Output:** 
+**• {res}:** 
 `{result}`
 """)
     except:
-        open('Result.txt', 'w').write(str(result))
+        open(res + '.txt', 'w').write(str(result))
         await app.send_file(event.chat_id, "Result.txt" , caption=f"""
 **• Code:** 
 `{event.text}`
 
-**• Output:** 
+**• {res}:** 
 __In File!__
 """)
-        os.remove("Result.txt")
-    await event.delete()
+        os.remove(res + '.txt')
+        await event.delete()
 
 from userbot.database import PLUGINS_HELP
 name = (__name__).split(".")[-1]
