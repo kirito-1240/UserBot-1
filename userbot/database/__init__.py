@@ -76,4 +76,7 @@ class RedisDB:
 
 DB = RedisDB()
 PLUGINS = sorted(glob.glob("userbot/plugins/*.py"))
+for plug in sorted(glob.glob("userbot/vcbot/*.py")):
+    if "helper" not in plug:
+        PLUGINS.append(plug)
 PLUGINS_HELP = {}
