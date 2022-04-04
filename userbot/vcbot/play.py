@@ -6,7 +6,7 @@ from telethon.errors.rpcerrorlist import ChatSendMediaForbiddenError, MessageIdI
 import os
 
 @alien(pattern="play ?(.*)?")
-async def googlesearch(event):
+async def play(event):
     await event.edit("`• Please Wait . . .`")
     reply = await event.get_reply_message()
     if reply and reply.media and media_type(reply) in ["Video", "Voice", "Audio"]:
