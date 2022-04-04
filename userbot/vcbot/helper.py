@@ -12,6 +12,7 @@ from telethon.errors.rpcerrorlist import (
     ChatSendMediaForbiddenError,
 )
 from userbot.core.logger import LOGS
+from userbot.database import DB
 from userbot.utils import runcmd, convert_time
 from telethon import events
 from telethon.tl import functions, types
@@ -30,8 +31,7 @@ def get_videos_link(url):
         link = re.search(r"\?v=([(\w+)\-]*)", vid["link"]).group(1)
         to_return.append(f"https://youtube.com/watch?v={link}")
     return to_return
-    
-LOG_CHANNEL = DB.get_key("LOG_GROUP")
+     
 ACTIVE_CALLS, VC_QUEUE = [], {}
 MSGID_CACHE, VIDEO_ON = {}, {}
 CLIENTS = {}
@@ -39,7 +39,7 @@ CLIENTS = {}
 class Player:
     def __init__(self, chat, event=None, video=False):
         self._chat = chat
-        self._current_chat = event.chat_id if event else LOG_CHANNEL
+        self._current_chat = event.chat_id if event else DB.get_key("LOG_GROUP")
         self._video = video
         if CLIENTS.get(chat):
             self.group_call = CLIENTS[chat]
