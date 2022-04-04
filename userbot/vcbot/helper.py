@@ -32,7 +32,7 @@ class Player:
             await self.group_call.join(chat_id)
             return True
 
-async def download(query):
+async def youtube_download(query):
     search = VideosSearch(query, limit=1).result()
     data = search["result"][0]
     link = data["link"]
