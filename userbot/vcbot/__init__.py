@@ -163,9 +163,6 @@ class Player:
         return False
 
 
-# --------------------------------------------------
-
-
 def vc_bot(dec, **kwargs):
     def ult(func):
         kwargs["func"] = (
@@ -235,7 +232,6 @@ def list_queue(chat):
         txt += "\n\n....."
         return txt
 
-
 async def get_from_queue(chat_id):
     play_this = list(VC_QUEUE[int(chat_id)].keys())[0]
     info = VC_QUEUE[int(chat_id)][play_this]
@@ -266,19 +262,8 @@ async def download(query):
 
 
 async def get_stream_link(ytlink):
-    """
-    info = YoutubeDL({}).extract_info(url=ytlink, download=False)
-    k = ""
-    for x in info["formats"]:
-        h, w = ([x["height"], x["width"]])
-        if h and w:
-            if h <= 720 and w <= 1280:
-                k = x["url"]
-    return k
-    """
     stream = await runcmd(f'yt-dlp -g -f "best[height<=?720][width<=?1280]" {ytlink}')
     return stream[0]
-
 
 async def vid_download(query):
     search = VideosSearch(query, limit=1).result()
@@ -289,7 +274,6 @@ async def vid_download(query):
     thumb = f"https://i.ytimg.com/vi/{data['id']}/hqdefault.jpg"
     duration = data.get("duration") or "♾"
     return video, thumb, title, link, duration
-
 
 async def dl_playlist(chat, from_user, link):
     vids = Playlist.getVideos(link)
@@ -307,7 +291,6 @@ async def dl_playlist(chat, from_user, link):
             title = z["title"]
             thumb = f"https://i.ytimg.com/vi/{z['id']}/hqdefault.jpg"
             add_to_queue(chat, None, title, z["link"], thumb, from_user, duration)
-    """
     links = await get_videos_link(link)
     try:
         search = VideosSearch(links[0], limit=1).result()
@@ -330,7 +313,7 @@ async def dl_playlist(chat, from_user, link):
                 LOGS.exception(er)
 
 
-async def file_download(event, reply, fast_download=True):
+async def file_download(event, reply, fast_download=False):
     thumb = "https://telegra.ph/file/22bb2349da20c7524e4db.mp4"
     title = reply.file.title or reply.file.name or str(time()) + ".mp4"
     file = reply.file.name or str(time()) + ".mp4"
