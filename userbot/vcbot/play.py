@@ -26,7 +26,7 @@ async def googlesearch(event):
             for lin in link[1:]:
                 add_to_queue(chat, song, lin, lin, None, from_user, duration)
             link = song_name = link[0]
-        text = "**🎵 Start Playing:** [{}]({})\n\n**⏰ Duration:** ( `{}` )\n**👥 Chat ID:** ( `{}` )\n**🙋‍♂ By:** ( `{}` )".format(song_name, link, duration, event.chat_id, from_user)
+        text = "**🎵 Start Playing:** [{}]({})\n\n**⏰ Duration:** ( `{}` )\n**👥 Chat ID:** ( `{}` )\n**🙋‍♂ By:** ( {} )".format(song_name, link, duration, event.chat_id, from_user)
         await event.reply(text, file=thumb)
         await event.delete()
         if thumb and os.path.exists(thumb):
@@ -37,4 +37,4 @@ async def googlesearch(event):
                 add_to_queue(event.chat_id, song, lin, lin, None, from_user, duration)
             link = song_name = link[0]
         add_to_queue(event.chat_id, song, song_name, link, thumb, from_user, duration)
-        return await event.edit("**🎵 Added To Queue:** ( [{}]({}) )\n\n( `#{}` )".format(song_name, link , (list(VC_QUEUE[event.chat_id].keys())[-1])))
+        return await event.edit("**🎵 Added To Queue:** ( [{}]({}) )\n\n**• Queue:** ( `#{}` )".format(song_name, link , (list(VC_QUEUE[event.chat_id].keys())[-1])))
