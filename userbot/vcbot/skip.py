@@ -6,5 +6,8 @@ from userbot.vcbot.helper import Player
 async def skip_audio(event):
     await event.edit("`• Please Wait . . .`")
     player = Player(event.chat_id)
-    await player.play_from_queue()
-    await event.delete()
+    if player.group_call.is_connected:
+        await player.play_from_queue()
+        await event.delete()
+    else:
+        await event.edit("**• Not Recommended Audio For Voice Chat In This Chat!**")
