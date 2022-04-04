@@ -3,6 +3,7 @@ from userbot.events import alien
 from userbot.vcbot.helper import Player, add_to_queue, VC_QUEUE, download, file_download
 from userbot.functions.helper import media_type
 from telethon.errors.rpcerrorlist import ChatSendMediaForbiddenError, MessageIdInvalidError
+import os
 
 @alien(pattern="play ?(.*)?")
 async def googlesearch(event):
