@@ -29,6 +29,7 @@ async def setup():
     LOGS.info("• Starting Setup Plugins . . .")
     load_plugins("plugins")
     load_plugins("assistant")
+    load_plugins("vcbot")
     LOGS.info("• Setup Plugins Completed!")
     if DB.get_key("RESTART"):
         edit = DB.get_key("RESTART")
