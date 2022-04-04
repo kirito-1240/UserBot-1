@@ -8,8 +8,6 @@ import os
 import re
 from time import time
 
-CLIENTS = {}
-
 class Player:
     def __init__(self, chat_id):
         self.chat_id = chat_id
@@ -55,5 +53,5 @@ async def file_download(reply):
     dl = await reply.download_media()
     duration = convert_time(reply.file.duration * 1000) if reply.file.duration else "🤷‍♂️"
     if reply.document.thumbs:
-        thumb = await reply.download_media("vcbot/downloads/", thumb=-1)
+        thumb = await reply.download_media(thumb=-1)
     return dl, thumb, title, reply.message_link, duration
