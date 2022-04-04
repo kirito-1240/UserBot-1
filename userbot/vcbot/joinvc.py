@@ -8,6 +8,5 @@ async def joinvc(event):
     player = Player(event.chat_id)
     if not player.group_call.is_connected:
         await player.vc_joiner()
-        await event.edit("**• Successfuly Joined On Voice Chat In This Chat!**")
     else:
-        await event.delete()
+        await event.edit("**• Already On Voice Chat In This Chat!**")
