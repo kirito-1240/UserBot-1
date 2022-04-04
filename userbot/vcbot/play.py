@@ -7,7 +7,7 @@ from userbot.functions.helper import media_type
 async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     reply = await event.get_reply_message()
-    if reply and reply.media and media_type(reply.media) in ["Video", "Voice", "Audio"]:
+    if reply and reply.media and media_type(reply) in ["Video", "Voice", "Audio"]:
         song, thumb, song_name, link, duration = await file_download(reply)
     elif event.pattern_match.group(1):
         song, thumb, song_name, link, duration = await youtube_download(event.pattern_match.group(1))
