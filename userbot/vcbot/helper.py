@@ -102,7 +102,7 @@ class Player:
             if MSGID_CACHE.get(chat_id):
                 await MSGID_CACHE[chat_id].delete()
                 del MSGID_CACHE[chat_id]
-            text = "**🎵 Start Playing:** [{}]({})\n\n**⏰ Duration:** ( `{}` )\n**👥 Chat ID:** ( `{}` )\n**🙋‍♂ By:** ( `{}` )\n\n__• From Queue: ( {} )__".format(title, link, dur, chat_id, from_user, pos)            
+            text = "**🎵 Start Playing:** [{}]({})\n\n**⏰ Duration:** ( `{}` )\n**👥 Chat ID:** ( `{}` )\n**🙋‍♂ By:** ( {} )\n\n__• From Queue: ( {} )__".format(title, link, dur, chat_id, from_user, pos)            
             mes = await app.send_message(self._current_chat, text, file=thumb, link_preview=False)
             MSGID_CACHE.update({chat_id: mes})
             VC_QUEUE[chat_id].pop(pos)
