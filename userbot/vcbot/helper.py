@@ -7,10 +7,6 @@ from traceback import format_exc
 from userbot import app
 from pytgcalls import GroupCallFactory
 from pytgcalls.exceptions import GroupCallNotFoundError
-from telethon.errors.rpcerrorlist import (
-    ParticipantJoinMissingError,
-    ChatSendMediaForbiddenError,
-)
 from userbot.core.logger import LOGS
 from userbot.functions.tools import download_file
 from userbot.database import DB
@@ -110,6 +106,7 @@ class Player:
                 VC_QUEUE.pop(chat_id)
         except:
             await self.group_call.stop()
+            await self.group_call.leave()
             del CLIENTS[self._chat]
             await app.send_message(self._current_chat, "**• Queue List Is Empty!**\n\n**• Successfully Left From Voice Chat In This Chat!**")
         
