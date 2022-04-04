@@ -61,6 +61,8 @@ async def help_pages(event):
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     else:
         count = round(len(files) / 10)
+        if count < int(len(files) / 10):
+            count += 1
         other.append(Button.inline("◀️ Back", data=f"page_{count}"))
     if int(data * 10) < len(files) or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
@@ -99,7 +101,7 @@ async def help_plugins(event):
         text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
         text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):\n"""
         for com in info["commands"]:
-            text += "\n  `{}`\n      `{}`\n".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
+            text += "\n •> `{}`\n      `{}`\n".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
         buttons = [[Button.inline("📍 Send Plugin 📍", data=f"sendplug_{data}_{page}")], [Button.inline("⬅️ Back ⬅️", data=f"page_{page}")]]
         await event.edit(text, file=PIC, buttons=buttons)
     else:
