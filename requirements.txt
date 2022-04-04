@@ -1,5 +1,7 @@
 git+https://github.com/MxAboli/Telethon
 tgcrypto
+py-Ultroid==2022.3.20
+yt_dlp
 moviepy
 Pillow
 psutil
