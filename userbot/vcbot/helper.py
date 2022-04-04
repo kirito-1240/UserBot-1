@@ -1,4 +1,5 @@
 from userbot import app
+from telethon import functions
 from pytgcalls import GroupCallFactory
 from pytgcalls.exceptions import GroupCallNotFoundError
 from yt_dlp import YoutubeDL
