@@ -171,7 +171,6 @@ async def youtube_download(query):
     duration = data.get("duration")
     thumb = f"https://i.ytimg.com/vi/{data['id']}/hqdefault.jpg"
     song = await get_stream_link(link)
-    song = await download_file(song, title + ".mp3")
     return song, thumb, title, performer, duration, link
 
 async def get_stream_link(ytlink):
