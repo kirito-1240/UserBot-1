@@ -20,11 +20,11 @@ class Player:
             return True
         except GroupCallNotFoundError:
             try:
-                await app(functions.phone.CreateGroupCallRequest(chat_id, title="🎧 Alien Music 🎶"))
+                await app(functions.phone.CreateGroupCallRequest(self.chat_id, title="🎧 Alien Music 🎶"))
+                await self.group_call.join(self.chat_id)
+                return True
             except:
                 return False
-            await self.group_call.join(self.chat_id)
-            return True
 
 async def youtube_download(query):
     search = VideosSearch(query, limit=1).result()
