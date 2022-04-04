@@ -108,7 +108,7 @@ class Player:
             await self.group_call.stop()
             await self.group_call.leave()
             del CLIENTS[self._chat]
-            await app.send_message(self._current_chat, "**• Queue List Is Empty!**\n\n**• Successfully Left From Voice Chat In This Chat!**")
+            await app.send_message(self._current_chat, "**• Successfully Left From Voice Chat In This Chat!**")
         
     async def vc_joiner(self):
         chat_id = self._chat
