@@ -102,7 +102,7 @@ class Player:
             if MSGID_CACHE.get(chat_id):
                 await MSGID_CACHE[chat_id].delete()
                 del MSGID_CACHE[chat_id]
-            text = "<strong>🎧 Now playing #{}: <a href={}>{}</a>\n⏰ Duration:</strong> <code>{}</code>\n👤 <strong>Requested by:</strong> {}".format(pos, link, title, dur, from_user)
+            text = "**🎵 Start Playing:** [{}]({})\n\n**⏰ Duration:** ( `{}` )\n**👥 Chat ID:** ( `{}` )\n**🙋‍♂ By:** ( `{}` )\n\n__• From Queue: ( {} )__".format(song_name, link, duration, chat_id, from_user, pos)            
         try:
             mes = await app.send_message(self._current_chat, text, file=thumb, link_preview=False)
             MSGID_CACHE.update({chat_id: mes})
