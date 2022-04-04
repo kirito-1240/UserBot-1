@@ -23,13 +23,13 @@ class Player:
 
     async def startCall(self):
         try:
-            await self.group_call.join(chat_id)
+            await self.group_call.join(self.chat_id)
             return True
         except GroupCallNotFoundError:
             done = await make_vc_active()
             if not done:
                 return False
-            await self.group_call.join(chat_id)
+            await self.group_call.join(self.chat_id)
             return True
 
 async def youtube_download(query):
