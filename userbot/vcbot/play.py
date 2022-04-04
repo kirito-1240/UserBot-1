@@ -14,9 +14,10 @@ async def googlesearch(event):
     else:
         return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")
     player = Player(event.chat_id)
+    name = (await event.client.get_entity(event.sender_id)).first_name
     song_name = song_name[:30] + " . . ."
     start_call = await player.startCall()
     if not start_call:
         return await event.edit("**• Error, Please Try Again!**")
     await player.group_call.start_audio(song)
-    await event.edit(f"Playing - {song_name}")
+    await event.edit("**🎸 Now playing:** [{}]({})\n**⏰ Duration:** ( `{}` )\n**👥 Chat:** ( `{}` )\n**🙋‍♂ Requested by:** ( `{}` )".format(song_name, link, duration, event.chat_id, name))
