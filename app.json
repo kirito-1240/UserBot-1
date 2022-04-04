@@ -1,12 +1,13 @@
 {
-  "name": "UserBot",
-  "description": "Telegram userbot based on Telethon!",
+  "name": "Alien UserBot",
+  "description": "Telegram Alien Userbot Based On Telethon!",
   "keywords": [
     "plugin",
     "bot",
-    "telegram"
+    "telegram",
+    "alien",
   ],
-  "repository": "https://github.com/MrAbolii/UserBot/",
+  "repository": "https://github.com/MxAboli/Userbot/",
   "website": "#Aboli",
   "success_url": "#Aboli",
   "env": {
