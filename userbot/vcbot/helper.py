@@ -14,20 +14,14 @@ class Player:
         vcClient = GroupCallFactory(app, GroupCallFactory.MTPROTO_CLIENT_TYPE.TELETHON)
         self.group_call = vcClient.get_group_call()
 
-    async def make_vc_active():
-        try:
-            await app(functions.phone.CreateGroupCallRequest(chat_id, title="🎧 Alien Music 🎶"))
-        except:
-            return False
-        return True
-
     async def startCall(self):
         try:
             await self.group_call.join(self.chat_id)
             return True
         except GroupCallNotFoundError:
-            done = await make_vc_active()
-            if not done:
+            try:
+                await app(functions.phone.CreateGroupCallRequest(chat_id, title="🎧 Alien Music 🎶"))
+            except:
                 return False
             await self.group_call.join(self.chat_id)
             return True
