@@ -1,6 +1,6 @@
 from userbot import app
 from userbot.events import alien
-from userbot.vcbot.helper import Player, add_to_queue, VC_QUEUE, download, file_download
+from userbot.vcbot.helper import Player, add_to_queue, VC_QUEUE, youtube_download, file_download
 from userbot.functions.helper import media_type
 from telethon.errors.rpcerrorlist import ChatSendMediaForbiddenError, MessageIdInvalidError
 import os
@@ -12,7 +12,7 @@ async def googlesearch(event):
     if reply and reply.media and media_type(reply) in ["Video", "Voice", "Audio"]:
         song, thumb, song_name, performer, duration, link = await file_download(event, reply)
     elif event.pattern_match.group(1):
-        song, thumb, song_name, performer, duration, link = await download(event.pattern_match.group(1))
+        song, thumb, song_name, performer, duration, link = await youtube_download(event.pattern_match.group(1))
     else:
         return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")
     from_user = (await app.get_entity(event.sender_id)).mention
