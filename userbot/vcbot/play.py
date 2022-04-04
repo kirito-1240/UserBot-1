@@ -22,4 +22,4 @@ async def googlesearch(event):
     if not join:
         return
     await player.group_call.start_audio(song)
-    await event.edit("Started!")
+    await event.edit(f"Playing - {song_name}")
