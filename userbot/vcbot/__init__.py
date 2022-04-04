@@ -4,46 +4,24 @@ import re
 import traceback
 from time import time
 from traceback import format_exc
-from pytgcalls import GroupCallFactory
-from pytgcalls.exceptions import GroupCallNotFoundError
-from telethon.errors.rpcerrorlist import (
-    ParticipantJoinMissingError,
-    ChatSendMediaForbiddenError,
-)
 from userbot.core.logger import LOGS
 from userbot import bot, app
 from userbot.database import DB
-from pyUltroid._misc._decorators import compile_pattern
-from pyUltroid.functions.helper import (
-    bash,
-    downloader,
-    inline_mention,
-    mediainfo,
-    time_formatter,
-)
-from pyUltroid.functions.admins import admin_check
-from pyUltroid.functions.tools import is_url_ok
-from pyUltroid.functions.ytdl import get_videos_link
-from pyUltroid._misc import owner_and_sudos, sudoers
-from pyUltroid._misc._assistant import in_pattern
-from pyUltroid._misc._wrappers import eod, eor
-from pyUltroid.version import __version__ as UltVer
+
+from pytgcalls import GroupCallFactory
+from pytgcalls.exceptions import GroupCallNotFoundError
+from telethon.errors.rpcerrorlist import ParticipantJoinMissingError, ChatSendMediaForbiddenError
 from telethon import events
 from telethon.tl import functions, types
 from telethon.utils import get_display_name
 from yt_dlp import YoutubeDL
 from youtubesearchpython import VideosSearch
+from userbot.utils import runcmd, convert_time
 
 LOG_CHANNEL = DB.get_key("LOG_GROUP")
 ACTIVE_CALLS, VC_QUEUE = [], {}
 MSGID_CACHE, VIDEO_ON = {}, {}
 CLIENTS = {}
-
-
-def VC_AUTHS():
-    _vcsudos = DB.get_key("VC_SUDOS") or []
-    return [int(a) for a in [*owner_and_sudos(), *_vcsudos]]
-
 
 class Player:
     def __init__(self, chat, event=None, video=False):
@@ -194,7 +172,7 @@ def vc_bot(dec, **kwargs):
             lambda e: not e.is_private and not e.via_bot_id and not e.fwd_from
         )
         handler = "/"
-        kwargs["pattern"] = compile_pattern(dec, handler)
+        kwargs["pattern"] = re.compile(dec + handler)
         vc_auth = kwargs.get("vc_auth", True)
         key = DB.get_key("VC_AUTH_GROUPS") or {}
         if "vc_auth" in kwargs:
@@ -202,15 +180,9 @@ def vc_bot(dec, **kwargs):
 
         async def vc_handler(e):
             VCAUTH = list(key.keys())
-            if not (
-                (e.out)
-                or (e.sender_id in VC_AUTHS())
-                or (vc_auth and e.chat_id in VCAUTH)
-            ):
-                return
             elif vc_auth and key.get(e.chat_id):
                 cha, adm = key.get(e.chat_id), key[e.chat_id]["admins"]
-                if adm and not (await admin_check(e)):
+                if adm:
                     return
             try:
                 await func(e)
@@ -228,9 +200,6 @@ def vc_bot(dec, **kwargs):
         )
 
     return ult
-
-
-# --------------------------------------------------
 
 
 def add_to_queue(chat_id, song, song_name, link, thumb, from_user, duration):
@@ -307,7 +276,7 @@ async def get_stream_link(ytlink):
                 k = x["url"]
     return k
     """
-    stream = await bash(f'yt-dlp -g -f "best[height<=?720][width<=?1280]" {ytlink}')
+    stream = await runcmd(f'yt-dlp -g -f "best[height<=?720][width<=?1280]" {ytlink}')
     return stream[0]
 
 
@@ -323,9 +292,6 @@ async def vid_download(query):
 
 
 async def dl_playlist(chat, from_user, link):
-    # untill issue get fix
-    # https://github.com/alexmercerind/youtube-search-python/issues/107
-    """
     vids = Playlist.getVideos(link)
     try:
         vid1 = vids["videos"][0]
@@ -380,7 +346,7 @@ async def file_download(event, reply, fast_download=True):
     else:
         dl = await reply.download_media()
     duration = (
-        time_formatter(reply.file.duration * 1000) if reply.file.duration else "🤷‍♂️"
+        convert_time(reply.file.duration * 1000) if reply.file.duration else "🤷‍♂️"
     )
     if reply.document.thumbs:
         thumb = await reply.download_media("vcbot/downloads/", thumb=-1)
