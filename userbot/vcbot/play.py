@@ -14,7 +14,7 @@ async def googlesearch(event):
         song, thumb, song_name, link, duration = await download(event.pattern_match.group(1))
     else:
         return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")
-    from_user = (await app.get_entity(send_id)).mention
+    from_user = (await app.get_entity(event.sender_id)).mention
     player = Player(event.chat_id, event)
     song_name = song_name[:30] + "..."
     if not player.group_call.is_connected:
