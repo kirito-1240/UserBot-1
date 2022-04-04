@@ -10,9 +10,9 @@ async def googlesearch(event):
     await event.edit("`• Please Wait . . .`")
     reply = await event.get_reply_message()
     if reply and reply.media and media_type(reply) in ["Video", "Voice", "Audio"]:
-        song, thumb, song_name, link, duration = await file_download(event, reply)
+        song, thumb, song_name, performer, duration, link = await file_download(event, reply)
     elif event.pattern_match.group(1):
-        song, thumb, song_name, link, duration = await download(event.pattern_match.group(1))
+        song, thumb, song_name, performer, duration, link = await download(event.pattern_match.group(1))
     else:
         return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")
     from_user = (await app.get_entity(event.sender_id)).mention
