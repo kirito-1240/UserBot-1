@@ -18,7 +18,7 @@ from yt_dlp import YoutubeDL
 from youtubesearchpython import VideosSearch
 from userbot.utils import runcmd, convert_time
 
-LOG_CHANNEL = DB.get_key("LOG_GROUP")
+LOG_GROUP = DB.get_key("LOG_GROUP")
 ACTIVE_CALLS, VC_QUEUE = [], {}
 MSGID_CACHE, VIDEO_ON = {}, {}
 CLIENTS = {}
@@ -26,28 +26,22 @@ CLIENTS = {}
 class Player:
     def __init__(self, chat, event=None, video=False):
         self._chat = chat
-        self._current_chat = event.chat_id if event else LOG_CHANNEL
+        self._current_chat = event.chat_id if event else LOG_GROUP
         self._video = video
         if CLIENTS.get(chat):
             self.group_call = CLIENTS[chat]
         else:
-            _client = GroupCallFactory(
-                app, GroupCallFactory.MTPROTO_CLIENT_TYPE.TELETHON,
-            )
+            _client = GroupCallFactory(app, GroupCallFactory.MTPROTO_CLIENT_TYPE.TELETHON)
             self.group_call = _client.get_group_call()
             CLIENTS.update({chat: self.group_call})
 
     async def make_vc_active(self):
         try:
-            await app(
-                functions.phone.CreateGroupCallRequest(
-                    self._chat, title="🎧 Ultroid Music 🎶"
-                )
-            )
+            await app(functions.phone.CreateGroupCallRequest(self._chat, title="🎧 Alien Music 🎶"))
         except Exception as e:
-            LOGS.exception(e)
-            return False, e
-        return True, None
+            LOGS.error(e)
+            return False
+        return True
 
     async def startCall(self):
         if VIDEO_ON:
@@ -72,7 +66,7 @@ class Player:
                 if err:
                     return False, err
             except Exception as e:
-                LOGS.exception(e)
+                LOGS.error(e)
                 return False, e
         return True, None
 
@@ -137,7 +131,7 @@ class Player:
                 parse_mode="html",
             )
         except Exception as er:
-            LOGS.exception(er)
+            LOGS.error(er)
             await app.send_message(
                 self._current_chat,
                 f"<strong>ERROR:</strong> <code>{format_exc()}</code>",
@@ -162,43 +156,6 @@ class Player:
         )
         return False
 
-
-def vc_bot(dec, **kwargs):
-    def ult(func):
-        kwargs["func"] = (
-            lambda e: not e.is_private and not e.via_bot_id and not e.fwd_from
-        )
-        handler = "/"
-        kwargs["pattern"] = re.compile(dec + handler)
-        vc_auth = kwargs.get("vc_auth", True)
-        key = DB.get_key("VC_AUTH_GROUPS") or {}
-        if "vc_auth" in kwargs:
-            del kwargs["vc_auth"]
-
-        async def vc_handler(e):
-            VCAUTH = list(key.keys())
-            elif vc_auth and key.get(e.chat_id):
-                cha, adm = key.get(e.chat_id), key[e.chat_id]["admins"]
-                if adm:
-                    return
-            try:
-                await func(e)
-            except Exception:
-                LOGS.exception(Exception)
-                await bot.send_message(
-                    LOG_CHANNEL,
-                    f"VC Error - <code>{UltVer}</code>\n\n<code>{e.text}</code>\n\n<code>{format_exc()}</code>",
-                    parse_mode="html",
-                )
-
-        app.add_event_handler(
-            vc_handler,
-            events.NewMessage(**kwargs),
-        )
-
-    return ult
-
-
 def add_to_queue(chat_id, song, song_name, link, thumb, from_user, duration):
     try:
         n = sorted(list(VC_QUEUE[chat_id].keys()))
@@ -220,7 +177,6 @@ def add_to_queue(chat_id, song, song_name, link, thumb, from_user, duration):
     else:
         VC_QUEUE.update({chat_id: stuff})
     return VC_QUEUE[chat_id]
-
 
 def list_queue(chat):
     if VC_QUEUE.get(chat):
@@ -245,7 +201,6 @@ async def get_from_queue(chat_id):
         song = await get_stream_link(link)
     return song, title, link, thumb, from_user, play_this, duration
 
-
 async def download(query):
     if query.startswith("https://") and not "youtube" in query.lower():
         thumb, duration = None, "Unknown"
@@ -259,7 +214,6 @@ async def download(query):
         thumb = f"https://i.ytimg.com/vi/{data['id']}/hqdefault.jpg"
     dl = await get_stream_link(link)
     return dl, thumb, title, link, duration
-
 
 async def get_stream_link(ytlink):
     stream = await runcmd(f'yt-dlp -g -f "best[height<=?720][width<=?1280]" {ytlink}')
@@ -310,27 +264,14 @@ async def dl_playlist(chat, from_user, link):
                 thumb = f"https://i.ytimg.com/vi/{vid['id']}/hqdefault.jpg"
                 add_to_queue(chat, None, title, vid["link"], thumb, from_user, duration)
             except Exception as er:
-                LOGS.exception(er)
+                LOGS.error(er)
 
-
-async def file_download(event, reply, fast_download=False):
+async def file_download(event, reply):
     thumb = "https://telegra.ph/file/22bb2349da20c7524e4db.mp4"
     title = reply.file.title or reply.file.name or str(time()) + ".mp4"
     file = reply.file.name or str(time()) + ".mp4"
-    if fast_download:
-        dl = await downloader(
-            "vcbot/downloads/" + file,
-            reply.media.document,
-            event,
-            time(),
-            "Downloading " + title + "...",
-        )
-        dl = dl.name
-    else:
-        dl = await reply.download_media()
-    duration = (
-        convert_time(reply.file.duration * 1000) if reply.file.duration else "🤷‍♂️"
-    )
+    dl = await reply.download_media()
+    duration = convert_time(reply.file.duration * 1000) if reply.file.duration else "🤷‍♂️"
     if reply.document.thumbs:
         thumb = await reply.download_media("vcbot/downloads/", thumb=-1)
     return dl, thumb, title, reply.message_link, duration
