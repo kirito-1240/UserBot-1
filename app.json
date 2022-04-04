@@ -21,11 +21,11 @@
     },
     "SESSION": {
       "description": "Your SESSION!",
-      "value": "1BJWap1wBuycWCmpuQrfdD9OIn28oftYf0e1a3MOx8CJotL5G088xDu2u9E49EU-FLboHtiDig2rhVa6PjYwrdx4enFc1g2vCqM7d3axkGANZ6N67FAA8ORfAMFVIxhossPQvsM7A9rACQW89Fv2zmVWurgLR5osSqzdxALxVNYMKv2cGkpe2YbqyeGbNpWeDP50AyFTUGN7wPcAAjzFuy63fmVynqVFtup76_cT96op5TQz7eYx43ooW_ZTfvr-CAJ3xPk2Z0lt3CZqJDMvGAivguDFzk4vn2ncWV5UHhWMkUg9W8XA9Y4WIlhm7H51dusWPmgecUVAzp-kKTiKB_5BPTficjTA=m28Fh9SvbIhmnP8W-aoRyuzKtM3w9m1CAT1BPsGfUAEd1urXtxbUIjulEW5P2PyMwkVr2AKTV9DuNP3MyGznzLrbTuiYrQTtpiI7m4RfRSDm6n6LaBNpWXC1SqUw-20rAwkU_aIsZNuSjzbbvRkVZ8lm9tKKO4biSbkGswX0euQFZc8ec6ms7N5xwSU03sSZW6dVCqy1Qj9i4N4h3uJ8E="
+      "value": "1BJWap1wBu6WcVBUD8BCjpvnCUGNCIEBm_UphfZW9ekelBCzNJzyoyjfj8KUeaCwsOPGb55p6iTsadeKAjV-PU1VFaiQsjIsYIgO1M2XLhXP5aQLifBp9Q4zQUJ0Ut9PdyphBtmAfBgZeyUlJI9fZcdFwSUywQjlM1ZQpHRuhaGv8KpKO5YvvX0zFieud7lI77kgBEV8C_sq-7eaoB0c5-uMlPsZcxJXyNc5WAYO3J3WijrMoqFNGXuFa-6gqEZL1TT9HRjbgiz26ZxyINan-oiByqYCIaueIy6vvclCRqSZ8ZwBOSbJomHZ25e1LGfYIjnh6LGbm6DD1Tb7zsaNlKFWQx6s_hOc="
     },
     "HEROKU_API": {
       "description": "Your HEROKU_API!",
-      "value": "3025d700-aaca-428f-86c1-a5acb78255fb",
+      "value": "74acec2d-7c4e-4c3f-9ffc-d064953c18c9",
       "required": false
     },
     "HEROKU_APP_NAME": {
@@ -35,7 +35,7 @@
     },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
-      "value": "2116524948:AAEBIakgFI8Og_c4xzm4FM_MXTH-ectwjSM",
+      "value": "5210750480:AAFkGdeH8s47rNn7y0ixxjjnecJRZpW7Hzw",
       "required": false
     },
     "REDIS_URL": {
