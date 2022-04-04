@@ -190,6 +190,5 @@ async def file_download(event, reply):
     song = await reply.download_media()
     thumb = "http://telegra.ph/file/8d240e71b0d36a6a3a19f.jpg"
     if reply.media.document.thumbs:
-        thumb = reply.media.document.thumbs[-1]
-        thumb = await app.download_media(thumb)
+        thumb = await reply.download_media("./", thumb=-1)
     return song, thumb, title, performer, duration, reply.message_link
