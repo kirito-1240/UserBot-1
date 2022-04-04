@@ -12,11 +12,11 @@ async def googlesearch(event):
     elif event.pattern_match.group(1):
         song, thumb, song_name, link, duration = await youtube_download(event.pattern_match.group(1))
     else:
-        return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")    
+        return await event.edit("**• Please Input A Youtube Link Or Reply To A Song!**")
     player = Player(event.chat_id)
     song_name = song_name[:30] + " . . ."
     start_call = await player.startCall()
     if not start_call:
-        return
+        return await event.edit("**• Error, Please Try Again!**")
     await player.group_call.start_audio(song)
     await event.edit(f"Playing - {song_name}")
