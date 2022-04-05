@@ -34,11 +34,7 @@ buttons.append([Button.inline("=", data="calc=")])
 @alien_inline("^alien_calc$", owner=True)
 async def calc_pattern(event):
     DB.set_key("ALIEN_CALC", "")
-    text = f"""
-**• Alien Userbot Calc Menu!**
-
-**• Your Calc:** ( `{DB.get_key("ALIEN_CALC")  or "Empty"}` )
-"""
+    text = f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC")  or "Empty"}` )'
     result = event.builder.article(
         title="Alien Calc Menu!",
         text=text,
@@ -56,7 +52,7 @@ async def calc_callback(event):
     elif work == "⌫":
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get[:-1])
-    elif work in ["+", "-", "×", "÷", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+    elif work in ["+", "-", "×", "÷", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "00"]:
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get + work)
     elif work == "=":
@@ -65,15 +61,5 @@ async def calc_callback(event):
         get = get.replace("÷", "/")
         out = eval(get)
         num = float(out)
-        text = f"""
-**• Alien Userbot Calc Menu!**
-
-**• Result:** ( `{num}` )
-"""
-        return await event.edit(text, buttons=buttons)
-    text = f"""
-**• Alien Userbot Calc Menu!**
-
-**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )
-"""
-    await event.edit(text, buttons=buttons)
+        return await event.edit(f"**• Alien Userbot Calc Menu!**\n\n**• Result:** ( `{num}` )")
+    await event.edit(f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )')
