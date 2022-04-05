@@ -34,10 +34,9 @@ buttons.append([Button.inline("=", data="calc=")])
 @alien_inline("^alien_calc$", owner=True)
 async def calc_pattern(event):
     DB.set_key("ALIEN_CALC", "")
-    text = f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC")  or "Empty"}` )'
     result = event.builder.article(
         title="Alien Calc Menu!",
-        text=text,
+        text="**• Alien Userbot Calc Menu!**",
         buttons=buttons,
     )
     await event.answer([result])
@@ -47,7 +46,7 @@ async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
     if work in ["AC", "C"]:
         DB.set_key("ALIEN_CALC", "")
-        await event.answer("• Cleared!")
+        return await event.answer("• Cleared!")
     elif work == "⌫":
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get[:-1])
@@ -60,7 +59,11 @@ async def calc_callback(event):
         get = get.replace("÷", "/")
         if not get:
             return await event.answer("• Empty!")
-        out = eval(get)
-        num = float(out)
-        return await event.edit(f"**• Alien Userbot Calc Menu!**\n\n**• Result:** ( `{num}` )", buttons=buttons)
-    await event.edit(f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )', buttons=buttons)
+        try:
+            out = eval(get)
+            num = float(out)
+            return await event.edit(f"• Result: ( {num} )")
+        except:
+            DB.set_key("ALIEN_CALC", "")
+            return await event.answer("• Error, Please Try Again!")
+    await event.answer(str(DB.get_key("ALIEN_CALC")))
