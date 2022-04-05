@@ -56,15 +56,16 @@ async def runcodes(event):
 `{result}`
 """)
     except:
-        open(res + '.txt', 'w').write(str(result))
-        await app.send_file(event.chat_id, "Result.txt" , caption=f"""
+        f = open(f"{res}.txt", "w")
+        f.write(str(result))
+        await app.send_file(event.chat_id, f"{res}.txt" , caption=f"""
 **• Code:** 
 `{event.text}`
 
 **• {res}:** 
 __In File!__
 """)
-        os.remove(res + '.txt')
+        os.remove(f"{res}.txt")
         await event.delete()
 
 from userbot.database import PLUGINS_HELP
