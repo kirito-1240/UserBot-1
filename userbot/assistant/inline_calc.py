@@ -47,7 +47,7 @@ async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
     if work in ["AC", "C"]:
         DB.set_key("ALIEN_CALC", "")
-        await event.answer("Cleared!")
+        await event.answer("• Cleared!")
     elif work == "⌫":
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get[:-1])
@@ -58,6 +58,8 @@ async def calc_callback(event):
         get = DB.get_key("ALIEN_CALC")
         get = get.replace("×", "*")
         get = get.replace("÷", "/")
+        if not get:
+            return await event.answer("• Empty!")
         out = eval(get)
         num = float(out)
         return await event.edit(f"**• Alien Userbot Calc Menu!**\n\n**• Result:** ( `{num}` )", buttons=buttons)
