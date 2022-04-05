@@ -54,7 +54,7 @@ async def calc_callback(event):
         DB.set_key("ALIEN_CALC", get[:-1])
     elif work in ["+", "-", "×", "÷", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "00"]:
         get = DB.get_key("ALIEN_CALC")
-        DB.set_key("ALIEN_CALC", get + work)
+        DB.set_key("ALIEN_CALC", str(get) + work)
     elif work == "=":
         get = DB.get_key("ALIEN_CALC")
         get = get.replace("×", "*")
