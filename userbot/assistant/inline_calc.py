@@ -4,7 +4,7 @@ from userbot.database import DB
 import os, glob, re, random, time
 import Config 
 
-@alien_inline("alien_calc", owner=True)
+@alien_inline("^alien_calc$", owner=True)
 async def help(event):
     DB.set_key("ALIEN_CALC", "")
     vars = [
