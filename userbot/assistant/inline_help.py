@@ -8,7 +8,7 @@ import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC")) 
 
-@alien_inline("alien", owner=True)
+@alien_inline("^alien$", owner=True)
 async def help(event):
     files = PLUGINS
     list = []
