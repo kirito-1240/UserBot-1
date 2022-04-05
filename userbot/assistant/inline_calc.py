@@ -45,10 +45,9 @@ async def calc_pattern(event):
 @alien_callback(re.compile("calc(.*)"), owner=True)
 async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
-    if work == "AC":
+    if work in ["AC", "C"]:
         DB.set_key("ALIEN_CALC", "")
-    elif work == "C":
-        DB.set_key("ALIEN_CALC", "")
+        await event.answer("Cleared!")
     elif work == "⌫":
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get[:-1])
@@ -61,5 +60,5 @@ async def calc_callback(event):
         get = get.replace("÷", "/")
         out = eval(get)
         num = float(out)
-        return await event.edit(f"**• Alien Userbot Calc Menu!**\n\n**• Result:** ( `{num}` )")
-    await event.edit(f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )')
+        return await event.edit(f"**• Alien Userbot Calc Menu!**\n\n**• Result:** ( `{num}` )", buttons=buttons)
+    await event.edit(f'**• Alien Userbot Calc Menu!**\n\n**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )', buttons=buttons)
