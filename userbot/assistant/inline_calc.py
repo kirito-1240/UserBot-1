@@ -3,8 +3,6 @@ from telethon import Button
 from userbot.database import DB
 import re
 
-DB.get_key("ALIEN_CALC")
-
 vars = [
     "AC",
     "C",
@@ -66,4 +64,4 @@ async def calc_callback(event):
         except:
             DB.set_key("ALIEN_CALC", "")
             return await event.answer("• Error, Please Try Again!")
-    await event.answer(str(DB.get_key("ALIEN_CALC")))
+    await event.answer("• Calc: " + str(DB.get_key("ALIEN_CALC")))
