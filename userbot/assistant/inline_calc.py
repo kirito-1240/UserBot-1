@@ -1,8 +1,9 @@
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
+from userbot.database import DB
 import re
 
-CALC = None
+DB.get_key("ALIEN_CALC")
 
 vars = [
     "AC",
@@ -32,11 +33,11 @@ buttons.append([Button.inline("=", data="calc=")])
 
 @alien_inline("^alien_calc$", owner=True)
 async def calc_pattern(event):
-    CALC = None
+    DB.set_key("ALIEN_CALC", "")
     text = f"""
 **• Alien Userbot Calc Menu!**
 
-**• Your Calc:** ( `{CALC  or "Empty"}` )
+**• Your Calc:** ( `{DB.get_key("ALIEN_CALC")  or "Empty"}` )
 """
     result = event.builder.article(
         title="Alien Calc Menu!",
@@ -49,25 +50,20 @@ async def calc_pattern(event):
 async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
     if work == "AC":
-        CALC = None
+        DB.set_key("ALIEN_CALC", "")
     elif work == "C":
-        CALC = None
+        DB.set_key("ALIEN_CALC", "")
     elif work == "⌫":
-        CALC = CALC[:-1]
-    elif work == "+":
-        CALC += "+"
-    elif work == "-":
-        CALC += "-"
-    elif work == "÷":
-        CALC += "/"
-    elif work == "x":
-        CALC += "*"
-    elif work == "%":
-        CALC += "/100"
+        get = DB.get_key("ALIEN_CALC")
+        DB.set_key("ALIEN_CALC", get[:-1])
+    elif work in ["+", "-", "×", "÷", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+        get = DB.get_key("ALIEN_CALC")
+        DB.set_key("ALIEN_CALC", get + work)
     elif work == "=":
-        if CALC.endswith(("*", ".", "/", "-", "+")):
-            CALC = CALC[:-1]
-        out = eval(CALC)
+        get = DB.get_key("ALIEN_CALC")
+        get = get.replace("×", "*")
+        get = get.replace("÷", "/")
+        out = eval(get)
         num = float(out)
         text = f"""
 **• Alien Userbot Calc Menu!**
@@ -78,6 +74,6 @@ async def calc_callback(event):
     text = f"""
 **• Alien Userbot Calc Menu!**
 
-**• Your Calc:** ( `{CALC or "Empty"}` )
+**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )
 """
     await event.edit(text, buttons=buttons)
