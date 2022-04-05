@@ -19,7 +19,10 @@ async def help(event):
     buttons = []
     for key in chunks(list, 2):
         buttons.append(key)
-    count = round(len(files) / 10)
+    if (len(files) % 10) == 0:
+        count = round(len(files) /10)
+    else:
+        count = round(len(files) /10) + 1
     buttons.append([Button.inline("◀️ Back", data=f"page_{count}"), Button.inline("Next ▶️", data="page_2")])
     buttons.append([Button.inline("❌ Close ❌", data="close_1")])
     text = f"""
@@ -61,9 +64,9 @@ async def help_pages(event):
         other.append(Button.inline("◀️ Back", data=f"page_{(data-1)}"))
     else:
         if (len(files) % 10) == 0:
-            count = len(files)
+            count = round(len(files) /10)
         else:
-            count = len(files) + 1
+            count = round(len(files) /10) + 1
         other.append(Button.inline("◀️ Back", data=f"page_{count}"))
     if int(data * 10) < len(files) or data == 1:
         other.append(Button.inline("Next ▶️", data=f"page_{(data+1)}"))
