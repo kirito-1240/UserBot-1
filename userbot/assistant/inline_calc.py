@@ -19,7 +19,7 @@ vars = [
     "1",
     "2",
     "3",
-    "x",
+    "×",
     "00",
     "0",
     ".",
@@ -64,4 +64,4 @@ async def calc_callback(event):
         except:
             DB.set_key("ALIEN_CALC", "")
             return await event.answer("• Error, Please Try Again!")
-    await event.answer("• Calc: " + str(DB.get_key("ALIEN_CALC")))
+    await event.answer("• Calc:  " + str(DB.get_key("ALIEN_CALC")))
