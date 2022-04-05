@@ -19,7 +19,8 @@ async def play(event):
     player = Player(event.chat_id, event)
     song_name = song_name[:50] + "..."
     if not player.group_call.is_connected:
-        await player.vc_joiner()
+        if not (await player.vc_joiner()):
+            return
         await player.group_call.start_audio(song)
         if isinstance(link, list):
             for lin in link[1:]:
