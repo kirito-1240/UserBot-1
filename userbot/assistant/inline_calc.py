@@ -70,10 +70,9 @@ async def calc_callback(event):
             out = eval(get)
             num = round(int(out))
             await event.edit(f"**• Result:** ( `{num}` )", buttons=buttons)
-            cal = DB.get_key("ALIEN_CALC")
-            if not cal or len(cal) > 100:
+            cal = DB.get_key("ALIEN_CALC_RECENT") or {}
+            if len(cal) > 100:
                 DB.set_key("ALIEN_CALC_RECENT", {})
-            cal = DB.get_key("ALIEN_CALC_RECENT")
             cal.update({gets: num})
             DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
