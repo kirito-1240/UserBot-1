@@ -42,7 +42,11 @@ async def calc_callback(event):
     elif work == "R":
         get = DB.get_key("ALIEN_CALC_RECENT")
         if not get:
-            return await event.answer("• Recents Empty!")
+            await event.answer("• Recents Empty!")
+            try:
+                return event.edit(f'**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or " "}` )', buttons=buttons)
+            except:
+                return
         c = 1
         recents = "**• Alien Calc Recents:**\n\n"
         for rec in get:
@@ -74,7 +78,6 @@ async def calc_callback(event):
             if int(len(cal)) >= 100:
                 DB.del_key("ALIEN_CALC_RECENT")
                 cal = {}
-                print(8)
             cal.update({gets: num})
             DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
