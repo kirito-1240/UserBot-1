@@ -73,7 +73,7 @@ async def calc_callback(event):
             cal = DB.get_key("ALIEN_CALC")
             if not cal or len(cal) > 100:
                 DB.set_key("ALIEN_CALC_RECENT", {})
-            cal = DB.get_key("ALIEN_CALC")
+            cal = DB.get_key("ALIEN_CALC_RECENT")
             cal.update({gets: num})
             DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
