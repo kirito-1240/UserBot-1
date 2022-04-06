@@ -22,7 +22,7 @@ async def calc_pattern(event):
     )
     await event.answer([result])
 
-@alien_callback(re.compile("calc(.*)"), owner=True)
+@alien_callback(re.compile("calc_(.*)"), owner=True)
 async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
     if work == "C":
