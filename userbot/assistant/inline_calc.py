@@ -46,7 +46,7 @@ async def calc_callback(event):
         c = 1
         recents = "**• Alien Calc Recents:**\n\n"
         for rec in get:
-            recents += f"**{c} -** ( `{get[rec]} = {rec}` )\n"
+            recents += f"**{c} -** `{rec} = {get[rec]}`\n"
             c += 1
         return await event.edit(recents, buttons=buttons)
     elif work == "=":
