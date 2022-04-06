@@ -3,31 +3,14 @@ from telethon import Button
 from userbot.database import DB
 import re
 
-vars = [
-    "AC",
-    "C",
-    "⌫",
-    "%",
-    "7",
-    "8",
-    "9",
-    "+",
-    "4",
-    "5",
-    "6",
-    "-",
-    "1",
-    "2",
-    "3",
-    "×",
-    "00",
-    "0",
-    ".",
-    "÷",
-]
-button = [Button.inline(f"{var}", data=f"calc{var}") for var in vars]
-buttons = list(zip(button[::4], button[1::4], button[2::4], button[3::4]))
-buttons.append([Button.inline("=", data="calc=")])
+buttons = [
+        [Button.inline("C", data="calc_C"), Button.inline("⌫", data="calc_⌫")],
+        [Button.inline("𝟽", data="calc_𝟽"), Button.inline("𝟾", data="calc_𝟾"), Button.inline("𝟿", data="calc_𝟿"), Button.inline("+", data="calc_+")],
+        [Button.inline("𝟺", data="calc_𝟺"), Button.inline("𝟻", data="calc_𝟻"), Button.inline("𝟼", data="calc_𝟼"), Button.inline("-", data="calc_-")],
+        [Button.inline("𝟷", data="calc_𝟷"), Button.inline("𝟸", data="calc_𝟸"), Button.inline("𝟹", data="calc_𝟹"), Button.inline("×", data="calc_×")],
+        [Button.inline("𝟶𝟶", data="calc_𝟶𝟶"), Button.inline("𝟶", data="calc_𝟶"), Button.inline(".", data="calc_."), Button.inline("÷", data="calc_÷")],
+    ]
+buttons.append([Button.inline("=", data="calc_=")])
 
 @alien_inline("^alien_calc$", owner=True)
 async def calc_pattern(event):
@@ -42,21 +25,32 @@ async def calc_pattern(event):
 @alien_callback(re.compile("calc(.*)"), owner=True)
 async def calc_callback(event):
     work = str((event.pattern_match.group(1)).decode('utf-8'))
-    if work in ["AC", "C"]:
+    if work == "C":
         DB.set_key("ALIEN_CALC", "")
         return await event.answer("• Cleared!")
     elif work == "⌫":
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", get[:-1])
-    elif work in ["+", "-", "×", "÷", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "00"]:
+    elif work in ["𝟶", "𝟷", "𝟸", "𝟹", "𝟺", "𝟻", "𝟼", "𝟽", "𝟾", "𝟿", "𝟶𝟶", ".", "+", "-", "×", "÷"]:
         get = DB.get_key("ALIEN_CALC")
         DB.set_key("ALIEN_CALC", str(get) + work)
     elif work == "=":
-        get = DB.get_key("ALIEN_CALC")
-        get = get.replace("×", "*")
-        get = get.replace("÷", "/")
+        get = str(DB.get_key("ALIEN_CALC"))
         if not get:
             return await event.answer("• Empty!")
+        get = get..replace("𝟶", "0")
+        get = get..replace("𝟷", "1")
+        get = get..replace("𝟸", "2")
+        get = get..replace("𝟹", "3")
+        get = get..replace("𝟺", "4")
+        get = get..replace("𝟻", "5")
+        get = get..replace("𝟼", "6")
+        get = get..replace("𝟽", "7")
+        get = get..replace("𝟾", "8")
+        get = get..replace("𝟿", "9")
+        get = get..replace("𝟶𝟶", "00")
+        get = get..replace("×", "*")
+        get = get..replace("÷", "/")
         try:
             out = eval(get)
             num = round(int(out))
