@@ -4,7 +4,7 @@ from userbot.database import DB
 import re
 
 buttons = [
-        [Button.inline("C", data="calc_C"), Button.inline("⌫", data="calc_⌫")],
+        [Button.inline("📄", data="calc_R"), Button.inline("C", data="calc_C"), Button.inline("⌫", data="calc_⌫")],
         [Button.inline("𝟽", data="calc_𝟽"), Button.inline("𝟾", data="calc_𝟾"), Button.inline("𝟿", data="calc_𝟿"), Button.inline("+", data="calc_+")],
         [Button.inline("𝟺", data="calc_𝟺"), Button.inline("𝟻", data="calc_𝟻"), Button.inline("𝟼", data="calc_𝟼"), Button.inline("-", data="calc_-")],
         [Button.inline("𝟷", data="calc_𝟷"), Button.inline("𝟸", data="calc_𝟸"), Button.inline("𝟹", data="calc_𝟹"), Button.inline("×", data="calc_×")],
@@ -39,11 +39,21 @@ async def calc_callback(event):
         if not get:
             return await event.answer("• Not Available!")
         DB.set_key("ALIEN_CALC", str(get) + work)
-    elif work == "=":
-        get = str(DB.get_key("ALIEN_CALC"))
+    elif work == "R":
+        get = DB.get_key("ALIEN_CALC_RECENT")
         if not get:
+            return await event.answer("• Recents Empty!")
+        c = 1
+        recents = "**• Alien Calc Recents:**\n\n"
+        for rec in get:
+            recents += f"**{c} -** ( `{get[rec]} = {rec}` )\n"
+            c += 1
+        return await event.edit(recents, buttons=buttons)
+    elif work == "=":
+        gets = str(DB.get_key("ALIEN_CALC"))
+        if not gets:
             return await event.answer("• Empty!")
-        get = get.replace("𝟶", "0")
+        get = gets.replace("𝟶", "0")
         get = get.replace("𝟷", "1")
         get = get.replace("𝟸", "2")
         get = get.replace("𝟹", "3")
@@ -60,6 +70,12 @@ async def calc_callback(event):
             out = eval(get)
             num = round(int(out))
             await event.edit(f"**• Result:** ( `{num}` )", buttons=buttons)
+            cal = DB.get_key("ALIEN_CALC")
+            if not cal or len(cal) > 100:
+                DB.set_key("ALIEN_CALC_RECENT", {})
+            cal = DB.get_key("ALIEN_CALC")
+            cal.update({gets: num})
+            DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
         except:
             DB.set_key("ALIEN_CALC", "")
