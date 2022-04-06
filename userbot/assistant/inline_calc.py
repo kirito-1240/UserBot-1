@@ -71,13 +71,12 @@ async def calc_callback(event):
             num = round(int(out))
             await event.edit(f"**• Result:** ( `{num}` )", buttons=buttons)
             cal = DB.get_key("ALIEN_CALC_RECENT") or {}
-            if len(cal) > 100:
+            if int(len(cal)) >= 100:
                 DB.set_key("ALIEN_CALC_RECENT", {})
             cal.update({gets: num})
             DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
-        except Exception as e:
-            print(e)
+        except:
             DB.set_key("ALIEN_CALC", "")
             return await event.answer("• Error, Please Try Again!")
     try:
