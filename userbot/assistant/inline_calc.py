@@ -77,7 +77,8 @@ async def calc_callback(event):
             cal.update({gets: num})
             DB.set_key("ALIEN_CALC_RECENT", cal)
             return DB.set_key("ALIEN_CALC", "")
-        except:
+        except Exception as e:
+            print(e)
             DB.set_key("ALIEN_CALC", "")
             return await event.answer("• Error, Please Try Again!")
     try:
