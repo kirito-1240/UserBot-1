@@ -59,9 +59,9 @@ async def calc_callback(event):
         try:
             out = eval(get)
             num = round(int(out))
-            return await event.edit(f"**• Result:** ( `{num}` )")
+            return await event.edit(f"**• Result:** ( `{num}` )", buttons=buttons)
             DB.set_key("ALIEN_CALC", "")
         except:
             DB.set_key("ALIEN_CALC", "")
             return await event.answer("• Error, Please Try Again!")
-    await event.edit(f'**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )')
+    await event.edit(f'**• Your Calc:** ( `{DB.get_key("ALIEN_CALC") or "Empty"}` )', buttons=buttons)
