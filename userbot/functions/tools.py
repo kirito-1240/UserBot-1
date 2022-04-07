@@ -76,11 +76,13 @@ def rgba(r: int, g: int, b: int, a: float) -> str:
 async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     color= rgba(random.randint(20,255), random.randint(20,255), random.randint(20,255), random.randint(20,255))
     font = random.choice(["Hack", "Anonymous Pro", "Cascadia Code", "Droid Sans Mono", "Fantasque Sans Mono", "Fira Code", "Ibm Plex Mono", "Monoid", "Source Code Pro", "Space Mono", "Inconsolata", "Jetbrains Mono", "Ubuntu Mono"])
+    theme = random.choice(["3024-night", "a11y-dark", "blackboard", "base16-dark", "base16-light", "cobalt", "dracula", "duotone-dark", "hopscotch", "lucario", "material", "monokai", "night-owl", "nord", "oceanic-next", "one-light", "one-dark", "panda-syntax", "paraiso-dark", "seti", "shades-of-purple", "solarized", "solarized%20light", "synthwave-84", "twilight", "verminal", "vscode", "yeti", "zenburn"])
     options = {
         'code': code,
         'language': lang,
         'backgroundColor': color,
-        'fontFamily': font
+        'fontFamily': font,
+        'theme': theme,
     }
     image = await async_searcher("https://carbonara-42.herokuapp.com/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
     open(file_name, 'wb').write(image)
