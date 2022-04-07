@@ -16,4 +16,4 @@ aiofiles
 redis
 pytz
 html_telegraph_poster
-pytgcalls==3.0.0.dev21
+git+https://github.com/pytgcalls/pytgcalls
