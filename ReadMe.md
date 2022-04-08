@@ -1,5 +1,8 @@
-## - User Bot Telegram!
+#• User Bot Telegram •
 
-# Deploy
+## Deploy
 
-<a href="https://dashboard.heroku.com/new?template=https://github.com/MxAboli/UserBot"><img src="https://telegra.ph/file/84f1b9276359c25453a28.jpg" height=40 width=120 alt="Deploy" /></a>
+<h3> Deploy to Heroku </h3>
+<div>
+    <a href="https://www.heroku.com/deploy"><img src="https://www.herokucdn.com/deploy/button.svg"></a>
+</div>
