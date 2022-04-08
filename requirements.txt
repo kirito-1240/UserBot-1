@@ -16,4 +16,4 @@ aiofiles
 redis
 pytz
 html_telegraph_poster
-git+https://github.com/pytgcalls/pytgcalls
+py-tgcalls==0.9.0b1
