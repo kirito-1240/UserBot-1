@@ -9,7 +9,7 @@ async def enemyclose(event):
 
 @alien_inline(re.compile("setenemy_(.*)"), owner=True)
 async def setenemy(event):
-    userid = event.pattern_match.group(1).decode('utf-8')
+    userid = event.pattern_match.group(1)
     buttons = [
         [Button.inline("• All •", data=f"setenemy_{userid}_all"), Button.inline("• Pv •", data=f"setenemy_{userid}_pv"), Button.inline("• Gps •", data=f"setenemy_{userid}_gps"), Button.inline("• Here •", data=f"setenemy_{userid}_here")],
         [Button.inline("❌ Close ❌", data="enemyclose")],
