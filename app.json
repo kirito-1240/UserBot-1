@@ -13,39 +13,39 @@
   "env": {
     "API_ID": {
       "description": "Your API_ID!",
-      "value": "",
+      "value": ""
     },
     "API_HASH": {
       "description": "Your API_HASH!",
-      "value": "",
+      "value": ""
     },
     "SESSION": {
       "description": "Your SESSION!",
-      "value": "",
+      "value": ""
     },
     "HEROKU_API": {
       "description": "Your HEROKU_API!",
-      "value": "",
+      "value": ""
     },
     "HEROKU_APP_NAME": {
       "description": "Your HEROKU_APP_NAME!",
-      "value": "",
+      "value": ""
     },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
-      "value": "",
+      "value": ""
     },
     "REDIS_URL": {
       "description": "Your REDIS_URL!",
-      "value": "",
+      "value": ""
     },
     "REDIS_PASSWORD": {
       "description": "Your REDIS_PASSWORD!",
-      "value": "",
+      "value": ""
     },
     "TZ": {
       "description": "Your TIMEZONE!",
-      "value": "Asia/Tehran",
+      "value": "Asia/Tehran"
     },
   },
   "buildpacks": [{
@@ -62,5 +62,5 @@
     "url": "https://github.com/chrismytton/heroku-buildpack-jq"
   },{
     "url": "heroku/python"
-  }],
+  }]
 }
