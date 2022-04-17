@@ -13,19 +13,19 @@
   "env": {
     "API_ID": {
       "description": "Your API_ID!",
-      "value": "3814063"
+      "value": ""
     },
     "API_HASH": {
       "description": "Your API_HASH!",
-      "value": "8112715c52fc0faa5b6e11e26e565bb6"
+      "value": ""
     },
     "SESSION": {
       "description": "Your SESSION!",
-      "value": "1BJWap1wBu6WcVBUD8BCjpvnCUGNCIEBm_UphfZW9ekelBCzNJzyoyjfj8KUeaCwsOPGb55p6iTsadeKAjV-PU1VFaiQsjIsYIgO1M2XLhXP5aQLifBp9Q4zQUJ0Ut9PdyphBtmAfBgZeyUlJI9fZcdFwSUywQjlM1ZQpHRuhaGv8KpKO5YvvX0zFieud7lI77kgBEV8C_sq-7eaoB0c5-uMlPsZcxJXyNc5WAYO3J3WijrMoqFNGXuFa-6gqEZL1TT9HRjbgiz26ZxyINan-oiByqYCIaueIy6vvclCRqSZ8ZwBOSbJomHZ25e1LGfYIjnh6LGbm6DD1Tb7zsaNlKFWQx6s_hOc="
+      "value": ""
     },
     "HEROKU_API": {
       "description": "Your HEROKU_API!",
-      "value": "74acec2d-7c4e-4c3f-9ffc-d064953c18c9",
+      "value": "",
       "required": false
     },
     "HEROKU_APP_NAME": {
@@ -35,17 +35,17 @@
     },
     "BOT_TOKEN": {
       "description": "Your BOT_TOKEN!",
-      "value": "5210750480:AAFkGdeH8s47rNn7y0ixxjjnecJRZpW7Hzw",
+      "value": "",
       "required": false
     },
     "REDIS_URL": {
       "description": "Your REDIS_URL!",
-      "value": "redis-15411.c251.east-us-mz.azure.cloud.redislabs.com:15411",
+      "value": "",
       "required": false
     },
     "REDIS_PASSWORD": {
       "description": "Your REDIS_PASSWORD!",
-      "value": "wIYq4gH5lxQmGVgyk24LZiihAeMNVkVQ",
+      "value": "",
       "required": false
     },
     "TZ": {
