@@ -9,6 +9,7 @@ heroku3
 ffmpeg-python
 speedtest-cli
 youtube-search-python
+emoji
 youtube_dl
 requests
 bs4
