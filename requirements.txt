@@ -18,4 +18,4 @@ aiofiles
 redis
 pytz
 html_telegraph_poster
-py-tgcalls==0.9.0b1
+pytgcalls==3.0.0.dev21
