@@ -1,5 +1,6 @@
 git+https://github.com/MxAboli/Telethon
 tgcrypto
+pytube
 yt_dlp
 moviepy
 Pillow
