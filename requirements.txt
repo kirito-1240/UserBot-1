@@ -1,6 +1,5 @@
 git+https://github.com/MxAboli/Telethon
 tgcrypto
-pytube
 yt_dlp
 moviepy
 Pillow
@@ -9,8 +8,6 @@ heroku3
 ffmpeg-python
 speedtest-cli
 youtube-search-python
-emoji
-youtube_dl
 requests
 bs4
 aiohttp
