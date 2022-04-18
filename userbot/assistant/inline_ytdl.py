@@ -10,14 +10,11 @@ async def ytdlclose(event):
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
     link = str(event.pattern_match.group(1))
-    try:
-        info = yt_info(link)
-    except:
-        return await event.answer([event.builder.article(title="Alien Youtube Menu!",text=f"*l*• Your Youtube Link Is Invalid** ( `{link}` )")])
+    info = yt_info(link)
     buttons = []
     list = []
     for aud in info["audio_formats"]:
-        list.append(Button.inline(f'🎶 {aud["format"].split(" - ")[1]}', data=f'ytdown:audio:{link}:{aud["format_id"]}'))
+        list.append(Button.inline(f'🎶 {aud["format"].split(" - ")[1]}', data=f'ytdown||audio||{link}||{aud["format_id"]}'))
         if len(list) == 2:
             buttons.append([list[0], list[1]])
             list = []
@@ -25,7 +22,7 @@ async def ytdl(event):
         buttons.append([list[0]])
     list = []
     for vid in info["video_formats"]:
-        list.append(Button.inline(f'🎞 {vid["format"].split(" - ")[1]}', data=f'ytdown:video:{link}:{vid["format_id"]}'))
+        list.append(Button.inline(f'🎞 {vid["format"].split(" - ")[1]}', data=f'ytdown||video||{link}||{vid["format_id"]}'))
         if len(list) == 2:
             buttons.append([list[0], list[1]])
             list = []
@@ -39,7 +36,7 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_inline(re.compile("ytdown\:(.*)\:(.*)\:(.*)"), owner=True)
+@alien_inline(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
 async def ytdown(event):
     type = str(event.pattern_match.group(1))
     link = str(event.pattern_match.group(2))
