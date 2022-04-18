@@ -1,6 +1,6 @@
 from yt_dlp import YoutubeDL
 
-def yt_formats(url):
+def yt_formats(url, output="video"):
     info = YoutubeDL().extract_info(url, download=False)
     video = {
         "title": info["title"],
@@ -43,4 +43,7 @@ def yt_formats(url):
                 "resolution": res["resolution"],
             }
         )
-    return video, audio
+    if output == "video":
+        return video
+    if output == "audio":
+        return audio
