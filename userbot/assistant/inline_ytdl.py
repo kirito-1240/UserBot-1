@@ -1,7 +1,17 @@
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
 from userbot.functions.ytdl import yt_info
-import re
+from userbot.functions.tools import download_file
+import re, os
+
+INFO = """
+**• Title:** ( `{}` )
+**• Description:** ( `{}` )
+**• Duration:** ( `{}` )
+**• Size:** ( `{}` )
+**• Quality:** ( `{}` )
+**• Resolution:** ( `{}` )
+"""
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
@@ -36,13 +46,19 @@ async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
     id = str(event.pattern_match.group(3).decode('utf-8'))
-    await event.edit(f"`• Downloading . . .`\n\n**• Youtube Link:** ( `{link}` )")
+    await event.edit("`• Downloading . . .`")
     info = yt_info(link)
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
-                return await event.edit(str(vid["url"]))
+                filename = info["title"] + "." + vid["ext"]
+                await download_file(vid["url"], filename)
+                await event.edit(INFO.format(info["title"], info["description"], info["duration"], vid["size"], vid["format_note"], vid["resolution"]), file=filename)
+                os.remove(filename)
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
-                return await event.edit(str(aud["url"]))
+                filename = info["title"] + "." + aud["ext"]
+                await download_file(aud["url"], filename)
+                await event.edit(INFO.format(info["title"], info["description"], info["duration"], aud["size"], aud["format_note"], aud["resolution"]), file=filename)
+                os.remove(filename)
