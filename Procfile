@@ -1,1 +1,1 @@
-worker: bash alien
+worker: bash start
