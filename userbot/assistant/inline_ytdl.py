@@ -67,7 +67,7 @@ async def ytdown(event):
                 await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
-                await event.delete()
+                await app.delete_messages(event.chat_id, event.id)
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
@@ -77,4 +77,4 @@ async def ytdown(event):
                 await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
-                await event.delete()
+                await app.delete_messages(event.chat_id, event.id)
