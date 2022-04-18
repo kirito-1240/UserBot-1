@@ -1,6 +1,7 @@
 from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
+from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.ytdl import yt_info
 from userbot.functions.tools import download_file
@@ -14,11 +15,17 @@ INFO = """
 **• Quality:** ( `{}` )
 **• Resolution:** ( `{}` )
 """
+LASTINFO = """
+**• Title:** ( `{}` )
+**• Description:** ( `{}` )
+**• Duration:** ( `{}` )
+"""
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
+    desc = (info["description"])[:500] + " ..."
     buttons = []
     list = []
     for aud in info["audio_formats"]:
@@ -38,7 +45,7 @@ async def ytdl(event):
         buttons.append([list[0]])
     result = event.builder.article(
         title="Alien Youtube Menu!",
-        text="**• Please Chose Mode To Download!**",
+        text="{}\n\n**• Please Chose Mode To Download!**".format(LASTINFO.format(info["title"], desc, convert_time(info["duration"]))),
         buttons=buttons,
     )
     await event.answer([result])
@@ -51,19 +58,25 @@ async def ytdown(event):
     await event.edit("`• Downloading . . .`")
     info = yt_info(link)
     desc = (info["description"])[:500] + " ..."
+    thumb = info["title"] + ".jpg"
+    await download_file(info["thumbnail"], thumb)
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 filename = info["title"] + "." + vid["ext"]
                 await download_file(vid["url"], filename)
-                await app.send_file(event.chat_id, filename, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
+                atts = get_attributes(filename)
+                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
+                os.remove(thumb)
                 await event.delete()
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
                 filename = info["title"] + "." + aud["ext"]
                 await download_file(aud["url"], filename)
-                await app.send_file(event.chat_id, filename, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
+                atts = get_attributes(filename)
+                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
+                os.remove(thumb)
                 await event.delete()
