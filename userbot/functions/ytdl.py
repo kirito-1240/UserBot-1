@@ -2,11 +2,20 @@ from yt_dlp import YoutubeDL
 
 def yt_formats(url):
     info = YoutubeDL().extract_info(url, download=False)
-    video = audio = {
+    video = {
         "title": info["title"],
         "id": info["id"],
         "duration": info["duration"],
         "description": info["description"],
+        "thumbnail": info["thumbnail"],
+        "formats": [],
+    }
+    audio = {
+        "title": info["title"],
+        "id": info["id"],
+        "duration": info["duration"],
+        "description": info["description"],
+        "thumbnail": info["thumbnail"],
         "formats": [],
     }
     for res in info["formats"]:  
