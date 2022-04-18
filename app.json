@@ -49,11 +49,11 @@
     },
     "REDIS_URL": {
       "description": "To install external plugins. if you set it to no then external plugins will not install",
-      "value": "no"
+      "value": ""
     },
     "REDIS_PASSWORD": {
       "description": "set yes to install 18+ plugins.",
-      "value": "no"
+      "value": ""
     }
   },
   "addons": [{
@@ -64,16 +64,6 @@
   }],
   "buildpacks": [{
     "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-  },{
-    "url":"https://github.com/heroku/heroku-buildpack-google-chrome"
-  },{
-    "url":"https://github.com/heroku/heroku-buildpack-chromedriver"
-  },{
-    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
-  },{
-    "url": "https://github.com/heroku/heroku-buildpack-apt.git"
-  },{
-    "url": "https://github.com/chrismytton/heroku-buildpack-jq"
   },{
     "url": "heroku/python"
   }]
