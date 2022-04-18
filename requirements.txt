@@ -2,6 +2,7 @@ git+https://github.com/MxAboli/Telethon
 tgcrypto
 yt_dlp
 moviepy
+gitpython
 Pillow
 psutil
 heroku3
