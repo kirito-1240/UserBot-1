@@ -11,7 +11,6 @@ INFO = """
 **• Title:** ( `{}` )
 **• Description:** ( `{}` )
 **• Duration:** ( `{}` )
-**• Size:** ( `{}` )
 **• Quality:** ( `{}` )
 **• Resolution:** ( `{}` )
 """
@@ -62,20 +61,20 @@ async def ytdown(event):
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
-                filename = info["title"] + "." + vid["ext"]
+                filename = info["title"] + ".mp4"
                 yt_video_down(link, vid["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), (convert_bytes(vid["size"]) or "--"), vid["format_note"], vid["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
-                filename = info["title"] + "." + aud["ext"]
+                filename = info["title"] + ".mp3"
                 yt_video_down(link, aud["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), (convert_bytes(aud["size"]) or "--"), aud["format_note"], aud["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
