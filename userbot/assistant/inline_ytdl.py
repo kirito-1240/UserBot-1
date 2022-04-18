@@ -3,6 +3,7 @@ from userbot.events import alien_inline, alien_callback
 from telethon import Button
 from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
+from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
 import re, os
 
@@ -17,7 +18,6 @@ INFO = """
 LASTINFO = """
 **• Title:** ( `{}` )
 **• Description:** ( `{}` )
-**• Duration:** ( `{}` )
 """
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
@@ -44,7 +44,7 @@ async def ytdl(event):
         buttons.append([list[0]])
     result = event.builder.article(
         title="Alien Youtube Menu!",
-        text="{}\n\n**• Please Chose Mode To Download!**".format(LASTINFO.format(info["title"], desc, convert_time(info["duration"]))),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(LASTINFO.format(info["title"], desc)),
         buttons=buttons,
     )
     await event.answer([result])
@@ -65,7 +65,7 @@ async def ytdown(event):
                 filename = info["title"] + "." + vid["ext"]
                 yt_video_down(link, vid["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), (convert_bytes(vid["size"]) or "--"), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
@@ -75,7 +75,7 @@ async def ytdown(event):
                 filename = info["title"] + "." + aud["ext"]
                 yt_video_down(link, aud["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), (convert_bytes(aud["size"]) or "--"), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
