@@ -31,11 +31,11 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_inline(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
+@alien_inline(re.compile("ytdown(.*)"), owner=True)
 async def ytdown(event):
-    type = str(event.pattern_match.group(1))
-    link = str(event.pattern_match.group(2))
-    id = str(event.pattern_match.group(3))
+    type = str(event.data.split("||")[1])
+    link = str(event.data.split("||")[2])
+    id = str(event.data.split("||")[3])
     await event.edit(f"`• Downloading . . .`\n\n**• Youtube Link:** ( `{link}` )")
     info = yt_info(link)
     if type == "video":
