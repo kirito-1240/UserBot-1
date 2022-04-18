@@ -1,5 +1,25 @@
 from yt_dlp import YoutubeDL
 
+def yt_video_down(url, format, filename):
+    opts = {
+        "format": format,
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+             {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
+             {"key": "FFmpegMetadata"},
+        ],
+        "outtmpl": filename,
+        "logtostderr": False,
+        "quiet": True,
+    }
+    with YoutubeDL(opts) as ytdl:
+        ytdl.download([url])
+
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
     result = {
