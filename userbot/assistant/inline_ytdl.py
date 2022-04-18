@@ -5,7 +5,7 @@ from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
-import re, os
+import re, os, glob
 
 INFO = """
 **• Title:** ( `{}` )
@@ -64,7 +64,7 @@ async def ytdown(event):
                 filename = info["title"] + ".mp4"
                 yt_video_down(link, vid["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
+                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await app.delete_messages(event.chat_id, event.id)
@@ -74,7 +74,11 @@ async def ytdown(event):
                 filename = info["title"] + ".mp3"
                 yt_video_down(link, aud["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), aud["format_note"], aud["resolution"]))
+                for x in glob.glob(f'{info["title"]}*'):
+                    if not x.endswith("jpg"):
+                        id = x
+                os.rename(id, filename)
+                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await app.delete_messages(event.chat_id, event.id)
