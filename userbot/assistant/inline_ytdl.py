@@ -3,7 +3,7 @@ from telethon import Button
 from userbot.functions.ytdl import yt_info
 import re
 
-@alien_callback("^ytdlclose$", owner=True)
+@alien_callback(re.compile("ytdlclose"), owner=True)
 async def ytdlclose(event):
     await event.edit("**• Youtube Downloader Panel Successfuly Closed!**")
 
@@ -17,7 +17,7 @@ async def ytdl(event):
     buttons = []
     list = []
     for aud in info["audio_formats"]:
-        list.append(Button.inline(f'🎶 {aud["format"].split(" - ")[1]}', data=f'ytdown_audio_{link}_{aud["format_id"]}'))
+        list.append(Button.inline(f'🎶 {aud["format"].split(" - ")[1]}', data=f'ytdown:audio:{link}:{aud["format_id"]}'))
         if len(list) == 2:
             buttons.append([list[0], list[1]])
             list = []
@@ -25,7 +25,7 @@ async def ytdl(event):
         buttons.append([list[0]])
     list = []
     for vid in info["video_formats"]:
-        list.append(Button.inline(f'🎞 {vid["format"].split(" - ")[1]}', data=f'ytdown_video_{link}_{vid["format_id"]}'))
+        list.append(Button.inline(f'🎞 {vid["format"].split(" - ")[1]}', data=f'ytdown:video:{link}:{vid["format_id"]}'))
         if len(list) == 2:
             buttons.append([list[0], list[1]])
             list = []
@@ -39,7 +39,7 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_inline(re.compile("ytdown_(.*)_(.*)_(.*)"), owner=True)
+@alien_inline(re.compile("ytdown\:(.*)\:(.*)\:(.*)"), owner=True)
 async def ytdown(event):
     type = str(event.pattern_match.group(1))
     link = str(event.pattern_match.group(2))
