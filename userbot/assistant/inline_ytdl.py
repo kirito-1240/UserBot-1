@@ -3,10 +3,6 @@ from telethon import Button
 from userbot.functions.ytdl import yt_info
 import re
 
-@alien_callback(re.compile("ytdlclose"), owner=True)
-async def ytdlclose(event):
-    await event.edit("**• Youtube Downloader Panel Successfuly Closed!**")
-
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
     link = str(event.pattern_match.group(1))
@@ -28,7 +24,6 @@ async def ytdl(event):
             list = []
     if len(list) == 1:
         buttons.append([list[0]])
-    buttons.append([Button.inline("❌ Close ❌", data="ytdlclose")])
     result = event.builder.article(
         title="Alien Youtube Downloader Menu!",
         text="**• Youtube Downloader Panel:**\n\n**• Please Chose Mode To Download!**",
@@ -41,12 +36,15 @@ async def ytdown(event):
     type = str(event.pattern_match.group(1))
     link = str(event.pattern_match.group(2))
     id = str(event.pattern_match.group(3))
+    await event.edit(f"`• Downloading . . .`\n\n**• Youtube Link:** ( `{link}` )")
     info = yt_info(link)
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 return await event.edit(str(vid["url"]))
-    else:
+    elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
-                return await event.edit(str(aud["url"]))         
+                return await event.edit(str(aud["url"]))
+    else:
+        return await event.edit("Unavailable!")         
