@@ -3,6 +3,7 @@ tgcrypto
 yt_dlp
 moviepy
 gitpython
+wget
 Pillow
 psutil
 heroku3
