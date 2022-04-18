@@ -4,7 +4,7 @@ from telethon import Button
 from wget import download
 from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
-from userbot.functions.ytdl import yt_info
+from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
 from userbot.functions.tools import download_file
 import re, os
 
@@ -65,7 +65,7 @@ async def ytdown(event):
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 filename = info["title"] + "." + vid["ext"]
-                download(vid["url"], filename)
+                yt_video_down(link, vid["format_id"], filename)
                 atts = get_attributes(filename)
                 await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
@@ -75,7 +75,7 @@ async def ytdown(event):
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
                 filename = info["title"] + "." + aud["ext"]
-                download(aud["url"], filename)
+                yt_video_down(link, aud["format_id"], filename)
                 atts = get_attributes(filename)
                 await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
