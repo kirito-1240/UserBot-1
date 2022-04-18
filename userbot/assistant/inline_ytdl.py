@@ -1,6 +1,7 @@
 from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
+from wget import download
 from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.ytdl import yt_info
@@ -64,7 +65,7 @@ async def ytdown(event):
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 filename = info["title"] + "." + vid["ext"]
-                await download_file(vid["url"], filename)
+                download(vid["url"], filename)
                 atts = get_attributes(filename)
                 await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
@@ -74,7 +75,7 @@ async def ytdown(event):
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
                 filename = info["title"] + "." + aud["ext"]
-                await download_file(aud["url"], filename)
+                download(aud["url"], filename)
                 atts = get_attributes(filename)
                 await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
