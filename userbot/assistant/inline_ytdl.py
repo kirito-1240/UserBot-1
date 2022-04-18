@@ -1,11 +1,9 @@
 from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
-from wget import download
 from telethon.utils import get_attributes
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
-from userbot.functions.tools import download_file
 import re, os
 
 INFO = """
@@ -67,7 +65,7 @@ async def ytdown(event):
                 filename = info["title"] + "." + vid["ext"]
                 yt_video_down(link, vid["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
@@ -77,7 +75,7 @@ async def ytdown(event):
                 filename = info["title"] + "." + aud["ext"]
                 yt_video_down(link, aud["format_id"], filename)
                 atts = get_attributes(filename)
-                await app.send_file(event.chat_id, filename, attributes=atts, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
                 await event.delete()
