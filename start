@@ -7,7 +7,7 @@ _run_python_code() {
 _run_aliengit() {
     $(_run_python_code 'from git import Repo
 import sys
-OFFICIAL_UPSTREAM_REPO= "https://github.com/TGAboli/UserBot"
+OFFICIAL_UPSTREAM_REPO= "https://github.com/MxAboli/UserBot"
 ACTIVE_BRANCH_NAME = "master"
 repo = Repo.init()
 origin = repo.create_remote("temponame", OFFICIAL_UPSTREAM_REPO)
@@ -20,7 +20,7 @@ _start_bot () {
     local zippath
     zippath="alien.zip"
     echo "• Downloading Source Code . . ."
-    wget -q "https://github.com/TGAboli/UserBot" -O "$zippath"
+    wget -q "https://github.com/MxAboli/UserBot" -O "$zippath"
     echo "• Unpacking Source Code . . ."
     ALIENPATH=$(zipinfo -1 "$zippath" | grep -v "/.");
     unzip -qq "$zippath"
