@@ -1,0 +1,55 @@
+from userbot.events import alien_inline, alien_callback
+from telethon import Button
+from userbot.functions.ytdl import yt_info
+import re
+
+@alien_callback("^ytdlclose$", owner=True)
+async def ytdlclose(event):
+    await event.edit("**• Youtube Downloader Panel Successfuly Closed!**")
+
+@alien_inline(re.compile("ytdl_(.*)"), owner=True)
+async def ytdl(event):
+    link = str((event.pattern_match.group(1)).decode('utf-8'))
+    try:
+        info = yt_info(link)
+    except:
+        return await event.answer([event.builder.article(title="Alien Youtube Menu!",text=f"*l*• Your Youtube Link Is Invalid** ( `{link}` )")])
+    buttons = []
+    list = []
+    for aud in info["audio_formats"]:
+        list.append(Button.inline(f'🎶 {aud["format"].split(" - ")[1]}', data=f'ytdown_audio_{link}_{aud["format_id"]}'))
+        if len(list) == 2:
+            buttons.append([list[0], list[1]])
+            list = []
+    if len(list) == 1:
+        buttons.append([list[0]])
+    list = []
+    for vid in info["video_formats"]:
+        list.append(Button.inline(f'🎞 {vid["format"].split(" - ")[1]}', data=f'ytdown_video_{link}_{vid["format_id"]}'))
+        if len(list) == 2:
+            buttons.append([list[0], list[1]])
+            list = []
+    if len(list) == 1:
+        buttons.append([list[0]])
+    buttons.append([Button.inline("❌ Close ❌", data="ytdlclose")])
+    result = event.builder.article(
+        title="Alien Youtube Downloader Menu!",
+        text="**• Youtube Downloader Panel:**\n\n**• Please Chose Mode To Download!**",
+        buttons=buttons,
+    )
+    await event.answer([result])
+    
+@alien_inline(re.compile("ytdown_(.*)_(.*)_(.*)"), owner=True)
+async def ytdown(event):
+    type = str((event.pattern_match.group(1)).decode('utf-8'))
+    link = str((event.pattern_match.group(2)).decode('utf-8'))
+    id = str((event.pattern_match.group(3)).decode('utf-8'))
+    info = yt_info(link)
+    if type == "video":
+        for vid in info["video_formats"]:
+            if str(vid["format_id"]) == id:
+                return await event.edit(str(vid["url"]))
+    else:
+        for aud in info["audio_formats"]:
+            if str(aud["format_id"]) == id:
+                return await event.edit(str(aud["url"]))         
