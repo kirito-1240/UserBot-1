@@ -9,7 +9,7 @@ async def ytdlclose(event):
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
-    link = str((event.pattern_match.group(1)).decode('utf-8'))
+    link = str(event.pattern_match.group(1))
     try:
         info = yt_info(link)
     except:
@@ -41,9 +41,9 @@ async def ytdl(event):
     
 @alien_inline(re.compile("ytdown_(.*)_(.*)_(.*)"), owner=True)
 async def ytdown(event):
-    type = str((event.pattern_match.group(1)).decode('utf-8'))
-    link = str((event.pattern_match.group(2)).decode('utf-8'))
-    id = str((event.pattern_match.group(3)).decode('utf-8'))
+    type = str(event.pattern_match.group(1))
+    link = str(event.pattern_match.group(2))
+    id = str(event.pattern_match.group(3))
     info = yt_info(link)
     if type == "video":
         for vid in info["video_formats"]:
