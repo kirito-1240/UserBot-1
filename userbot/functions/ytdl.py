@@ -1,16 +1,8 @@
 from yt_dlp import YoutubeDL
 
-def yt_formats(url, output="video"):
+def yt_videos(url):
     info = YoutubeDL().extract_info(url, download=False)
     video = {
-        "title": info["title"],
-        "id": info["id"],
-        "duration": info["duration"],
-        "description": info["description"],
-        "thumbnail": info["thumbnail"],
-        "formats": [],
-    }
-    audio = {
         "title": info["title"],
         "id": info["id"],
         "duration": info["duration"],
@@ -31,7 +23,20 @@ def yt_formats(url, output="video"):
                 "resolution": res["resolution"],
             }
         )
-        elif str(res["ext"]) == "mp3" or str(res["ext"]) == "m4a":
+    return video
+
+def yt_audios(url):
+    info = YoutubeDL().extract_info(url, download=False)
+    audio = {
+        "title": info["title"],
+        "id": info["id"],
+        "duration": info["duration"],
+        "description": info["description"],
+        "thumbnail": info["thumbnail"],
+        "formats": [],
+    }
+    for res in info["formats"]:  
+        if str(res["ext"]) == "mp3" or str(res["ext"]) == "m4a":
             audio["formats"].append(
                     {
                 "url": res["url"],
@@ -43,7 +48,4 @@ def yt_formats(url, output="video"):
                 "resolution": res["resolution"],
             }
         )
-    if output == "video":
-        return video
-    if output == "audio":
-        return audio
+    return audio
