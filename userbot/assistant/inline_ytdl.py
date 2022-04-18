@@ -1,5 +1,7 @@
+from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
+from userbot.utils import convert_time, convert_bytes
 from userbot.functions.ytdl import yt_info
 from userbot.functions.tools import download_file
 import re, os
@@ -48,17 +50,20 @@ async def ytdown(event):
     id = str(event.pattern_match.group(3).decode('utf-8'))
     await event.edit("`• Downloading . . .`")
     info = yt_info(link)
+    desc = (info["description"])[:500] + " ..."
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 filename = info["title"] + "." + vid["ext"]
                 await download_file(vid["url"], filename)
-                await event.edit(INFO.format(info["title"], info["description"], info["duration"], vid["size"], vid["format_note"], vid["resolution"]), file=filename)
+                await app.send_file(event.chat_id, filename, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(vid["size"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
+                await event.delete()
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
                 filename = info["title"] + "." + aud["ext"]
                 await download_file(aud["url"], filename)
-                await event.edit(INFO.format(info["title"], info["description"], info["duration"], aud["size"], aud["format_note"], aud["resolution"]), file=filename)
+                await app.send_file(event.chat_id, filename, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), convert_bytes(aud["size"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
+                await event.delete()
