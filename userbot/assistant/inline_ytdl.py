@@ -25,17 +25,17 @@ async def ytdl(event):
     if len(list) == 1:
         buttons.append([list[0]])
     result = event.builder.article(
-        title="Alien Youtube Downloader Menu!",
-        text="**• Youtube Downloader Panel:**\n\n**• Please Chose Mode To Download!**",
+        title="Alien Youtube Menu!",
+        text="**• Please Chose Mode To Download!**",
         buttons=buttons,
     )
     await event.answer([result])
     
 @alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
 async def ytdown(event):
-    type = str(event.pattern_match.group(1))
-    link = str(event.pattern_match.group(2))
-    id = str(event.pattern_match.group(3))
+    type = str(event.pattern_match.group(1).decode('utf-8'))
+    link = str(event.pattern_match.group(2).decode('utf-8'))
+    id = str(event.pattern_match.group(3).decode('utf-8'))
     await event.edit(f"`• Downloading . . .`\n\n**• Youtube Link:** ( `{link}` )")
     info = yt_info(link)
     if type == "video":
@@ -46,5 +46,3 @@ async def ytdown(event):
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
                 return await event.edit(str(aud["url"]))
-    else:
-        return await event.edit("Unavailable!")         
