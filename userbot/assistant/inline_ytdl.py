@@ -79,7 +79,7 @@ async def send_file(chat_id, filename, info, link, attributes, type):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     with await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)):
-        await client.action(chat_id, action)
+        await app.action(chat_id, action)
     os.remove(filename)
     os.remove(thumb)
     chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
