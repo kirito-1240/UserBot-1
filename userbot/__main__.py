@@ -11,12 +11,6 @@ import importlib
 import glob, random
 
 async def setup():
-    LOGS.info("• Starting Updating Requirements . . .")
-    await runcmd("pip install --upgrade pip")
-    await runcmd("pip uninstall -r requirements.txt")
-    await runcmd("pip freeze | xargs pip uninstall -y")
-    await runcmd("pip install -r requirements.txt")
-    LOGS.info("• Update Requirements Completed!")
     LOGS.info(f"• Connecting To {DB.name} Database . . .")
     if DB.ping():
         LOGS.info(f"• Connected To {DB.name} Database Successfully!")
