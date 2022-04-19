@@ -29,7 +29,7 @@ async def ytdl(event):
     buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
     result = event.builder.photo(
         file=thumb,
-        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader1"], desc)),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
         buttons=buttons,
     )
     await event.answer([result])
