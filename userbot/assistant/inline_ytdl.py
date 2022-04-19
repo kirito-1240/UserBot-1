@@ -38,7 +38,6 @@ async def ytdl(event):
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
-    await event.edit("`• Downloading . . .`", file=None)
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
@@ -47,6 +46,7 @@ async def ytdown(event):
     img.save(thumb, "JPEG")
     if type == "video":
         filename = info["title"] + ".mp4"
+        await event.edit("`• Downloading . . .`")
         yt_video_down(link, filename)
         await event.edit("`• Uploading . . .`")
         attributes=[
@@ -62,6 +62,7 @@ async def ytdown(event):
         os.remove(thumb)
     elif type == "audio":
         filename = info["title"] + ".mp3"
+        await event.edit("`• Downloading . . .`")
         yt_video_down(link, filename)
         await event.edit("`• Uploading . . .`")
         attributes=[
@@ -74,4 +75,5 @@ async def ytdown(event):
         await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
-    await event.delete()
+    open("res.txt", "w").write(str(event))
+    await event.reply(file="res.txt")
