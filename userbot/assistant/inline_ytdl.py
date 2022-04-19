@@ -32,6 +32,8 @@ async def ytdl(event):
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
         buttons=buttons,
     )
+    open("res.txt", "w").write(str(event))
+    await app.send_file(event.chat_id, "res.txt")
     await event.answer([result])
     
 @alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)"), owner=True)
