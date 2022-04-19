@@ -60,7 +60,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes, type))
+        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes)
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
@@ -73,13 +73,12 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes, action))
+        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes))
 
-async def send_file(chat_id, filename, info, link, attributes, type):
+async def send_file(chat_id, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
-    with await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)):
-        await app.action(chat_id, action)
+    await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
     os.remove(filename)
     os.remove(thumb)
     chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
