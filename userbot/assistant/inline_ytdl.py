@@ -75,14 +75,6 @@ async def ytdown(event):
         ]
         await send_file(event.chat_id, filename, info, link, attributes)
 
-
-PPE = ProcessPoolExecutor()
-
-async def send_file(chat_id, filename, info, link, attributes):
-    loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, file_sender, chat_id, filename, info, link, attributes)
-    return await asyncio.gather(fucs)
-
 async def file_sender(chat_id, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
@@ -92,3 +84,13 @@ async def file_sender(chat_id, filename, info, link, attributes):
     chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
     id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
     await app.delete_messages(int(chat), int(id))
+
+PPE = ProcessPoolExecutor()
+
+async def send_file(chat_id, filename, info, link, attributes):
+    loop = asyncio.get_event_loop()
+    try:
+        await loop.run_in_executor(PPE, file_sender, chat_id, filename, info, link, attributes)
+    except:
+        pass
+    return await asyncio.gather(file_sender(chat_id, filename, info, link, attributes))
