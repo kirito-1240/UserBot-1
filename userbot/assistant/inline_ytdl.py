@@ -89,8 +89,5 @@ PPE = ProcessPoolExecutor()
 
 async def send_file(chat_id, filename, info, link, attributes):
     loop = asyncio.get_event_loop()
-    try:
-        await loop.run_in_executor(PPE, file_sender, chat_id, filename, info, link, attributes)
-    except:
-        pass
-    return await asyncio.gather(file_sender(chat_id, filename, info, link, attributes))
+    await loop.run_in_executor(PPE, file_sender, chat_id, filename, info, link, attributes)
+    await asyncio.gather(file_sender(chat_id, filename, info, link, attributes))
