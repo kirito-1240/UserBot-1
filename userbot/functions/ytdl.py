@@ -1,5 +1,7 @@
 from yt_dlp import YoutubeDL
 from datetime import datetime
+from concurrent.futures import ProcessPoolExecutor
+import asyncio
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
@@ -24,7 +26,7 @@ def yt_info(url):
     }
     return result
 
-async def yt_video_down(url, filename):
+def yt_video_down(url, filename):
     opts = {
             "format": "best",
             "addmetadata": True,
@@ -41,10 +43,9 @@ async def yt_video_down(url, filename):
             "quiet": True,
         }
     with YoutubeDL(opts) as ytdl:
-        data = ytdl.extract_info(url)
-    return data
+        ytdl.download([url])
 
-async def yt_audio_down(url, filename):
+def yt_audio_down(url, filename):
     opts = {
             "format": "bestaudio",
             "addmetadata": True,
@@ -65,5 +66,12 @@ async def yt_audio_down(url, filename):
             "quiet": True,
         }
     with YoutubeDL(opts) as ytdl:
-        data = ytdl.extract_info(url)
-    return data
+        ytdl.download([url])
+
+
+PPE = ProcessPoolExecutor()
+
+async def yt_video_downs(url, filename):
+    loop = asyncio.get_event_loop()
+    futs = loop.run_in_executor(PPE, yt_video_down, url, filename)
+    return await asyncio.gather(futs)
