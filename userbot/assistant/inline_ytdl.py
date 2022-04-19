@@ -77,6 +77,6 @@ async def ytdown(event):
         await event.edit(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
-    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0]
+    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
     id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
-    await app.delete_messages(chat, id)
+    await app.delete_messages(int(chat), int(id))
