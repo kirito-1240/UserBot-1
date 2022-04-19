@@ -60,7 +60,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes)
+        await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes))
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
