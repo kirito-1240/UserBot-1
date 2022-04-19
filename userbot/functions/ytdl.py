@@ -24,7 +24,7 @@ def yt_info(url):
     }
     return result
 
-def yt_video_down(url, filename):
+async def yt_video_down(url, filename):
     opts = {
             "format": "best",
             "addmetadata": True,
@@ -44,7 +44,7 @@ def yt_video_down(url, filename):
         data = ytdl.extract_info(url)
     return data
 
-def yt_audio_down(url, filename):
+async def yt_audio_down(url, filename):
     opts = {
             "format": "bestaudio",
             "addmetadata": True,
