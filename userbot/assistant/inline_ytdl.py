@@ -91,8 +91,8 @@ async def ytdown(event):
     elif type == "other":
         for oth in info["other_formats"]:
             if str(oth["format_id"]) == id:
-                filename = info["title"] + ".mp3"
-                yt_video_down(link, oth["format_id"], filename)
+                filename = info["title"] + "." + oth["ext"]
+                await download_file(link, filename)
                 await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), oth["format_note"], oth["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
