@@ -63,7 +63,7 @@ async def ytdown(event):
             if str(vid["format_id"]) == id:
                 filename = info["title"] + ".mp4"
                 yt_video_down(link, vid["format_id"], filename)
-                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
+                await event.edit(INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]), filename, thumb=thumb)
                 os.remove(filename)
                 os.remove(thumb)
                 await app.delete_messages(event.chat_id, event.id)
