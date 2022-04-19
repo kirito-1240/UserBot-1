@@ -1,5 +1,6 @@
 from userbot import app , bot
 from userbot.events import alien
+from userbot.database import DB
 import re
 
 @alien(pattern="ytdl (.*)")
@@ -10,5 +11,6 @@ async def ytdl(event):
     link = str(event.pattern_match.group(1))
     me = await bot.get_me()
     results = await app.inline_query(me.username, f"ytdl_{link}")
-    await results[0].click(event.chat_id)
+    click = await results[0].click(event.chat_id)
+    DB.set_key("YOUTUBE_GET_INLINE", f"{event.chat_id}||{click.id}")
     await event.delete()
