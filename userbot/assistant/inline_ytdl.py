@@ -39,7 +39,7 @@ async def ytdown(event):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     img = Image.open(thumb)
-    img.resize(320, 320)
+    img.resize((320, 320))
     img.save(thumb, "JPEG")
     if type == "video":
         filename = info["title"] + ".mp4"
