@@ -45,6 +45,7 @@ async def ytdown(event):
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
+    loop = asyncio.get_event_loop()
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`")
@@ -58,7 +59,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+        loop.create_task(send_file(event.chat_id, filename, info, attributes))
         os.remove(filename)
         os.remove(thumb)
     elif type == "audio":
@@ -73,10 +74,14 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await event.edit(file=filename, thumb=thumb, attributes=attributes)
-        await event.edit(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+        loop.create_task(send_file(event.chat_id, filename, info, attributes))
         os.remove(filename)
         os.remove(thumb)
     chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
     id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
     await app.delete_messages(int(chat), int(id))
+
+async def send_file(chat_id, filename, info, attributes):
+    desc = (info["description"])[:300] + " ..."
+    thumb = info["title"] + ".jpg"
+    await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
