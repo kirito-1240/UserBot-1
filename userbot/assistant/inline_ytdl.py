@@ -60,9 +60,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        loop.create_task(send_file(event.chat_id, filename, info, attributes))
-        os.remove(filename)
-        os.remove(thumb)
+        loop.create_task(send_file(event.chat_id, filename, info, link, attributes))
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`")
@@ -75,14 +73,14 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        loop.create_task(send_file(event.chat_id, filename, info, attributes))
-        os.remove(filename)
-        os.remove(thumb)
-    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
-    id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
-    await app.delete_messages(int(chat), int(id))
+        loop.create_task(send_file(event.chat_id, filename, info, link, attributes))
 
-async def send_file(chat_id, filename, info, attributes):
+async def send_file(chat_id, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+    os.remove(filename)
+    os.remove(thumb)
+    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
+    id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
+    await app.delete_messages(int(chat), int(id))
