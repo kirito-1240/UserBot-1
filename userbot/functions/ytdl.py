@@ -1,8 +1,8 @@
 from yt_dlp import YoutubeDL
 
-def yt_video_down(url, format, filename):
+def yt_video_down(url, filename):
     opts = {
-            "format": f"{format}+bestaudio",
+            "format": "best",
             "addmetadata": True,
             "key": "FFmpegMetadata",
             "prefer_ffmpeg": True,
@@ -19,7 +19,7 @@ def yt_video_down(url, format, filename):
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
 
-def yt_audio_down(url, format, filename):
+def yt_audio_down(url, filename):
     opts = {
             "format": "bestaudio",
             "addmetadata": True,
@@ -27,12 +27,12 @@ def yt_audio_down(url, format, filename):
             "prefer_ffmpeg": True,
             "geo_bypass": True,
             "ignore_errors": True,
-            "audio_quality": format,
             "nocheckcertificate": True,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "mp3",
+                    "preferredquality": "480",
                 }
             ],
             "outtmpl": filename,
@@ -50,44 +50,5 @@ def yt_info(url):
         "duration": info["duration"],
         "description": info["description"],
         "thumbnail": info["thumbnail"],
-        "video_formats": [],
-        "audio_formats": [],
-        "other_formats": [],
     }
-    for res in info["formats"]:  
-        if str(res["ext"]) == "mp4" or str(res["ext"]) == "mkv":
-            result["video_formats"].append(
-                    {
-                "url": res["url"],
-                "format": res["format"],
-                "format_note": res["format_note"],
-                "size": res["filesize"],
-                "format_id": res["format_id"],
-                "ext": res["ext"],
-                "resolution": res["resolution"],
-            }
-        )
-        elif str(res["ext"]) == "mp3" or str(res["ext"]) == "m4a":
-            result["audio_formats"].append(
-                    {
-                "url": res["url"],
-                "format": res["format"],
-                "format_note": res["format_note"],
-                "size": res["filesize"],
-                "format_id": res["format_id"],
-                "ext": res["ext"],
-                "resolution": res["resolution"],
-            }
-        )
-        else:
-            result["other_formats"].append(
-                    {
-                "url": res["url"],
-                "format": res["format"],
-                "format_note": res["format_note"],
-                "format_id": res["format_id"],
-                "ext": res["ext"],
-                "resolution": res["resolution"],
-            }
-        )
     return result
