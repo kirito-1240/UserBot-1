@@ -23,6 +23,7 @@ INFO = """
 async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
+    print(event.id)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     await download_file(info["thumbnail"], thumb)
