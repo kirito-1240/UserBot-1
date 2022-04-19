@@ -24,10 +24,6 @@ LASTINFO = """
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
 async def ytdl(event):
-    
-
-@alien_inline(re.compile("ytdl_(.*)"), owner=True)
-async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
     desc = (info["description"])[:500] + " ..."
