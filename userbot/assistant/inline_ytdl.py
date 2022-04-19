@@ -2,6 +2,7 @@ from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
 from PIL import Image
+from userbot.database import DB
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
@@ -76,3 +77,6 @@ async def ytdown(event):
         await event.edit(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
+    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0]
+    id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
+    await app.delete_messages(chat, id)
