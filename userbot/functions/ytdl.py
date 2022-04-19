@@ -2,6 +2,9 @@ from yt_dlp import YoutubeDL
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
+    upload_date = int(info["upload_date"])
+    upload_date = datetime.fromtimestamp(upload_date)
+    upload_date = upload_date.strftime("%Y/%m/%d - %H:%M:%S")
     result = {
         "title": info["title"],
         "id": info["id"],
@@ -9,8 +12,14 @@ def yt_info(url):
         "description": info["description"],
         "thumbnail": info["thumbnail"],
         "uploader": info["uploader"],
+        "uploader_url": info["uploader_url"],
+        "channel_url": info["channel_url"],
         "width": info["width"],
         "height": info["height"],
+        "like_count": info["like_count"],
+        "view_count": info["view_count"],
+        "subs_count": info["channel_follower_count"],
+        "upload_date": upload_date,
     }
     return result
 
