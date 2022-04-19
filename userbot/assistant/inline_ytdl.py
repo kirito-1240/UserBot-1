@@ -11,6 +11,7 @@ import os
 INFO = """
 **• Title:** ( `{}` )
 **• Description:** ( `{}` )
+**• Uploader:** ( `{}` )
 """
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
@@ -23,7 +24,7 @@ async def ytdl(event):
     buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
     result = event.builder.photo(
         file=thumb,
-        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], desc)),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], desc, info["uploader"])),
         buttons=buttons,
     )
     await event.answer([result])
@@ -43,12 +44,12 @@ async def ytdown(event):
         attributes=[
             DocumentAttributeVideo(
                 duration=int(info["duration"]),
-                w=str(info["width"]),
-                h=str(info["height"]),
-                supports_streaming=True
+                w=int(info["width"]),
+                h=int(info["height"]),
+                supports_streaming=True,
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc, info["uploader"]))
         os.remove(filename)
         os.remove(thumb)
     elif type == "audio":
@@ -59,9 +60,9 @@ async def ytdown(event):
             DocumentAttributeAudio(
                 duration=int(info["duration"]),
                 title=str(info["title"]),
-                performer=str(info["uploader"])
+                performer=str(info["uploader"]),
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc, info["uploader"]))
         os.remove(filename)
         os.remove(thumb)
