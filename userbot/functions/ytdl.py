@@ -52,6 +52,7 @@ def yt_info(url):
         "thumbnail": info["thumbnail"],
         "video_formats": [],
         "audio_formats": [],
+        "other_formats": [],
     }
     for res in info["formats"]:  
         if str(res["ext"]) == "mp4" or str(res["ext"]) == "mkv":
@@ -68,6 +69,18 @@ def yt_info(url):
         )
         elif str(res["ext"]) == "mp3" or str(res["ext"]) == "m4a":
             result["audio_formats"].append(
+                    {
+                "url": res["url"],
+                "format": res["format"],
+                "format_note": res["format_note"],
+                "size": res["filesize"],
+                "format_id": res["format_id"],
+                "ext": res["ext"],
+                "resolution": res["resolution"],
+            }
+        )
+        else:
+            result["other_formats"].append(
                     {
                 "url": res["url"],
                 "format": res["format"],
