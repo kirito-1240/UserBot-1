@@ -8,6 +8,7 @@ from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
+import asyncio
 import os
 
 INFO = """
