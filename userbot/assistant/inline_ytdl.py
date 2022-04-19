@@ -11,8 +11,11 @@ import os
 
 INFO = """
 **• Title:** ( `{}` )
+**• View Count:** ( `{}` )
+**• Like Count:** ( `{}` )
+**• Subscribes Count:** ( `{}` )
+**• Uploader:** ( [{}]({}))
 **• Description:** ( `{}` )
-**• Uploader:** ( `{}` )
 """
 
 @alien_inline(re.compile("ytdl_(.*)"), owner=True)
@@ -25,7 +28,7 @@ async def ytdl(event):
     buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
     result = event.builder.photo(
         file=thumb,
-        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], desc, info["uploader"])),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
         buttons=buttons,
     )
     await event.answer([result])
@@ -53,7 +56,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc, info["uploader"]))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
     elif type == "audio":
@@ -67,6 +70,6 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc, info["uploader"]))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
