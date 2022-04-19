@@ -23,6 +23,8 @@ async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
     desc = (info["description"])[:500] + " ..."
+    thumb = info["title"] + ".jpg"
+    await download_file(info["thumbnail"], thumb)
     buttons = []
     list = []
     for aud in info["audio_formats"]:
@@ -40,8 +42,8 @@ async def ytdl(event):
             list = []
     if len(list) == 1:
         buttons.append([list[0]])
-    result = event.builder.article(
-        title="Alien Youtube Menu!",
+    result = event.builder.photo(
+        file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(LASTINFO.format(info["title"], desc)),
         buttons=buttons,
     )
@@ -56,7 +58,6 @@ async def ytdown(event):
     info = yt_info(link)
     desc = (info["description"])[:500] + " ..."
     thumb = info["title"] + ".jpg"
-    await download_file(info["thumbnail"], thumb)
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
