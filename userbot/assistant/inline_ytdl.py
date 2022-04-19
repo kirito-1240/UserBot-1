@@ -1,6 +1,7 @@
 from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
+from PIL import Image
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
@@ -37,6 +38,9 @@ async def ytdown(event):
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
+    img = Image.open(thumb)
+    img.resize(320, 320)
+    img.save(thumb, "JPEG")
     if type == "video":
         filename = info["title"] + ".mp4"
         yt_video_down(link, filename)
