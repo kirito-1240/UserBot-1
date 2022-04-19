@@ -44,7 +44,7 @@ async def ytdown(event):
         await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc))
         os.remove(filename)
         os.remove(thumb)
-        await app.delete_messages(event.chat_id, [event.id])
+        await event.reply(str(event))
     elif type == "audio":
         filename = info["title"] + ".mp3"
         yt_video_down(link, filename)
