@@ -8,6 +8,7 @@ from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video, yt_audio
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
+import asyncio
 import os
 
 INFO = """
@@ -45,10 +46,11 @@ async def ytdown(event):
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
+    loop = asyncio.get_event_loop()
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`")
-        yt_video(link, filename)
+        await yt_video(link, filename)
         await event.edit("`• Uploading . . .`")
         attributes=[
             DocumentAttributeVideo(
@@ -62,7 +64,7 @@ async def ytdown(event):
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`")
-        yt_audio(link, filename)
+        await yt_audio(link, filename)
         await event.edit("`• Uploading . . .`")
         attributes=[
             DocumentAttributeAudio(
