@@ -23,11 +23,10 @@ INFO = """
 async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
-    print(event.id)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     await download_file(info["thumbnail"], thumb)
-    buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}||{event.id}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}||{event.id}")]]
+    buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
     result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
@@ -35,7 +34,7 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
+@alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)"), owner=True)
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
@@ -76,4 +75,4 @@ async def ytdown(event):
         await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
-    await app.delete_messages(event.chat_id, int(event.pattern_match.group(3).decode('utf-8')))
+    await event.edit("**• Succesfuly Download And Sended!**", file=None)
