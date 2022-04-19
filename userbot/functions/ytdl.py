@@ -1,5 +1,20 @@
 from yt_dlp import YoutubeDL
 
+def yt_info(url):
+    info = YoutubeDL().extract_info(url, download=False)
+    result = {
+        "title": info["title"],
+        "id": info["id"],
+        "duration": info["duration"],
+        "description": info["description"],
+        "thumbnail": info["thumbnail"],
+        "uploader": info["uploader"],
+        "width": info["width"],
+        "height": info["height"],
+    }
+    return result
+
+
 def yt_video_down(url, filename):
     opts = {
             "format": "best",
@@ -41,14 +56,3 @@ def yt_audio_down(url, filename):
         }
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
-
-def yt_info(url):
-    info = YoutubeDL().extract_info(url, download=False)
-    result = {
-        "title": info["title"],
-        "id": info["id"],
-        "duration": info["duration"],
-        "description": info["description"],
-        "thumbnail": info["thumbnail"],
-    }
-    return result
