@@ -72,7 +72,7 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+        await event.edit(file=filename, thumb=thumb, attributes=attributes)
+        await event.edit(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
-    await event.edit("**• Succesfuly Download And Sended!**", file=None)
