@@ -1,4 +1,5 @@
 from yt_dlp import YoutubeDL
+from datetime import datetime
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
