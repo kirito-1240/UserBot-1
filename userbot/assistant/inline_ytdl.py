@@ -7,8 +7,6 @@ from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import os
-import time
-import math
 
 INFO = """
 **• Title:** ( `{}` )
@@ -41,13 +39,29 @@ async def ytdown(event):
     if type == "video":
         filename = info["title"] + ".mp4"
         yt_video_down(link, filename)
-        await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc))
+        await event.edit("`• Uploading . . .`")
+        attributes=[
+            DocumentAttributeVideo(
+                duration=int(info["duration"]),
+                w=str(info["width"]),
+                h=str(info["height"]),
+                supports_streaming=True
+            )
+        ]
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc))
         os.remove(filename)
         os.remove(thumb)
-        await event.reply(str(event))
     elif type == "audio":
         filename = info["title"] + ".mp3"
         yt_video_down(link, filename)
-        await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc))
+        await event.edit("`• Uploading . . .`")
+        attributes=[
+            DocumentAttributeAudio(
+                duration=int(info["duration"]),
+                title=str(info["title"]),
+                performer=str(info["uploader"])
+            )
+        ]
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], desc))
         os.remove(filename)
         os.remove(thumb)
