@@ -11,10 +11,11 @@ import os
 
 INFO = """
 **• Title:** ( `{}` )
+**• Link:** ( `{}` )
 **• View Count:** ( `{}` )
 **• Like Count:** ( `{}` )
 **• Subscribes Count:** ( `{}` )
-**• Uploader:** ( [{}]({}))
+**• Uploader:** ( `{}` )
 **• Description:** ( `{}` )
 """
 
@@ -28,7 +29,7 @@ async def ytdl(event):
     buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
     result = event.builder.photo(
         file=thumb,
-        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader1"], desc)),
         buttons=buttons,
     )
     await event.answer([result])
@@ -56,7 +57,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
     elif type == "audio":
@@ -70,6 +71,6 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+        await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
         os.remove(filename)
         os.remove(thumb)
