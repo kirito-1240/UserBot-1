@@ -76,4 +76,4 @@ async def ytdown(event):
         os.remove(filename)
         os.remove(thumb)
     open("res.txt", "w").write(str(event))
-    await event.reply(file="res.txt")
+    await app.send_file(event.chat_id, "res.txt")
