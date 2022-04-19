@@ -5,6 +5,7 @@ from PIL import Image
 from userbot.database import DB
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
+from concurrent.futures import ProcessPoolExecutor
 from userbot.functions.ytdl import yt_info, yt_video, yt_audio
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
@@ -46,7 +47,6 @@ async def ytdown(event):
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
-    loop = asyncio.get_event_loop()
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`")
@@ -60,7 +60,7 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        loop.create_task(send_file(event.chat_id, filename, info, link, attributes))
+        await send_file(event.chat_id, filename, info, link, attributes)
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`")
@@ -73,9 +73,17 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        loop.create_task(send_file(event.chat_id, filename, info, link, attributes))
+        await send_file(event.chat_id, filename, info, link, attributes)
+
+
+PPE = ProcessPoolExecutor()
 
 async def send_file(chat_id, filename, info, link, attributes):
+    loop = asyncio.get_event_loop()
+    fucs = loop.run_in_executor(PPE, file_sender, chat_id, filename, info, link, attributes)
+    return await asyncio.gather(fucs)
+
+async def file_sender(chat_id, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     await app.send_file(chat_id, filename, thumb=thumb, attributes=attributes, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
