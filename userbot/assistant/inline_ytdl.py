@@ -4,7 +4,6 @@ from telethon import Button
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
 from userbot.functions.ytdl import yt_info, yt_video_down, yt_audio_down
-from yt_dlp import YoutubeDL
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import os
