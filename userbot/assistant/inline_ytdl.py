@@ -49,9 +49,9 @@ async def ytdown(event):
     img.save(thumb, "JPEG")
     if type == "video":
         filename = info["title"] + ".mp4"
-        await event.edit("`• Downloading . . .`")
+        await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         await yt_video(link, filename)
-        await event.edit("`• Uploading . . .`")
+        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
                 duration=int(info["duration"]),
@@ -63,9 +63,9 @@ async def ytdown(event):
         await asyncio.gather(send_file(event.chat_id, filename, info, link, attributes))
     elif type == "audio":
         filename = info["title"] + ".mp3"
-        await event.edit("`• Downloading . . .`")
+        await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         await yt_audio(link, filename)
-        await event.edit("`• Uploading . . .`")
+        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
                 duration=int(info["duration"]),
