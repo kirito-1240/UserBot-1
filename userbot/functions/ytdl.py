@@ -85,7 +85,6 @@ def yt_info(url):
                 "url": res["url"],
                 "format": res["format"],
                 "format_note": res["format_note"],
-                "size": res["filesize"],
                 "format_id": res["format_id"],
                 "ext": res["ext"],
                 "resolution": res["resolution"],
