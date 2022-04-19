@@ -42,6 +42,14 @@ async def ytdl(event):
             list = []
     if len(list) == 1:
         buttons.append([list[0]])
+    list = []
+    for oth in info["other_formats"]:
+        list.append(Button.inline(f'🔗 {oth["format"].split(" - ")[1]}', data=f'ytdown||video||{link}||{oth["format_id"]}'))
+        if len(list) == 2:
+            buttons.append([list[0], list[1]])
+            list = []
+    if len(list) == 1:
+        buttons.append([list[0]])
     result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(LASTINFO.format(info["title"], desc)),
@@ -56,17 +64,17 @@ async def ytdown(event):
     id = str(event.pattern_match.group(3).decode('utf-8'))
     await event.edit("`• Downloading . . .`")
     info = yt_info(link)
-    desc = (info["description"])[:500] + " ..."
+    desc = (info["description"])[:200] + " ..."
     thumb = info["title"] + ".jpg"
     if type == "video":
         for vid in info["video_formats"]:
             if str(vid["format_id"]) == id:
                 filename = info["title"] + ".mp4"
                 yt_video_down(link, vid["format_id"], filename)
-                await event.edit(INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]), filename, thumb=thumb)
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), vid["format_note"], vid["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
-                await app.delete_messages(event.chat_id, event.id)
+                await app.delete_messages(event.chat_id, [event.id])
     elif type == "audio":
         for aud in info["audio_formats"]:
             if str(aud["format_id"]) == id:
@@ -79,4 +87,13 @@ async def ytdown(event):
                 await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), aud["format_note"], aud["resolution"]))
                 os.remove(filename)
                 os.remove(thumb)
-                await app.delete_messages(event.chat_id, event.id)
+                await app.delete_messages(event.chat_id, [event.id])
+    elif type == "other":
+        for oth in info["other_formats"]:
+            if str(oth["format_id"]) == id:
+                filename = info["title"] + ".mp3"
+                yt_video_down(link, oth["format_id"], filename)
+                await app.send_file(event.chat_id, filename, thumb=thumb, caption=INFO.format(info["title"], desc, convert_time(info["duration"]), oth["format_note"], oth["resolution"]))
+                os.remove(filename)
+                os.remove(thumb)
+                await app.delete_messages(event.chat_id, [event.id])
