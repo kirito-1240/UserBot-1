@@ -71,7 +71,12 @@ def yt_audio_down(url, filename):
 
 PPE = ProcessPoolExecutor()
 
-async def yt_video_downs(url, filename):
+async def yt_video(url, filename):
     loop = asyncio.get_event_loop()
-    futs = loop.run_in_executor(PPE, yt_video_down, url, filename)
-    return await asyncio.gather(futs)
+    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename)
+    return await asyncio.gather(fucs)
+
+async def yt_audio(url, filename):
+    loop = asyncio.get_event_loop()
+    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename)
+    return await asyncio.gather(funs)
