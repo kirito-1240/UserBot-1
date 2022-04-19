@@ -24,7 +24,6 @@ def yt_info(url):
     }
     return result
 
-
 def yt_video_down(url, filename):
     opts = {
             "format": "best",
@@ -42,7 +41,8 @@ def yt_video_down(url, filename):
             "quiet": True,
         }
     with YoutubeDL(opts) as ytdl:
-        ytdl.download([url])
+        data = ytdl.extract_info(url)
+    return data
 
 def yt_audio_down(url, filename):
     opts = {
@@ -57,7 +57,7 @@ def yt_audio_down(url, filename):
                 {
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "mp3",
-                    "preferredquality": "480",
+                    "preferredquality": "320",
                 }
             ],
             "outtmpl": filename,
@@ -65,4 +65,5 @@ def yt_audio_down(url, filename):
             "quiet": True,
         }
     with YoutubeDL(opts) as ytdl:
-        ytdl.download([url])
+        data = ytdl.extract_info(url)
+    return data
