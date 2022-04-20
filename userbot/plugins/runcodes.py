@@ -47,15 +47,16 @@ async def runcodes(event):
     else:
         result = "Success!"
         res = "Results"
-    try:
-        await event.edit(f"""
+    out = f"""
 **• Code:** 
 `{event.text}`
 
 **• {res}:** 
 `{result}`
-""")
-    except:
+"""
+    if len(out) < 4096:
+        await event.edit(out)
+    else:
         f = open(f"{res}.txt", "w")
         f.write(str(result))
         await app.send_file(event.chat_id, f"{res}.txt" , caption=f"""
