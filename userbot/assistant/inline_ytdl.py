@@ -40,8 +40,7 @@ async def ytdl(event):
            ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
-        else:
-            pass
+            past = []
     if len(past) == 1:
         buttons.append([past[0]])
     list = get_audio_formats(link)
@@ -54,8 +53,7 @@ async def ytdl(event):
             ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
-        else:
-            pass
+            past = []
     if len(past) == 1:
         buttons.append([past[0]])
     result = event.builder.photo(
