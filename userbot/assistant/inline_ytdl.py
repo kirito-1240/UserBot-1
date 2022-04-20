@@ -51,7 +51,7 @@ async def ytdl(event):
     buttons.append(list(zip(butts[::2], butts[1::2])))
     if len(butts) % 2 == 1:
         buttons.append((butts[-1]))
-     result = event.builder.photo(
+    result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["uploader"], desc)),
         buttons=buttons,
