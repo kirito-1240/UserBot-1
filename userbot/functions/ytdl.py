@@ -22,35 +22,35 @@ def yt_info(url):
 def get_video_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
-    list = {}
+    list = []
     for format in info:
         if "video/mp4" in format["mimeType"]:
             quality = format["qualityLabel"]
             if quality not in list:
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "type": "mp4"}})
+                list.append({quality: {"format_id": format_id, "type": "mp4"}})
         elif "video/webm" in format["mimeType"]:
             quality = format["qualityLabel"]
             if quality not in list:
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "type": "webm"}})
+                list.append({quality: {"format_id": format_id, "type": "webm"}})
     return list
 
 def get_audio_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
-    list = {}
+    list = []
     for format in info:
         if "audio/mp4" in format["mimeType"]:
             quality = format["audioQuality"].lower().split("_")[-1]
             if quality not in list:
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "type": "mp3"}})
+                list.append({quality: {"format_id": format_id, "type": "mp3"}})
         elif "audio/webm" in format["mimeType"]:
             quality = format["audioQuality"].lower().split("_")[-1]
             if quality not in list:
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "type": "webm"}})
+                list.append({quality: {"format_id": format_id, "type": "webm"}})
     return list
 
 def yt_video_down(url, format_id, filename):
