@@ -42,7 +42,7 @@ def yt_video_down(url, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "progress_hooks":  [lambda d: print(d["status"])],
+            "progress_hooks":  [lambda d: print(d["total_bytes"])],
             "postprocessors": [
                 {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
             ],
