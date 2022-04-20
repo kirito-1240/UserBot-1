@@ -6,7 +6,7 @@ from userbot.database import DB
 from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file, downloadfile
-from userbot.functions.ytdl import yt_info, get_video_formats, get_video_link, yt_video_down, yt_audio_down
+from userbot.functions.ytdl import yt_info, get_video_formats, get_audio_formats, yt_video_down, yt_audio_down
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
