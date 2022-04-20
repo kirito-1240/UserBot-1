@@ -31,21 +31,19 @@ async def ytdl(event):
     await download_file(info["thumbnail"], thumb)
     list = get_video_formats(link)
     buttons = []
-    buttons.append([
-        Button.inline(
-            f"🎞 {vid} - {list[vid]}",
-            data=f"ytdown||video||{info['id']}||{vid}",
-        )
-        for vid in list
-    ])
+    for vid in list:
+        buttons.append(
+            Button.inline(
+                f"🎞 {vid} - {list[vid]}",
+                data=f"ytdown||video||{info['id']}||{vid}",
+           ))
     list = get_audio_formats(link)
-    buttons.append([
-        Button.inline(
-            f"🎵 {aud} - {list[aud]}",
-            data=f"ytdown||audio||{info['id']}||{aud}",
-        )
-        for aud in list
-    ])
+    for aud in list:
+        buttons.append(
+            Button.inline(
+                f"🎵 {aud} - {list[aud]}",
+                data=f"ytdown||audio||{info['id']}||{aud}",
+            ))
     buttons = (buttons[::2], buttons[1::2])
     result = event.builder.photo(
         file=thumb,
