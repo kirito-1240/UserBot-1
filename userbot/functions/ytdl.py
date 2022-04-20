@@ -1,5 +1,6 @@
 from youtubesearchpython import Video, ResultMode
 from yt_dlp import YoutubeDL
+from concurrent.futures import ProcessPoolExecutor
 import asyncio
 import time
 
@@ -85,3 +86,15 @@ def yt_audio_down(url, format_id, filename):
         }
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
+
+PPE = ProcessPoolExecutor()
+
+async def yt_video(url, format_id, filename):
+    loop = asyncio.get_event_loop()
+    futs = loop.run_in_executor(PPE, yt_video_down, url, format_id, filename)
+    return await asyncio.gather(futs)
+
+async def yt_audio(url, format_id, filename):
+    loop = asyncio.get_event_loop()
+    futs = loop.run_in_executor(PPE, yt_audio_down, url, format_id, filename)
+    return await asyncio.gather(futs)
