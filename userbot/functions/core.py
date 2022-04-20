@@ -15,8 +15,8 @@ async def progress(current, total, event, start, type, filename):
         elaptime = round(diff) * 1000
         tcom = round((total - current) / speed) * 1000
         eta = convert_time(elaptime + tcom)
-        com = "".join(["▰" for i in range(math.floor(percentage / 15))])
-        rem = "".join(["▱" for i in range(15 - math.floor(percentage / 15))])
+        com = "".join(["▰" for i in range(math.floor(percentage / 10))])
+        rem = "".join(["▱" for i in range(10 - math.floor(percentage / 10))])
         percent = round(percentage, 2)
         frem = convert_bytes(current)
         ftotal = convert_bytes(total)
