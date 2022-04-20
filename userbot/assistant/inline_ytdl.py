@@ -32,8 +32,8 @@ async def ytdl(event):
     list = get_video_formats(link)
     butts = [
         Button.inline(
-            text=f"🎞 {vid} - {list[vid]}",
-            data=f"ytdown||video||{link}||{vid}",
+            f"🎞 {vid} - {list[vid]}",
+            data=f"ytdown||video||{info['id']}||{vid}",
         )
         for vid in list
     ]
@@ -43,8 +43,8 @@ async def ytdl(event):
     list = get_audio_formats(link)
     butts = [
         Button.inline(
-            text=f"🎞 {aud} - {list[aud]}",
-            data=f"ytdown||audio||{link}||{aud}",
+            f"🎵 {aud} - {list[aud]}",
+            data=f"ytdown||audio||{info['id']}||{aud}",
         )
         for aud in list
     ]
