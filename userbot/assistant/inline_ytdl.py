@@ -79,7 +79,7 @@ async def ytdown(event):
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         link = get_video_link(id, qua)
         print(link)
-        loop.create_task(download_file(link, filename))
+        await download_file(link, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
