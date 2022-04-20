@@ -6,7 +6,7 @@ from userbot.database import DB
 from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file, downloadfile
-from userbot.functions.ytdl import yt_info, get_video_formats, get_video_link, get_audio_formats, get_audio_link
+from userbot.functions.ytdl import yt_info, get_video_formats, get_video_link, yt_video_down, yt_audio_down
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
@@ -34,8 +34,8 @@ async def ytdl(event):
     for vid in list:
         past.append(
             Button.inline(
-                f"🎞 {vid} - {convert_bytes(int(list[vid]))}",
-                data=f"ytdown||video||{info['id']}||{vid}",
+                f"🎞 {vid} - {convert_bytes(int(vid['size']))}",
+                data=f"ytdown||video||{info['id']}||{vid['format_id']}",
            ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -47,8 +47,8 @@ async def ytdl(event):
     for aud in list:
         past.append(
             Button.inline(
-                f"🎵 {aud} - {convert_bytes(int(list[aud]))}",
-                data=f"ytdown||audio||{info['id']}||{aud}",
+                f"🎵 {aud} - {convert_bytes(int(aud['size']))}",
+                data=f"ytdown||audio||{info['id']}||{aud['format_id']}",
             ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -66,7 +66,7 @@ async def ytdl(event):
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     id = str(event.pattern_match.group(2).decode('utf-8'))
-    qua = str(event.pattern_match.group(3).decode('utf-8'))
+    format_id = int(event.pattern_match.group(3).decode('utf-8'))
     info = yt_info(id)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
@@ -77,8 +77,7 @@ async def ytdown(event):
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        link = get_video_link(id, qua)
-        downloadfile(link, filename)
+        yt_video_down("https://www.youtube.com/watch?v={}".format(id), format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
@@ -92,8 +91,7 @@ async def ytdown(event):
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        link = get_audio_link(id, qua)
-        loop.create_task(download_file(link, filename))
+        yt_audio_down("https://www.youtube.com/watch?v={}".format(id), format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
