@@ -72,9 +72,9 @@ def yt_audio_down(url, format_id, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "audio_quality", format_id,
+            "audio_quality": format_id,
             "postprocessors": [
-                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3"}
+                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3"},
             ],
             "outtmpl": filename,
             "logtostderr": False,
