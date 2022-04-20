@@ -46,7 +46,7 @@ async def ytdl(event):
         )
         for aud in list
     ])
-    buttons = zip(buttons[::2], buttons[1::2])
+    buttons = (buttons[::2], buttons[1::2])
     result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["uploader"], desc)),
