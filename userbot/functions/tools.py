@@ -2,6 +2,16 @@ from userbot.core.logger import LOGS
 import os, re, random
 from bs4 import BeautifulSoup
 import aiohttp, aiofiles
+import requests
+
+def downloadfile(url, filename)
+    r = requests.get(url)
+    f = open(filename, 'wb')
+    for chunk in r.iter_content(chunk_size=512 * 1024): 
+        if chunk:
+            f.write(chunk)
+    f.close()
+    return filename
 
 async def download_file(link, name):
     async with aiohttp.ClientSession() as ses:
