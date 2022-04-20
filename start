@@ -13,7 +13,7 @@ repo = Repo.init()
 origin = repo.create_remote("temponame", OFFICIAL_UPSTREAM_REPO)
 origin.fetch()
 repo.create_head(ACTIVE_BRANCH_NAME, origin.refs[ACTIVE_BRANCH_NAME])
-repo.heads[ACTIVE_BRANCH_NAME].checkout(True) ')
+repo.heads[ACTIVE_BRANCH_NAME].checkout(True)')
 }
 
 _start_bot () {
