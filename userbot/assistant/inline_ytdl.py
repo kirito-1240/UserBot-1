@@ -11,6 +11,7 @@ from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
 import os
+time
 
 INFO = """
 **• Title:** ( `{}` )
@@ -77,6 +78,7 @@ async def ytdown(event):
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         link = get_video_link(id, qua)
+        print(link)
         loop.create_task(download_file(link, filename))
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
