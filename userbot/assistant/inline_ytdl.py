@@ -63,10 +63,11 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)"), owner=True)
+@alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
-    link = str(event.pattern_match.group(2).decode('utf-8'))
+    id = str(event.pattern_match.group(2).decode('utf-8'))
+    qua = str(event.pattern_match.group(2).decode('utf-8'))
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
@@ -76,8 +77,8 @@ async def ytdown(event):
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_video(link, filename)
-        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
+        link = get_video_link(id, qua)
+        await event.edit(f"`• Uploading {link} . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
                 duration=int(info["duration"]),
@@ -90,8 +91,8 @@ async def ytdown(event):
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_audio(link, filename)
-        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
+        link = get_audio_link(id, qua)
+        await event.edit(f"`• Uploading {link} . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
                 duration=int(info["duration"]),
