@@ -26,7 +26,7 @@ async def ytdl(event):
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
-    thumb = info["title"] + ".jpg"
+    thumb = info["id"] + ".jpg"
     await download_file(info["thumbnail"], thumb)
     list = get_video_formats(link)
     buttons = []
@@ -69,13 +69,13 @@ async def ytdown(event):
     format_id = str(event.pattern_match.group(3).decode('utf-8'))
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
-    thumb = info["title"] + ".jpg"
+    thumb = info["id"] + ".jpg"
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
     loop = asyncio.get_event_loop()
     if type == "v":
-        filename = info["title"] + ".mp4"
+        filename = info["id"] + ".mp4"
         if os.path.exists(filename):
             os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
@@ -91,7 +91,7 @@ async def ytdown(event):
         ]
         loop.create_task(send_file(event, filename, info, link, attributes))
     elif type == "a":
-        filename = info["title"] + ".mp3"
+        filename = info["id"] + ".mp3"
         if os.path.exists(filename):
             os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
@@ -108,7 +108,7 @@ async def ytdown(event):
 
 async def send_file(event, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
-    thumb = info["title"] + ".jpg"
+    thumb = info["id"] + ".jpg"
     ctime = time.time()
     progress_callback = lambda current, total: progress(current, total, event, ctime, "u", filename)
     await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, progress_callback=progress_callback, caption=INFO.format(info["title"], link, info["view_count"], info["uploader"], desc))
