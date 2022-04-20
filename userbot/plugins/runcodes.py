@@ -5,6 +5,7 @@ import os
 import sys
 import io
 import traceback
+import asyncio
 
 async def runner(code , event):
     chat = await event.get_chat()
