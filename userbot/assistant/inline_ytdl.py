@@ -34,8 +34,8 @@ async def ytdl(event):
     for vid in list:
         past.append(
             Button.inline(
-                f"🎞 {vid} - {convert_bytes(int(list[vid]['size']))}",
-                data=f'ytdown||video||{info["id"]}||{list[vid]["format_id"]}',
+                f"🎞 {vid} - {list[vid]['type']}",
+                data=f'yt||v||{link}||{list[vid]["format_id"]}',
            ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -47,8 +47,8 @@ async def ytdl(event):
     for aud in list:
         past.append(
             Button.inline(
-                f"🎵 {aud} - {convert_bytes(int(list[aud]['size']))}",
-                data=f'ytdown||audio||{info["id"]}||{list[aud]["format_id"]}',
+                f"🎵 {aud} - {list[aud]['type']}",
+                data=f'yt||a||{link}||{list[aud]["format_id"]}',
             ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -62,22 +62,22 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_callback(re.compile("ytdown\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
+@alien_callback(re.compile("yt\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
-    id = str(event.pattern_match.group(2).decode('utf-8'))
+    link = str(event.pattern_match.group(2).decode('utf-8'))
     format_id = int(event.pattern_match.group(3).decode('utf-8'))
-    info = yt_info(id)
+    info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
     loop = asyncio.get_event_loop()
-    if type == "video":
+    if type == "v":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        yt_video_down("https://www.youtube.com/watch?v={}".format(id), format_id, filename)
+        yt_video_down(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
@@ -88,10 +88,10 @@ async def ytdown(event):
             )
         ]
         loop.create_task(send_file(event, filename, info, link, attributes))
-    elif type == "audio":
+    elif type == "a":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        yt_audio_down("https://www.youtube.com/watch?v={}".format(id), format_id, filename)
+        yt_audio_down(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
