@@ -27,9 +27,8 @@ def get_video_formats(url):
         if "video/mp4" in format["mimeType"]:
             quality = format["qualityLabel"]
             if quality not in list:
-                size = format["contentLength"]
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "size": size}})
+                list.update({quality: format_id})
     return list
 
 def get_audio_formats(url):
@@ -40,9 +39,8 @@ def get_audio_formats(url):
         if "audio/mp4" in format["mimeType"]:
             quality = format["audioQuality"].lower().split("_")[-1]
             if quality not in list:
-                size = format["contentLength"]
                 format_id = format["itag"]
-                list.update({quality: {"format_id": format_id, "size": size}})
+                list.update({quality: format_id})
     return list
 
 def yt_video_down(url, format_id, filename):
