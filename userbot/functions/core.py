@@ -9,13 +9,14 @@ async def progress(current, total, event, start, type, filename):
         act = "• Uploading . . ."
     now = time.time()
     diff = now - start
+    print(diff)
     if round(diff % 10.00) == 0 or current == total:
         percentage = current * 100 / total
         speed = current / diff
         elaptime = round(diff) * 1000
         tcom = round((total - current) / speed) * 1000
         eta = convert_time(elaptime + tcom)
-        com = "●".join(["●" for i in range(math.floor(percentage / 5))])
+        com = "".join(["●" for i in range(math.floor(percentage / 8))])
         percent = round(percentage, 2)
         frem = convert_bytes(current)
         ftotal = convert_bytes(total)
