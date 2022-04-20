@@ -5,8 +5,9 @@ from concurrent.futures import ProcessPoolExecutor
 import asyncio
 import time
 
-def my_hook(d):
-    print(d)
+async def my_hook(d, event):
+    print(d["status"])
+    await event.edit(str(d["status"]))
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
@@ -41,7 +42,7 @@ def yt_video_down(url, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "progress_hooks":  [my_hook],
+            "progress_hooks":  [my_hook(event)],
             "postprocessors": [
                 {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
             ],
