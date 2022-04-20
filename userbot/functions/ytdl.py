@@ -23,7 +23,6 @@ def get_video_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
     list = {}
-    x = 0
     for format in info:
         if "video/mp4" in format["mimeType"]:
             quality = format["qualityLabel"]
@@ -31,38 +30,21 @@ def get_video_formats(url):
                 quality = (format["qualityLabel"])[:-2]
             if quality not in list:
                 format_id = format["itag"]
-                quality = quality + str(x)
-                list.update({quality: {"format_id": format_id, "type": "mp4"}})
-        elif "video/webm" in format["mimeType"]:
-            quality = format["qualityLabel"]
-            if not quality.endswith("p"):
-                quality = (format["qualityLabel"])[:-2]
-            if quality not in list:
-                format_id = format["itag"]
-                quality = quality + str(x)
-                list.update({quality: {"format_id": format_id, "type": "webm"}})
-        x += 1
+                quality = f"{quality} - mp4"
+                list.update({quality: format_id})
     return list
 
 def get_audio_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
     list = {}
-    x = 0
     for format in info:
         if "audio/mp4" in format["mimeType"]:
             quality = format["audioQuality"].lower().split("_")[-1]
             if quality not in list:
                 format_id = format["itag"]
-                quality = quality + str(x)
-                list.update({quality: {"format_id": format_id, "type": "mp3"}})
-        elif "audio/webm" in format["mimeType"]:
-            quality = format["audioQuality"].lower().split("_")[-1]
-            if quality not in list:
-                format_id = format["itag"]
-                quality = quality + str(x)
-                list.update({quality: {"format_id": format_id, "type": "webm"}})
-        x += 1
+                quality = f"{quality} - mp3"
+                list.update({quality: format_id})
     return list
 
 def yt_video_down(url, format_id, filename):
