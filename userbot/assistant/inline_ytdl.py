@@ -76,6 +76,8 @@ async def ytdown(event):
     loop = asyncio.get_event_loop()
     if type == "v":
         filename = info["title"] + ".mp4"
+        if os.path.exists(filename):
+            os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         await yt_video(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
@@ -90,6 +92,8 @@ async def ytdown(event):
         loop.create_task(send_file(event, filename, info, link, attributes))
     elif type == "a":
         filename = info["title"] + ".mp3"
+        if os.path.exists(filename):
+            os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         await yt_audio(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
