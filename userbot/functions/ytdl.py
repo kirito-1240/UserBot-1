@@ -31,7 +31,7 @@ def yt_info(url):
     }
     return result
 
-async def yt_video_down(url, filename, event):
+async def yt_video_down(url, filename):
     ctime = time.time()
     opts = {
             "format": "best",
@@ -52,7 +52,7 @@ async def yt_video_down(url, filename, event):
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
 
-async def yt_audio_down(url, filename, event):
+async def yt_audio_down(url, filename):
     ctime = time.time()
     opts = {
             "format": "bestaudio",
@@ -80,12 +80,12 @@ async def yt_audio_down(url, filename, event):
 
 PPE = ProcessPoolExecutor()
 
-async def yt_video(url, filename, event):
+async def yt_video(url, filename):
     loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename, event)
-    return await asyncio.gather(yt_video_down(url, filename, event))
+    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename)
+    return await asyncio.gather(fucs)
 
-async def yt_audio(url, filename, event):
+async def yt_audio(url, filename):
     loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename, event)
-    return await asyncio.gather(yt_audio_down(url, filename, event))
+    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename)
+    return await asyncio.gather(fucs)
