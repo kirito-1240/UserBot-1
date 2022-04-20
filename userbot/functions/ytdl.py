@@ -27,7 +27,8 @@ def get_video_formats(url):
             quality = format["qualityLabel"]
             if quality not in list:
                 size = format["contentLength"]
-                list.update({quality: size})
+                format_id = format["itag"]
+                list.update({quality: {"format_id": format_id, "size": size}})
     return list
 
 def get_audio_formats(url):
@@ -39,25 +40,45 @@ def get_audio_formats(url):
             quality = format["audioQuality"].lower().split("_")[-1]
             if quality not in list:
                 size = format["contentLength"]
-                list.update({quality: size})
+                format_id = format["itag"]
+                list.update({quality: {"format_id": format_id, "size": size}})
     return list
 
-def get_video_link(url, quality):
-    get = Video.getFormats(url)
-    info = get["streamingData"]["adaptiveFormats"]
-    for format in info:
-        if "video/mp4" in format["mimeType"]:
-            qua = format["qualityLabel"]
-            if qua == quality:
-                return format["url"]
-    return None
+def yt_video_down(url, format_id, filename):
+    opts = {
+            "format": f"{format_id}+bestaudio",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "ignore_errors": True,
+            "nocheckcertificate": True,
+            "postprocessors": [
+                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
+            ],
+            "outtmpl": filename,
+            "logtostderr": False,
+            "quiet": True,
+        }
+    with YoutubeDL(opts) as ytdl:
+        ytdl.download([url])
 
-def get_audio_link(url, qua):
-    get = Video.getFormats(url)
-    info = get["streamingData"]["adaptiveFormats"]
-    for format in info:
-        if "audio/mp4" in format["mimeType"]:
-            qua = format["audioQuality"].lower().split("_")[-1]
-            if qua == quality:
-                return format["url"]
-    return None
+def yt_audio_down(url, format_id, filename):
+    opts = {
+            "format": "bestaudio",
+            "addmetadata": True,
+            "key": "FFmpegMetadata",
+            "prefer_ffmpeg": True,
+            "geo_bypass": True,
+            "ignore_errors": True,
+            "nocheckcertificate": True,
+            "audio_quality", format_id,
+            "postprocessors": [
+                {"key": "FFmpegExtractAudio", "preferredcodec": "mp3"}
+            ],
+            "outtmpl": filename,
+            "logtostderr": False,
+            "quiet": True,
+        }
+    with YoutubeDL(opts) as ytdl:
+        ytdl.download([url])
