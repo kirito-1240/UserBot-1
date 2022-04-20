@@ -5,7 +5,6 @@ import os
 import sys
 import io
 import traceback
-import asyncio
 
 async def runner(code , event):
     chat = await event.get_chat()
@@ -28,7 +27,7 @@ async def runcodes(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await asyncio.gather(runner(cmd , event))
+        await runner(cmd , event)
     except Exception as e:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
