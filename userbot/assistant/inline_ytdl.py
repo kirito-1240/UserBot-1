@@ -47,7 +47,7 @@ async def ytdl(event):
     for aud in list:
         past.append(
             Button.inline(
-                f"🎵 {aud} - {list[aud]}}",
+                f"🎵 {aud} - {list[aud]}",
                 data=f"ytdown||audio||{info['id']}||{aud['format_id']}",
             ))
         if len(past) == 2:
