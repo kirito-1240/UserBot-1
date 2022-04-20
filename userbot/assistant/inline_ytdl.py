@@ -1,4 +1,4 @@
-fromm userbot import app
+from userbot import app
 from userbot.events import alien_inline, alien_callback
 from telethon import Button
 from PIL import Image
