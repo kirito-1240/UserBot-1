@@ -11,7 +11,7 @@ from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
 import os
-time
+import time
 
 INFO = """
 **• Title:** ( `{}` )
