@@ -11,8 +11,6 @@ from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
 import os
-import math
-import time
 
 INFO = """
 **• Title:** ( `{}` )
@@ -74,11 +72,13 @@ async def ytdown(event):
     img = Image.open(thumb)
     img.resize((320, 320))
     img.save(thumb, "JPEG")
+    loop = asyncio.get_event_loop()
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         link = get_video_link(id, qua)
-        await event.edit(f"`• Uploading {link} . . .`\n\n__• This May Take A Long Time!__")
+        loop.create_task(download_file(link, filename))
+        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
                 duration=int(info["duration"]),
@@ -87,12 +87,13 @@ async def ytdown(event):
                 supports_streaming=True,
             )
         ]
-        await asyncio.gather(send_file(event, filename, info, link, attributes))
+        loop.create_task(send_file(event, filename, info, link, attributes))
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         link = get_audio_link(id, qua)
-        await event.edit(f"`• Uploading {link} . . .`\n\n__• This May Take A Long Time!__")
+        loop.create_task(download_file(link, filename))
+        await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
                 duration=int(info["duration"]),
@@ -100,14 +101,14 @@ async def ytdown(event):
                 performer=str(info["uploader"]),
             )
         ]
-        await asyncio.gather(send_file(event, filename, info, link, attributes))
+        loop.create_task(send_file(event, filename, info, link, attributes))
 
 async def send_file(event, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     ctime = time.time()
     progress_callback = lambda current, total: progress(current, total, event, ctime, "u", filename)
-    await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, progress_callback=progress_callback, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
+    await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, progress_callback=progress_callback, caption=INFO.format(info["title"], link, info["view_count"], info["uploader"], desc))
     os.remove(filename)
     os.remove(thumb)
     chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
