@@ -38,7 +38,7 @@ def yt_video_down(url, filename, event):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)]
+            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)],
             "postprocessors": [
                 {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
             ],
@@ -59,7 +59,7 @@ def yt_audio_down(url, filename, event):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)]
+            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)],
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
