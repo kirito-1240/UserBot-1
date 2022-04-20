@@ -22,7 +22,7 @@ def yt_info(url):
 def get_video_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
-    list = []
+    list = {}
     x = 0
     for format in info:
         if "video/mp4" in format["mimeType"]:
@@ -47,7 +47,7 @@ def get_video_formats(url):
 def get_audio_formats(url):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
-    list = []
+    list = {}
     x = 0
     for format in info:
         if "audio/mp4" in format["mimeType"]:
