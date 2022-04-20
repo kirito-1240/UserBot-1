@@ -34,8 +34,8 @@ async def ytdl(event):
     for vid in list:
         past.append(
             Button.inline(
-                f"🎞 {vid} - {list[vid]}",
-                data=f'ytdown||video||{info["id"]}||{vid["format_id"]}',
+                f"🎞 {vid} - {convert_bytes(int(list[vid]['size']))}",
+                data=f'ytdown||video||{info["id"]}||{list[vid]["format_id"]}',
            ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -47,8 +47,8 @@ async def ytdl(event):
     for aud in list:
         past.append(
             Button.inline(
-                f"🎵 {aud} - {list[aud]}",
-                data=f'ytdown||audio||{info["id"]}||{aud["format_id"]}',
+                f"🎵 {aud} - {convert_bytes(int(list[aud]['size']))}",
+                data=f'ytdown||audio||{info["id"]}||{list[aud]["format_id"]}',
             ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
