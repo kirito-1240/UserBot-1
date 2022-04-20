@@ -28,7 +28,7 @@ def yt_info(url):
     }
     return result
 
-def yt_video_down(url, filename, event):
+async def yt_video_down(url, filename, event):
     ctime = time.time()
     opts = {
             "format": "best",
@@ -49,7 +49,7 @@ def yt_video_down(url, filename, event):
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
 
-def yt_audio_down(url, filename, event):
+async def yt_audio_down(url, filename, event):
     ctime = time.time()
     opts = {
             "format": "bestaudio",
