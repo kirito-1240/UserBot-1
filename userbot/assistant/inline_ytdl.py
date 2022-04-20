@@ -6,7 +6,7 @@ from userbot.database import DB
 from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file, downloadfile
-from userbot.functions.ytdl import yt_info, get_video_formats, get_audio_formats, yt_video_down, yt_audio_down
+from userbot.functions.ytdl import yt_info, get_video_formats, get_audio_formats, yt_video, yt_audio
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
@@ -77,7 +77,7 @@ async def ytdown(event):
     if type == "v":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        yt_video_down(link, format_id, filename)
+        await yt_video(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
@@ -91,7 +91,7 @@ async def ytdown(event):
     elif type == "a":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        yt_audio_down(link, format_id, filename)
+        await yt_audio(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
