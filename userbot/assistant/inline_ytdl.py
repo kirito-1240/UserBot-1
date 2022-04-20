@@ -6,8 +6,7 @@ from userbot.database import DB
 from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
-from concurrent.futures import ProcessPoolExecutor
-from userbot.functions.ytdl import yt_info, yt_video, yt_audio
+from userbot.functions.ytdl import yt_info, get_video_formats, get_video_link, get_audio_formats, get_audio_link
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
 import asyncio
@@ -19,8 +18,6 @@ INFO = """
 **• Title:** ( `{}` )
 **• Link:** ( `{}` )
 **• View Count:** ( `{}` )
-**• Like Count:** ( `{}` )
-**• Subscribes Count:** ( `{}` )
 **• Uploader:** ( `{}` )
 **• Description:** ( `{}` )
 """
@@ -32,10 +29,31 @@ async def ytdl(event):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     await download_file(info["thumbnail"], thumb)
-    buttons = [[Button.inline("🎞 Video 🎞", data=f"ytdown||video||{link}"), Button.inline("🎵 Audio 🎵", data=f"ytdown||audio||{link}")]]
-    result = event.builder.photo(
+    list = get_video_formats(link)
+    butts = [
+        Button.inline(
+            text=f"🎞 {vid} - {list[vid]}",
+            data=f"ytdown||video||{link}||{vid}",
+        )
+        for vid in list
+    ]
+    buttons = list(zip(butts[::2], butts[1::2]))
+    if len(butts) % 2 == 1:
+        buttons.append((butts[-1]))
+    list = get_audio_formats(link)
+    butts = [
+        Button.inline(
+            text=f"🎞 {aud} - {list[aud]}",
+            data=f"ytdown||audio||{link}||{aud}",
+        )
+        for aud in list
+    ]
+    buttons.append(list(zip(butts[::2], butts[1::2])))
+    if len(butts) % 2 == 1:
+        buttons.append((butts[-1]))
+     result = event.builder.photo(
         file=thumb,
-        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc)),
+        text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["uploader"], desc)),
         buttons=buttons,
     )
     await event.answer([result])
