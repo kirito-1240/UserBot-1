@@ -52,7 +52,7 @@ def get_video_link(url, quality):
                 return format["url"]
     return None
 
-def get_audio_link(url):
+def get_audio_link(url, qua):
     get = Video.getFormats(url)
     info = get["streamingData"]["adaptiveFormats"]
     for format in info:
