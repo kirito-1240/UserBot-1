@@ -1,85 +1,63 @@
-from yt_dlp import YoutubeDL
-from datetime import datetime
-from concurrent.futures import ProcessPoolExecutor
+from youtubesearchpython import Video, ResultMode
 import asyncio
 import time
 
 def yt_info(url):
-    info = YoutubeDL().extract_info(url, download=False)
-    upload_date = int(info["upload_date"])
-    upload_date = datetime.fromtimestamp(upload_date)
-    upload_date = upload_date.strftime("%Y/%m/%d - %H:%M:%S")
+    info = Video.getInfo(url, mode=ResultMode.json)
     result = {
         "title": info["title"],
         "id": info["id"],
-        "duration": info["duration"],
+        "duration": info["duration"]["secondsText"],
         "description": info["description"],
-        "thumbnail": info["thumbnail"],
-        "uploader": info["uploader"],
-        "uploader_url": info["uploader_url"],
-        "channel_url": info["channel_url"],
-        "width": info["width"],
-        "height": info["height"],
-        "like_count": info["like_count"],
-        "view_count": info["view_count"],
-        "subs_count": info["channel_follower_count"],
-        "upload_date": upload_date,
+        "thumbnail": info["thumbnails"][-1]["url"],
+        "uploader": info["channel"]["name"],
+        "width": info["thumbnails"][-1]["width"],
+        "height": info["thumbnails"][-1]["height"],
+        "view_count": info["viewCount"]["text"],
+        "upload_date": info["uploadDate"],
     }
     return result
 
-def yt_video_down(url, filename):
-    ctime = time.time()
-    opts = {
-            "format": "best",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "ignore_errors": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
-            ],
-            "outtmpl": filename,
-            "logtostderr": False,
-            "quiet": True,
-        }
-    with YoutubeDL(opts) as ytdl:
-        ytdl.download([url])
+def get_video_formats(url):
+    get = Video.getFormats(url)
+    info = get["streamingData"]["adaptiveFormats"]
+    list = []
+    for format in info:
+        if "video/mp4" in format["mimeType"]:
+            quality = format["qualityLabel"]
+            if quality not in list:
+                size = format["contentLength"]
+                list.append({quality: size})
+    return list
 
-def yt_audio_down(url, filename):
-    ctime = time.time()
-    opts = {
-            "format": "bestaudio",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "ignore_errors": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "480",
-                }
-            ],
-            "outtmpl": filename,
-            "logtostderr": False,
-            "quiet": True,
-        }
-    with YoutubeDL(opts) as ytdl:
-        ytdl.download([url])
+def get_audio_formats(url):
+    get = Video.getFormats(url)
+    info = get["streamingData"]["adaptiveFormats"]
+    list = []
+    for format in info:
+        if "audio/mp4" in format["mimeType"]:
+            quality = format["audioQuality"].lower().split("_")[-1]
+            if quality not in list:
+                size = format["contentLength"]
+                list.append({quality: size})
+    return list
 
+def get_video_link(url, quality):
+    get = Video.getFormats(url)
+    info = get["streamingData"]["adaptiveFormats"]
+    for format in info:
+        if "video/mp4" in format["mimeType"]:
+            qua = format["qualityLabel"]
+            if qua == quality:
+                return format["url"]
+    return None
 
-PPE = ProcessPoolExecutor()
-
-async def yt_video(url, filename):
-    loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename)
-    return await asyncio.gather(fucs)
-
-async def yt_audio(url, filename):
-    loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename)
-    return await asyncio.gather(fucs)
+def get_audio_link(url):
+    get = Video.getFormats(url)
+    info = get["streamingData"]["adaptiveFormats"]
+    for format in info:
+        if "audio/mp4" in format["mimeType"]:
+            qua = format["audioQuality"].lower().split("_")[-1]
+            if qua == quality:
+                return format["url"]
+    return None
