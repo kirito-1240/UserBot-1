@@ -68,7 +68,7 @@ async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     id = str(event.pattern_match.group(2).decode('utf-8'))
     qua = str(event.pattern_match.group(2).decode('utf-8'))
-    info = yt_info(link)
+    info = yt_info(id)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     img = Image.open(thumb)
