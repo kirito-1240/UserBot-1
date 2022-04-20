@@ -35,7 +35,7 @@ async def ytdl(event):
         past.append(
             Button.inline(
                 f"🎞 {vid} - {list[vid]}",
-                data=f"ytdown||video||{info['id']}||{vid['format_id']}",
+                data=f'ytdown||video||{info["id"]}||{vid["format_id"]}',
            ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
@@ -48,7 +48,7 @@ async def ytdl(event):
         past.append(
             Button.inline(
                 f"🎵 {aud} - {list[aud]}",
-                data=f"ytdown||audio||{info['id']}||{aud['format_id']}",
+                data=f'ytdown||audio||{info["id"]}||{aud["format_id"]}',
             ))
         if len(past) == 2:
             buttons.append([past[0], past[1]])
