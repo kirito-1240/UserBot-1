@@ -53,7 +53,7 @@ async def ytdown(event):
     if type == "video":
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_video(link, filename)
+        await yt_video(link, filename, event)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
@@ -67,7 +67,7 @@ async def ytdown(event):
     elif type == "audio":
         filename = info["title"] + ".mp3"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_audio(link, filename)
+        await yt_audio(link, filename, event)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
