@@ -66,7 +66,7 @@ async def ytdl(event):
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
-    format = str(event.pattern_match.group(3).decode('utf-8'))
+    format_id = str(event.pattern_match.group(3).decode('utf-8'))
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
@@ -79,7 +79,7 @@ async def ytdown(event):
         if os.path.exists(filename):
             os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_video(link, format, filename)
+        await yt_video(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
@@ -95,7 +95,7 @@ async def ytdown(event):
         if os.path.exists(filename):
             os.remove(filename)
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
-        await yt_audio(link, format, filename)
+        await yt_audio(link, format_id, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeAudio(
