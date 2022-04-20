@@ -30,9 +30,9 @@ def get_video_formats(url):
             if not quality.endswith("p"):
                 quality = (format["qualityLabel"])[:-2]
             if quality not in list:
-                format = quality.replace("p", "")
+                format_id = format["itag"]
                 quality = f"{quality} - mp4"
-                list.update({quality: format})
+                list.update({quality: format_id})
     return list
 
 def get_audio_formats(url):
@@ -48,9 +48,9 @@ def get_audio_formats(url):
                 list.update({quality: format_id})
     return list
 
-def yt_video_down(url, format, filename):
+def yt_video_down(url, format_id, filename):
     opts = {
-            "format": f"bestvideo[height={format}]+bestaudio",
+            "format": f"{format_id}+bestaudio",
             "addmetadata": True,
             "key": "FFmpegMetadata",
             "prefer_ffmpeg": True,
