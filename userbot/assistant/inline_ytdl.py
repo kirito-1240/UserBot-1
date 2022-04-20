@@ -32,11 +32,11 @@ async def ytdl(event):
     list = get_video_formats(link)
     buttons = []
     for vid in list:
-        buttons.append(
+        buttons.append([
             Button.inline(
                 f"🎞 {vid} - {list[vid]}",
                 data=f"ytdown||video||{info['id']}||{vid}",
-           ))
+           )])
     list = get_audio_formats(link)
     for aud in list:
         buttons.append(
