@@ -5,7 +5,7 @@ from PIL import Image
 from userbot.database import DB
 from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
-from userbot.functions.tools import download_file
+from userbot.functions.tools import download_file, downloadfile
 from userbot.functions.ytdl import yt_info, get_video_formats, get_video_link, get_audio_formats, get_audio_link
 from telethon.tl.types import DocumentAttributeVideo, DocumentAttributeAudio
 import re
@@ -78,8 +78,7 @@ async def ytdown(event):
         filename = info["title"] + ".mp4"
         await event.edit("`• Downloading . . .`\n\n__• This May Take A Long Time!__")
         link = get_video_link(id, qua)
-        print(link)
-        await download_file(link, filename)
+        downloadfile(link, filename)
         await event.edit("`• Uploading . . .`\n\n__• This May Take A Long Time!__")
         attributes=[
             DocumentAttributeVideo(
