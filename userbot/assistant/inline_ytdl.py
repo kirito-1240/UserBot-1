@@ -37,9 +37,11 @@ async def ytdl(event):
                 f"🎞 {vid} - {list[vid]['type']}",
                 data=f'yt||v||{link}||{list[vid]["format_id"]}',
            ))
-        if len(past) == 2:
-            buttons.append([past[0], past[1]])
+        if len(past) == 3:
+            buttons.append([past[0], past[1], past[2]])
             past = []
+    if len(past) == 2:
+        buttons.append([past[0], past[1]])
     if len(past) == 1:
         buttons.append([past[0]])
     list = get_audio_formats(link)
@@ -50,9 +52,11 @@ async def ytdl(event):
                 f"🎵 {aud} - {list[aud]['type']}",
                 data=f'yt||a||{link}||{list[aud]["format_id"]}',
             ))
-        if len(past) == 2:
-            buttons.append([past[0], past[1]])
+        if len(past) == 3:
+            buttons.append([past[0], past[1], past[2]])
             past = []
+    if len(past) == 2:
+        buttons.append([past[0], past[1]])
     if len(past) == 1:
         buttons.append([past[0]])
     result = event.builder.photo(
