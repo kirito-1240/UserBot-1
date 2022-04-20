@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import aiohttp, aiofiles
 import requests
 
-def downloadfile(url, filename)
+def downloadfile(url, filename):
     r = requests.get(url)
     f = open(filename, 'wb')
     for chunk in r.iter_content(chunk_size=512 * 1024): 
