@@ -1,7 +1,9 @@
 from yt_dlp import YoutubeDL
+from userbot.functions.core import progress
 from datetime import datetime
 from concurrent.futures import ProcessPoolExecutor
 import asyncio
+import time
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
@@ -26,7 +28,8 @@ def yt_info(url):
     }
     return result
 
-def yt_video_down(url, filename):
+def yt_video_down(url, filename, event):
+    ctime = time.time()
     opts = {
             "format": "best",
             "addmetadata": True,
@@ -35,6 +38,7 @@ def yt_video_down(url, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
+            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)]
             "postprocessors": [
                 {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
             ],
@@ -45,7 +49,8 @@ def yt_video_down(url, filename):
     with YoutubeDL(opts) as ytdl:
         ytdl.download([url])
 
-def yt_audio_down(url, filename):
+def yt_audio_down(url, filename, event):
+    ctime = time.time()
     opts = {
             "format": "bestaudio",
             "addmetadata": True,
@@ -54,6 +59,7 @@ def yt_audio_down(url, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
+            "progress_hooks":  [lambda prog: progress(prog["downloaded_bytes"], prog["total_bytes"], event, ctime, "d", filename)]
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
@@ -71,12 +77,12 @@ def yt_audio_down(url, filename):
 
 PPE = ProcessPoolExecutor()
 
-async def yt_video(url, filename):
+async def yt_video(url, filename, event):
     loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename)
+    fucs = loop.run_in_executor(PPE, yt_video_down, url, filename, event)
     return await asyncio.gather(fucs)
 
-async def yt_audio(url, filename):
+async def yt_audio(url, filename, event):
     loop = asyncio.get_event_loop()
-    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename)
+    fucs = loop.run_in_executor(PPE, yt_audio_down, url, filename, event)
     return await asyncio.gather(fucs)
