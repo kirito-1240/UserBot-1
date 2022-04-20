@@ -7,7 +7,7 @@ import time
 
 async def my_hook(d, event):
     print(d["status"])
-    await event.edit(str(d["status"]))
+    print(event)
 
 def yt_info(url):
     info = YoutubeDL().extract_info(url, download=False)
@@ -42,7 +42,7 @@ def yt_video_down(url, filename):
             "geo_bypass": True,
             "ignore_errors": True,
             "nocheckcertificate": True,
-            "progress_hooks":  [my_hook(event)],
+            "progress_hooks":  [my_hook(filename)],
             "postprocessors": [
                 {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
             ],
@@ -68,7 +68,7 @@ def yt_audio_down(url, filename):
                 {
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "mp3",
-                    "preferredquality": "320",
+                    "preferredquality": "480",
                 }
             ],
             "outtmpl": filename,
