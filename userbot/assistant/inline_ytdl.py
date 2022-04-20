@@ -3,6 +3,7 @@ from userbot.events import alien_inline, alien_callback
 from telethon import Button
 from PIL import Image
 from userbot.database import DB
+from userbot.functions.core import progress
 from userbot.utils import convert_time, convert_bytes
 from userbot.functions.tools import download_file
 from concurrent.futures import ProcessPoolExecutor
@@ -77,36 +78,11 @@ async def ytdown(event):
         ]
         await asyncio.gather(send_file(event, filename, info, link, attributes))
 
-async def progress(current, total, event, start, type_of_ps, file_name):
-    now = time.time()
-    diff = now - start
-    if round(diff % 10.00) == 0 or current == total:
-        percentage = current * 100 / total
-        speed = current / diff
-        elapsed_time = round(diff) * 1000
-        time_to_completion = round((total - current) / speed) * 1000
-        estimated_total_time = elapsed_time + time_to_completion
-        progress_str = "{0}{1} {2}%\n".format(
-            ''.join(["▰" for i in range(math.floor(percentage / 10))]),
-            ''.join(["▱" for i in range(10 - math.floor(percentage / 10))]),
-            round(percentage, 2))
-        tmp = progress_str + \
-            "{0} of {1}\nETA: {2}".format(
-                convert_bytes(current),
-                convert_bytes(total),
-                convert_time(estimated_total_time)
-            )
-        if file_name:
-            await event.edit("{}\nFile Name: `{}`\n{}".format(
-                type_of_ps, file_name, tmp))
-        else:
-            await event.edit("{}\n{}".format(type_of_ps, tmp))
-
 async def send_file(event, filename, info, link, attributes):
     desc = (info["description"])[:300] + " ..."
     thumb = info["title"] + ".jpg"
     ctime = time.time()
-    progress_callback = lambda current, total: progress(current, total, event, ctime, "Uploading . . .", filename)
+    progress_callback = lambda current, total: progress(current, total, event, ctime, "u", filename)
     await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, progress_callback=progress_callback, caption=INFO.format(info["title"], link, info["view_count"], info["like_count"], info["subs_count"], info["uploader"], desc))
     os.remove(filename)
     os.remove(thumb)
