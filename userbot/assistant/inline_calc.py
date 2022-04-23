@@ -1,5 +1,5 @@
-from userbot.events import alien_inline, alien_callback
-from telethon import Button
+from userbot import bot
+from telethon import event, Button
 from userbot.database import DB
 import re
 
@@ -22,8 +22,10 @@ async def calc_pattern(event):
     )
     await event.answer([result])
 
-@alien_callback(re.compile("calc_(.*)"), owner=True)
-async def calc_callback(event):
+@bot.on(events.CallbackQuery(data=re.compile("calc_(.*)")))
+async def calc_captcha(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     work = str((event.pattern_match.group(1)).decode('utf-8'))
     if work == "C":
         DB.set_key("ALIEN_CALC", "")
