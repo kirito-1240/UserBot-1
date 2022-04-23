@@ -19,11 +19,11 @@ def Captcha():
 
         for i in range(len(paste_image_list)):
             img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-            img.thumbnail((200, 200), Image.ANTIALIAS)
+            img.thumbnail((100, 100), Image.ANTIALIAS)
             background.paste(img, (position[i]), img)
                 
         emoji_captcha_path = os.path.join("cache", "cap.png")
         background.save(emoji_captcha_path, "PNG", quality=100)
         return {"answer": emoji_names, "captcha": emoji_captcha_path, "is_error": False}
     except Exception as e:
-        return {"is_error": True}
+        return {"is_error": True, "error": e}
