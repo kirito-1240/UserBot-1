@@ -99,14 +99,14 @@ def alien(
                 ftext += f"• Event Trigger:\n {event.text}\n\n"
                 ftext += f"• Traceback Info:\n {format_exc()}\n\n"
                 ftext += f"• Error Text:\n {sys.exc_info()[1]}\n\n"
+                gilogs = (await runcmd('git log --pretty=format:"%an: %s" -50'))[0]
+                ftext += f"• Last Commits: {gilogs}"
                 try:
                     await event.edit("• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!")
                 except:
                     pass
-                gilogs = (await runcmd('git log --pretty=format:"%an: %s" -50'))[0]
-                ftext += f"• Last Commits: {gilogs}"
-                paste = paste(ftext)
-                text = f"** • Alien Userbot Logs:** ( {paste['url']} )"
+                pas = paste(ftext)
+                text = f"** • Alien Userbot Logs:** ( {pas['url']} )"
                 await event.client.send_message(DB.get_key("LOG_GROUP"), text)
         app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
