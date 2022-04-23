@@ -1,5 +1,4 @@
 from userbot import app, bot
-from userbot.events import alien_inline
 from telethon import events, Button
 from PIL import Image
 from userbot.database import DB
@@ -50,9 +49,11 @@ async def ytdl(event):
         buttons=buttons,
     )
     await event.answer([result])
-    
+
 @bot.on(events.CallbackQuery(data=re.compile("yt\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def ytdown(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
     format_id = str(event.pattern_match.group(3).decode('utf-8'))
