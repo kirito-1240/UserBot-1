@@ -3,7 +3,15 @@ from userbot.database import DB
 from userbot.core.logger import LOGS
 import Config
 from pathlib import Path
-import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, functools, re  
+import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, functools, re, random
+
+def shuffle(list):
+    new = []
+    for x in range(1, len(list)):
+        n = random.choice(list)
+        new.append(n)
+        list.remove(n)
+    return new
 
 async def runcmd(cmd):
     args = shlex.split(cmd)
