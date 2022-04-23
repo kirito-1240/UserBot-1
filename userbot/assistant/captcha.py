@@ -1,6 +1,7 @@
 from userbot import app, bot
 import string, random
 from userbot.database import DB
+from userbot.utils import shuffle
 from userbot.events import alien_callback
 from telethon import Button
 from telethon import events
@@ -29,7 +30,7 @@ async def send_captcha(event):
         for x in range(6):
             falsetext += random.choice(strings)
         buttons.append(Button.inline(falsetext, data=f"captcha||false||{user.id}"))
-    buttons = sorted(buttons)
+    buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     font = ["userbot/other/fonts/font1.ttf"]
     image = ImageCaptcha(fonts=font)
