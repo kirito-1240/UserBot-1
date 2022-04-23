@@ -1,5 +1,5 @@
 from userbot import app
-from userbot.events import alien_inline, alien_callback
+from userbot.events import alien_inline
 from telethon import Button
 from PIL import Image
 from userbot.database import DB
@@ -30,31 +30,20 @@ async def ytdl(event):
     await download_file(info["thumbnail"], thumb)
     list = get_video_formats(link)
     buttons = []
-    past = []
     for vid in list:
-        past.append(
+        buttons.append(
             Button.inline(
                 f"🎞 {vid}",
                 data=f"yt||v||{link}||{list[vid]}",
            ))
-        if len(past) == 2:
-            buttons.append([past[0], past[1]])
-            past = []
-    if len(past) == 1:
-        buttons.append([past[0]])
     list = get_audio_formats(link)
-    past = []
     for aud in list:
-        past.append(
+        buttons.append(
             Button.inline(
                 f"🎵 {aud}",
                 data=f"yt||a||{link}||{list[aud]}",
             ))
-        if len(past) == 2:
-            buttons.append([past[0], past[1]])
-            past = []
-    if len(past) == 1:
-        buttons.append([past[0]])
+    buttons = (buttons[::3], buttons[1::3], buttons[2::3])
     result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["uploader"], desc)),
