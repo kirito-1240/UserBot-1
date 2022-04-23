@@ -2,7 +2,6 @@ from userbot import app, bot
 from userbot.database import DB
 from userbot.utils import shuffle
 from telethon import events, Button 
-os.system("pip install captcha")
 from captcha.image import ImageCaptcha
 import re
 import os
