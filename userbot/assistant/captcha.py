@@ -4,7 +4,7 @@ from userbot.database import DB
 from userbot.events import alien_callback
 from telethon import Button
 from telethon import events
-import re, os
+import re, os, glob
 os.system("pip install captcha")
 from captcha.image import ImageCaptcha
 
@@ -30,8 +30,8 @@ async def send_captcha(event):
             falsetext += random.choice(strings)
         buttons.append(Button.inline(falsetext, data=f"false||{user.id}"))
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    fonts = ["userbot/other/fonts/font14.ttf", "userbot/other/fonts/font16.ttf", "userbot/other/fonts/font15.ttf", "userbot/other/fonts/font19.ttf"]
-    image = ImageCaptcha(fonts=fonts)
+    font = random.choice(glob.glob("userbot/other/fonts/*.ttf"))
+    image = ImageCaptcha(fonts=[font])
     image.write(truetext, f"captcha{event.chat_id}{user.id}.png")
     await bot.send_message(event.chat_id, f"Hello {user.first_name}", file=f"captcha{event.chat_id}{user.id}.png", buttons=buttons)
 
@@ -42,6 +42,7 @@ async def call_captcha(event):
     if type == "true":
         await event.answer("True", alert=True)
         await bot.edit_permissions(chat.id, user.id, send_messages=True)
+        await event.delete()
     else:
         await event.answer("False", alert=True)
         await bot.kick_participant(event.chat_id, user_id)
