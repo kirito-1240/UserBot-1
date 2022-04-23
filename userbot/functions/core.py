@@ -1,5 +1,5 @@
 from userbot.utils import convert_time, convert_bytes
-from from userbot.functions.tools import random_headers
+from userbot.functions.tools import random_headers
 import time
 import random
 import math
