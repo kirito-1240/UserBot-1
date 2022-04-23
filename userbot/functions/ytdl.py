@@ -33,6 +33,14 @@ def get_video_formats(url):
                 format_id = format["itag"]
                 quality = f"{quality} - mp4"
                 list.update({quality: format_id})
+        elif "video/webm" in format["mimeType"]:
+            quality = format["qualityLabel"]
+            if not quality.endswith("p"):
+                quality = (format["qualityLabel"])[:-2]
+            if quality not in list:
+                format_id = format["itag"]
+                quality = f"{quality} - webm"
+                list.update({quality: format_id})
     return list
 
 def get_audio_formats(url):
@@ -45,6 +53,12 @@ def get_audio_formats(url):
             if quality not in list:
                 format_id = format["itag"]
                 quality = f"{quality} - mp3"
+                list.update({quality: format_id})
+        elif "audio/webm" in format["mimeType"]:
+            quality = format["audioQuality"].lower().split("_")[-1]
+            if quality not in list:
+                format_id = format["itag"]
+                quality = f"{quality} - webm"
                 list.update({quality: format_id})
     return list
 
