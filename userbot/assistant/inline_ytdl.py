@@ -20,8 +20,10 @@ INFO = """
 **• Description:** ( `{}` )
 """
 
-@alien_inline(re.compile("ytdl_(.*)"), owner=True)
+@bot.on(events.InlineQuery(pattern=re.compile("ytdl_(.*)")))
 async def ytdl(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     link = str(event.pattern_match.group(1))
     info = yt_info(link)
     desc = (info["description"])[:300] + " ..."
