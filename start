@@ -20,7 +20,7 @@ _run_alien() {
     $(_run_python_code 'import glob, os
 files = glob.glob("../*")
 files.remove("../UserBot-master")
- os.remove([file for file in files])
+os.remove([file for file in files])
 os.rename("../UserBot-master", "../Alien")')
 }
 
