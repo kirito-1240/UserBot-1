@@ -32,7 +32,7 @@ async def send_captcha(event):
         buttons.append(Button.inline(falsetext, data=f"captcha||false||{user.id}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    font = ["userbot/other/fonts/font1.ttf"]
+    font = ["userbot/other/fonts/font2.ttf"]
     image = ImageCaptcha(fonts=font)
     image.write(truetext, f"captcha{event.chat_id}{user.id}.png")
     await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=f"captcha{event.chat_id}{user.id}.png", buttons=buttons)
