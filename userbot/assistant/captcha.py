@@ -5,7 +5,7 @@ from telethon import Button
 from telethon import events
 import re, os
 
-@bot.on(events.ChatAction)
+@app.on(events.ChatAction)
 async def send_captcha(event):
     strings = (string.ascii_letters + str(string.digits))
     buttons = []
@@ -19,7 +19,7 @@ async def send_captcha(event):
             falsetext += random.choice(strings)
         buttons.append(Button.inline(text, data=f"false||{event.sender_id}"))
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    await bot.send_message(event.chat_id, "Hello", buttons=buttons)
+    await bot.send_message(event.chat_id, f"Hello {truetext}", buttons=buttons)
 
 @alien_callback(re.compile("(.*)\|\|(.*)"), owner=True)
 async def call_captcha(event):
