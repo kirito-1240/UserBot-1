@@ -16,14 +16,6 @@ repo.create_head(ACTIVE_BRANCH_NAME, origin.refs[ACTIVE_BRANCH_NAME])
 repo.heads[ACTIVE_BRANCH_NAME].checkout(True)')
 }
 
-_run_alien() {
-    $(_run_python_code 'import glob, os
-files = glob.glob("../*")
-files.remove("../UserBot-master")
-os.remove([file for file in files])
-os.rename("../UserBot-master", "../Alien")')
-}
-
 _start_bot () {
     local zippath
     zippath="alien.zip"
@@ -35,8 +27,6 @@ _start_bot () {
     echo "• Successfuly Unpacking Source Code . . ."
     cd $ALIENPATH
     _run_aliengit
-    echo "• Cleaning . . ."
-    _run_alien
     echo "•   Starting Alien Userbot   •"
     python3 -m userbot
 }
