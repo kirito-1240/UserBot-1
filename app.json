@@ -28,7 +28,7 @@
       "required": false
     },
     "HEROKU_API": {
-      "value": "",
+      "value": ""
     },
     "HEROKU_APP_NAME": {
       "value": "",
@@ -45,12 +45,6 @@
       "value": ""
     }
   },
-  "addons": [{
-    "plan": "heroku-postgresql",
-    "options": {
-      "version": "12"
-    }
-  }],
   "buildpacks": [{
     "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
   },{
