@@ -62,7 +62,7 @@ async def ytdl(event):
     )
     await event.answer([result])
     
-@alien_callback(re.compile("yt\|\|(.*)\|\|(.*)\|\|(.*)"), owner=True)
+@bot.on(events.CallbackQuery(data=re.compile("yt\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def ytdown(event):
     type = str(event.pattern_match.group(1).decode('utf-8'))
     link = str(event.pattern_match.group(2).decode('utf-8'))
@@ -114,6 +114,4 @@ async def send_file(event, filename, info, link, attributes):
     await app.send_file(event.chat_id, filename, thumb=thumb, attributes=attributes, progress_callback=progress_callback, caption=INFO.format(info["title"], link, info["view_count"], info["uploader"], desc))
     os.remove(filename)
     os.remove(thumb)
-    chat = DB.get_key("YOUTUBE_GET_INLINE").split("||")[0].replace("-100", "")
-    id = DB.get_key("YOUTUBE_GET_INLINE").split("||")[1]
-    await app.delete_messages(int(chat), int(id))
+    await event.delete()
