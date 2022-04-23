@@ -12,12 +12,12 @@ async def send_captcha(event):
     truetext = ""
     for x in range(6):
         truetext += random.choice(strings)
-    buttons.append(Button.inline(text, data=f"true||{event.sender_id}"))
+    buttons.append(Button.inline(truetext, data=f"true||{event.sender_id}"))
     for i in range(11):
         falsetext = ""
         for x in range(6):
             falsetext += random.choice(strings)
-        buttons.append(Button.inline(text, data=f"false||{event.sender_id}"))
+        buttons.append(Button.inline(falsetext, data=f"false||{event.sender_id}"))
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     await bot.send_message(event.chat_id, f"Hello {truetext}", buttons=buttons)
 
