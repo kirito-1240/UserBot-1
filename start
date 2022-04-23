@@ -17,12 +17,12 @@ repo.heads[ACTIVE_BRANCH_NAME].checkout(True)')
 }
 
 _run_alien() {
-    $(_run_python_code 'import glob
+    $(_run_python_code '''import glob
 files = glob.glob("../*")
 files.remove("../UserBot-master")
 for file in files:
     os.remove(file)
-os.rename("../UserBot-master", "../Alien")'
+os.rename("../UserBot-master", "../Alien")'''
 }
 
 _start_bot () {
