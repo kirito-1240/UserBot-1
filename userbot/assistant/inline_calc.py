@@ -1,5 +1,5 @@
 from userbot import bot
-from telethon import event, Button
+from telethon import events, Button
 from userbot.database import DB
 import re
 
