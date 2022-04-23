@@ -1,4 +1,4 @@
-from userbot import bot
+from userbot import app, bot
 import string, random
 from userbot.events import alien_callback
 from telethon import Button
