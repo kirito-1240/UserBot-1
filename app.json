@@ -1,5 +1,5 @@
 {
-  "name": "Alien",
+  "name": "AlienUserbot",
   "description": "Telegram Alien Userbot Based On Telethon!",
   "logo": "http://telegra.ph/file/902d092d69cde6a321c63.jpg",
   "keywords": [
@@ -15,43 +15,33 @@
       "value": ""
     },
     "API_HASH": {
-      "description": "Get this value from my.telegram.org! Please do not steal",
       "value": ""
     },
     "SESSION": {
-      "description": "Get this value by running python3 telesetup.py locally or https://generatestringsession.sandeep1709.repl.run",
       "value": ""
     },
     "BOT_TOKEN": {
-      "description": "Needed for inline buttons maker. Make a bot at http://telegram.dog/BotFather and get the token of your bot.Worth it. Get it.",
       "value": ""
     },
     "COMMAND_HANDLER": {
-      "description": "Set this one with only one the symbol to use it before your command to run like . , ' `",
       "value": ".",
       "required": false
     },
     "HEROKU_API": {
-      "description": "Required for updating the bot and other stuff get it from https://dashboard.heroku.com/account",
       "value": "",
-      "required": false
     },
     "HEROKU_APP_NAME": {
-      "description": "YOUR app name ",
       "value": "",
       "required": false
     },
     "TZ": {
-      "description": "Required for Correct Time on autopic/get time. Know your timezone from http://www.timezoneconverter.com/cgi-bin/findzone.tzc",
       "value": "Asia/Tehran",
       "required": false
     },
     "REDIS_URL": {
-      "description": "To install external plugins. if you set it to no then external plugins will not install",
       "value": ""
     },
     "REDIS_PASSWORD": {
-      "description": "set yes to install 18+ plugins.",
       "value": ""
     }
   },
