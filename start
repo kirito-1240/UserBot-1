@@ -20,11 +20,13 @@ _start_bot () {
     local zippath
     zippath="alien.zip"
     echo "• Downloading Source Code . . ."
-    wget -q "https://github.com/MxAboli/UserBot" -O "$zippath"
+    wget -q "https://github.com/MxAboli/UserBot/archive/master.zip" -O "$zippath"
     echo "• Unpacking Source Code . . ."
     ALIENPATH=$(zipinfo -1 "$zippath" | grep -v "/.");
     unzip -qq "$zippath"
     echo "• Successfuly Unpacking Source Code . . ."
+    echo "• Cleaning . . ."
+    rm -rf "$zippath"
     cd $ALIENPATH
     _run_aliengit
     echo "•   Starting Alien Userbot   •"
