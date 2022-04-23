@@ -12,8 +12,10 @@ buttons = [
         [Button.inline("=", data="calc_=")],
     ]
 
-@alien_inline("^alien_calc$", owner=True)
-async def calc_pattern(event):
+@bot.on(events.InlineQuery(pattern="^alien_calc$"))
+async def calc(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True) 
     DB.set_key("ALIEN_CALC", "")
     result = event.builder.article(
         title="Alien Calc Menu!",
