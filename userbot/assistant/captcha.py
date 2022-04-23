@@ -29,11 +29,12 @@ async def send_captcha(event):
         for x in range(6):
             falsetext += random.choice(strings)
         buttons.append(Button.inline(falsetext, data=f"captcha||false||{user.id}"))
+    buttons = random.shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     font = random.choice(glob.glob("userbot/other/fonts/*"))
     image = ImageCaptcha(fonts=[font])
     image.write(truetext, f"captcha{event.chat_id}{user.id}.png")
-    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=f"captcha{event.chat_id}{user.id}.png", buttons=random.shuffle(buttons))
+    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=f"captcha{event.chat_id}{user.id}.png", buttons=buttons)
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
