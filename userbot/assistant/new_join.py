@@ -1,7 +1,6 @@
 from userbot import app, bot
 from telethon import events, Button
 from userbot.database import DB
-from userbot.events import alien_callback
 import re
 
 async def new_join(event):
@@ -30,8 +29,10 @@ async def new_join(event):
 app.add_event_handler(new_join, events.ChatAction(func=lambda x: x.user_added or x.user_joined),)
 bot.add_event_handler(new_join, events.ChatAction(func=lambda x: x.user_added))
 
-@alien_callback(re.compile("leave_(.*)_(.*)"), owner=True)
+@bot.on(events.CallbackQuery(data=re.compile("leave_(.*)_(.*)")))
 async def leave_chat(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     chat_id = int(event.data_match.group(1).decode("utf-8"))
     type = str(event.data_match.group(2).decode("utf-8"))
     if type == "app":
