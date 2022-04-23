@@ -7,7 +7,7 @@ import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, fu
 
 def shuffle(list):
     new = []
-    for x in range(1, len(list)):
+    for x in range(0, len(list)):
         n = random.choice(list)
         new.append(n)
         list.remove(n)
