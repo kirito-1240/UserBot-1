@@ -29,7 +29,7 @@ async def send_captcha(event):
         for x in range(6):
             falsetext += random.choice(strings)
         buttons.append(Button.inline(falsetext, data=f"captcha||false||{user.id}"))
-    buttons = random.shuffle(buttons)
+    buttons = random.sample(buttons, len(buttons))
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     font = random.choice(glob.glob("userbot/other/fonts/*"))
     image = ImageCaptcha(fonts=[font])
