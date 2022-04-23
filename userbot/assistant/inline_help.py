@@ -1,9 +1,13 @@
-from userbot.events import alien_inline, alien_callback
+from userbot import app, bot
 from userbot.utils import chunks, convert_bytes
 from userbot.functions.tools import download_file
 from userbot.database import DB, PLUGINS, PLUGINS_HELP
-from telethon import Button
-import os, glob, re, random, time
+from telethon import events,  Button
+import os
+import glob
+import re
+import random
+import time
 import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC")) 
@@ -41,8 +45,10 @@ async def help(event):
     )
     await event.answer([result])
 
-@alien_callback(re.compile("page_(.*)"), owner=True)
-async def help_pages(event):
+@bot.on(events.CallbackQuery(data=re.compile("page_(.*)")))
+async def help_page(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     data = int(event.pattern_match.group(1).decode('utf-8'))
     files = PLUGINS
     start = int(f"{(data - 1)}0")
@@ -85,18 +91,24 @@ async def help_pages(event):
 """
     await event.edit(text, file=PIC, buttons=buttons)
 
-@alien_callback(re.compile("close_(.*)"), owner=True)
+@bot.on(events.CallbackQuery(data=re.compile("close_(.*)")))
 async def close(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     page = int(event.pattern_match.group(1).decode('utf-8'))
     buttons = [Button.inline("♻️ Open Again ♻️", data=f"page_{page}")]
     await event.edit("**🚫 Help Menu Successfuly Closed!**", buttons=buttons)
 
-@alien_callback("empty", owner=True)
-async def close(event):
+@bot.on(events.CallbackQuery(data=re.compile("empty")))
+async def empty(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     await event.answer("• This Is A Display Button!", alert=True)
 
-@alien_callback(re.compile("plugin_(.*)_(.*)"), owner=True)
+@bot.on(events.CallbackQuery(data=re.compile("plugin_(.*)_(.*)")))
 async def help_plugins(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     data = str(event.pattern_match.group(1).decode('utf-8'))
     page = int(event.pattern_match.group(2).decode('utf-8'))
     if data in PLUGINS_HELP:
@@ -111,8 +123,10 @@ async def help_plugins(event):
     else:
         await event.answer("• Not Available Help For This Plugin!", alert=True)
 
-@alien_callback(re.compile("sendplug_(.*)_(.*)"), owner=True)
-async def help_plugins(event):
+@bot.on(events.CallbackQuery(data=re.compile("sendplug_(.*)_(.*)")))
+async def send_plug(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     data = str(event.pattern_match.group(1).decode('utf-8'))
     page = str(event.pattern_match.group(2).decode('utf-8'))
     file = f"userbot/plugins/{data}.py"
