@@ -43,7 +43,7 @@ async def ytdl(event):
                 f"🎵 {aud}",
                 data=f"yt||a||{link}||{list[aud]}",
             ))
-    buttons = (buttons[::3], buttons[1::3], buttons[2::3])
+    buttons = (buttons[::6], buttons[1::6], buttons[2::6], buttons[3::6], buttons[4::6], buttons[5::6])
     result = event.builder.photo(
         file=thumb,
         text="{}\n\n**• Please Chose Mode To Download!**".format(INFO.format(info["title"], link, info["view_count"], info["uploader"], desc)),
