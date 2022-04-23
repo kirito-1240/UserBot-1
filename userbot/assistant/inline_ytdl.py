@@ -1,6 +1,6 @@
 from userbot import app, bot
 from userbot.events import alien_inline
-from telethon import Button
+from telethon import events, Button
 from PIL import Image
 from userbot.database import DB
 from userbot.functions.core import progress
