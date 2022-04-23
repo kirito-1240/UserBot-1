@@ -12,7 +12,6 @@
   "success_url": "#Aboli",
   "env": {
     "API_ID": {
-      "description": "Get this value from my.telegram.org! Please do not steal",
       "value": ""
     },
     "API_HASH": {
