@@ -12,8 +12,10 @@ import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC")) 
 
-@alien_inline("^alien$", owner=True)
+@bot.on(events.InlineQuery(pattern="^alien$"))
 async def help(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     files = PLUGINS
     list = []
     emoji = DB.get_key("HELP_EMOJI") or "•"
