@@ -27,5 +27,5 @@ async def call_captcha(event):
     user_id = int((event.pattern_match.group(2)).decode('utf-8'))
     if type == "true":
         await event.answer("True")
-    else type == "false":
+    else:
         await event.answer("False")
