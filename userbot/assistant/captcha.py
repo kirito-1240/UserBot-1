@@ -1,13 +1,15 @@
 from userbot import app, bot
-import string, random
 from userbot.database import DB
 from userbot.utils import shuffle
-from userbot.events import alien_callback
-from telethon import Button
-from telethon import events
-import re, os, glob, asyncio
+from telethon import events, Button 
 os.system("pip install captcha")
 from captcha.image import ImageCaptcha
+import re
+import os
+import glob
+import asyncio
+import string
+import random
 
 @bot.on(events.ChatAction)
 async def send_captcha(event):
