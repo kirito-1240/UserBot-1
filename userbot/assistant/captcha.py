@@ -33,7 +33,6 @@ async def send_captcha(event):
         await app.edit_permissions(chat_id, user_id, send_messages=False)
     except Exception as e:
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
-        return
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
