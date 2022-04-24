@@ -63,9 +63,10 @@ async def call_captcha(event):
         for mes in msg.text:
             if mes == "❌":
                 warns += 1
-        for i in range(len(buttons)):
-             if str(buttons[i][i].text) == ans:
-                 buttons[i][i] = Button.inline("❌", data="emojiempty")
+        for x in buttons:
+            for m in x:
+                 if str(m.text) == ans:
+                     buttons[i][i] = Button.inline("❌", data="emojiempty")
         await bot.send_message(event.chat_id, msg.text + f"{str(buttons[i][i].text)} = {ans}", buttons=buttons)
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
         if (warns + 1) > 4:
