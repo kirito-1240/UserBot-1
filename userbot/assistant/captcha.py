@@ -22,8 +22,6 @@ async def captcha(event):
         me = await bot.get_me()
         results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
-    else:
-        print("None")
         
 @bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)$")))
 async def send_captcha(event):
@@ -33,6 +31,7 @@ async def send_captcha(event):
     try:
         await app.edit_permissions(event.chat_id, user_id, send_messages=False)
     except:
+        print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working!")
         return
     cap = Captcha()
     buttons = []
