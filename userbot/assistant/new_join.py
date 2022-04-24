@@ -6,7 +6,10 @@ import re
 async def new_join(event):
     if match:= re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
         chat = await app.get_entity(int(match[2]))
-        getchat = f"[{chat.title}](https://t.me/c/{chat.id}/0)"
+        if chat.username:
+            getchat = f"[{chat.title}](https://t.me/{chat.username}/0)"
+        else:
+            getchat = f"[{chat.title}](https://t.me/c/{chat.id}/0)"
         buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}")]
         text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
