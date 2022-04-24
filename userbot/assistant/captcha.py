@@ -17,26 +17,31 @@ async def captcha(event):
     chat = await event.get_chat()
     if not (event.user_joined or event.user_added) or user.bot:
         return
+    chats = DB.get_key("CAPTCHA_CHATS") or []
+    if str(event.chat_id) in chats:
+        me = await bot.get_me()
+        results = await app.inline_query(me.username, f"aliencaptcha_{event.chat_id}_{user.id}")
+        await results[0].click(event.chat_id, reply_to=event.id)
+        
 
-@bot.on(events.InlineQuery(pattern=re.compile("^alien$")))
+@bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)_(.*)$")))
 async def send_captcha(event):
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
     try:
-        await bot.edit_permissions(chat.id, user.id, send_messages=False)
+        await bot.edit_permissions(chat_id, user_id, send_messages=False)
     except:
         return
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
-        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user.id}||{len(cap['answer'])}"))
+        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     for i in range(0,(16 - len(cap['answer']))):
         ans = random.choice(cap['others'])
-        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user.id}||{len(cap['answer'])}"))
+        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
-
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
