@@ -1,37 +1,13 @@
 import os
 os.system("pip install flask")
 from threading import Thread
-from urllib.parse import quote
-from flask import Flask, jsonify, send_file
+from flask import Flask
 
 app = Flask(__name__)
 
-def is_sanitized(filename: str) -> bool:
-    return not any(x in filename for x in ['/', '\\', '..', '$', '%', '&'])
+@app.route('/<text>', methods=['GET'])
+def banner(text: str):
+    return text
 
-@app.route('/backgrounds/<filename>', methods=['GET'])
-def background(filename: str):
-    if not is_sanitized(filename):
-        return jsonify(status=403, message='Invalid file name.')
-    file = filename
-    return send_file(file)
-
-@app.route('/test/', methods=['GET'])
-def test():
-    return "hi"
-
-@app.route('/banners/<filename>', methods=['GET'])
-def banner(filename: str):
-    if not is_sanitized(filename):
-        return jsonify(status=403, message='Invalid file name.')
-    file = filename
-    return send_file(file)
-
-def get_url(filename: str, directory: str) -> str:
-    return f'emojicaptcha.fumaz.dev/{directory}/{quote(filename)}'
-
-def run():
-    thread = Thread(target=lambda: app.run(host='0.0.0.0', debug=False))
-    thread.start()
-
-run()
+thread = Thread(target=lambda: app.run(host='0.0.0.0', debug=False))
+thread.start()
