@@ -3,10 +3,11 @@ import random
 from PIL import Image
 try:
     from EmojiCaptcha.emojis_map import emojis_index
+    from EmojiCaptcha.__main__ import DATA_DIR
 except:
     os.system("pip install EmojiCaptcha")
-
-DIR = "/app/.heroku/python/lib/python3.10/site-packages/EmojiCaptcha/emojis"
+    from EmojiCaptcha.emojis_map import emojis_index
+    from EmojiCaptcha.__main__ import DATA_DIR
 
 def Captcha():
     img = Image.new('RGB', (360, 360), (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
@@ -19,7 +20,7 @@ def Captcha():
     random.shuffle(supported_emojis, lambda: r)
     for i in range(9):
         emoji_names.append(supported_emojis[i])
-        paste_image_list.append((os.path.join(DIR, emojis_index.get(supported_emojis[i]) + ".png")))
+        paste_image_list.append((os.path.join(DATA_DIR, emojis_index.get(supported_emojis[i]) + ".png")))
     position = [(20, 20), (180, 20), (310, 20), (20, 90), (180, 90), (310, 90), (20, 160), (180, 160), (310, 160)]
     for i in range(len(paste_image_list)):
         img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
