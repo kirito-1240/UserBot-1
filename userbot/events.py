@@ -105,11 +105,8 @@ def alien(
                     await event.edit("`• Sorry, Alien Userbot Has Crashed. The Error Logs Are Stored In The Alien Userbot Log Group!`")
                 except:
                     pass
-                if len(ftext) < 4096:
-                    text = ftext
-                else:
-                    pas = paste(ftext)
-                    text = f"** • Alien Userbot Logs:** [Logs]({pas['url']})"
+                pas = paste(ftext)
+                text = f"** • Alien Userbot Logs:** [Logs]({pas['url']})"
                 await event.client.send_message(DB.get_key("LOG_GROUP"), text)
         app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
