@@ -2,17 +2,14 @@ import os
 import random
 from PIL import Image
 from userbot.utils import shuffle
-from userbot.other.emojis_index import emojis_index
+from userbot.other.emojis import emojis, emojis_index
 from userbot.functions.tools import downloadfile
 
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     paste_image_list = list()
-    emoji_names = list()
-    supported_emojis = []
-    for em in emojis_index:
-        supported_emojis.append(em) 
-    supported_emojis = shuffle(supported_emojis)
+    emoji_names = list() 
+    supported_emojis = shuffle(emojis)
     others = supported_emojis
     for i in range(9):
         others.remove(supported_emojis[i])
