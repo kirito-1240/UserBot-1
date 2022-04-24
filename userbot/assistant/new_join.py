@@ -7,7 +7,7 @@ async def new_join(event):
     if match:= re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
         chat = await app.get_entity(int(match[2]))
         getchat = f"[{chat.title}](https://t.me/c/{chat.id}/0)"
-        buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}_app")]
+        buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}")]
         text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
@@ -21,25 +21,15 @@ async def new_join(event):
         await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
 
 app.add_event_handler(new_join, events.Raw)
-bot.add_event_handler(new_join, events.Raw)
 
-@bot.on(events.CallbackQuery(data=re.compile("leavenewjoin_(.*)_(.*)")))
+@bot.on(events.CallbackQuery(data=re.compile("leavenewjoin_(.*)")))
 async def leave_chat(event):
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
     chat_id = int(event.data_match.group(1).decode("utf-8"))
-    type = str(event.data_match.group(2).decode("utf-8"))
-    if type == "app":
-        info = await app.get_entity(chat_id)
-        await app.delete_dialog(chat_id)
-        if info.username:
-            await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.username))
-        else:
-            await event.edit("**• User Bot Successfuly Leaved From:** ( {} )".format(info.title))  
+    info = await app.get_entity(chat_id)
+    await app.delete_dialog(chat_id)
+    if info.username:
+        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( {} )".format(info.username))
     else:
-        info = await bot.get_entity(chat_id)
-        await bot.delete_dialog(chat_id)
-        if info.username:
-            await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.username))
-        else:
-            await event.edit("**• Assistant Bot Successfuly Leaved From:** ( {} )".format(info.title))
+        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( {} )".format(info.title))  
