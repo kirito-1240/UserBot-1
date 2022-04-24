@@ -20,16 +20,17 @@ async def captcha(event):
     chats = DB.get_key("CAPTCHA_CHATS") or []
     if str(event.chat_id) in chats:
         me = await bot.get_me()
-        results = await app.inline_query(me.username, f"aliencaptcha_{event.chat_id}_{user.id}")
+        results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
         
 
-@bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)_(.*)$")))
+@bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)$")))
 async def send_captcha(event):
+    user_id = int(event.pattern_match.group(1))
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
     try:
-        await bot.edit_permissions(chat_id, user_id, send_messages=False)
+        await bot.edit_permissions(event.chat_id, user_id, send_messages=False)
     except:
         return
     cap = Captcha()
