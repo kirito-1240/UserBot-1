@@ -24,19 +24,20 @@ async def send_captcha(event):
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
-        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user.id}"))
-    for i in range(0,8):
+        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user.id}||{len(cap['answer'])}"))
+    for i in range(0,(16 - len(cap['answer']))):
         ans = random.choice(cap['others'])
-        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user.id}"))
+        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user.id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
 
-@bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)")))
+@bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
     type = str((event.pattern_match.group(1)).decode('utf-8'))
     ans = str((event.pattern_match.group(2)).decode('utf-8'))
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
+    ran = int((event.pattern_match.group(4)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
     msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
@@ -58,7 +59,7 @@ async def call_captcha(event):
                 x += 1
             i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
-        if (trues + 1) == 9:
+        if (trues + 1) == ran:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
     else:
