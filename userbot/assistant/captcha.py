@@ -75,8 +75,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                print(str(but.data.decode('utf-8').split("||")[1]))
-                if str(but.text) == ans and "trueemojies" in str(but.data.decode('utf-8').split("||")[1]):
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "truesemojies":
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
@@ -84,7 +83,7 @@ async def call_captcha(event):
         if (trues + 1) == ran:
             await app.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.reply(f"**• User {user.mention} Succesfuly Verified!**")
-            return await app.delete_messages(event.chat_id, event.message_id)
+            await app.delete_messages(event.chat_id, event.message_id)
     else:
         warns = 0
         for mes in msg.text:
@@ -94,7 +93,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and "falseemojies" in str(but.data.decode('utf-8').split("||")[1]):
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "falseemojies":
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
@@ -102,6 +101,4 @@ async def call_captcha(event):
         if (warns + 1) > 4:
             await app.kick_participant(event.chat_id, user_id)
             await event.reply(f"**• User {user.mention} Not Verified And Kicked!**")
-            return await app.delete_messages(event.chat_id, event.message_id)
-    await asyncio.sleep(180)
-    return await app.delete_messages(event.chat_id, event.message_id)
+            await app.delete_messages(event.chat_id, event.message_id)
