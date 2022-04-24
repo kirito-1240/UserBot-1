@@ -4,6 +4,7 @@ from PIL import Image
 from userbot.utils import shuffle
 from userbot.other.emojis import emojis_index
 from userbot.functions.tools import downloadfile
+from userbot.functions.helper import rand_string
 
 try:
     os.mkdir("cache")
@@ -29,6 +30,8 @@ def Captcha():
         img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
-    emoji_captcha_path = os.path.join("cache", emojis_index.get(supported_emojis[i]) + ".png")
+    emoji_captcha_path = os.path.join("cache",  rand_string() + ".png")
     new.save(emoji_captcha_path, "PNG")
+    for file in paste_image_list:
+        os.remove(file)
     return {"answer": emoji_names, "others": others, "captcha": emoji_captcha_path}
