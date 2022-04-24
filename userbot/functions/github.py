@@ -1,3 +1,5 @@
+import os
+os.system("pip install PyGithub")
 from github import Github
 
 class GITAPP:
