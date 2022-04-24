@@ -18,7 +18,7 @@ async def captcha(event):
     if not (event.user_joined or event.user_added) or user.bot:
         return
     chats = DB.get_key("CAPTCHA_CHATS") or []
-    if str(event.chat_id) in chats:
+    if event.chat_id in chats:
         me = await bot.get_me()
         results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
