@@ -61,6 +61,7 @@ async def call_captcha(event):
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
         if (trues + 1) == ran:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
+            await event.answer("• Succesfuly Verified!", alert=True)
             await event.delete()
     else:
         warns = 0
