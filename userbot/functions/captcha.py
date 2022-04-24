@@ -25,8 +25,9 @@ def Captcha():
                 downloadfile(link, file)
                 gapp = GITAPP(Config.GIT_TOKEN, Config.REPO_NAME)
                 gapp.create(file, f"/userbot/other/emojis/{index}.png")
-            except:
-                countinue
+            except Exception as e:
+                print(e)
+                continue
         emoji_names.append(emojis[i]) 
         pimages.append(file)
         others.remove(emojis[i])
