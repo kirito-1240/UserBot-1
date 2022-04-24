@@ -47,4 +47,4 @@ async def call_captcha(event):
         await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
         await asyncio.sleep(2)
         await bot.kick_participant(event.chat_id, user_id)
-    shtil.rmtree("cache")
+    shutil.rmtree("cache")
