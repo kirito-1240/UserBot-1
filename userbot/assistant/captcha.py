@@ -39,12 +39,20 @@ async def call_captcha(event):
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
-    print(event.original_update.msg_id)
+    msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
+    buttons = msg.buttons
     if type == "true":
+        for i in range(len(buttons)):
+            if buttons[i][i].text == ans:
+                buttons[i][i] = Button.inline("✅", data="empty")
+    else:
+        for i in range(len(buttons)):
+             if buttons[i][i].text == ans:
+               buttons[i][i] = Button.inline("❌", data="empty")
+        await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
+    texts = ""
+    for i in range(len(buttons)):
+        texts += str(buttons[i][i].text)
+    if not "true" in texts:
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
-    else:
-        await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
-        await asyncio.sleep(2)
-        await bot.kick_participant(event.chat_id, user_id)
-    shutil.rmtree("cache")
