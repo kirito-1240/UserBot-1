@@ -6,7 +6,6 @@ from userbot.other.emoji import emojis_index
 from userbot.functions.helper import rand_string
 from userbot.functions.tools import downloadfile
 from userbot.functions.github import GITAPP
-import Config
 
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
@@ -23,7 +22,7 @@ def Captcha():
             link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
             try:
                 downloadfile(link, file)
-                gapp = GITAPP(Config.GIT_TOKEN, Config.REPO_NAME)
+                gapp = GITAPP()
                 gapp.create(file, f"/userbot/other/emojis/{index}.png")
             except Exception as e:
                 print(e)
