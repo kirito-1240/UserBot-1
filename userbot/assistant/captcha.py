@@ -61,6 +61,7 @@ async def call_captcha(event):
     ran = int((event.pattern_match.group(4)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
+    print(event.original_update)
     msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
     buttons = msg.buttons
     if msg.text.endswith("Options:**"):
