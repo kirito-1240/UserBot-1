@@ -37,6 +37,7 @@ async def send_captcha(event):
         return
     cap = Captcha()
     buttons = []
+    print(event)
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     for i in range(0,(16 - len(cap['answer']))):
@@ -61,7 +62,6 @@ async def call_captcha(event):
     ran = int((event.pattern_match.group(4)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
-    print(event)
     msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
     buttons = msg.buttons
     if msg.text.endswith("Options:**"):
