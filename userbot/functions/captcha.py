@@ -22,9 +22,9 @@ def Captcha():
         if not os.path.exists(file):
             link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
             try:
-                downloadfile(link, file)
+                last = downloadfile(link, file)
                 gapp = GITAPP()
-                gapp.create(file, f"/userbot/other/emojis/{index}.png")
+                gapp.create(last, f"./userbot/other/emojis/{index}.png")
             except Exception as e:
                 print(e)
                 continue
