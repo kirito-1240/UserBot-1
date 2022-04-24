@@ -7,10 +7,10 @@ async def new_join(event):
     if match:= re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
         chat = await app.get_entity(int(match[2]))
         if chat.username:
-            getchat = f"[{chat.title}](https://t.me/{chat.username}/0)"
+            getchat = f"@{chat.username}"
         else:
             getchat = f"[{chat.title}](https://t.me/c/{chat.id}/0)"
-        buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}")]
+        buttons = [Button.inline("• Leave •", data=f"leavenewjoin_{chat.id}")]
         text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
@@ -33,6 +33,6 @@ async def leave_chat(event):
     info = await app.get_entity(chat_id)
     await app.delete_dialog(chat_id)
     if info.username:
-        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( {} )".format(info.username))
+        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( @{} )".format(info.username))
     else:
-        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( {} )".format(info.title))  
+        await event.edit("**• Alien Userbot Successfuly Leaved From:** ( {} )".format(f"[{info.title}](https://t.me/c/{info.id}/0)"))  
