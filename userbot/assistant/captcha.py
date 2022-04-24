@@ -30,7 +30,7 @@ async def send_captcha(event):
         buttons.append(Button.inline(ans, data=f"captcha||false||{ans}||{user.id}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**\n\n**• Your Answers:**", file=cap['captcha'], buttons=buttons)
+    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
@@ -41,8 +41,8 @@ async def call_captcha(event):
         return await event.answer("• This Is Not For You 😠")
     msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
     buttons = msg.buttons
-    if msg.text.endswith(":**"):
-        msg.text += " "
+    if msg.text.endswith("Options:**"):
+        msg.text += "\n\n**• Your Answers:** "
     datas = ""
     if type == "true":
         i = 0
@@ -54,7 +54,7 @@ async def call_captcha(event):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
-        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
+        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + f"✅{datas}", buttons=buttons)
         if not "true" in datas:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
