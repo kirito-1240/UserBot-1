@@ -24,7 +24,7 @@ async def send_captcha(event):
     buttons = []
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||true||{ans}||{user.id}"))
-    for i in range(0,20):
+    for i in range(0,8):
         ans = random.choice(cap['others'])
         buttons.append(Button.inline(ans, data=f"captcha||false||{ans}||{user.id}"))
     buttons = shuffle(buttons)
@@ -38,7 +38,8 @@ async def call_captcha(event):
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
-    print(event.buttons)
+    open("res.txt", "w").write(str(event))
+    await app.send_file(event.chat_id, "res.txt")
     if type == "true":
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
