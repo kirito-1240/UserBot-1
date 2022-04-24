@@ -75,7 +75,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans:
+                if str(but.text) == ans and "trueemojies" in str(but.data):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
@@ -93,7 +93,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans:
+                if str(but.text) == ans and "falseemojies" in str(but.data):
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
