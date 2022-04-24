@@ -44,12 +44,25 @@ async def send_captcha(event):
     buttons = shuffle(buttons)
     user = await app.get_entity(user_id)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options:**"
-    result = event.builder.photo(
-        file=cap['captcha'],
-        text=text,
-        buttons=buttons,
-    )
+    type = DB.get_key("CAPTCHA_TYPE") or "photo"
+    if type == "photo":
+        text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options From Photo:**"
+        result = event.builder.photo(
+            file=cap['captcha'],
+            text=text,
+            buttons=buttons,
+        )
+    else:
+        options = ""
+        for ans in cap['answer']:
+            options += ans + " - " 
+        options = options[:-3]
+        text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options:**\n\n**• Options:( {options} )"
+        result = event.builder.article(
+            title="• Alien Captcha •",
+            text=text,
+            buttons=buttons,
+        )
     await event.answer([result])
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
