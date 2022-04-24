@@ -2224,3 +2224,7 @@ emojis_index = {
     "✉️": "2709",
     "✒️": "2712"
 }
+
+emojis = []
+for em in emojis_index:
+    emojis.append(em)
