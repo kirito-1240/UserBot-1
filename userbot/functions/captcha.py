@@ -2,13 +2,7 @@ import os
 import random
 from PIL import Image
 from userbot.utils import shuffle
-try:
-    from EmojiCaptcha.emojis_map import emojis_index
-    from EmojiCaptcha.__main__ import DATA_DIR
-except:
-    os.system("pip install EmojiCaptcha")
-    from EmojiCaptcha.emojis_map import emojis_index
-    from EmojiCaptcha.__main__ import DATA_DIR
+from userbot.other import emojis_index
 
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
@@ -20,7 +14,10 @@ def Captcha():
     for i in range(9):
         others.remove(supported_emojis[i])
         emoji_names.append(supported_emojis[i])
-        paste_image_list.append((os.path.join(DATA_DIR, emojis_index.get(supported_emojis[i]) + ".png")))
+        index = emojis_index.get(supported_emojis[i])
+        link = f"https://emoji.aranja.com/static/emoji-data/img-apple-160/{index}.png" 
+        file = downloadfile(link, f"cache/{index}.png")
+        paste_image_list.append(os.path.join("cache", file))
     position = [(20, 20), (160, 20), (300, 20), (20, 160), (160, 160), (300, 160), (20, 300), (160, 300), (300, 300)]
     for i in range(len(paste_image_list)):
         img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
