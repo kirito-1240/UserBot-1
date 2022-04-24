@@ -20,16 +20,17 @@ async def captcha(event):
     chats = DB.get_key("CAPTCHA_CHATS") or []
     if event.chat_id in chats:
         me = await bot.get_me()
-        results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
+        results = await app.inline_query(me.username, f"aliencaptcha_{event.chat_id}_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
         
-@bot.on(events.InlineQuery(pattern=re.compile("aliencaptcha_(.*)")))
+@bot.on(events.InlineQuery(pattern=re.compile("aliencaptcha_(.*)_(.*)")))
 async def send_captcha(event):
-    user_id = int(event.pattern_match.group(1))
+    chat_id = event.pattern_match.group(1)
+    user_id = int(event.pattern_match.group(2))
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
     try:
-        await app.edit_permissions(event.chat_id, user_id, send_messages=False)
+        await app.edit_permissions(chat_id, user_id, send_messages=False)
     except Exception as e:
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
         return
