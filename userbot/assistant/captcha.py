@@ -23,7 +23,7 @@ async def captcha(event):
         results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
         
-@bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)$")))
+@bot.on(events.InlineQuery(pattern=re.compile("aliencaptcha_(.*)")))
 async def send_captcha(event):
     user_id = int(event.pattern_match.group(1))
     if event.sender_id != int(DB.get_key("OWNER_ID")):
