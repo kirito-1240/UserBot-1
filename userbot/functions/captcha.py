@@ -22,7 +22,7 @@ def Captcha():
         index = emojis_index.get(supported_emojis[i])
         link = f"https://emoji.aranja.com/static/emoji-data/img-apple-160/{index}.png" 
         file = downloadfile(link, f"cache/{index}.png")
-        paste_image_list.append(os.path.join("cache", file))
+        paste_image_list.append(file)
     position = [(20, 20), (160, 20), (300, 20), (20, 160), (160, 160), (300, 160), (20, 300), (160, 300), (300, 300)]
     for i in range(len(paste_image_list)):
         img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
