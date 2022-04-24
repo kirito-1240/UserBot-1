@@ -3,7 +3,10 @@ from telethon import events, Button
 from userbot.database import DB
 import re
 
+@app.on(events.Raw)
 async def new_join(event):
+    if not re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
+        return
     chat = await event.get_chat()
     user = await event.get_user()
     if not (user and user.is_self):
@@ -25,9 +28,6 @@ async def new_join(event):
    **• Username:** ( {username} )
 """
     await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
-
-app.add_event_handler(new_join, events.ChatAction(func=lambda x: x.user_added or x.user_joined),)
-bot.add_event_handler(new_join, events.ChatAction(func=lambda x: x.user_added))
 
 @bot.on(events.CallbackQuery(data=re.compile("leave_(.*)_(.*)")))
 async def leave_chat(event):
