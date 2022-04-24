@@ -6,7 +6,7 @@ import Config
 
 class GITAPP:
     def __init__(self):
-        self.g = Github(Config.GIT_USERNAME, Config.GIT_PASSWORD)
+        self.g = Github(Config.GIT_TOKEN)
         self.repo = self.g.get_repo(Config.REPO_NAME)
 
     def get_all_files(self, dir):
