@@ -68,8 +68,15 @@ async def runcodes(event):
 __In File!__
 """)
         except:
+            out = f"""
+• Code:
+{event.text}
+
+• {res}: 
+{result}
+"""
             f = open(f"{res}.txt", "w")
-            f.write(str(event.text) + "\n\n" + str(result))
+            f.write(str(out))
             await app.send_file(event.chat_id, f"{res}.txt" , caption=f"**• {res}:** \n\n__In File!__")
         os.remove(f"{res}.txt")
         await event.delete()
