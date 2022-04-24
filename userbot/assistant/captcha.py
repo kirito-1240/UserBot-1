@@ -23,14 +23,13 @@ async def captcha(event):
         results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
         
-
 @bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)$")))
 async def send_captcha(event):
     user_id = int(event.pattern_match.group(1))
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
     try:
-        await bot.edit_permissions(event.chat_id, user_id, send_messages=False)
+        await app.edit_permissions(event.chat_id, user_id, send_messages=False)
     except:
         return
     cap = Captcha()
@@ -42,7 +41,13 @@ async def send_captcha(event):
         buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
+    text = f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**"
+    result = event.builder.photo(
+        file=cap['captcha'],
+        text=text,
+        buttons=buttons,
+    )
+    await event.answer([result])
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
@@ -70,9 +75,9 @@ async def call_captcha(event):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
-        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
+        await event.edit(msg.text + "✅", buttons=buttons)
         if (trues + 1) == ran:
-            await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
+            await app.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.answer("• Succesfuly Verified!", alert=True)
             await event.delete()
     else:
@@ -88,12 +93,11 @@ async def call_captcha(event):
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
-        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
+        await event.edit(msg.text + "❌", buttons=buttons)
         if (warns + 1) > 4:
             await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
             await asyncio.sleep(2)
-            msg = await bot.kick_participant(event.chat_id, user_id)
-            await msg.delete()
+            msg = await app.kick_participant(event.chat_id, user_id)
             await event.delete()
         else:
             await event.answer("• The Option Is Not Correct!", alert=True)
