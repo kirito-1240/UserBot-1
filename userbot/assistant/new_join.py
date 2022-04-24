@@ -5,19 +5,16 @@ import re
 
 @app.on(events.Raw)
 async def new_join(event):
-    if not re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
-        return
-    chat = await event.get_chat()
-    user = await event.get_user()
-    if not (user and user.is_self):
-        return
-    if chat.username:
-        username =  f"[{chat.title}](https://t.me/{chat.username}/{event.action_message.id})"
-    else:
-        username = f"[{chat.title}](https://t.me/c/{chat.id}/{event.action_message.id})"
-    type = "bot" if event.client._bot else "app"
-    buttons = [Button.inline("• Leave Chat •", data=f"leave_{chat.id}_{type}")]
-    text = f"""
+    if match:= re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
+        chat = await app.get_entity(int(match[2]))
+        user = await app.get_entity("me")
+        if chat.username:
+            username =  f"[{chat.title}](https://t.me/{chat.username}/{event.action_message.id})"
+        else:
+            username = f"[{chat.title}](https://t.me/c/{chat.id}/{event.action_message.id})"
+        type = "bot" if event.client._bot else "app"
+        buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}_{type}")]
+        text = f"""
 **• Hey Master:** ( {DB.get_key("OWNER")} )
 
 **• New Join To The Group/Channel!**
@@ -27,9 +24,9 @@ async def new_join(event):
    **• ID:** ( {chat.id} )
    **• Username:** ( {username} )
 """
-    await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
+        await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
 
-@bot.on(events.CallbackQuery(data=re.compile("leave_(.*)_(.*)")))
+@bot.on(events.CallbackQuery(data=re.compile("leavenewjoin_(.*)_(.*)")))
 async def leave_chat(event):
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
