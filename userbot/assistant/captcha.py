@@ -40,7 +40,6 @@ async def call_captcha(event):
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
     print(event.original_update.msg_id)
-    print(event.text)
     if type == "true":
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
