@@ -19,7 +19,7 @@ def media_type(message):
         return "Document"
     return None
 
-def rand_string(count):
+def rand_string(count=8):
     strings = (string.ascii_letters + str(string.digits))
     text = ""
     for x in range(0, int(count)):
