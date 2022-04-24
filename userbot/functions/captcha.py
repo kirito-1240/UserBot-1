@@ -16,13 +16,13 @@ def Captcha():
         others.remove(emojis[i])
         emoji_names.append(emojis[i])
         index = emojis_index.get(emojis[i])
-        file = os.path.join("/userbot/other/emojis/",  f"{index}.png")
+        file = os.path.join("/app/UserBot-master/userbot/other/emojis/",  f"{index}.png")
         pimages.append(file)
     position = [(20, 20), (160, 20), (300, 20), (20, 160), (160, 160), (300, 160), (20, 300), (160, 300), (300, 300)]
     for i in range(len(pimages)):
         img = Image.open(pimages[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
-    newpath = os.path.join("/userbot/other/emojis/",  rand_string() + ".png")
+    newpath = os.path.join("/app/UserBot-master/userbot/other/emojis/",  rand_string() + ".png")
     new.save(newpath, "PNG")
     return {"answer": emoji_names, "others": others, "captcha": newpath}
