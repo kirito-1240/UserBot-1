@@ -2,11 +2,12 @@ import os
 os.system("pip install PyGithub")
 import glob
 from github import Github
+import Config
 
 class GITAPP:
-    def __init__(self, token, repo):
-        self.g = Github(token)
-        self.repo = self.g.get_repo(repo)
+    def __init__(self):
+        self.g = Github(Config.GIT_USERNAME, Config.GIT_PASSWORD)
+        self.repo = self.g.get_repo(Config.REPO_NAME)
 
     def get_all_files(self, dir):
         if not dir.endswith("/"):
