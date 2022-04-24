@@ -5,6 +5,7 @@ from telethon import events, Button
 from userbot.functions.captcha import Captcha
 import re
 import os
+import shutil
 import glob
 import asyncio
 import string
@@ -38,8 +39,7 @@ async def call_captcha(event):
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
-    open("res.txt", "w").write(str(event))
-    await app.send_file(event.chat_id, "res.txt")
+    print(event.id)
     if type == "true":
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
@@ -47,4 +47,4 @@ async def call_captcha(event):
         await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
         await asyncio.sleep(2)
         await bot.kick_participant(event.chat_id, user_id)
-    os.remove(f"captcha{event.chat_id}{user_id}.png")
+    shtil.rmtree("cache")
