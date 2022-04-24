@@ -49,7 +49,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                datas += str(but.data.split("||")[1])
+                datas += str(but.data).split("||")[1]
                 if str(but.text) == ans:
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
