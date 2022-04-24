@@ -47,7 +47,7 @@ async def call_captcha(event):
             datas += str(buttons[i][i].data)
             if buttons[i][i].text == ans:
                 buttons[i][i] = Button.inline("✅", data="empty")
-        await event.edit(msg.text + "✅", buttons=buttons)
+        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
         if not "true" in datas:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
@@ -55,5 +55,5 @@ async def call_captcha(event):
         for i in range(len(buttons)):
              if buttons[i][i].text == ans:
                buttons[i][i] = Button.inline("❌", data="empty")
-        await event.edit(msg.text + "❌", buttons=buttons)
+        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
         await event.answer("• The Option Is Not Correct!", alert=True)
