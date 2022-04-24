@@ -25,7 +25,7 @@ async def captcha(event):
         
 @bot.on(events.InlineQuery(pattern=re.compile("aliencaptcha_(.*)_(.*)")))
 async def send_captcha(event):
-    chat_id = event.pattern_match.group(1)
+    chat_id = int(event.pattern_match.group(1).replace("-100", ""))
     user_id = int(event.pattern_match.group(2))
     if event.sender_id != int(DB.get_key("OWNER_ID")):
         return await event.answer("• This Is Not For You!", alert=True)
