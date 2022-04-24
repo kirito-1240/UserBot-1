@@ -1,8 +1,10 @@
 import os
 import random
 from PIL import Image
-os.system("pip install EmojiCaptcha")
-from EmojiCaptcha.emojis_map import emojis_index
+try:
+    from EmojiCaptcha.emojis_map import emojis_index
+except:
+    os.system("pip install EmojiCaptcha")
 
 DIR = "/app/.heroku/python/lib/python3.10/site-packages/EmojiCaptcha/emojis"
 
