@@ -58,7 +58,7 @@ async def call_captcha(event):
                 x += 1
             i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
-        if (trues + 1) == 8:
+        if (trues + 1) == 9:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
     else:
