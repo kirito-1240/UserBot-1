@@ -22,6 +22,8 @@ async def captcha(event):
         me = await bot.get_me()
         results = await app.inline_query(me.username, f"aliencaptcha_{user.id}")
         await results[0].click(event.chat_id, reply_to=event.id)
+    else:
+        print("None")
         
 @bot.on(events.InlineQuery(pattern=re.compile("^aliencaptcha_(.*)$")))
 async def send_captcha(event):
