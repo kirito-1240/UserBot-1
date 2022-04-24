@@ -2,7 +2,7 @@ from userbot import app, bot
 from userbot.database import DB
 from userbot.utils import shuffle
 from telethon import events, Button 
-from captcha.image import ImageCaptcha
+from userbot.functions.captcha import Captcha
 import re
 import os
 import glob
@@ -20,30 +20,25 @@ async def send_captcha(event):
         await bot.edit_permissions(chat.id, user.id, send_messages=False)
     except:
         return
-    strings = (string.ascii_letters + str(string.digits))
+    cap = Captcha()
     buttons = []
-    truetext = ""
-    for x in range(6):
-        truetext += random.choice(strings)
-    buttons.append(Button.inline(truetext, data=f"captcha||true||{user.id}"))
-    for i in range(11):
-        falsetext = ""
-        for x in range(6):
-            falsetext += random.choice(strings)
-        buttons.append(Button.inline(falsetext, data=f"captcha||false||{user.id}"))
+    for ans in cap['answer']:
+        buttons.append(Button.inline(ans, data=f"captcha||true||{ans}||{user.id}"))
+    for i in range(0,20):
+        ans = random.choice(cap['others'])
+        buttons.append(Button.inline(ans, data=f"captcha||false||{ans}||{user.id}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    font = ["userbot/other/fonts/font6.ttf"]
-    image = ImageCaptcha(fonts=font)
-    image.write(truetext, f"captcha{event.chat_id}{user.id}.png")
-    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=f"captcha{event.chat_id}{user.id}.png", buttons=buttons)
+    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=cap['captcha'], buttons=buttons)
 
-@bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)")))
+@bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
     type = str((event.pattern_match.group(1)).decode('utf-8'))
-    user_id = int((event.pattern_match.group(2)).decode('utf-8'))
+    ans = str((event.pattern_match.group(2)).decode('utf-8'))
+    user_id = int((event.pattern_match.group(3)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
+    print(event.buttons)
     if type == "true":
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
