@@ -30,7 +30,7 @@ async def send_captcha(event):
         buttons.append(Button.inline(ans, data=f"captcha||false||{ans}||{user.id}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Option:**", file=cap['captcha'], buttons=buttons)
+    await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
@@ -39,7 +39,8 @@ async def call_captcha(event):
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
-    print(event.id)
+    print(event.msg_id)
+    print(event.text)
     if type == "true":
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
