@@ -26,6 +26,6 @@ def Captcha():
         img = Image.open(paste_image_list[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
         img.thumbnail((100, 100), Image.ANTIALIAS)
         img.paste(img, (position[i]), img)
-    emoji_captcha_path = os.path.join("cache", emojis_index.get(supported_emojis[i]) + ".png"))
+    emoji_captcha_path = os.path.join("cache", emojis_index.get(supported_emojis[i]) + ".png")
     img.save(emoji_captcha_path, "PNG")
     return {"answer": emoji_names, "captcha": emoji_captcha_path}
