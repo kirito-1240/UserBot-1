@@ -49,10 +49,11 @@ async def call_captcha(event):
         for i in range(len(buttons)):
              if buttons[i][i].text == ans:
                buttons[i][i] = Button.inline("❌", data="empty")
-        await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
+        await event.answer("• The Option Is Not Correct!", alert=True)
     texts = ""
     for i in range(len(buttons)):
         texts += str(buttons[i][i].text)
+    await app.send_message(event.chat_id, texts)
     if not "true" in texts:
         await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
         await event.delete()
