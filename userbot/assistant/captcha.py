@@ -21,10 +21,6 @@ async def send_captcha(event):
         await bot.edit_permissions(chat.id, user.id, send_messages=False)
     except:
         return
-    try:
-        await event.delete()
-    except:
-        pass
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
@@ -49,11 +45,15 @@ async def call_captcha(event):
         msg.text += " "
     datas = ""
     if type == "true":
-        for i in range(len(buttons)):
-            datas += str(buttons[i][i].data)
-            if str(buttons[i][i].text) == ans:
-                buttons[i][i] = Button.inline("✅", data="emojiempty")
-        await bot.send_message(event.chat_id, msg.text + "✅", buttons=buttons)
+        i = 0
+        for butts in buttons:
+            x = 0
+            for but in butts:
+                datas += str(but.data)
+                if str(but.text) == ans:
+                    buttons[i][x] = Button.inline("✅", data="emojiempty")
+                x += 1
+            i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
         if not "true" in datas:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
@@ -63,11 +63,14 @@ async def call_captcha(event):
         for mes in msg.text:
             if mes == "❌":
                 warns += 1
-        for x in buttons:
-            for m in x:
-                 if str(m.text) == ans:
-                     buttons[i][i] = Button.inline("❌", data="emojiempty")
-        await bot.send_message(event.chat_id, msg.text + f"{str(buttons[i][i].text)} = {ans}", buttons=buttons)
+        i = 0
+        for butts in buttons:
+            x = 0
+            for but in butts:
+                if str(but.text) == ans:
+                    buttons[i][x] = Button.inline("❌", data="emojiempty")
+                x += 1
+            i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
         if (warns + 1) > 4:
             await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
