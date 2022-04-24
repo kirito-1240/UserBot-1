@@ -64,7 +64,7 @@ async def call_captcha(event):
     msg = await app.get_messages(event.chat_id, ids=int(event.message_id))
     buttons = msg.buttons
     if msg.text.endswith("Options:**"):
-        msg.text = f"**{msg.text}**\n\n**• Your Answers:** "
+        msg.text = f"**{msg.text}\n\n• Your Answers:** "
     datas = ""
     if type == "truesemojies":
         trues = 0
@@ -75,8 +75,8 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                print(str(but.data.decode('utf-8')))
-                if str(but.text) == ans and "trueemojies" in str(but.data.decode('utf-8')):
+                print(str(but.data.decode('utf-8').split("||")[1]))
+                if str(but.text) == ans and "trueemojies" in str(but.data.decode('utf-8').split("||")[1]):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
@@ -94,7 +94,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and "falseemojies" in str(but.data.decode('utf-8')):
+                if str(but.text) == ans and "falseemojies" in str(but.data.decode('utf-8').split("||")[1]):
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
