@@ -33,6 +33,7 @@ async def send_captcha(event):
         await app.edit_permissions(chat_id, user_id, send_messages=False)
     except Exception as e:
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
+        return
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
@@ -62,10 +63,10 @@ async def call_captcha(event):
     user = await app.get_entity(user_id)
     msg = await app.get_messages(event.chat_id, ids=int(event.message_id))
     buttons = msg.buttons
-    if msg.text.endswith("Options:**"):
-        mtext = f"**{str(msg.text)}\n\n• Your Answers:** "
+    if msg.text.endswith("Options:"):
+        mtext = f"**{msg.text}\n\n• Your Answers:** "
     else:
-        mtext = f"**{str(msg.text)}**"
+        mtext = f"**{msg.text}**"
     datas = ""
     if type == "truesemojies":
         trues = 0
