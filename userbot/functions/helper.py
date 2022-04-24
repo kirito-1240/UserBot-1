@@ -1,3 +1,5 @@
+import string, random
+
 def media_type(message):
     if message and message.photo:
         return "Photo"
@@ -16,3 +18,10 @@ def media_type(message):
     if message and message.document:
         return "Document"
     return None
+
+def rand_string(count):
+    strings = (string.ascii_letters + str(string.digits))
+    text = ""
+    for x in range(0, int(count)):
+        text += random.choice(strings)
+    return text
