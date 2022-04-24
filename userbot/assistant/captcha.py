@@ -17,11 +17,12 @@ async def captcha(event):
     chat = await event.get_chat()
     if not (event.user_joined or event.user_added) or user.bot:
         return
+    await event.reply(str(event))
     chats = DB.get_key("CAPTCHA_CHATS") or []
     if event.chat_id in chats:
         me = await bot.get_me()
         results = await app.inline_query(me.username, f"aliencaptcha_{event.chat_id}_{user.id}")
-        await results[0].click(event.chat_id, reply_to=event.id)
+        await results[0].click(event.chat_id)
         
 @bot.on(events.InlineQuery(pattern=re.compile("aliencaptcha_(.*)_(.*)")))
 async def send_captcha(event):
