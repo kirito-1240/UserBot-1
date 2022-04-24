@@ -57,7 +57,7 @@ async def send_captcha(event):
         for ans in cap['answer']:
             options += ans + " - " 
         options = options[:-3]
-        text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options:**\n\n**• Options:( {options} )"
+        text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options:**\n\n**• Options:** ( `{options}` )"
         result = event.builder.article(
             title="• Alien Captcha •",
             text=text,
@@ -76,7 +76,7 @@ async def call_captcha(event):
     user = await app.get_entity(user_id)
     msg = await app.get_messages(event.chat_id, ids=int(event.message_id))
     buttons = msg.buttons
-    if msg.text.endswith("Options:**"):
+    if not "Your Answers" in msg.text:
         mtext = f"{msg.text}\n\n**• Your Answers:** "
     else:
         mtext = f"{msg.text}"
