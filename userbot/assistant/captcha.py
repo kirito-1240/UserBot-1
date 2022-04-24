@@ -60,10 +60,11 @@ async def call_captcha(event):
     ran = int((event.pattern_match.group(4)).decode('utf-8'))
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠")
+    user = await app.get_entity(user_id)
     msg = await app.get_messages(event.chat_id, ids=int(event.message_id))
     buttons = msg.buttons
     if msg.text.endswith("Options:**"):
-        msg.text += "\n\n**• Your Answers:** "
+        msg.text = f"**{msg.text}**\n\n**• Your Answers:** "
     datas = ""
     if type == "truesemojies":
         trues = 0
@@ -81,7 +82,7 @@ async def call_captcha(event):
         await event.edit(msg.text + "✅", buttons=buttons)
         if (trues + 1) == ran:
             await app.edit_permissions(event.chat_id, user_id, send_messages=True)
-            await event.answer("• Succesfuly Verified!")
+            await event.reply(f"**• User {user.mention} Succesfuly Verified!**")
             await app.delete_messages(event.chat_id, event.message_id)
     else:
         warns = 0
@@ -98,9 +99,6 @@ async def call_captcha(event):
             i += 1
         await event.edit(msg.text + "❌", buttons=buttons)
         if (warns + 1) > 4:
-            await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
-            await asyncio.sleep(2)
-            msg = await app.kick_participant(event.chat_id, user_id)
+            await app.kick_participant(event.chat_id, user_id)
+            await event.reply(f"**• User {user.mention} Not Verified And Kicked!**")
             await app.delete_messages(event.chat_id, event.message_id)
-        else:
-            await event.answer("• The Option Is Not Correct!", alert=True)
