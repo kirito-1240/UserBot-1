@@ -18,7 +18,7 @@ def Captcha():
     for i in range(9):
         index = emojis_index.get(emojis[i])
         file = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  f"{index}.png")
-        if not os.path.exists(file)
+        if not os.path.exists(file):
             link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
             try:
                 downloadfile(link, file)
