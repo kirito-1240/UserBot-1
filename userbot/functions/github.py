@@ -22,16 +22,28 @@ class GITAPP:
             content = open(oldfile, "r").read()
         except:
             content = open(oldfile, "rb").read()
-        self.repo.create_file(newfile, "creating file", content, branch="master")
+        try:
+            self.repo.create_file(newfile, "creating file", content, branch="master")
+            return True
+        except:
+            return False
 
     def update(self, oldfile, newfile):
         try:
             content = open(oldfile, "r").read()
         except:
             content = open(oldfile, "rb").read()
-        contents = self.repo.get_contents(newfile)
-        self.repo.update_file(contents.path, "updating file", content, contents.sha, branch="master")
+        try:
+            contents = self.repo.get_contents(newfile)
+            self.repo.update_file(contents.path, "updating file", content, contents.sha, branch="master")
+            return True
+        except:
+            return False
 
     def delete(self, file):
-        contents = self.repo.get_contents(file, ref="master")
-        self.repo.delete_file(contents.path, "removing file", contents.sha, branch="master")
+        try:
+            contents = self.repo.get_contents(file, ref="master")
+            self.repo.delete_file(contents.path, "removing file", contents.sha, branch="master")
+            return True
+        except:
+            return False
