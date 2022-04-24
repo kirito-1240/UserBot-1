@@ -42,8 +42,9 @@ async def send_captcha(event):
         ans = random.choice(cap['others'])
         buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
+    user = await app.get_entity(user_id)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
-    text = f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**"
+    text = f"**• Hello {user.mention}**\n\n**• Please Select The Correct Options:**"
     result = event.builder.photo(
         file=cap['captcha'],
         text=text,
