@@ -17,7 +17,6 @@ async def captcha(event):
     chat = await event.get_chat()
     if not (event.user_joined or event.user_added) or user.bot:
         return
-    await event.reply(str(event))
     chats = DB.get_key("CAPTCHA_CHATS") or []
     if event.chat_id in chats:
         me = await bot.get_me()
@@ -37,7 +36,6 @@ async def send_captcha(event):
         return
     cap = Captcha()
     buttons = []
-    print(event)
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     for i in range(0,(16 - len(cap['answer']))):
