@@ -64,12 +64,13 @@ async def call_captcha(event):
                 warns += 1
         for i in range(len(buttons)):
              if buttons[i][i].text == ans:
-               buttons[i][i] = Button.inline("❌", data="empty")
+                 buttons[i][i] = Button.inline("❌", data="empty")
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
-        await event.answer("• The Option Is Not Correct!", alert=True)
-        if (warns + 1) > 5:
+        if (warns + 1) > 4:
             await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
             await asyncio.sleep(2)
             msg = await bot.kick_participant(event.chat_id, user_id)
             await msg.delete()
             await event.delete()
+        else:
+            await event.answer("• The Option Is Not Correct!", alert=True)
