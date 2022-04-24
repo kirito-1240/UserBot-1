@@ -82,7 +82,7 @@ async def call_captcha(event):
         if (trues + 1) == ran:
             await app.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.answer("• Succesfuly Verified!", alert=True)
-            await event.delete()
+            await app.delete_message(event.chat_id, event.message_id)
     else:
         warns = 0
         for mes in msg.text:
@@ -101,6 +101,6 @@ async def call_captcha(event):
             await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
             await asyncio.sleep(2)
             msg = await app.kick_participant(event.chat_id, user_id)
-            await event.delete()
+            await app.delete_message(event.chat_id, event.message_id)
         else:
             await event.answer("• The Option Is Not Correct!", alert=True)
