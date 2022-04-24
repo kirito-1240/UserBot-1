@@ -45,17 +45,20 @@ async def call_captcha(event):
         msg.text += "\n\n**• Your Answers:** "
     datas = ""
     if type == "truesemojies":
+        trues = 0
+        for mes in msg.text:
+            if mes == "✅":
+                trues += 1
         i = 0
         for butts in buttons:
             x = 0
             for but in butts:
-                datas += str(but.data)
                 if str(but.text) == ans:
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
-        if not "truesemojies" in str(datas):
+        if (trues + 1) == 12:
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
     else:
