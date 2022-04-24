@@ -6,7 +6,7 @@ from github import Github
 class GITAPP:
     def __init__(self, token, repo):
         self.g = Github(token)
-        self.repo = self.g.get_user().get_repo(repo)
+        self.repo = self.g.get_repo(repo)
 
     def get_all_files(self, dir):
         if not dir.endswith("/"):
