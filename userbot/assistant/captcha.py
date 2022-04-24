@@ -64,7 +64,7 @@ async def call_captcha(event):
     msg = await app.get_messages(event.chat_id, ids=int(event.message_id))
     buttons = msg.buttons
     if msg.text.endswith("Options:**"):
-        mtext = f"**{msg.text}\n\n• Your Answers:** "
+        mtext = f"<b>{msg.text}\n\n• Your Answers:<\b> "
     else:
         mtext = f"**{msg.text}**"
     datas = ""
@@ -81,7 +81,7 @@ async def call_captcha(event):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
-        await event.edit(mtext + "✅", buttons=buttons)
+        await event.edit(mtext + "✅", buttons=buttons, parse_mode='html')
         if (trues + 1) == ran:
             await app.edit_permissions(event.chat_id, user_id, send_messages=True)
             await app.send_message(event.chat_id, f"**• User {user.mention} Succesfuly Verified!**", reply_to=event.message_id)
