@@ -1,4 +1,4 @@
-[
+emojis = [
   "\ud83d\ude00",
   "\ud83d\ude03",
   "\ud83d\ude04",
