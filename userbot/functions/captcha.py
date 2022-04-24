@@ -6,6 +6,7 @@ from userbot.other.emoji import emojis_index
 from userbot.functions.helper import rand_string
 from userbot.functions.tools import downloadfile
 from userbot.functions.github import GITAPP
+import Config
 
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
