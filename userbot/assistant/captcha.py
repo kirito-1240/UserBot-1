@@ -24,10 +24,10 @@ async def send_captcha(event):
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
-        buttons.append(Button.inline(ans, data=f"captcha||true||{ans}||{user.id}"))
+        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user.id}"))
     for i in range(0,8):
         ans = random.choice(cap['others'])
-        buttons.append(Button.inline(ans, data=f"captcha||false||{ans}||{user.id}"))
+        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user.id}"))
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
@@ -44,18 +44,18 @@ async def call_captcha(event):
     if msg.text.endswith("Options:**"):
         msg.text += "\n\n**• Your Answers:** "
     datas = ""
-    if type == "true":
+    if type == "truesemojies":
         i = 0
         for butts in buttons:
             x = 0
             for but in butts:
-                datas += str(but.data)
+                datas += str(but.data.split("||")[1])
                 if str(but.text) == ans:
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + f"✅{datas}", buttons=buttons)
-        if not "true" in datas:
+        if not "truesemojies" in str(datas):
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
     else:
