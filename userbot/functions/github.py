@@ -9,8 +9,10 @@ class GITAPP:
         self.repo = self.g.get_repo(repo)
 
     def get_all_files(self, dir):
+        if not dir.endswith("/"):
+            dir = dir + "/"
         all_files = []
-        for file in glob.glob(dir):
+        for file in glob.glob((dir + "*")):
             if os.path.isfile(file):
                 all_files.append(os.path.basename(file))  
         return all_files
