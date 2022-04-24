@@ -11,12 +11,17 @@ import asyncio
 import string
 import random
 
-@bot.on(events.ChatAction)
-async def send_captcha(event):
+@app.on(events.ChatAction)
+async def captcha(event):
     user = await event.get_user()
     chat = await event.get_chat()
     if not (event.user_joined or event.user_added) or user.bot:
         return
+
+@bot.on(events.InlineQuery(pattern=re.compile("^alien$")))
+async def send_captcha(event):
+    if event.sender_id != int(DB.get_key("OWNER_ID")):
+        return await event.answer("• This Is Not For You!", alert=True)
     try:
         await bot.edit_permissions(chat.id, user.id, send_messages=False)
     except:
@@ -31,6 +36,7 @@ async def send_captcha(event):
     buttons = shuffle(buttons)
     buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
     await event.reply(f"**• Hello {user.first_name}**\n\n**• Please Select The Correct Options:**", file=cap['captcha'], buttons=buttons)
+
 
 @bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
 async def call_captcha(event):
