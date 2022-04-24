@@ -19,7 +19,9 @@ def Captcha():
     random.shuffle(supported_emojis, lambda: r)
     r = random.random()
     random.shuffle(supported_emojis, lambda: r)
+    others = supported_emojis
     for i in range(12):
+        others.remove(supported_emojis[i])
         emoji_names.append(supported_emojis[i])
         paste_image_list.append((os.path.join(DATA_DIR, emojis_index.get(supported_emojis[i]) + ".png")))
     position = [(20, 20), (170, 20), (310, 20), (450, 20), (20, 160), (170, 160), (310, 160), (450, 160), (20, 300), (170, 300), (310, 300), (450, 300)]
@@ -29,4 +31,4 @@ def Captcha():
         new.paste(img, (position[i]), img)
     emoji_captcha_path = os.path.join("cache", emojis_index.get(supported_emojis[i]) + ".png")
     new.save(emoji_captcha_path, "PNG")
-    return {"answer": emoji_names, "captcha": emoji_captcha_path}
+    return {"answer": emoji_names, "others": others, "captcha": emoji_captcha_path}
