@@ -1,5 +1,6 @@
 import os
 os.system("pip install PyGithub")
+import glob
 from github import Github
 
 class GITAPP:
@@ -9,14 +10,9 @@ class GITAPP:
 
     def get_all_files(self, dir):
         all_files = []
-        contents = self.repo.get_contents(dir)
-        while contents:
-            file_content = contents.pop(0)
-            if file_content.type == "dir":
-                contents.extend(self.repo.get_contents(file_content.path))
-            else:
-                file = file_content
-                all_files.append(str(file).replace('ContentFile(path="','').replace('")',''))
+        for file in glob.glob(dir):
+            if os.path.isfile(file):
+                all_files.append(os.path.basename(file))  
         return all_files
 
     def create(self, oldfile, newfile):
