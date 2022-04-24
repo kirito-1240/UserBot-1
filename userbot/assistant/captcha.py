@@ -54,7 +54,7 @@ async def call_captcha(event):
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
-        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + f"✅{datas}", buttons=buttons)
+        await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "✅", buttons=buttons)
         if not "truesemojies" in str(datas):
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
