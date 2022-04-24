@@ -8,10 +8,7 @@ async def new_join(event):
     if match:= re.search("UpdateChannel\((.*)channel_id=(\d*)", str(event)):
         chat = await app.get_entity(int(match[2]))
         user = await app.get_entity("me")
-        if chat.username:
-            username =  f"[{chat.title}](https://t.me/{chat.username}/{event.action_message.id})"
-        else:
-            username = f"[{chat.title}](https://t.me/c/{chat.id}/{event.action_message.id})"
+        getchat = f"[{chat.title}](https://t.me/c/{chat.id}/0)"
         type = "bot" if event.client._bot else "app"
         buttons = [Button.inline("• Leave Chat •", data=f"leavenewjoin_{chat.id}_{type}")]
         text = f"""
@@ -22,7 +19,7 @@ async def new_join(event):
 **• Group/Channel Info:**
    **• Title:** ( {chat.title} )
    **• ID:** ( {chat.id} )
-   **• Username:** ( {username} )
+   **• Username:** ( {getchat} )
 """
         await bot.send_message(DB.get_key("LOG_GROUP"), text, buttons=buttons)
 
