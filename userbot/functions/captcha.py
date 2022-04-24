@@ -9,7 +9,7 @@ except:
     from EmojiCaptcha.emojis_map import emojis_index
     from EmojiCaptcha.__main__ import DATA_DIR
 
-def Captcha():
+def MakeCaptcha():
     img = os.path.join(DATA_DIR, 'background.png')
     paste_image_list = list()
     emoji_names = list()
