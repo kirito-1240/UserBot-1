@@ -5,6 +5,11 @@ from userbot.utils import shuffle
 from userbot.other.emojis import emojis, emojis_index
 from userbot.functions.tools import downloadfile
 
+try:
+    os.mkdir("cache")
+except OSError:
+    pass
+
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     paste_image_list = list()
