@@ -10,7 +10,6 @@ except:
     from EmojiCaptcha.__main__ import DATA_DIR
 
 def Captcha():
-    img = Image.new('RGB', (360, 360), (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     img = os.path.join(DATA_DIR, 'background.png')
     paste_image_list = list()
     emoji_names = list()
