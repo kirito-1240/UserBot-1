@@ -21,6 +21,10 @@ async def send_captcha(event):
         await bot.edit_permissions(chat.id, user.id, send_messages=False)
     except:
         return
+    try:
+        await event.delete()
+    except:
+        pass
     cap = Captcha()
     buttons = []
     for ans in cap['answer']:
@@ -41,6 +45,8 @@ async def call_captcha(event):
         return await event.answer("• This Is Not For You 😠")
     msg = await app.get_messages(event.chat_id, ids=int(event.original_update.msg_id))
     buttons = msg.buttons
+    if msg.text.endswith(":**"):
+        msg.text += " "
     datas = ""
     if type == "true":
         for i in range(len(buttons)):
@@ -52,8 +58,18 @@ async def call_captcha(event):
             await bot.edit_permissions(event.chat_id, user_id, send_messages=True)
             await event.delete()
     else:
+        warns = 0
+        for mes in msg.text:
+            if mes == "❌":
+                warns += 1
         for i in range(len(buttons)):
              if buttons[i][i].text == ans:
                buttons[i][i] = Button.inline("❌", data="empty")
         await bot.edit_message(event.chat_id, int(event.original_update.msg_id), msg.text + "❌", buttons=buttons)
         await event.answer("• The Option Is Not Correct!", alert=True)
+        if (warns + 1) > 5:
+            await event.answer("• The Option Is Not Correct, You Are Kicked!", alert=True)
+            await asyncio.sleep(2)
+            msg = await bot.kick_participant(event.chat_id, user_id)
+            await msg.delete()
+            await event.delete()
