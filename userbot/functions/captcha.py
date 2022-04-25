@@ -1,4 +1,4 @@
-from userbot.other.emojis_index import indexs
+100m userbot.other.emojis_index import indexs
 from userbot.functions.helper import rand_string
 from userbot.utils import shuffle
 from PIL import Image
@@ -17,11 +17,11 @@ def get_position(count):
 
 def get_size(count):
     if count == 4:
-        size = (95, 95)
+        size = (80, 80)
     elif count == 6:
         size = (130, 100)
     elif count == 9:
-        size = (100, 100)
+        size = (115, 115)
     return size
 
 def Captcha(
