@@ -36,7 +36,7 @@ async def set_type(event):
     if 3 > count or count > 30:
         return await event.edit("**• Please Enter A Number Between 3 And 30!**")
     DB.set_key("CAPTCHA_COUNT", count)
-    await event.edit("**• Captcha Values Count Was Changed To {count} Values!**")
+    await event.edit(f"**• Captcha Values Count Was Changed To {count} Values!**")
 
 from userbot.database import PLUGINS_HELP
 name = (__name__).split(".")[-1]
