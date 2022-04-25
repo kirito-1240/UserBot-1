@@ -1,7 +1,7 @@
 from userbot.other.emojis_index import indexs
 from userbot.functions.helper import rand_string
 from userbot.utils import shuffle
-from PIL import Image
+from PIL import Image, ImageDraw
 import random
 import os
 import Config
@@ -18,7 +18,7 @@ def Captcha(
         new = Image.open(background)
         new = new.resize(imsize)
     else:
-        new = Image.new('RGBA', imsize, (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+        new = Image.new('RGB', imsize, (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
     unemojis = []
@@ -46,10 +46,10 @@ def Captcha(
     for i in range(len(pimages)):
         img = Image.open(pimages[i])
         if rotate:
-            img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
+            img = img.rotate(random.randint(0, 360))
         img.thumbnail((200, 200), Image.ANTIALIAS)
         position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
-    new.save(outfile, "PNG", quality=95)
+    new.save(outfile, "PNG")
     return {"answer": emoji_names, "others": emojis, "unavailables": unemojis, "repleyes": repemojis, "captcha": outfile}
