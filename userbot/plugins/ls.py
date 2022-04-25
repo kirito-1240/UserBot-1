@@ -9,9 +9,8 @@ async def ls(event):
     await event.edit("`• Please Wait ...`")
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
-    if not os.path.exists(path) or path.startswith(".."):
-        await event.edit(f"**• There Is No Such Directory Or File With The Name** `{input}` **Check Again!**")
-        return
+    if not os.path.exists(path):
+        return await event.edit(f"**• There Is No Such Directory Or File With The Name** `{input}` **Check Again!**")
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
