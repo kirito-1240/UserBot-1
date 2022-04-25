@@ -5,6 +5,7 @@ _run_python_code() {
 }
 
 _run() {
+    echo "• Starting Deployment . . ."
     $(_run_python_code 'import os
 import sys
 import glob
@@ -30,6 +31,7 @@ for file in glob.glob("./UserBot-master/*"):
         shutil.copy(file, file.replace("UserBot-master/", ""))
 
 shutil.rmtree("./UserBot-master")')
+    echo "• Deployment Completed!"
 }
 
 _start_bot () {
