@@ -33,7 +33,7 @@ def Captcha(
             unemojis.append(rand)
             rands = random.choice(defemojis)
             emoji_names.append(rands)
-            repemojis.append(rand)
+            repemojis.append(rands)
             inde = indexs.get(rands)
             file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
             pimages.append(file)
