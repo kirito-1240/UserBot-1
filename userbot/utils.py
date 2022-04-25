@@ -6,12 +6,10 @@ from pathlib import Path
 import os, sys, time, heroku3,logging, math, importlib, glob, shlex, asyncio, functools, re, random
 
 def shuffle(list):
-    new = []
-    for x in range(0, len(list)):
-        n = random.choice(list)
-        new.append(n)
-        list.remove(n)
-    return new
+    for i in range(5):
+        r = random.random()
+        random.shuffle(list, lambda: r)
+    return list
 
 async def runcmd(cmd):
     args = shlex.split(cmd)
