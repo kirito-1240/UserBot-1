@@ -4,31 +4,47 @@ _run_python_code() {
     python3${pVer%.*} -c "$1"
 }
 
-_run_aliengit() {
-    $(_run_python_code 'from git import Repo
+_run() {
+    $(_run_python_code '    
 import sys
-OFFICIAL_UPSTREAM_REPO= "https://github.com/MxAboli/UserBot"
-ACTIVE_BRANCH_NAME = "master"
-repo = Repo.init()
-origin = repo.create_remote("temponame", OFFICIAL_UPSTREAM_REPO)
-origin.fetch()
-repo.create_head(ACTIVE_BRANCH_NAME, origin.refs[ACTIVE_BRANCH_NAME])
-repo.heads[ACTIVE_BRANCH_NAME].checkout(True)')
+import os
+import glob
+import shutil
+import zipfile
+
+print("• Downloading Source Code . . .")
+
+os.system("wget -q https://github.com/MxAboli/UserBot/archive/master.zip -O alien.zip")
+
+print("• Unpacking Source Code . . .")
+
+z = zipfile.ZipFile("alien.zip", "r")
+z.extractall("./")
+
+print("• Successfuly Unpacking Source Code . . .")
+
+for x in glob.glob("/app/*"):
+    if not "UserBot-master" in x:
+        if os.path.isfile(x):
+            os.remove(x)
+        else:
+            shutil.rmtree(x)
+
+for file in glob.glob("./UserBot-master/*"):
+    if os.path.isdir(file):
+        shutil.copytree(file, file.replace("UserBot-master/", ""))
+    else:
+        shutil.copy(file, file.replace("UserBot-master/", ""))
+
+shutil.rmtree("./UserBot-master")
+
+print("•   Starting Alien Userbot   •")
+')
 }
 
 _start_bot () {
-    local zippath
-    zippath="alien.zip"
-    echo "• Downloading Source Code . . ."
-    wget -q "https://github.com/MxAboli/UserBot/archive/master.zip" -O "$zippath"
-    echo "• Unpacking Source Code . . ."
-    ALIENPATH=$(zipinfo -1 "$zippath" | grep -v "/.");
-    unzip -qq "$zippath"
-    echo "• Successfuly Unpacking Source Code . . ."
-    cd $ALIENPATH
-    _run_aliengit
-    echo "•   Starting Alien Userbot   •"
     python3 -m userbot
 }
 
+_run
 _start_bot
