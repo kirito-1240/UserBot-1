@@ -24,12 +24,12 @@ def Captcha(
 ):
     if count not in [4, 6, 9, 12, 15, 16, 20]:
         count = 12
-    imsize = count * 50
+    imsize = count * 30 + 40
     if background:
         new = Image.open(background)
-        new = new.resize((imsize + 40, imsize + 40))
+        new = new.resize((imsize, imsize))
     else:
-        new = Image.new('RGBA', (imsize + 40, imsize + 40), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+        new = Image.new('RGBA', (imsize, imsize), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
     unemojis = []
@@ -59,7 +59,7 @@ def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        img.thumbnail((150, 150), Image.ANTIALIAS)
+        img.thumbnail((50, 50), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
