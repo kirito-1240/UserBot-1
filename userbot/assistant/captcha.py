@@ -38,6 +38,8 @@ async def send_captcha(event):
     cap = Captcha(rotate=True, count=int(count))
     buttons = []
     lens = round(count * 2.5)
+    if (lens + int(count)) > 40:
+        lens = 40 - int(count)
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     for i in range(0,(lens - len(cap['answer']))):
