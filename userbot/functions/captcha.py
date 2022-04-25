@@ -9,8 +9,6 @@ import random
 import os
 import Config
 
-amojis = shuffle(emojis)
-
 def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
