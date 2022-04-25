@@ -1,5 +1,4 @@
 import os
-os.system("pip install PyGithub")
 import glob
 from github import Github
 import Config
