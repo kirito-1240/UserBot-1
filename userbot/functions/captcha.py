@@ -3,7 +3,6 @@ from userbot.other.all_emojis import emojis
 from userbot.functions.helper import rand_string
 from userbot.functions.tools import downloadfile
 from userbot.functions.github import GITAPP
-from userbot.utils import shuffle
 from PIL import Image
 import random
 import os
@@ -13,7 +12,9 @@ def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
-    emojis = shuffle(emojis())
+    emojis = emojis()
+    r = random.random()
+    random.shuffle(emojis, lambda: r)
     others = emojis
     for i in range(9):
         index = emojis_index.get(emojis[i])
