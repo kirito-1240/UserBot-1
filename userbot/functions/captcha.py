@@ -26,7 +26,7 @@ def Captcha():
         img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
-    outfile = self.output if self.output else rand_string() + ".png"
+    outfile = rand_string() + ".png"
     newpath = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  outfile)
     new.save(newpath, "PNG")
     return {"answer": emoji_names, "others": emojis, "captcha": newpath}
