@@ -11,13 +11,17 @@ def get_position(count):
         position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40)]
     elif count == 9:
         position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40), (5, 75), (40, 75), (75, 75)]
+    elif count == 12:
+        position = [(5, 5), (40, 5), (75, 5), (110, 5), (5, 40), (40, 40), (75, 40), (110, 40), (5, 75), (40, 75), (75, 75), (110, 75)]
     return position
 
 def get_size(count):
     if count == 6:
-        size = (120, 85)
+        size = (110, 70)
     elif count == 9:
-        size = (115, 115)
+        size = (110, 110)
+    elif count == 12:
+        size = (160, 150)
     return size
 
 def Captcha(
