@@ -8,11 +8,11 @@ import Config
 
 def get_position(count):
     if count == 4:
-        position = [(20, 20), (70, 20), (20, 70), (70, 70)]
+        position = [(10, 10), (50, 10), (10, 50), (50, 50)]
     elif count == 6:
-        position = [(20, 20), (70, 20), (120, 20), (20, 70), (70, 70), (120, 70)]
+        position = [(10, 10), (50, 10), (90, 10), (10, 50), (50, 50), (90, 50)]
     elif count == 9:
-        position = [(20, 20), (70, 20), (120, 20), (20, 70), (70, 70), (120, 70), (20, 120), (70, 120), (120, 120)]
+        position = [(10, 10), (50, 10), (90, 10), (10, 50), (50, 50), (90, 50), (10, 90), (50, 90), (90, 90)]
     return position
 
 def get_size(count):
@@ -33,7 +33,7 @@ def Captcha(
 ):
     if count not in [4, 6, 9, 12, 15, 16, 20]:
         count = 12
-    imsize = (360, 360)
+    imsize = get_size(count)
     if background:
         new = Image.open(background)
         new = new.resize(imsize)
@@ -64,12 +64,11 @@ def Captcha(
             pimages.append(file)
             emojis.remove(rand)
     position = get_position(count)
-    size = get_size(count)
     for i in range(len(pimages)):
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        img.thumbnail(size, Image.ANTIALIAS)
+        img.thumbnail((50,50), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
