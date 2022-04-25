@@ -37,7 +37,7 @@ async def send_captcha(event):
     count = DB.get_key("CAPTCHA_COUNT") or 8
     cap = Captcha(rotate=True, count=int(count))
     buttons = []
-    lens = round(count * 2.5)
+    lens = round(count * 1.5)
     if (lens + int(count)) > 40:
         lens = 40 - int(count)
     for ans in cap['answer']:
