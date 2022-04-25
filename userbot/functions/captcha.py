@@ -22,7 +22,7 @@ def get_size(count):
         size = (300, 250)
     elif count == 9:
         size = (300, 300)
-    return position
+    return size
 
 
 def Captcha(
