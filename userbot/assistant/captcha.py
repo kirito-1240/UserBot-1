@@ -38,12 +38,12 @@ async def send_captcha(event):
     buttons = []
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
-    for i in range(0,(20 - len(cap['answer']))):
+    for i in range(0,(30 - len(cap['answer']))):
         ans = random.choice(cap['others'])
         buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
     user = await app.get_entity(user_id)
-    buttons = (buttons[::4], buttons[1::4], buttons[2::4], buttons[3::4])
+    buttons = (buttons[::5], buttons[1::5], buttons[2::5], buttons[3::5], buttons[4::5])
     type = DB.get_key("CAPTCHA_TYPE") or "photo"
     if type == "photo":
         text = f"**• Hello** {user.mention}\n\n**• Please Select The Correct Options From Photo:**"
