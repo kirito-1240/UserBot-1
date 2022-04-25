@@ -35,7 +35,6 @@ async def send_captcha(event):
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
         return
     cap = Captcha(rotate=True, count=10)
-    os.remove(photo)
     buttons = []
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
