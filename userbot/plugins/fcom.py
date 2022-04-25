@@ -18,7 +18,6 @@ async def send_fcom(event):
         participants = await event.client.get_participants(chat)
         count = len(participants)
         my_mention = "<a href='tg://user?id={}'>{}</a>".format(me.id, me.first_name)
-        first = a_user.first_name
         my_first = me.first_name
         my_last = me.last_name
         my_fullname = f"{my_first} {my_last}" if my_last else my_first
