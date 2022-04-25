@@ -17,11 +17,11 @@ def get_position(count):
 
 def get_size(count):
     if count == 4:
-        size = (250, 250)
+        size = (100, 100)
     elif count == 6:
-        size = (300, 250)
+        size = (130, 130)
     elif count == 9:
-        size = (300, 300)
+        size = (170, 170)
     return size
 
 
