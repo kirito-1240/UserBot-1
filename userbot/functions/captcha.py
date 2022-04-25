@@ -27,7 +27,7 @@ def get_size(count):
 def Captcha(
     background=None,
     emojis=None,
-    rotate=True,
+    rotate=False,
     filename=None,
     count=9,
 ):
