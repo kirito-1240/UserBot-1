@@ -11,3 +11,14 @@ async def joinvc(event):
         await event.delete()
     else:
         await event.edit("**• Already On Voice Chat In This Chat!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Join On Group Voice Chat!",
+        "commands": {
+            "{cmdh}joinvc": "To Join On Group Voice Chat!",
+        },
+    }
+})
