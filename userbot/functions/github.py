@@ -29,6 +29,18 @@ class GITAPP:
         except:
             return False
 
+    def rename(self, oldfile, newfile):
+        try:
+            content = open(oldfile, "r").read()
+        except:
+            content = open(oldfile, "rb").read()
+        try:
+            self.repo.create_file(newfile, "creating file", content, branch="master")
+            os.remove(oldfile)
+            return True
+        except:
+            return False
+
     def update(self, oldfile, newfile):
         try:
             content = open(oldfile, "r").read()
