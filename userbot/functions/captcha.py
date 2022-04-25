@@ -27,9 +27,9 @@ def get_size(count):
     elif count == 12:
         size = (146, 112)
     elif count == 16:
-        size = (148, 140)
+        size = (148, 142)
     elif count == 20:
-        size = (148, 170)
+        size = (148, 174)
     return size
 
 def Captcha(
