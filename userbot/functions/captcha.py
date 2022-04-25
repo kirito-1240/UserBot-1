@@ -15,6 +15,16 @@ def get_position(count):
         position = [(20, 20), (70, 20), (120, 20), (20, 70), (70, 70), (120, 70), (20, 120), (70, 120), (120, 120)]
     return position
 
+def get_size(count):
+    if count == 4:
+        size = (250, 250)
+    elif count == 6:
+        size = (300, 250)
+    elif count == 9:
+        size = (300, 300)
+    return position
+
+
 def Captcha(
     background=None,
     emojis=None,
@@ -24,12 +34,12 @@ def Captcha(
 ):
     if count not in [4, 6, 9, 12, 15, 16, 20]:
         count = 12
-    imsize = count * 30 + 40
+    imsize = get_size(count)
     if background:
         new = Image.open(background)
-        new = new.resize((imsize, imsize))
+        new = new.resize(imsize)
     else:
-        new = Image.new('RGBA', (imsize, imsize), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+        new = Image.new('RGBA', imsize, (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
     unemojis = []
