@@ -2,12 +2,12 @@ from userbot import app
 from userbot.events import alien
 from userbot.database import DB
 
-@alien(pattern="captcha (on|off)")
+@alien(pattern="(add|del)captcha")
 async def set_type(event):
     await event.edit("`• Please Wait . . .`")
     pow = event.pattern_match.group(1)
     chats = DB.get_key("CAPTCHA_CHATS") or []
-    if pow.lower() == "on":
+    if pow.lower() == "add":
         if not event.chat_id in chats:
             chats.append(event.chat_id)
             DB.set_key("CAPTCHA_CHATS", chats)
@@ -28,3 +28,17 @@ async def set_type(event):
     else:
         DB.set_key("CAPTCHA_TYPE", "text")
         await event.edit("**• Captcha Mode Was Changed To Text Mode!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Captcha Mode For New Members!",
+        "commands": {
+            "{cmdh}addcaptcha": "To Active Captcha Mode For Chat!",
+            "{cmdh}delcaptcha": "To DeActive Captcha Mode For Chat!",
+            "{cmdh}captype photo": "To Set Captcha Mode On Photo Mode!",
+            "{cmdh}captype text": "To Set Captcha Mode On Text Mode!",
+        },
+    }
+})
