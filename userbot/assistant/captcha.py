@@ -3,6 +3,7 @@ from userbot.database import DB
 from userbot.utils import shuffle
 from telethon import events, Button 
 from userbot.functions.captcha import Captcha
+from userbot.functions.tools import download_file, unsplashsearch
 import re
 import os
 import shutil
@@ -34,7 +35,10 @@ async def send_captcha(event):
     except Exception as e:
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
         return
-    cap = Captcha(rotate=True, count=12)
+    photo = await unsplashsearch("color background")
+    photo = await download_file(random.choice(photo), "backcaptcha.png")
+    cap = Captcha(photo, rotate=True, count=10)
+    os.remove(photo)
     buttons = []
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
