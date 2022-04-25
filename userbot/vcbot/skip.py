@@ -8,3 +8,14 @@ async def skip_audio(event):
     player = Player(event.chat_id)
     await player.play_from_queue()
     await event.delete()
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Skip Current Playing On Group Voice Chat!",
+        "commands": {
+            "{cmdh}skip": "To Skip Current Playing On On Group Voice Chat!",
+        },
+    }
+})
