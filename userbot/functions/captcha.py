@@ -17,11 +17,11 @@ def get_position(count):
 
 def get_size(count):
     if count == 6:
-        size = (113, 70)
+        size = (111, 75)
     elif count == 9:
         size = (110, 110)
     elif count == 12:
-        size = (150, 125)
+        size = (147, 113)
     return size
 
 def Captcha(
@@ -31,7 +31,7 @@ def Captcha(
     filename=None,
     count=9,
 ):
-    if count not in [6, 9, 12, 15, 16, 20]:
+    if count not in [6, 9, 12, 16, 20]:
         count = 12
     imsize = get_size(count)
     if background:
