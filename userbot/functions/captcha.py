@@ -19,28 +19,12 @@ def get_position(count):
         position = [(5, 5), (40, 5), (75, 5), (110, 5), (5, 40), (40, 40), (75, 40), (110, 40), (5, 75), (40, 75), (75, 75), (110, 75), (5, 110), (40, 110), (75, 110), (110, 110), (5, 145), (40, 145), (75, 145), (110, 145)]
     return position
 
-def get_size(count):
-    if count == 6:
-        size = (210, 150)
-    elif count == 9:
-        size = (110, 110)
-    elif count == 12:
-        size = (146, 112)
-    elif count == 16:
-        size = (147, 147)
-    elif count == 20:
-        size = (147, 180)
-    return size
-
 def Captcha(
     background=None,
     emojis=None,
     rotate=False,
     filename=None,
-    count=9,
 ):
-    if count not in [6, 9, 12, 16, 20]:
-        count = 12
     imsize = (560, 560)
     if background:
         new = Image.open(background)
@@ -71,14 +55,13 @@ def Captcha(
             emoji_names.append(rand) 
             pimages.append(file)
             emojis.remove(rand)
-    size = get_size(count)
-    position = get_position(count)
     for i in range(len(pimages)):
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        img.thumbnail(size, Image.ANTIALIAS)
-        new.paste(img, (position[i]), img)
+        img.thumbnail((10, 150), Image.ANTIALIAS)
+        position = (random.randint(10, 550), random.randint(10, 550))
+        new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG", quality=95)
     return {"answer": emoji_names, "others": emojis, "unavailables": unemojis, "repleyes": repemojis, "captcha": outfile}
