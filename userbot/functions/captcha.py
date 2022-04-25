@@ -14,7 +14,7 @@ def Captcha():
     for i in range(9):
         rand = random.choice(emojis)
         index = indexs.get(rand)
-        file = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  f"{index}.png")
+        file = os.path.join("userbot/other/emojis/",  f"{index}.png")
         if not os.path.exists(file):
             continue
         emoji_names.append(rand) 
@@ -26,6 +26,6 @@ def Captcha():
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     outfile = rand_string() + ".png"
-    newpath = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  outfile)
+    newpath = os.path.join("/userbot/other/emojis/",  outfile)
     new.save(newpath, "PNG")
     return {"answer": emoji_names, "others": emojis, "captcha": newpath}
