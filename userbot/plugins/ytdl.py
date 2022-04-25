@@ -14,3 +14,14 @@ async def ytdl(event):
         await event.delete()
     else:
         await event.edit("**• Your Link Is Invalid!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Download From Youtube!",
+        "commands": {
+            "{cmdh}ytdl [link]": "To Download Given Youtube Link On All Formats!",
+        },
+    }
+})
