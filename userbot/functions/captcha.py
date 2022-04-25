@@ -7,11 +7,16 @@ import os
 import Config
 
 def Captcha(
+    background=None,
     emojis=None,
     rotate=True,
     filename=None,
 ):
-    new = Image.new('RGB', (300, 300), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+    if background:
+        new = Image.open(background)
+        new = new.resize((300, 300))
+    else:
+        new = Image.new('RGB', (300, 300), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
     unemojis = []
