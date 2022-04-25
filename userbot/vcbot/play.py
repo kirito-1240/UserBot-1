@@ -38,3 +38,16 @@ async def play(event):
             link = song_name = link[0]
         add_to_queue(event.chat_id, song, song_name, link, thumb, from_user, duration)
         return await event.edit("**🎵 Added To Queue:** ( [{}]({}) )\n\n**• Queue:** ( `#{}` )".format(song_name, link , (list(VC_QUEUE[event.chat_id].keys())[-1])))
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Play Music On Group Voice Chat!",
+        "commands": {
+            "{cmdh}play [reply]": "To Play Repleyed On Group Voice Chat!",
+            "{cmdh}play [link]": "To Download Link And Play Group Voice Chat!",
+            "{cmdh}play [query]": "To Search And Download Link And Play On Group Voice Chat!",
+        },
+    }
+})
