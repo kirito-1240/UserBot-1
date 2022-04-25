@@ -26,17 +26,10 @@ class Captcha:
         others = emojis
         for i in range(9):
             index = indexs.get(emojis[i])
-            file = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  f"{index}.png")
-            if not os.path.exists(file):
-                link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
-                try:
-                    last = downloadfile(link, file)
-                    gapp = GITAPP()
-                    gapp.create(last, f"./userbot/other/emojis/{index}.png")
-                except:
-                    continue
+            link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
+            last = downloadfile(link, f"userbot/other/emojis/{index}.png")
             emoji_names.append(emojis[i]) 
-            pimages.append(file)
+            pimages.append(last)
             others.remove(emojis[i])
         position = [(20, 20), (100, 20), (180, 20), (20, 100), (100, 100), (180, 100), (20, 180), (100, 180), (180, 180)]
         for i in range(len(pimages)):
@@ -45,4 +38,6 @@ class Captcha:
             new.paste(img, (position[i]), img)
         newpath = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  rand_string() + ".png")
         new.save(newpath, "PNG")
+        for x in pimages:
+            os.remove(x)
         return {"answer": emoji_names, "others": others, "captcha": newpath}
