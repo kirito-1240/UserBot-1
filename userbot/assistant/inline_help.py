@@ -1,6 +1,6 @@
 from userbot import app, bot
 from userbot.utils import chunks, convert_bytes
-from userbot.functions.tools import download_file
+from userbot.functions.tools import download_file, downloadfile
 from userbot.database import DB, PLUGINS, PLUGINS_HELP
 from telethon import events,  Button
 import os
@@ -148,4 +148,6 @@ async def send_plug(event):
     else:
         text = f"**💡 Plugin Name:** ( `{data.title()}` )\n\n__• Not Available Help For This Plugin!__"
     buttons = [Button.inline("⬅️ Back ⬅️", data=f"plugin_{data}_{page}")]
-    await event.edit(text, file=file, thumb="userbot/other/extra.jpg", buttons=buttons)
+    thumb = downloadfile(PIC, "helpthumb.jpg")
+    await event.edit(text, file=file, thumb=thumb, buttons=buttons)
+    os.remove(thumb)
