@@ -33,8 +33,8 @@ async def set_type(event):
 async def set_type(event):
     await event.edit("`• Please Wait . . .`")
     count = int(event.pattern_match.group(1))
-    if 3 > count or count > 30:
-        return await event.edit("**• Please Enter A Number Between 3 And 30!**")
+    if count > 25:
+        return await event.edit("**• Please Enter A Number Later 25!**")
     DB.set_key("CAPTCHA_COUNT", count)
     await event.edit(f"**• Captcha Values Count Was Changed To {count} Values!**")
 
