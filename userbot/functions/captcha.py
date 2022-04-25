@@ -6,19 +6,6 @@ import random
 import os
 import Config
 
-def get_position(count):
-    if count == 6:
-        position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40)]
-    elif count == 9:
-        position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40), (5, 75), (40, 75), (75, 75)]
-    elif count == 12:
-        position = [(5, 5), (40, 5), (75, 5), (110, 5), (5, 40), (40, 40), (75, 40), (110, 40), (5, 75), (40, 75), (75, 75), (110, 75)]
-    elif count == 16:
-        position = [(5, 5), (40, 5), (75, 5), (110, 5), (5, 40), (40, 40), (75, 40), (110, 40), (5, 75), (40, 75), (75, 75), (110, 75), (5, 110), (40, 110), (75, 110), (110, 110)]
-    elif count == 20:
-        position = [(5, 5), (40, 5), (75, 5), (110, 5), (5, 40), (40, 40), (75, 40), (110, 40), (5, 75), (40, 75), (75, 75), (110, 75), (5, 110), (40, 110), (75, 110), (110, 110), (5, 145), (40, 145), (75, 145), (110, 145)]
-    return position
-
 def Captcha(
     background=None,
     emojis=None,
@@ -26,7 +13,7 @@ def Captcha(
     filename=None,
     count=9,
 ):
-    imsize = (560, 560)
+    imsize = (1080, 1080)
     if background:
         new = Image.open(background)
         new = new.resize(imsize)
@@ -60,8 +47,8 @@ def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        img.thumbnail((200, 200), Image.ANTIALIAS)
-        position = (random.randint(10, 550), random.randint(10, 550))
+        img.thumbnail((150, 150), Image.ANTIALIAS)
+        position = (random.randint(50, 1000), random.randint(50, 1000))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG", quality=95)
