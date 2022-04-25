@@ -27,7 +27,7 @@ def get_size(count):
     elif count == 12:
         size = (146, 112)
     elif count == 16:
-        size = (166, 112)
+        size = (155, 130)
     elif count == 16:
         size = (190, 112)
     return size
