@@ -15,9 +15,10 @@ def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
+    amojis = shuffle(emojis)
     others = emojis
     for i in range(9):
-        index = emojis_index.get(emojis[i])
+        index = indexs.get(emojis[i])
         file = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  f"{index}.png")
         if not os.path.exists(file):
             link = "https://emoji.aranja.com/static/emoji-data/img-apple-160/{}.png".format(index)
