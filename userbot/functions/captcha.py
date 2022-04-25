@@ -20,6 +20,7 @@ class Captcha:
         new = Image.new('RGBA', (300, 300), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
         pimages = []
         emoji_names = []
+        emojis = self.emojis
         for i in range(9):
             rand = random.choice(emojis)
             index = indexs.get(rand)
