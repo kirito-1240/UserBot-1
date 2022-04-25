@@ -26,6 +26,6 @@ def Captcha():
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     outfile = rand_string() + ".png"
-    newpath = os.path.join("/userbot/other/emojis/",  outfile)
+    newpath = os.path.join("userbot/other/emojis/",  outfile)
     new.save(newpath, "PNG")
     return {"answer": emoji_names, "others": emojis, "captcha": newpath}
