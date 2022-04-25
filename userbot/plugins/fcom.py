@@ -7,7 +7,7 @@ from userbot.database.fcom import add_fcom, get_fcom, del_fcom , clean_fcoms
 @alien(outgoing=False, incoming=True)
 async def send_fcom(event):
     id = get_fcom(event.chat_id)
-    if id and event.from_id and event.from_id.saved_from_peer:
+    if id and event.saved_from_peer:
         try:
             msg = await app.get_messages(DB.get_key("LOG_GROUP"), ids=int(id))
         except:
