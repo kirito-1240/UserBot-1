@@ -132,6 +132,8 @@ async def send_plug(event):
     data = str(event.pattern_match.group(1).decode('utf-8'))
     page = str(event.pattern_match.group(2).decode('utf-8'))
     file = f"userbot/plugins/{data}.py"
+    if not os.path.exists(file):
+        file = f"userbot/vcbot/{data}.py"
     if data in PLUGINS_HELP:
         info = PLUGINS_HELP[data]
         size = os.stat(file).st_size
