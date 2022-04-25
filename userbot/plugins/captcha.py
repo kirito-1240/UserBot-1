@@ -32,8 +32,8 @@ async def set_type(event):
 @alien(pattern="capcount (\d*)")
 async def set_type(event):
     await event.edit("`• Please Wait . . .`")
-    count = event.pattern_match.group(1)
-    if count not in list(range(3,31)):
+    count = int(event.pattern_match.group(1))
+    if 3 > count or count > 30:
         return await event.edit("**• Please Enter A Number Between 3 And 30!**")
     DB.set_key("CAPTCHA_COUNT", count)
     await event.edit("**• Captcha Values Count Was Changed To {count} Values!**")
