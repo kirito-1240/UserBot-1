@@ -5,8 +5,7 @@ _run_python_code() {
 }
 
 _run() {
-    $(_run_python_code '    
-import os
+    $(_run_python_code 'import os
 import sys
 import glob
 import shutil
@@ -30,8 +29,7 @@ for file in glob.glob("./UserBot-master/*"):
     else:
         shutil.copy(file, file.replace("UserBot-master/", ""))
 
-shutil.rmtree("./UserBot-master")
-')
+shutil.rmtree("./UserBot-master")')
 }
 
 _start_bot () {
