@@ -7,19 +7,15 @@ import os
 import Config
 
 def get_position(count):
-    if count == 4:
-        position = [(5, 5), (40, 5), (5, 40), (40, 40)]
-    elif count == 6:
+    if count == 6:
         position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40)]
     elif count == 9:
         position = [(5, 5), (40, 5), (75, 5), (5, 40), (40, 40), (75, 40), (5, 75), (40, 75), (75, 75)]
     return position
 
 def get_size(count):
-    if count == 4:
-        size = (80, 80)
-    elif count == 6:
-        size = (130, 100)
+    if count == 6:
+        size = (120, 85)
     elif count == 9:
         size = (115, 115)
     return size
@@ -31,7 +27,7 @@ def Captcha(
     filename=None,
     count=9,
 ):
-    if count not in [4, 6, 9, 12, 15, 16, 20]:
+    if count not in [6, 9, 12, 15, 16, 20]:
         count = 12
     imsize = get_size(count)
     if background:
