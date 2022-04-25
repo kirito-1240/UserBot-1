@@ -6,22 +6,16 @@ _run_python_code() {
 
 _run() {
     $(_run_python_code '    
-import sys
 import os
+import sys
 import glob
 import shutil
 import zipfile
 
-print("• Downloading Source Code . . .")
-
 os.system("wget -q https://github.com/MxAboli/UserBot/archive/master.zip -O alien.zip")
-
-print("• Unpacking Source Code . . .")
 
 z = zipfile.ZipFile("alien.zip", "r")
 z.extractall("./")
-
-print("• Successfuly Unpacking Source Code . . .")
 
 for x in glob.glob("/app/*"):
     if not "UserBot-master" in x:
@@ -37,8 +31,6 @@ for file in glob.glob("./UserBot-master/*"):
         shutil.copy(file, file.replace("UserBot-master/", ""))
 
 shutil.rmtree("./UserBot-master")
-
-print("•   Starting Alien Userbot   •")
 ')
 }
 
