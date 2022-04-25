@@ -33,8 +33,7 @@ def Captcha():
     position = [(20, 20), (100, 20), (180, 20), (20, 100), (100, 100), (180, 100), (20, 180), (100, 180), (180, 180)]
     for i in range(len(pimages)):
         img = Image.open(pimages[i]).rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        size = random.randint(50, 200)
-        img.thumbnail((size, size), Image.ANTIALIAS)
+        img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     newpath = os.path.join(f"{Config.CURRENT_DIR}/userbot/other/emojis/",  rand_string() + ".png")
     new.save(newpath, "PNG")
