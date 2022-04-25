@@ -29,6 +29,15 @@ async def set_type(event):
         DB.set_key("CAPTCHA_TYPE", "text")
         await event.edit("**• Captcha Mode Was Changed To Text Mode!**")
 
+@alien(pattern="capcount (\d*)")
+async def set_type(event):
+    await event.edit("`• Please Wait . . .`")
+    count = event.pattern_match.group(1)
+    if count not in list(range(3,31)):
+        return await event.edit("**• Please Enter A Number Between 3 And 30!**")
+    DB.set_key("CAPTCHA_COUNT", count)
+    await event.edit("**• Captcha Values Count Was Changed To {count} Values!**")
+
 from userbot.database import PLUGINS_HELP
 name = (__name__).split(".")[-1]
 PLUGINS_HELP.update({
@@ -39,6 +48,7 @@ PLUGINS_HELP.update({
             "{cmdh}delcaptcha": "To DeActive Captcha Mode For Chat!",
             "{cmdh}captype photo": "To Set Captcha Mode On Photo Mode!",
             "{cmdh}captype text": "To Set Captcha Mode On Text Mode!",
+            "{cmdh}capcount [count]": "To Set Captcha Values Count!",
         },
     }
 })
