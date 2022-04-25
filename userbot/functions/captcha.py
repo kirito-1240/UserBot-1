@@ -16,7 +16,8 @@ def Captcha():
     new = Image.new('RGB', (430, 415), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
-    amojis = shuffle(emojis)
+    print(emojis)
+    emojis = shuffle(emojis)
     others = emojis
     for i in range(9):
         index = indexs.get(emojis[i])
