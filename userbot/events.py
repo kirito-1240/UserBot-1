@@ -106,7 +106,7 @@ def alien(
                 except:
                     pass
                 pas = paste(ftext)
-                text = f"** • Alien Userbot Logs:** [Logs]({pas['url']})"
+                text = f"** • Alien Userbot Logs:**\n\n    [Logs]({pas['url']})"
                 await event.client.send_message(DB.get_key("LOG_GROUP"), text)
         app.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         app.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
