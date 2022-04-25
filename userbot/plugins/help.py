@@ -13,7 +13,7 @@ async def help(event):
             text += f"""\n\n** 🧾 Plugin Info:** ( `{info["info"]}` )"""
             text += f"""\n\n\n** ♻️ Available Commands** ( `{len(info["commands"])}` ):"""
             for com in info["commands"]:
-                text += "\n    `{}`".format(com.format(cmdh=Config.COMMAND_HANDLER))
+                text += "\n • `{}`\n      `{}`\n".format(com.format(cmdh=Config.COMMAND_HANDLER), info["commands"][com])
             await event.edit(text)
         else:
             await event.edit("**• Not Available This Plugin!**")
