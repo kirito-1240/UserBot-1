@@ -42,7 +42,7 @@ async def send_captcha(event):
         lens = 40 - int(count)
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
-    for i in range(0,(lens - len(cap['answer']))):
+    for i in range(0, lens):
         ans = random.choice(cap['others'])
         buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
     buttons = shuffle(buttons)
