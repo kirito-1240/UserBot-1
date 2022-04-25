@@ -34,7 +34,7 @@ async def send_captcha(event):
     except Exception as e:
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
         return
-    cap = Captcha().generate()
+    cap = Captcha()
     buttons = []
     for ans in cap['answer']:
         buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
