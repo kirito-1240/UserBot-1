@@ -1,4 +1,4 @@
-100m userbot.other.emojis_index import indexs
+from userbot.other.emojis_index import indexs
 from userbot.functions.helper import rand_string
 from userbot.utils import shuffle
 from PIL import Image
