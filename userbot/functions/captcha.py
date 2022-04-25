@@ -22,12 +22,13 @@ def Captcha(
 ):
     if count not in [4, 6, 9, 12, 15, 16, 20]:
         count = 12
-    imsize = count * 30
+    imsize = count * 50
     if background:
         new = Image.open(background)
-        new = new.resize((imsize, imsize))
+        new = new.resize((imsize + 40, imsize + 40))
     else:
-        new = Image.new('RGBA', (imsize, imsize), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+        new = Image.new('RGBA', (imsize + 40, imsize + 40), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+    pimages = []
     emoji_names = []
     unemojis = []
     repemojis = []
