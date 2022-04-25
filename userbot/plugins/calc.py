@@ -16,7 +16,7 @@ PLUGINS_HELP.update({
     name:{
         "info": "To Get Calc Panel!",
         "commands": {
-            "{cmdh}help": "To Get Inline Calc!",
+            "{cmdh}calc": "To Get Inline Calc!",
         },
     }
 })
