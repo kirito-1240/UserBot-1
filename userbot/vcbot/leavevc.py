@@ -14,3 +14,14 @@ async def leavevc(event):
     if VIDEO_ON.get(chat):
         del VIDEO_ON[chat]
     await event.edit("**• Successfuly Leaved From Voice Chat In This Chat!**")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Leave From Group Voice Chat!",
+        "commands": {
+            "{cmdh}leavevc": "To Leave From Group Voice Chat!",
+        },
+    }
+})
