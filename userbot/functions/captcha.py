@@ -9,6 +9,8 @@ import Config
 def get_position(count):
     if count == 4:
         position = [(20, 20), (70, 20), (20, 70), (70, 70)]
+    elif count == 6:
+        position = [(20, 20), (70, 20), (120, 20), (20, 70), (70, 70), (120, 70)]
     elif count == 9:
         position = [(20, 20), (70, 20), (120, 20), (20, 70), (70, 70), (120, 70), (20, 120), (70, 120), (120, 120)]
     return position
@@ -57,7 +59,7 @@ def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
-        img.thumbnail((50, 50), Image.ANTIALIAS)
+        img.thumbnail((150, 150), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
