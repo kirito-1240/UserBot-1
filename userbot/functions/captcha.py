@@ -11,7 +11,7 @@ def Captcha(
     rotate=True,
     filename=None,
 ):
-    new = Image.new('RGBA', (300, 300), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+    new = Image.new('RGB', (300, 300), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
     emoji_names = []
     if not emojis:
@@ -32,6 +32,6 @@ def Captcha(
             img = img.rotate(random.randint(0, 360), resample=Image.BICUBIC, expand=True)
         img.thumbnail((100, 100), Image.ANTIALIAS)
         new.paste(img, (position[i]), img)
-    outfile = filename if filename  os.path.join("userbot/other/emojis/",  rand_string() + ".png")
+    outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
     return {"answer": emoji_names, "others": emojis, "captcha": outfile}
