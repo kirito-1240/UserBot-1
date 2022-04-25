@@ -17,11 +17,11 @@ def get_position(count):
 
 def get_size(count):
     if count == 6:
-        size = (110, 70)
+        size = (113, 70)
     elif count == 9:
         size = (110, 110)
     elif count == 12:
-        size = (160, 150)
+        size = (150, 125)
     return size
 
 def Captcha(
