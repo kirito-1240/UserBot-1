@@ -11,3 +11,14 @@ async def volume(event):
     player = Player(event.chat_id)
     await player.group_call.set_my_volume(vol)
     await event.edit(f"**• Set My Volume On Voice Chat To:** ( `{vol}` )")
+
+from userbot.database import PLUGINS_HELP
+name = (__name__).split(".")[-1]
+PLUGINS_HELP.update({
+    name:{
+        "info": "To Change Volume On Group Voice Chat!",
+        "commands": {
+            "{cmdh}volume [0,200]": "To Change Volume On Group Voice Chat!",
+        },
+    }
+})
