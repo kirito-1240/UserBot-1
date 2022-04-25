@@ -4,7 +4,7 @@ from userbot.events import alien
 from userbot.database import DB
 from userbot.database.fcom import add_fcom, get_fcom, del_fcom , clean_fcoms
 
-@alien()
+@alien(owner=False)
 async def send_fcom(event):
     id = get_fcom(event.chat_id)
     if id and event.from_id and event.from_id.saved_from_peer:
