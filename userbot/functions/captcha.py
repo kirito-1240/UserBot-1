@@ -11,7 +11,6 @@ def Captcha(
     emojis=None,
     rotate=False,
     filename=None,
-    position=None,
     count=8,
 ):
     new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
@@ -46,8 +45,7 @@ def Captcha(
         if rotate:
             img = img.rotate(random.randint(0, 360))
         img.thumbnail((200, 200), Image.ANTIALIAS)
-        if not position:
-            position = (random.randint(0, 900), random.randint(0, 900))
+        position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
