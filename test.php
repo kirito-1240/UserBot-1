@@ -1,3 +1,3 @@
 <?php
-echo "Hi Baby";
+echo "• The Bot Is Running!";
 ?>
