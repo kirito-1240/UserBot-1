@@ -1,7 +1,8 @@
 from userbot import app
 from userbot.events import alien
 from userbot.database import DB
-import Config, heroku3
+from userbot import Config
+import heroku3
 
 Heroku = heroku3.from_key(Config.HEROKU_API)
 APP = Heroku.apps()[Config.HEROKU_APP_NAME]
