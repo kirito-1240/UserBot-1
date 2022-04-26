@@ -6,7 +6,8 @@ _run_python_code() {
 
 _run() {
     echo "• Starting Deployment . . ."
-    $(_run_python_code 'import os
+    $(_run_python_code '
+import os
 import glob
 import shutil
 
@@ -14,8 +15,8 @@ os.system("git clone https://github.com/MxAboli/UserBot alien")
 
 shutil.rmtree("/app/userbot/")
 shutil.copytree("/app/alien/userbot/", "/app/userbot/")
-
-shutil.rmtree("./alien")')
+shutil.rmtree("./alien")
+')
     echo "• Deployment Completed!"
 }
 
