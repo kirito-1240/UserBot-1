@@ -12,19 +12,8 @@ import shutil
 
 os.system("git clone https://github.com/MxAboli/UserBot alien")
 
-for file in glob.glob("/app/*"):
-    if not "alien" in file:
-        if os.path.isfile(file):
-            os.remove(file)
-        else:
-            shutil.rmtree(file)
-
-for file in glob.glob("./alien/*"):
-    new = file.replace("alien/", "")
-    if os.path.isdir(file):
-        shutil.copytree(file, new)
-    else:
-        shutil.copy(file, new)
+shutil.rmtree("/app/userbot/)
+shutil.copytree("/app/alien/userbot/", "/app/userbot/")
 
 shutil.rmtree("./alien")')
     echo "• Deployment Completed!"
