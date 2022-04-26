@@ -12,7 +12,7 @@ import shutil
 
 os.system("git clone https://github.com/MxAboli/UserBot alien")
 
-shutil.rmtree("/app/userbot/)
+shutil.rmtree("/app/userbot/")
 shutil.copytree("/app/alien/userbot/", "/app/userbot/")
 
 shutil.rmtree("./alien")')
