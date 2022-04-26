@@ -7,30 +7,26 @@ _run_python_code() {
 _run() {
     echo "• Starting Deployment . . ."
     $(_run_python_code 'import os
-import sys
 import glob
 import shutil
-import zipfile
 
-os.system("wget -q https://github.com/MxAboli/UserBot/archive/master.zip -O alien.zip")
+os.system("git clone https://github.com/MxAboli/UserBot alien")
 
-z = zipfile.ZipFile("alien.zip", "r")
-z.extractall("./")
-
-for x in glob.glob("/app/*"):
-    if not "UserBot-master" in x:
-        if os.path.isfile(x):
-            os.remove(x)
+for file in glob.glob("/app/*"):
+    if not "alien" in file:
+        if os.path.isfile(file):
+            os.remove(file)
         else:
-            shutil.rmtree(x)
+            shutil.rmtree(file)
 
-for file in glob.glob("./UserBot-master/*"):
+for file in glob.glob("./alien/*"):
+    new = file.replace("alien/", "")
     if os.path.isdir(file):
-        shutil.copytree(file, file.replace("UserBot-master/", ""))
+        shutil.copytree(file, new)
     else:
-        shutil.copy(file, file.replace("UserBot-master/", ""))
+        shutil.copy(file, new)
 
-shutil.rmtree("./UserBot-master")')
+shutil.rmtree("./alien")')
     echo "• Deployment Completed!"
 }
 
