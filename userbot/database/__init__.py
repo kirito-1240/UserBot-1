@@ -1,7 +1,7 @@
 from userbot import LOGS
 from redis import Redis
 import os, glob
-import Config
+from userbot import Config
 
 def get_data(self, key):
     data = self.get(str(key))
