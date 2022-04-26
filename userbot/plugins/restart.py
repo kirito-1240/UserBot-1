@@ -2,7 +2,7 @@ from userbot import app
 from userbot.utils import restart_app , runcmd
 from userbot.events import alien
 from userbot.database import DB
-import Config
+from userbot import Config
 import os
 import sys
 
