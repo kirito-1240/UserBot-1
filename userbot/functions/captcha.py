@@ -4,7 +4,7 @@ from userbot.utils import shuffle
 from PIL import Image
 import random
 import os
-import Config
+from userbot import Config
 import glob
 
 def Captcha(
