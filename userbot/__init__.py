@@ -1,7 +1,7 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from userbot.core.logger import LOGS
-import Config
+from userbot import Config
 import time
 
 START_TIME = time.time()
