@@ -29,9 +29,12 @@ async def setup():
     load_plugins("vcbot")
     LOGS.info("• Setup Plugins Completed!")
     if DB.get_key("RESTART"):
-        edit = DB.get_key("RESTART")
-        await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
-        DB.del_key("RESTART") 
+        try:
+            edit = DB.get_key("RESTART")
+            await app.edit_message(int(edit.split("||")[1]), int(edit.split("||")[0]), "**• Ok, Restart Bot Successfuly!**")
+            DB.del_key("RESTART")
+        except:
+            pass
     file = random.choice(DB.get_key("START_PIC"))
     await bot.send_file(DB.get_key("LOG_GROUP"), file, caption="**• Alien UserBot Has Been Start Now!**\n\n**• User Mode:** {}\n**• Assistant:** @{}".format(DB.get_key("OWNER"), DB.get_key("ASSISTANT_USERNAME")))
     LOGS.info("• Alien UserBot Has Been Start Now!")
