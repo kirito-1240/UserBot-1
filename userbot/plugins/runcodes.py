@@ -23,14 +23,18 @@ async def runcodes(event):
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
         return await event.edit("`• What Should I Run ?`")
+    loop = asyncio.get_event_loop()
+    loop.create_task(runmycode(cmd, event))
+
+
+async runmycode(cmd, event):
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
-    loop = asyncio.get_event_loop()
     try:
-        loop.create_task(runner(cmd , event))
+        await runner(cmd , event)
     except Exception as e:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
