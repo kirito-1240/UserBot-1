@@ -28,8 +28,9 @@ async def runcodes(event):
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
+    loop = asyncio.get_event_loop()
     try:
-        asyncio.run(runner(cmd , event))
+        loop.create_task(runner(cmd , event))
     except Exception as e:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
