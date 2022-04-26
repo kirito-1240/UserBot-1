@@ -6,7 +6,7 @@ from time import gmtime, strftime
 from userbot.database import DB
 from traceback import format_exc
 from telethon import events
-import Config
+from userbot import Config
 from telethon.errors import (
     AlreadyInConversationError,
     BotInlineDisabledError,
