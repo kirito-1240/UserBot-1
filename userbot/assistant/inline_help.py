@@ -8,7 +8,7 @@ import glob
 import re
 import random
 import time
-import Config
+from userbot import Config
 
 PIC = random.choice(DB.get_key("INLINE_PIC")) 
 
