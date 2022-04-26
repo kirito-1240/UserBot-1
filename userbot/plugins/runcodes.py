@@ -23,11 +23,6 @@ async def runcodes(event):
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
         return await event.edit("`• What Should I Run ?`")
-    loop = asyncio.get_event_loop()
-    loop.create_task(runmycode(cmd, event))
-
-
-async def runmycode(cmd, event):
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
