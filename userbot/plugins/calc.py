@@ -1,9 +1,8 @@
 from userbot import app , bot
 from userbot.events import alien
-import Config
 
 @alien(pattern="calc")
-async def help(event):
+async def calc(event):
     await event.edit("`• Please Wait . . .`")
     me = await bot.get_me()
     results = await app.inline_query(me.username, "alien_calc")
