@@ -1,6 +1,6 @@
 from userbot import app , bot
 from userbot.events import alien
-import Config
+from userbot import Config
 
 @alien(pattern="help ?(.*)?")
 async def help(event):
