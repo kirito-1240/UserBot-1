@@ -1,7 +1,7 @@
 import os
 import glob
 from github import Github
-import Config
+from userbot import Config
 
 class GITAPP:
     def __init__(self):
