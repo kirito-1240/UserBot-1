@@ -1,12 +1,8 @@
 import logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-
 import asyncio
 import os
 import time
+os.system("pip install hachoir")
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
