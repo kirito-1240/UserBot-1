@@ -1,17 +1,19 @@
 from userbot import app , bot
 from userbot.utils import runcmd
 from userbot.events import alien
+import traceback
+import requests
+import asyncio
 import os
 import sys
 import io
-import traceback
+import glob
 
 async def runner(code , event):
     chat = await event.get_chat()
-    send = await event.get_sender()
     reply = await event.get_reply_message()
     local = lambda _x: print(_format.yaml_format(_x))
-    exec("async def coderunner(event , local, chat_id, send_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
+    exec("async def coderunner(event , local, chat_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, send.id, reply)
 
 @alien(pattern="run(?:\s|$)([\s\S]*)")
@@ -27,7 +29,7 @@ async def runcodes(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await runner(cmd , event)
+        asyncio.run(runner(cmd , event))
     except Exception as e:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
