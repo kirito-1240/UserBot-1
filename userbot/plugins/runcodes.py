@@ -27,7 +27,7 @@ async def runcodes(event):
     loop.create_task(runmycode(cmd, event))
 
 
-async runmycode(cmd, event):
+async def runmycode(cmd, event):
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
