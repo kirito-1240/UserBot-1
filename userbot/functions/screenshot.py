@@ -1,7 +1,7 @@
-import logging
 import asyncio
 import os
 import time
+os.system("pip install hachoir")
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
