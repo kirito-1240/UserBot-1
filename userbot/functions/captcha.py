@@ -28,7 +28,11 @@ def Captcha(
         rando = rand.encode('unicode-escape').decode('ASCII')
         index = indexs.get(rando)
         file = os.path.join("userbot/other/emojis/",  f"{index}.png")
-        if not index or not os.path.exists(file):
+        if bool(index) or os.path.exists(file):
+            emoji_names.append(rand) 
+            pimages.append(file)
+            emojis.remove(rand)
+        else:
             emojis.remove(rand)
             unemojis.append(rand)
             rands = random.choice(defemojis)
@@ -37,10 +41,6 @@ def Captcha(
             inde = indexs.get(rands)
             file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
             pimages.append(file)
-        else:
-            emoji_names.append(rand) 
-            pimages.append(file)
-            emojis.remove(rand)
     for i in range(len(pimages)):
         img = Image.open(pimages[i])
         if rotate:
