@@ -24,8 +24,8 @@ async def Captcha(
     repemojis = []
     if not emojis:
         emojis = []
-        for f in glob.glob("userbot/other/emojis/*"):
-            emojis.append(os.path.basename(f).replace(".png", ""))
+        for f in indexs:
+            emojis.append(f)
     if count > len(emojis):
         count = len(emojis)
     for i in range(count):
