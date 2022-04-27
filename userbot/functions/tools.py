@@ -107,7 +107,7 @@ async def get_emoji_code(emoji):
     get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
     res = re.search('<img alt="(.*)" title="(.*apple.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get))
     if res:
-        code res[7].split("/")[-1].replace(".png", "")
+        code = res[7].split("/")[-1].replace(".png", "")
         if emoji not in indexs:
             indexs.update({emoji: code})
             filepath = "userbot/other/emojis_index.py"
