@@ -3,8 +3,8 @@ from userbot.other.emojis_index import indexs
 from userbot.functions.helper import rand_string
 from userbot.functions.github import GITAPP
 from userbot.utils import shuffle
-from PIL import Image
 from userbot import Config
+from PIL import Image
 import random
 import requests
 import os
@@ -15,12 +15,11 @@ async def Captcha(
     rotate=False,
     filename=None,
     count=8,
+    emojisize=(200, 200),
 ):
     new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
-    emoji_names = []
-    unemojis = []
-    repemojis = []
+    answers = []
     if not emojis:
         emojis = []
         for f in indexs:
@@ -36,24 +35,21 @@ async def Captcha(
                 index = await get_emoji_code(rand)
         file = os.path.join("userbot/other/emojis/",  f"{index}.png")
         if os.path.exists(file):
-            emoji_names.append(rand) 
-            pimages.append(file)
+            answers.append(rand) 
             emojis.remove(rand)
         else:
             try:
                 link = await get_emoji_link(rand)
                 filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
                 filepath = await download_file(link, file)
-                GITAPP("MxAboli/UserBot").create(filepath, filepath)
-                emoji_names.append(rand) 
+                GITAPP().create(filepath, filepath)
+                answers.append(rand) 
                 pimages.append(filepath)
                 emojis.remove(rand)
             except:
                 emojis.remove(rand)
-                unemojis.append(rand)
                 rands = random.choice(emojis)
-                emoji_names.append(rands)
-                repemojis.append(rands)
+                answers.append(rands)
                 inde = indexs.get(rands)
                 file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
                 pimages.append(file)
@@ -61,15 +57,13 @@ async def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360))
-        img.thumbnail((200, 200), Image.ANTIALIAS)
+        img.thumbnail(emojisize, Image.ANTIALIAS)
         position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
     new.save(outfile, "PNG")
     return {
-        "answer": emoji_names,
-        "unavailables": unemojis,
-        "repleyes": repemojis,
+        "answers": answers,
         "others": emojis,
         "captcha": outfile
     }
