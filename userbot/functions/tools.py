@@ -23,7 +23,7 @@ async def download_file(link, name):
             file = await aiofiles.open(name, "wb")
             await file.write(await re_ses.read())
             await file.close()
-    print(f"• {filename} Successfuly Downloaded!")
+    print(f"• {name} Successfuly Downloaded!")
     return name
 
 async def async_searcher(url, post=False, headers=None, params=None, json=None, data=None, re_json=False, re_content=False, real=False):
