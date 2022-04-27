@@ -1,6 +1,5 @@
 from userbot.functions.tools import download_file, get_emoji_link, get_emoji_code
 from userbot.other.emojis_index import indexs
-from userbot.other.emojis_link import links
 from userbot.functions.helper import rand_string
 from userbot.functions.github import GITAPP
 from userbot.utils import shuffle
