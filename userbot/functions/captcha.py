@@ -30,7 +30,7 @@ def Captcha(
     for i in range(count):
         rand = random.choice(emojis)
         index = indexs.get(rand)
-        file = os.path.join("userbot/other/",  f"{index}.png")
+        file = os.path.join("userbot/other/emojis/",  f"{index}.png")
         if os.path.exists(file):
             emoji_names.append(rand) 
             pimages.append(file)
@@ -38,7 +38,7 @@ def Captcha(
         else:
             try:
                 link = links.get(index)
-                filepath = os.path.join("userbot/other/",  f"{index}.png")
+                filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
                 filepath = downloadfile(link, file)
                 emoji_names.append(rand) 
                 pimages.append(filepath)
