@@ -35,7 +35,7 @@ async def send_captcha(event):
         print(f"• Im Not Admin In {event.chat_id}, Captcha Not Working! - Error: ( {e} )")
         return
     count = DB.get_key("CAPTCHA_COUNT") or 8
-    cap = Captcha(rotate=True, count=int(count))
+    cap = await Captcha(rotate=True, count=int(count))
     buttons = []
     lens = 30 - int(count)
     for ans in cap['answer']:
