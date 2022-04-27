@@ -6,7 +6,6 @@ from userbot.utils import shuffle
 from userbot import Config
 from PIL import Image
 import random
-import requests
 import os
 import glob 
 
@@ -57,7 +56,7 @@ async def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360))
-        img.thumbnail(emojisize, Image.ANTIALIAS)
+        img.thumbnail((emojisize), Image.ANTIALIAS)
         position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
