@@ -55,7 +55,7 @@ async def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360))
-        img.thumbnail((200, 200), Image.ANTIALIAS)
+        img.thumbnail((200, 200))
         position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
