@@ -87,7 +87,7 @@ async def Captchaa(
         rand = random.choice(emojis)
         link = get_emoji_link(rand)
         filepath = os.path.join("userbot/other/",  f"{rand}.png")
-        filepath = await download_file(link, file)
+        filepath = await download_file(link, filepath)
         emoji_names.append(rand) 
         pimages.append(filepath)
         emojis.remove(rand)
