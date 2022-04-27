@@ -25,8 +25,8 @@ def Captcha(
         count = len(emojis)
     for i in range(count):
         rand = random.choice(emojis)
-        rand = rand.encode('unicode-escape').decode('ASCII')
-        index = indexs.get(rand)
+        rando = rand.encode('unicode-escape').decode('ASCII')
+        index = indexs.get(rando)
         file = os.path.join("userbot/other/emojis/",  f"{index}.png")
         if not index or not os.path.exists(file):
             emojis.remove(rand)
