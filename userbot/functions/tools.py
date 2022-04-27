@@ -1,5 +1,7 @@
 from userbot.core.logger import LOGS
 from bs4 import BeautifulSoup
+from userbot.functions.github import GITAPP
+from userbot.other.emojis_index import indexs
 import os
 import re
 import random
@@ -105,7 +107,12 @@ async def get_emoji_code(emoji):
     get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
     res = re.search('<img alt="(.*)" title="(.*apple.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get))
     if res:
-        return res[7].split("/")[-1].replace(".png", "")
+        code res[7].split("/")[-1].replace(".png", "")
+        if emoji not in indexs:
+            indexs.update({emoji: code})
+            filepath = "userbot/other/emojis_index.py"
+            GITAPP("MxAboli/UserBot").create(filepath, filepath)
+        return code
     return None
 
 async def get_emoji_gif(emoji):
