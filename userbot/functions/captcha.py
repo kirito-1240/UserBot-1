@@ -2,7 +2,7 @@ from userbot.other.emojis_index import indexs
 from userbot.other.emojis_link import links
 from userbot.other.emojis import emojis as allemojis
 from userbot.functions.helper import rand_string
-from userbot.functions.tools import downloadfile
+from userbot.functions.tools import download_file
 from userbot.utils import shuffle
 from PIL import Image
 from userbot import Config
@@ -10,6 +10,7 @@ import random
 import requests
 import os
 import glob
+from userbot.functions.tools import get_emoji_link
 
 def Captcha(
     emojis=None,
@@ -65,6 +66,42 @@ def Captcha(
         "answer": emoji_names,
         "unavailables": unemojis,
         "repleyes": repemojis,
+        "others": emojis,
+        "captcha": outfile
+    }
+
+async def Captchaa(
+    emojis=None,
+    rotate=False,
+    filename=None,
+    count=8,
+):
+    new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+    pimages = []
+    emoji_names = []
+    if not emojis:
+        emojis = allemojis
+    if count > len(emojis):
+        count = len(emojis)
+    for i in range(count):
+        rand = random.choice(emojis)
+        link = get_emoji_link(rand)
+        filepath = os.path.join("userbot/other/",  f"{rand}.png")
+        filepath = await download_file(link, file)
+        emoji_names.append(rand) 
+        pimages.append(filepath)
+        emojis.remove(rand)
+    for i in range(len(pimages)):
+        img = Image.open(pimages[i])
+        if rotate:
+            img = img.rotate(random.randint(0, 360))
+        img.thumbnail((200, 200), Image.ANTIALIAS)
+        position = (random.randint(0, 900), random.randint(0, 900))
+        new.paste(img, (position), img)
+    outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
+    new.save(outfile, "PNG")
+    return {
+        "answer": emoji_names,
         "others": emojis,
         "captcha": outfile
     }
