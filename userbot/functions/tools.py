@@ -11,6 +11,7 @@ def downloadfile(url, filename):
         if chunk:
             f.write(chunk)
     f.close()
+    print(f"• {filename} Successfuly Downloaded!")
     return filename
 
 async def download_file(link, name):
@@ -19,6 +20,7 @@ async def download_file(link, name):
             file = await aiofiles.open(name, "wb")
             await file.write(await re_ses.read())
             await file.close()
+    print(f"• {filename} Successfuly Downloaded!")
     return name
 
 async def async_searcher(url, post=False, headers=None, params=None, json=None, data=None, re_json=False, re_content=False, real=False):
