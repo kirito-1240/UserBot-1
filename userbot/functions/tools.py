@@ -7,23 +7,12 @@ import aiohttp
 import aiofiles
 import requests
 
-def downloadfile(url, filename):
-    r = requests.get(url)
-    f = open(filename, 'wb')
-    for chunk in r.iter_content(chunk_size=512 * 1024): 
-        if chunk:
-            f.write(chunk)
-    f.close()
-    print(f"• {filename} Successfuly Downloaded!")
-    return filename
-
 async def download_file(link, name):
     async with aiohttp.ClientSession() as ses:
         async with ses.get(link) as re_ses:
             file = await aiofiles.open(name, "wb")
             await file.write(await re_ses.read())
             await file.close()
-    print(f"• {name} Successfuly Downloaded!")
     return name
 
 async def async_searcher(url, post=False, headers=None, params=None, json=None, data=None, re_json=False, re_content=False, real=False):
@@ -103,10 +92,26 @@ async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     open(file_name, 'wb').write(image)
     return file_name
 
-def get_emoji_link(emoji, type="apple"):
+async def get_emoji_link(emoji, type="apple"):
     headers = {"User-Agent": random.choice(random_headers)}
-    get = requests.get(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
+    get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers, re_content=True)
     res = re.search(f'<img alt="(.*)" title="(.*{type}.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
+    if res:
+        return "https://www.emojiall.com" + res[7]
+    return None
+
+async def get_emoji_code(emoji):
+    headers = {"User-Agent": random.choice(random_headers)}
+    get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers, re_content=True)
+    res = re.search('<img alt="(.*)" title="(.*apple.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
+    if res:
+        return res[7].split("/")[-1].replace(".png", "")
+    return None
+
+async def get_emoji_gif(emoji):
+    headers = {"User-Agent": random.choice(random_headers)}
+    get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers, re_content=True)
+    res = re.search('<img alt="(.*)" title="(.*telegram.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
     if res:
         return "https://www.emojiall.com" + res[7]
     return None
