@@ -1,7 +1,10 @@
 from userbot.core.logger import LOGS
-import os, re, random
 from bs4 import BeautifulSoup
-import aiohttp, aiofiles
+import os
+import re
+import random
+import aiohttp
+import aiofiles
 import requests
 
 def downloadfile(url, filename):
@@ -99,3 +102,11 @@ async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     image = await async_searcher("https://carbonara-42.herokuapp.com/api/cook", post=True, headers={'Content-Type': 'application/json'}, json=options, re_content=True)
     open(file_name, 'wb').write(image)
     return file_name
+
+def get_emoji_link(emoji, type="apple"):
+    get = requests.get("https://www.emojiall.com/en/image/😐")
+    res = re.findall('<img alt="(.*)" title="(.*)" src="(.*)" height="(.*)" width="(.*)" /> <p class="(.*)">', str(get.text))
+    for link in res:
+        if type in link[2]:
+            return "https://www.emojiall.com" + link[2]
+    return None
