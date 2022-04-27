@@ -2,17 +2,16 @@ from userbot.other.emojis_index import indexs
 from userbot.other.emojis_link import links
 from userbot.other.emojis import emojis as allemojis
 from userbot.functions.helper import rand_string
-from userbot.functions.tools import download_file
+from userbot.functions.tools import download_file, get_emoji_link, get_emoji_code
 from userbot.utils import shuffle
 from PIL import Image
 from userbot import Config
 import random
 import requests
 import os
-import glob
-from userbot.functions.tools import get_emoji_link, get_emoji_code
+import glob 
 
-def Captcha(
+async def Captcha(
     emojis=None,
     rotate=False,
     filename=None,
@@ -46,7 +45,8 @@ def Captcha(
                 emoji_names.append(rand) 
                 pimages.append(filepath)
                 emojis.remove(rand)
-            except:
+            except Exception as e:
+                print(e)
                 emojis.remove(rand)
                 unemojis.append(rand)
                 rands = random.choice(defemojis)
