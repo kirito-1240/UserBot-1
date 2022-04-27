@@ -4,9 +4,9 @@ from github import Github
 from userbot import Config
 
 class GITAPP:
-    def __init__(self):
+    def __init__(self, repo):
         self.g = Github(Config.GIT_TOKEN)
-        self.repo = self.g.get_repo(Config.REPO_NAME)
+        self.repo = self.g.get_repo(repo)
 
     def get_all_files(self, dir):
         if not dir.endswith("/"):
