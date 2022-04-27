@@ -1,6 +1,8 @@
 from userbot.other.emojis_index import indexs
-from userbot.other.allemojis import emojis as allemojis
+from userbot.other.emojis_link import links
+from userbot.other.emojis import emojis as allemojis
 from userbot.functions.helper import rand_string
+from userbot.functions.tools import downloadfile
 from userbot.utils import shuffle
 from PIL import Image
 from userbot import Config
@@ -34,14 +36,23 @@ def Captcha(
             pimages.append(file)
             emojis.remove(rand)
         else:
-            emojis.remove(rand)
-            unemojis.append(rand)
-            rands = random.choice(defemojis)
-            emoji_names.append(rands)
-            repemojis.append(rands)
-            inde = indexs.get(rands)
-            file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
-            pimages.append(file)
+            try:
+                link = links.get(index)
+                filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
+                filepath = downloadfile(link, file)
+                emoji_names.append(rand) 
+                pimages.append(filepath)
+                emojis.remove(rand)
+            except Exception as e:
+                print(e)
+                emojis.remove(rand)
+                unemojis.append(rand)
+                rands = random.choice(defemojis)
+                emoji_names.append(rands)
+                repemojis.append(rands)
+                inde = indexs.get(rands)
+                file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
+                pimages.append(file)
     for i in range(len(pimages)):
         img = Image.open(pimages[i])
         if rotate:
@@ -53,8 +64,8 @@ def Captcha(
     new.save(outfile, "PNG")
     return {
         "answer": emoji_names,
-        "others": emojis,
         "unavailables": unemojis,
         "repleyes": repemojis,
+        "others": emojis,
         "captcha": outfile
     }
