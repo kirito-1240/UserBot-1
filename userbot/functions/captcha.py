@@ -10,7 +10,7 @@ import random
 import requests
 import os
 import glob
-from userbot.functions.tools import get_emoji_link
+from userbot.functions.tools import get_emoji_link, get_emoji_code
 
 def Captcha(
     emojis=None,
@@ -85,7 +85,7 @@ async def Captchaa(
         count = len(emojis)
     for i in range(count):
         rand = random.choice(emojis)
-        link = get_emoji_link(rand)
+        link = await get_emoji_link(rand)
         filepath = os.path.join("userbot/other/",  f"{rand}.png")
         filepath = await download_file(link, filepath)
         emoji_names.append(rand) 
