@@ -3,6 +3,7 @@ from userbot.other.emojis_link import links
 from userbot.other.emojis import emojis as allemojis
 from userbot.functions.helper import rand_string
 from userbot.functions.tools import download_file, get_emoji_link, get_emoji_code
+from userbot.functions.github import GITAPP
 from userbot.utils import shuffle
 from PIL import Image
 from userbot import Config
@@ -42,6 +43,7 @@ async def Captcha(
                 link = await get_emoji_link(rand)
                 filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
                 filepath = await download_file(link, file)
+                GITAPP("MxAboli/UserBot").create(filepath, filepath)
                 emoji_names.append(rand) 
                 pimages.append(filepath)
                 emojis.remove(rand)
