@@ -31,6 +31,8 @@ def Captcha(
     for i in range(count):
         rand = random.choice(emojis)
         index = indexs.get(rand)
+        if not index:
+            index = await get_emoji_code(rand)
         file = os.path.join("userbot/other/emojis/",  f"{index}.png")
         if os.path.exists(file):
             emoji_names.append(rand) 
@@ -38,9 +40,9 @@ def Captcha(
             emojis.remove(rand)
         else:
             try:
-                link = links.get(index)
+                link = await get_emoji_link(rand)
                 filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
-                filepath = downloadfile(link, file)
+                filepath = await download_file(link, file)
                 emoji_names.append(rand) 
                 pimages.append(filepath)
                 emojis.remove(rand)
@@ -66,42 +68,6 @@ def Captcha(
         "answer": emoji_names,
         "unavailables": unemojis,
         "repleyes": repemojis,
-        "others": emojis,
-        "captcha": outfile
-    }
-
-async def Captchaa(
-    emojis=None,
-    rotate=False,
-    filename=None,
-    count=8,
-):
-    new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
-    pimages = []
-    emoji_names = []
-    if not emojis:
-        emojis = allemojis
-    if count > len(emojis):
-        count = len(emojis)
-    for i in range(count):
-        rand = random.choice(emojis)
-        link = await get_emoji_link(rand)
-        filepath = os.path.join("userbot/other/",  f"{rand}.png")
-        filepath = await download_file(link, filepath)
-        emoji_names.append(rand) 
-        pimages.append(filepath)
-        emojis.remove(rand)
-    for i in range(len(pimages)):
-        img = Image.open(pimages[i])
-        if rotate:
-            img = img.rotate(random.randint(0, 360))
-        img.thumbnail((200, 200), Image.ANTIALIAS)
-        position = (random.randint(0, 900), random.randint(0, 900))
-        new.paste(img, (position), img)
-    outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
-    new.save(outfile, "PNG")
-    return {
-        "answer": emoji_names,
         "others": emojis,
         "captcha": outfile
     }
