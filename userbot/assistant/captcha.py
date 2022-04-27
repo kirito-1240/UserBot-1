@@ -92,7 +92,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "true":
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("|")[1]) == "true":
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
@@ -110,7 +110,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "false":
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("|")[1]) == "false":
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
