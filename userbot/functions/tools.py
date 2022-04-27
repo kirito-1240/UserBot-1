@@ -95,7 +95,7 @@ async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
 async def get_emoji_link(emoji, type="apple"):
     headers = {"User-Agent": random.choice(random_headers)}
     get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
-    res = re.search(f'<img alt="(.*)" title="(.*{type}.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
+    res = re.search(f'<img alt="(.*)" title="(.*{type}.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get))
     if res:
         return "https://www.emojiall.com" + res[7]
     return None
@@ -103,7 +103,7 @@ async def get_emoji_link(emoji, type="apple"):
 async def get_emoji_code(emoji):
     headers = {"User-Agent": random.choice(random_headers)}
     get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
-    res = re.search('<img alt="(.*)" title="(.*apple.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
+    res = re.search('<img alt="(.*)" title="(.*apple.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get))
     if res:
         return res[7].split("/")[-1].replace(".png", "")
     return None
@@ -111,7 +111,7 @@ async def get_emoji_code(emoji):
 async def get_emoji_gif(emoji):
     headers = {"User-Agent": random.choice(random_headers)}
     get = await async_searcher(f"https://www.emojiall.com/en/image/{emoji}", headers=headers)
-    res = re.search('<img alt="(.*)" title="(.*telegram.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get.text))
+    res = re.search('<img alt="(.*)" title="(.*telegram.*)" src="(.*)" height="(.*)" width="(.*)" class="(.*)" data-ezsrc="(.*)" /> <p class="(.*)">', str(get))
     if res:
         return "https://www.emojiall.com" + res[7]
     return None
