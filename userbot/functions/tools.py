@@ -104,7 +104,7 @@ async def Carbon(code, file_name="carbonAlien.png", lang="Python"):
     return file_name
 
 def get_emoji_link(emoji, type="apple"):
-    get = requests.get("https://www.emojiall.com/en/image/😐")
+    get = requests.get(f"https://www.emojiall.com/en/image/{emoji}")
     res = re.findall('<img alt="(.*)" title="(.*)" src="(.*)" height="(.*)" width="(.*)" /> <p class="(.*)">', str(get.text))
     for link in res:
         if type in link[2]:
