@@ -43,8 +43,7 @@ def Captcha(
                 emoji_names.append(rand) 
                 pimages.append(filepath)
                 emojis.remove(rand)
-            except Exception as e:
-                print(e)
+            except:
                 emojis.remove(rand)
                 unemojis.append(rand)
                 rands = random.choice(defemojis)
