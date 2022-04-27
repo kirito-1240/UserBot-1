@@ -14,7 +14,6 @@ async def Captcha(
     rotate=False,
     filename=None,
     count=8,
-    emojisize=(200, 200),
 ):
     new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
     pimages = []
@@ -56,7 +55,7 @@ async def Captcha(
         img = Image.open(pimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360))
-        img.thumbnail((emojisize[0], emojisize[1]), Image.ANTIALIAS)
+        img.thumbnail((200, 200), Image.ANTIALIAS)
         position = (random.randint(0, 900), random.randint(0, 900))
         new.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
