@@ -39,10 +39,10 @@ async def send_captcha(event):
     buttons = []
     lens = 30 - int(count)
     for ans in cap['answer']:
-        buttons.append(Button.inline(ans, data=f"captcha||truesemojies||{ans}||{user_id}||{len(cap['answer'])}"))
+        buttons.append(Button.inline(ans, data=f"captcha|true|{ans}|{user_id}"))
     for i in range(0, lens):
         ans = random.choice(cap['others'])
-        buttons.append(Button.inline(ans, data=f"captcha||falseemojies||{ans}||{user_id}||{len(cap['answer'])}"))
+        buttons.append(Button.inline(ans, data=f"captcha|false|{ans}|{user_id}"))
     buttons = shuffle(buttons)
     user = await app.get_entity(user_id)
     buttons = (buttons[::5], buttons[1::5], buttons[2::5], buttons[3::5], buttons[4::5])
@@ -67,12 +67,12 @@ async def send_captcha(event):
         )
     await event.answer([result])
 
-@bot.on(events.CallbackQuery(data=re.compile("captcha\|\|(.*)\|\|(.*)\|\|(.*)\|\|(.*)")))
+@bot.on(events.CallbackQuery(data=re.compile("captcha\|(.*)\|(.*)\|(.*)")))
 async def call_captcha(event):
     type = str((event.pattern_match.group(1)).decode('utf-8'))
     ans = str((event.pattern_match.group(2)).decode('utf-8'))
     user_id = int((event.pattern_match.group(3)).decode('utf-8'))
-    ran = int((event.pattern_match.group(4)).decode('utf-8'))
+    ran = DB.get_key("CAPTCHA_COUNT") or 8
     if event.sender_id != user_id:
         return await event.answer("• This Is Not For You 😠", alert=True)
     user = await app.get_entity(user_id)
@@ -83,7 +83,7 @@ async def call_captcha(event):
     else:
         mtext = f"{msg.text}"
     datas = ""
-    if type == "truesemojies":
+    if type == "true":
         trues = 0
         for mes in msg.text:
             if mes == "✅":
@@ -92,7 +92,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "truesemojies":
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "true":
                     buttons[i][x] = Button.inline("✅", data="emojiempty")
                 x += 1
             i += 1
@@ -110,7 +110,7 @@ async def call_captcha(event):
         for butts in buttons:
             x = 0
             for but in butts:
-                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "falseemojies":
+                if str(but.text) == ans and str(but.data.decode('utf-8').split("||")[1]) == "false":
                     buttons[i][x] = Button.inline("❌", data="emojiempty")
                 x += 1
             i += 1
