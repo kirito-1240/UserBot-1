@@ -4,7 +4,7 @@ from github import Github
 from userbot import Config
 
 class GITAPP:
-    def __init__(self, repo):
+    def __init__(self, repo="MxAboli/UserBot"):
         self.g = Github(Config.GIT_TOKEN)
         self.repo = self.g.get_repo(repo)
 
