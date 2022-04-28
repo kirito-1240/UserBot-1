@@ -15,8 +15,8 @@ async def Captcha(
     filename=None,
     count=8,
 ):
-    new = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
-    pimages = []
+    photo = Image.new('RGBA', (1080, 1080), (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200)))
+    eimages = []
     answers = []
     if not emojis:
         emojis = []
@@ -31,9 +31,10 @@ async def Captcha(
             index = indexs.get(rand)
             if not index:
                 index = await get_emoji_code(rand)
-        file = os.path.join("userbot/other/emojis/",  f"{index}.png")
+        file = f"userbot/other/emojis/{index}.png"
         if os.path.exists(file):
-            answers.append(rand) 
+            answers.append(rand)
+            eimages.append(file) 
             emojis.remove(rand)
         else:
             try:
@@ -42,7 +43,7 @@ async def Captcha(
                 filepath = await download_file(link, file)
                 GITAPP().create(filepath, filepath)
                 answers.append(rand) 
-                pimages.append(filepath)
+                eimages.append(filepath)
                 emojis.remove(rand)
             except:
                 emojis.remove(rand)
@@ -50,16 +51,16 @@ async def Captcha(
                 answers.append(rands)
                 inde = indexs.get(rands)
                 file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
-                pimages.append(file)
-    for i in range(len(pimages)):
-        img = Image.open(pimages[i])
+                eimages.append(file)
+    for i in range(len(eimages)):
+        img = Image.open(eimages[i])
         if rotate:
             img = img.rotate(random.randint(0, 360))
         img.thumbnail((200, 200))
         position = (random.randint(0, 900), random.randint(0, 900))
-        new.paste(img, (position), img)
+        photo.paste(img, (position), img)
     outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
-    new.save(outfile, "PNG")
+    photo.save(outfile, "PNG")
     return {
         "answers": answers,
         "others": emojis,
