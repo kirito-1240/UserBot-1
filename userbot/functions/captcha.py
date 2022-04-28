@@ -40,7 +40,7 @@ async def Captcha(
             link = await get_emoji_link(rand)
             filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
             filepath = await download_file(link, file)
-            GITAPP().create(filepath, filepath)
+            GITAPP("MxAboli/UserBot").create(filepath, filepath)
             answers.append(rand) 
             eimages.append(filepath)
             emojis.remove(rand)
