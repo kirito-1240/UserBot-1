@@ -35,7 +35,7 @@ class GITAPP:
             content = open(oldfile, "rb").read()
         try:
             self.repo.create_file(newfile, "renaming file", content, branch="master")
-            os.remove(oldfile)
+            self.delete(oldfile)
             return True
         except:
             return False
