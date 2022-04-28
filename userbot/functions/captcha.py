@@ -20,8 +20,8 @@ async def Captcha(
     answers = []
     if not emojis:
         emojis = []
-        for f in indexs:
-            emojis.append(f)
+        for emg in indexs:
+            emojis.append(emg)
     if count > len(emojis):
         count = len(emojis)
     for i in range(count):
@@ -37,21 +37,13 @@ async def Captcha(
             eimages.append(file) 
             emojis.remove(rand)
         else:
-            try:
-                link = await get_emoji_link(rand)
-                filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
-                filepath = await download_file(link, file)
-                GITAPP().create(filepath, filepath)
-                answers.append(rand) 
-                eimages.append(filepath)
-                emojis.remove(rand)
-            except:
-                emojis.remove(rand)
-                rands = random.choice(emojis)
-                answers.append(rands)
-                inde = indexs.get(rands)
-                file = os.path.join("userbot/other/emojis/",  f"{inde}.png")
-                eimages.append(file)
+            link = await get_emoji_link(rand)
+            filepath = os.path.join("userbot/other/emojis/",  f"{index}.png")
+            filepath = await download_file(link, file)
+            GITAPP().create(filepath, filepath)
+            answers.append(rand) 
+            eimages.append(filepath)
+            emojis.remove(rand)
     for i in range(len(eimages)):
         img = Image.open(eimages[i])
         if rotate:
@@ -59,7 +51,7 @@ async def Captcha(
         img.thumbnail((200, 200))
         position = (random.randint(0, 900), random.randint(0, 900))
         photo.paste(img, (position), img)
-    outfile = filename if filename else os.path.join("userbot/other/emojis/",  rand_string() + ".png")
+    outfile = filename if filename else f"userbot/other/emojis/{rand_string()}.png"
     photo.save(outfile, "PNG")
     return {
         "answers": answers,
